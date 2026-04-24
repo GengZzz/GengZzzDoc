@@ -9,6 +9,7 @@ export default defineConfig({
   title: 'GengZzzDoc',
   description: '一份持续维护的技术文档',
   lang: 'zh-CN',
+  base: '/GengZzzDoc/',
   cleanUrls: true,
   lastUpdated: true,
   themeConfig: {
