@@ -21,7 +21,7 @@ stages:
       - step: build@nodejs
         name: build_nodejs
         displayName: Build VitePress
-        nodeVersion: 20.11.1
+        nodeVersion: 22.22.0
         commands:
           - node -v
           - npm -v
