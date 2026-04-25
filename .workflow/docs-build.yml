@@ -1,0 +1,36 @@
+version: '1.0'
+name: docs-build
+displayName: Docs Build
+triggers:
+  trigger: auto
+  push:
+    branches:
+      include:
+        - main
+stages:
+  - name: build
+    displayName: Build VitePress
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@nodejs
+        name: build_nodejs
+        displayName: Node.js Build
+        nodeVersion: 22.22.0
+        commands:
+          - node -v
+          - npm -v
+          - npm config set registry https://registry.npmmirror.com
+          - npm ci
+          - rm -rf docs/.vitepress/dist
+          - npm run docs:build
+        artifacts:
+          - name: BUILD_ARTIFACT
+            path:
+              - ./docs/.vitepress/dist
+        caches:
+          - ~/.npm
+        notify: []
+        strategy:
+          retry: '0'
