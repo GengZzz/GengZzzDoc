@@ -1,6 +1,6 @@
 version: '1.0'
 name: docs-build
-displayName: Docs Build
+displayName: 文档构建
 triggers:
   trigger: auto
   push:
@@ -9,14 +9,14 @@ triggers:
         - main
 stages:
   - name: build
-    displayName: Build VitePress
+    displayName: 构建文档
     strategy: naturally
     trigger: auto
     executor: []
     steps:
       - step: build@nodejs
         name: build_nodejs
-        displayName: Node.js Build
+        displayName: Nodejs构建
         nodeVersion: 22.22.0
         commands:
           - node -v
