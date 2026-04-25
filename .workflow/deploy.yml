@@ -1,0 +1,61 @@
+version: '1.0'
+name: deploy
+displayName: Deploy Docs
+triggers:
+  trigger: auto
+  push:
+    branches:
+      include:
+        - main
+  pr:
+    branches:
+      include:
+        - main
+stages:
+  - name: build
+    displayName: Build
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@nodejs
+        name: build_nodejs
+        displayName: Build VitePress
+        nodeVersion: 20.11.1
+        commands:
+          - node -v
+          - npm -v
+          - npm ci
+          - npm run docs:build
+        artifacts:
+          - name: DOCS_DIST
+            path:
+              - ./docs/.vitepress/dist
+        caches:
+          - ~/.npm
+        notify: []
+        strategy:
+          retry: '0'
+
+  - name: publish
+    displayName: Publish
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: publish@general_artifacts
+        name: publish_docs_artifacts
+        displayName: Upload Docs Artifact
+        dependArtifact: DOCS_DIST
+        artifactRepository: default
+        artifactName: gengzzzdoc-docs
+        dependsOn: build_nodejs
+
+      - step: publish@release_artifacts
+        name: release_docs_artifacts
+        displayName: Release Docs Artifact
+        dependArtifact: gengzzzdoc-docs
+        artifactRepository: release
+        version: '1.0.0.${GITEE_PIPELINE_BUILD_NUMBER}'
+        autoIncrement: true
+        dependsOn: publish_docs_artifacts
