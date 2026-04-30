@@ -1,157 +1,207 @@
 # 类与对象
 
-## 这一节你会学到什么
+这篇对应翁恺 C++ 课程前半段的主线：第一个程序、什么是对象、面向对象基本概念、头文件、时钟例子、成员变量、构造与析构、对象初始化、`new` / `delete`、访问限制、初始化列表和对象组合。
 
-- 类、对象、成员变量和成员函数
-- 构造函数和析构函数
-- `public` 与 `private`
-- 用类表达现实对象
-
-## 它是什么？
-
-类是一种自定义类型，用来描述一类事物有什么数据、能做什么动作。对象是根据类创建出来的具体个体。
-
-可以把 `Student` 类理解为学生信息表的模板，把 `小明`、`小红` 理解为按模板创建出来的对象。
-
-<CppClassObjectDemo />
-
-## 为什么需要它？
-
-当数据和操作分散在各处时，程序会变得难读。类可以把相关数据和行为放在一起，让代码更接近真实问题。
-
-## 基础用法
+## 从第一个程序看 C++
 
 ```cpp
 #include <iostream>
-#include <string>
 using namespace std;
 
-class Student {
-public:
-    string name;
-    int age;
-
-    void sayHello() {
-        cout << "你好，我是 " << name << endl;
-    }
-};
-
 int main() {
-    Student stu;
-    stu.name = "小明";
-    stu.age = 18;
-    stu.sayHello();
+    cout << "Hello, C++" << endl;
     return 0;
 }
 ```
 
-`name` 和 `age` 是成员变量，`sayHello` 是成员函数。
+先记住三件事：
 
-## 构造函数
+- `main` 是程序入口。
+- `cout` 是标准输出流，`endl` 表示换行并刷新输出。
+- `#include <iostream>` 引入输入输出库。
 
-构造函数在对象创建时自动执行，常用来初始化成员变量。
+课程真正要带出的重点不是这几行代码，而是：C++ 程序可以把“数据”和“操作数据的函数”组织在一起，这就是对象的起点。
+
+## 什么是对象
+
+对象可以先粗略理解为：
+
+```text
+对象 = 状态 + 行为
+```
+
+以自动售票机为例，状态包括余额、票价、库存；行为包括投币、出票、找零。写程序时，如果只把这些拆成很多零散变量和函数，程序会越来越难维护；如果把它们收进一个对象，边界就清楚了。
 
 ```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-class Student {
+class TicketMachine {
 public:
-    Student(string n, int a) {
-        name = n;
-        age = a;
+    void insertMoney(int amount) {
+        balance += amount;
     }
 
-    void print() {
-        cout << name << "，" << age << " 岁" << endl;
+    void printTicket() {
+        if (balance >= price) {
+            cout << "出票" << endl;
+            balance -= price;
+        }
     }
 
 private:
-    string name;
-    int age;
+    int price = 5;
+    int balance = 0;
+};
+```
+
+<CppClassObjectDemo />
+
+## 类是对象的模板
+
+类描述对象拥有什么数据、能做什么动作。对象则是类创建出来的具体实例。
+
+```cpp
+class Clock {
+public:
+    void setTime(int h, int m, int s) {
+        hour = h;
+        minute = m;
+        second = s;
+    }
+
+    void display() {
+        cout << hour << ":" << minute << ":" << second << endl;
+    }
+
+private:
+    int hour = 0;
+    int minute = 0;
+    int second = 0;
 };
 
 int main() {
-    Student stu("小明", 18);
-    stu.print();
-    return 0;
+    Clock clock;
+    clock.setTime(8, 30, 0);
+    clock.display();
 }
 ```
 
-`private` 成员不能在类外直接访问，只能通过类提供的函数使用。
+`public` 是对象对外开放的接口，`private` 是对象自己维护的内部状态。一个基本原则是：数据尽量私有，行为通过公开函数暴露。
 
-## 析构函数
+## 头文件与实现文件
 
-析构函数在对象销毁时自动执行。初学时先知道它存在，后面资源管理会更常用。
+课程里会强调头文件，因为 C++ 项目常把“声明”和“实现”分开。
+
+`Clock.h` 放类的声明：
 
 ```cpp
+#pragma once
+
+class Clock {
+public:
+    void setTime(int h, int m, int s);
+    void display();
+
+private:
+    int hour;
+    int minute;
+    int second;
+};
+```
+
+`Clock.cpp` 放成员函数实现：
+
+```cpp
+#include "Clock.h"
 #include <iostream>
 using namespace std;
 
-class Tracker {
-public:
-    Tracker() {
-        cout << "对象创建" << endl;
-    }
+void Clock::setTime(int h, int m, int s) {
+    hour = h;
+    minute = m;
+    second = s;
+}
 
-    ~Tracker() {
-        cout << "对象销毁" << endl;
-    }
-};
-
-int main() {
-    Tracker t;
-    return 0;
+void Clock::display() {
+    cout << hour << ":" << minute << ":" << second << endl;
 }
 ```
 
-## public 和 private
+这种拆分会让接口更稳定，也方便多个源文件复用同一个类。
 
-| 访问控制 | 含义 | 常见用途 |
-| --- | --- | --- |
-| `public` | 类外可以访问 | 对外方法 |
-| `private` | 只有类内部可以访问 | 内部数据 |
-| `protected` | 类内部和子类可以访问 | 继承场景 |
+## 构造函数与析构函数
 
-封装的核心是：对象内部如何保存数据可以隐藏起来，外部只通过稳定的方法使用它。
-
-## 常见错误
-
-### 忘记 public
+构造函数负责对象出生时的初始化，析构函数负责对象离开时的清理。
 
 ```cpp
-class Student {
-    string name;
+class Clock {
+public:
+    Clock(int h, int m, int s) : hour(h), minute(m), second(s) {
+        cout << "Clock created" << endl;
+    }
+
+    ~Clock() {
+        cout << "Clock destroyed" << endl;
+    }
+
+private:
+    int hour;
+    int minute;
+    int second;
 };
 ```
 
-`class` 中成员默认是 `private`。如果想在类外访问，需要写在 `public:` 下。
+初始化列表比在构造函数体内赋值更直接，尤其当成员是 `const`、引用，或另一个对象时，初始化列表是必须掌握的写法。
 
-### 构造函数写了返回类型
+## new 与 delete
+
+`new` 在堆上创建对象，`delete` 释放对象。
 
 ```cpp
-void Student(string n) {} // 错误：构造函数没有返回类型
+Clock* clock = new Clock(8, 30, 0);
+delete clock;
 ```
 
-构造函数名字和类名相同，并且不写返回类型。
+初学阶段要知道这套机制，但日常写现代 C++ 时，应优先使用自动对象、标准库容器和智能指针，让资源释放更可靠。
 
-## 小练习
+```cpp
+Clock clock(8, 30, 0); // 离开作用域时自动析构
+```
 
-### 练习 1
+## 对象组合
 
-定义 `Car` 类，包含品牌和速度，并提供 `run` 函数。
+组合表示一个对象“拥有”另一个对象。
 
-### 练习 2
+```cpp
+class Date {
+public:
+    Date(int y, int m, int d) : year(y), month(m), day(d) {}
 
-给 `Student` 类添加构造函数，初始化姓名和分数。
+private:
+    int year;
+    int month;
+    int day;
+};
 
-### 练习 3
+class Student {
+public:
+    Student(string n, Date b) : name(n), birthday(b) {}
 
-把成员变量改成 `private`，通过 `print` 方法输出信息。
+private:
+    string name;
+    Date birthday;
+};
+```
 
-## 本节小结
+组合对象的构造顺序是：先构造成员对象，再构造自身；析构顺序相反。理解这个顺序，是后面学习资源管理和继承构造的基础。
 
-- 类是模板，对象是具体实例。
-- 构造函数负责初始化对象。
-- `private` 可以保护对象内部状态。
+## 练习
+
+1. 写一个 `Clock` 类，包含 `hour`、`minute`、`second`，提供构造函数和 `display`。
+2. 写一个 `TicketMachine` 类，包含票价、余额、总收入，实现投币和出票。
+3. 把一个类拆成 `.h` 和 `.cpp` 两个文件，练习声明与实现分离。
+
+## 小结
+
+- 面向对象不是先背 `class` 语法，而是先识别对象的状态和行为。
+- `private` 保护状态，`public` 暴露稳定接口。
+- 构造函数、析构函数和初始化列表共同决定对象生命周期。
+- 组合是比继承更基础的对象关系：一个对象由多个对象组成。

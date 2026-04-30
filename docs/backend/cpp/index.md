@@ -1,61 +1,60 @@
 # C++
 
-这套 C++ 文档按“先能写小程序，再理解数据组织，再进入内存、对象、标准库和工程实践”的顺序编排。目录尽量拆细：一个页面只解决一组紧密相关的问题，避免把数组、字符串、内存和类都挤在同一篇里。
+这组笔记以浙江大学翁恺教授《面向对象程序设计 - C++》的课程主线为参考，重新组织为一条更适合自学复习的路径：先建立对象视角，再理解 C++ 如何用类、构造、继承、多态、拷贝、运算符重载、模板、异常、流和 STL 表达这种视角。
 
-## 学习路径
+这不是把课时逐字搬运，而是把课程里反复强调的思路整理成可查、可练、可继续扩展的文档。
 
-::: details 1. 入门准备
-- [起步认识 C++](./getting-started.md)：了解 C++ 适合做什么，以及源码如何变成可执行程序。
-- [开发环境安装](./development-environment.md)：安装编译器和编辑器，完成 Hello World。
-- [输入与输出](./input-output.md)：学习 `cin`、`cout`、`getline` 和格式化输出。
-:::
+## 学习顺序
 
-::: details 2. 语法基础
-- [语法、数据与表达式](./syntax-data-expressions.md)：理解程序骨架、变量、常量和表达式。
-- [类型转换](./type-conversion.md)：处理整数、小数、字符和字符串之间的转换。
-- [控制流与程序逻辑](./control-flow.md)：掌握条件判断和循环。
-- [函数与模块化](./functions-modular.md)：把重复逻辑拆成函数。
-:::
+### 1. 先让程序跑起来
 
-::: details 3. 数据组织
-- [复合类型与内存基础](./compound-types-memory.md)：作为数组、字符串和内存章节的导读。
-- [一维数组](./arrays.md)：学习数组声明、遍历、求和和越界问题。
-- [二维数组](./multidimensional-arrays.md)：用行列结构表达表格、棋盘和矩阵。
-- [C++ 字符串](./strings.md)：掌握 `std::string` 的长度、拼接、查找和截取。
-- [字符数组与常用函数](./c-strings.md)：理解 C 风格字符串和 `<cstring>` 常用函数。
-:::
+- [起步认识 C++](./getting-started.md)：知道 C++ 的定位、编译过程和学习边界。
+- [开发环境](./development-environment.md)：准备编译器和编辑器。
+- [输入与输出](./input-output.md)：用 `cin`、`cout` 写出可交互的小程序。
 
-::: details 4. 内存与资源
-- [指针、引用与资源管理](./pointers-references-resources.md)：理解地址、指针、引用和智能指针。
-- [栈、堆与内存模型](./stack-heap-memory.md)：用动画理解函数调用、栈帧和堆资源。
-:::
+### 2. 从对象开始，而不是从语法清单开始
 
-::: details 5. 面向对象
-- [类与对象](./classes-objects.md)：学习成员变量、成员函数、构造函数和封装。
-- [继承与多态](./inheritance-polymorphism.md)：理解复用、虚函数和运行时多态。
-:::
+- [类与对象](./classes-objects.md)：第一个程序、对象、类、成员变量、成员函数。
+- [结构体](./structs.md)：理解数据聚合，再过渡到类。
+- [函数](./functions-modular.md)：把动作拆出来，让对象的行为更清楚。
 
-::: details 6. 泛型、标准库与算法
-- [模板与泛型编程](./templates-generic.md)：用模板编写适配多种类型的代码。
-- [STL 与模板](./stl-templates.md)：学习 `vector`、`map`、`set`、`queue`、`stack` 等容器。
-- [常用算法](./common-algorithms.md)：掌握 `sort`、`find`、`count`、`max_element` 等算法。
-:::
+### 3. 掌握对象生命周期
 
-::: details 7. 进阶与工程
-- [输入输出、文件与异常](./io-files-exceptions.md)：学习文件读写和异常处理。
-- [现代 C++](./modern-cpp.md)：认识 `auto`、范围 for、`nullptr` 和智能指针。
-- [并发编程](./concurrency.md)：理解线程、`join` 和互斥锁。
-- [数据结构与算法实践](./algorithms-data-structures.md)：完成查找、排序和综合练习。
-- [工程实践](./engineering-practice.md)：学习多文件组织、编译、调试和测试习惯。
-:::
+- [类与对象](./classes-objects.md#构造函数)：构造函数、析构函数、初始化列表、对象组合。
+- [指针与引用](./pointers-references-resources.md)：理解对象地址、引用传参和资源归属。
+- [栈与堆](./stack-heap-memory.md)：分清自动对象和动态对象，写出能正确释放资源的程序。
 
-## 建议节奏
+### 4. 进入面向对象的核心
 
-初学时不要急着跳到指针、类和并发。比较稳的节奏是：
+- [继承与多态](./inheritance-polymorphism.md)：继承、向上造型、虚函数、动态绑定。
+- [现代 C++](./modern-cpp.md)：`const`、引用再研究、拷贝构造、静态成员、运算符重载。
+- [模板基础](./templates-generic.md)：用类型参数写可复用代码。
 
-1. 先写通输入、输出、变量、条件和循环。
-2. 再掌握数组、字符串和函数。
-3. 然后学习指针、引用、栈和堆。
-4. 最后进入类、模板、STL、算法和工程实践。
+### 5. 接上标准库和工程实践
 
-每学完一个章节，至少把文末练习手写一遍。C++ 的理解通常不是“看懂了就会”，而是“敲过、错过、修过”以后才真正稳。
+- [STL 容器](./stl-templates.md)：`vector`、`map`、`set` 等常用容器。
+- [常用算法](./common-algorithms.md)：让算法作用在范围上，而不是只盯着某个数组。
+- [文件与异常](./io-files-exceptions.md)：流、文件读写、异常抛出和捕获。
+- [工程实践](./engineering-practice.md)：多文件组织、命名、调试和练习节奏。
+
+## 对应课程主线
+
+| 阶段 | 课程主题 | 文档入口 |
+| --- | --- | --- |
+| 入门 | 第一个 C++ 程序、什么是对象、面向对象基本概念 | [类与对象](./classes-objects.md) |
+| 类 | 头文件、时钟例子、成员变量、构造与析构、对象初始化 | [类与对象](./classes-objects.md) |
+| 资源 | `new` / `delete`、访问限制、初始化列表、对象组合 | [类与对象](./classes-objects.md)、[栈与堆](./stack-heap-memory.md) |
+| 继承 | 继承、子类父类关系、默认参数、内联函数 | [继承与多态](./inheritance-polymorphism.md)、[现代 C++](./modern-cpp.md) |
+| 多态 | `const`、引用、向上造型、多态性、多态实现 | [继承与多态](./inheritance-polymorphism.md)、[现代 C++](./modern-cpp.md) |
+| 深入 | 拷贝构造、静态对象、静态成员、运算符重载、类型转换 | [现代 C++](./modern-cpp.md)、[类型转换](./type-conversion.md) |
+| 收束 | 模板、异常、流、STL 简述 | [模板基础](./templates-generic.md)、[文件与异常](./io-files-exceptions.md)、[STL 容器](./stl-templates.md) |
+
+## 学习建议
+
+学这门课时，重点不是背语法，而是持续问三个问题：
+
+1. 这个对象保存什么状态？
+2. 这个对象对外提供什么行为？
+3. 对象创建、复制、销毁时，资源是否仍然清楚？
+
+能把这三个问题说清楚，C++ 的很多难点就会从“语法很多”变成“生命周期和接口设计要想明白”。这也更接近翁恺老师课程里那种从对象关系出发、把程序写清楚的训练方式。

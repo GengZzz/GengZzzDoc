@@ -20,9 +20,7 @@ export default defineConfig({
       {
         text: '服务端',
         items: [
-          { text: 'C', link: '/backend/c/' },
           { text: 'C++', link: '/backend/cpp/' },
-          { text: 'Java', link: '/backend/java/' },
           { text: 'Python', link: '/backend/python/' }
         ]
       },
@@ -35,31 +33,6 @@ export default defineConfig({
       { text: '其他', link: '/other/' }
     ],
     sidebar: {
-      '/backend/c/': [
-        {
-          text: 'C',
-          items: [
-            { text: '概览', link: '/backend/c/' },
-            { text: '语言基础', link: '/backend/c/language-basics' },
-            { text: '内存管理', link: '/backend/c/memory-management' },
-            { text: '网络编程', link: '/backend/c/network-programming' },
-            { text: '工程实践', link: '/backend/c/engineering-practice' }
-          ]
-        }
-      ],
-      '/backend/java/': [
-        {
-          text: 'Java',
-          items: [
-            { text: '概览', link: '/backend/java/' },
-            { text: '语言基础', link: '/backend/java/language-basics' },
-            { text: '集合与泛型', link: '/backend/java/collections-generics' },
-            { text: '并发编程', link: '/backend/java/concurrency' },
-            { text: 'JVM', link: '/backend/java/jvm' },
-            { text: 'Spring Boot', link: '/backend/spring-boot' }
-          ]
-        }
-      ],
       '/backend/python/': [
         {
           text: 'Python',
@@ -74,7 +47,7 @@ export default defineConfig({
       ],
       '/backend/cpp/': [
         {
-          text: '入门准备',
+          text: '入门',
           items: [
             { text: '概览', link: '/backend/cpp/' },
             { text: '起步认识 C++', link: '/backend/cpp/getting-started' },
@@ -83,59 +56,56 @@ export default defineConfig({
           ]
         },
         {
-          text: '语法基础',
+          text: '基础',
           collapsed: false,
           items: [
-            { text: '语法、数据与表达式', link: '/backend/cpp/syntax-data-expressions' },
+            { text: '语法与变量', link: '/backend/cpp/syntax-data-expressions' },
             { text: '类型转换', link: '/backend/cpp/type-conversion' },
-            { text: '控制流与程序逻辑', link: '/backend/cpp/control-flow' },
-            { text: '函数与模块化', link: '/backend/cpp/functions-modular' }
+            { text: '条件与循环', link: '/backend/cpp/control-flow' },
+            { text: '函数', link: '/backend/cpp/functions-modular' }
           ]
         },
         {
-          text: '数据组织',
+          text: '数据容器',
           collapsed: false,
           items: [
-            { text: '复合类型导读', link: '/backend/cpp/compound-types-memory' },
             { text: '一维数组', link: '/backend/cpp/arrays' },
-            { text: '二维数组', link: '/backend/cpp/multidimensional-arrays' },
-            { text: 'C++ 字符串', link: '/backend/cpp/strings' },
-            { text: '字符数组与常用函数', link: '/backend/cpp/c-strings' }
+            { text: '字符串', link: '/backend/cpp/strings' }
           ]
         },
         {
-          text: '内存与资源',
+          text: '指针与内存',
           collapsed: false,
           items: [
-            { text: '指针、引用与资源管理', link: '/backend/cpp/pointers-references-resources' },
-            { text: '栈、堆与内存模型', link: '/backend/cpp/stack-heap-memory' }
+            { text: '指针与引用', link: '/backend/cpp/pointers-references-resources' },
+            { text: '栈与堆', link: '/backend/cpp/stack-heap-memory' }
           ]
         },
         {
-          text: '面向对象',
+          text: '结构与面向对象',
           collapsed: false,
           items: [
+            { text: '结构体', link: '/backend/cpp/structs' },
             { text: '类与对象', link: '/backend/cpp/classes-objects' },
             { text: '继承与多态', link: '/backend/cpp/inheritance-polymorphism' }
           ]
         },
         {
-          text: '泛型、STL 与算法',
+          text: '标准库',
           collapsed: false,
           items: [
-            { text: '模板与泛型编程', link: '/backend/cpp/templates-generic' },
-            { text: 'STL 与模板', link: '/backend/cpp/stl-templates' },
-            { text: '常用算法', link: '/backend/cpp/common-algorithms' }
+            { text: 'STL 容器', link: '/backend/cpp/stl-templates' },
+            { text: '常用算法', link: '/backend/cpp/common-algorithms' },
+            { text: '模板基础', link: '/backend/cpp/templates-generic' }
           ]
         },
         {
-          text: '进阶与工程',
+          text: '进阶',
           collapsed: true,
           items: [
-            { text: '输入输出、文件与异常', link: '/backend/cpp/io-files-exceptions' },
+            { text: '文件与异常', link: '/backend/cpp/io-files-exceptions' },
             { text: '现代 C++', link: '/backend/cpp/modern-cpp' },
-            { text: '并发编程', link: '/backend/cpp/concurrency' },
-            { text: '数据结构与算法实践', link: '/backend/cpp/algorithms-data-structures' },
+            { text: '并发基础', link: '/backend/cpp/concurrency' },
             { text: '工程实践', link: '/backend/cpp/engineering-practice' }
           ]
         }
@@ -146,9 +116,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '概览', link: '/backend/' },
-            { text: 'C', link: '/backend/c/' },
             { text: 'C++', link: '/backend/cpp/' },
-            { text: 'Java', link: '/backend/java/' },
             { text: 'Python', link: '/backend/python/' },
             { text: '接口设计', link: '/backend/api-design' }
           ]

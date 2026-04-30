@@ -1,113 +1,189 @@
-# 现代 C++
+# 现代 C++ 与课程进阶特性
 
-## 这一节你会学到什么
+这篇整理翁恺 C++ 课程后半段的关键语言特性：`const`、引用再研究、拷贝构造、静态对象、静态成员、运算符重载和类型转换。这里的“现代”不是追逐新语法，而是用更清楚的方式管理对象、接口和资源。
 
-- 什么是现代 C++
-- `auto`、范围 for、`nullptr`
-- 智能指针和移动语义的基本感觉
-- 写新代码时的优先选择
+## const：把“不修改”写进接口
 
-## 它是什么？
-
-现代 C++ 通常指 C++11 之后逐步形成的一套写法。它不是一门新语言，而是让 C++ 更安全、更清晰、更少手动管理细节的方式。
-
-## 为什么需要它？
-
-老式 C++ 代码里常见大量裸指针、手动 `new / delete` 和复杂类型声明。现代 C++ 希望让资源自动释放，让代码表达意图，而不是到处处理底层细节。
-
-## auto
+`const` 的价值是让编译器帮你守住承诺。
 
 ```cpp
-#include <iostream>
-#include <vector>
-using namespace std;
+class Student {
+public:
+    Student(string n, int a) : name(n), age(a) {}
 
-int main() {
-    auto age = 18;
-    auto price = 9.9;
-    vector<int> nums = {1, 2, 3};
-
-    for (auto value : nums) {
-        cout << value << endl;
+    void print() const {
+        cout << name << ", " << age << endl;
     }
-    return 0;
-}
+
+private:
+    string name;
+    int age;
+};
 ```
 
-`auto` 让编译器根据右侧表达式推断类型。它适合类型明显或类型很长的场景。
-
-## 范围 for
+`print() const` 表示这个成员函数不会修改对象状态。这样 `const Student` 对象也能调用它。
 
 ```cpp
-#include <iostream>
-#include <vector>
-using namespace std;
+const Student student("Alice", 18);
+student.print();
+```
 
-int main() {
-    vector<int> scores = {80, 90, 75};
+常见写法：
 
-    for (int score : scores) {
-        cout << score << endl;
+```cpp
+const int* p1;      // 指向常量的指针，不能通过 p1 改值
+int* const p2 = &x; // 指针本身不可改
+const int* const p3 = &x; // 指向和指针本身都不可改
+```
+
+## 引用：对象的别名
+
+引用像是一个变量的别名，创建后必须绑定到对象，且不能再改绑。
+
+```cpp
+int value = 10;
+int& ref = value;
+ref = 20;
+cout << value << endl; // 20
+```
+
+引用常用于函数参数，既避免拷贝，又能表达是否允许修改。
+
+```cpp
+void rename(Student& student, const string& name);
+void print(const Student& student);
+```
+
+经验规则：
+
+- 小的基础类型可以按值传递。
+- 复杂对象优先用 `const T&` 只读传递。
+- 需要修改实参时使用 `T&`。
+
+## 拷贝构造：对象复制时发生什么
+
+拷贝构造函数在“用已有对象创建新对象”时调用。
+
+```cpp
+class Buffer {
+public:
+    Buffer(int size) : size(size), data(new int[size]) {}
+
+    Buffer(const Buffer& other) : size(other.size), data(new int[other.size]) {
+        for (int i = 0; i < size; ++i) {
+            data[i] = other.data[i];
+        }
     }
-    return 0;
+
+    ~Buffer() {
+        delete[] data;
+    }
+
+private:
+    int size;
+    int* data;
+};
+```
+
+如果类里拥有堆内存、文件句柄等资源，就要认真考虑拷贝构造、赋值运算符和析构函数。否则默认浅拷贝可能导致两个对象指向同一块资源，最后重复释放。
+
+## 静态成员：属于类，而不是某个对象
+
+静态成员变量由这个类的所有对象共享。
+
+```cpp
+class Student {
+public:
+    Student() {
+        ++count;
+    }
+
+    static int getCount() {
+        return count;
+    }
+
+private:
+    static int count;
+};
+
+int Student::count = 0;
+```
+
+调用静态成员函数时，不需要对象：
+
+```cpp
+cout << Student::getCount() << endl;
+```
+
+## 运算符重载：让对象也能表达自然运算
+
+运算符重载不是为了炫技，而是让有明确数学或语义关系的对象更好读。
+
+```cpp
+class Complex {
+public:
+    Complex(double r, double i) : real(r), imag(i) {}
+
+    Complex operator+(const Complex& other) const {
+        return Complex(real + other.real, imag + other.imag);
+    }
+
+private:
+    double real;
+    double imag;
+};
+```
+
+赋值运算符要特别小心自赋值和资源释放。
+
+```cpp
+Buffer& operator=(const Buffer& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    int* newData = new int[other.size];
+    for (int i = 0; i < other.size; ++i) {
+        newData[i] = other.data[i];
+    }
+
+    delete[] data;
+    data = newData;
+    size = other.size;
+    return *this;
 }
 ```
 
-范围 for 适合遍历容器，比手写下标更不容易越界。
+## 类型转换
 
-## nullptr
-
-```cpp
-int* p = nullptr;
-```
-
-现代 C++ 用 `nullptr` 表示空指针，比旧式的 `NULL` 更明确。
-
-## 智能指针
+C++ 允许类定义转换行为，但要谨慎使用，避免代码变得隐晦。
 
 ```cpp
-#include <iostream>
-#include <memory>
-using namespace std;
+class Score {
+public:
+    explicit Score(int v) : value(v) {}
 
-int main() {
-    auto number = make_unique<int>(42);
-    cout << *number << endl;
-    return 0;
-}
+    int getValue() const {
+        return value;
+    }
+
+private:
+    int value;
+};
 ```
 
-`unique_ptr` 表示独占资源，离开作用域自动释放。初学时先记住：它能减少忘记 `delete` 的风险。
+构造函数前加 `explicit` 可以阻止很多意外的隐式转换。初学时优先让转换显式一点，代码会更容易读。
 
-## 移动语义的直观理解
+## 练习
 
-移动语义可以先理解成“搬走资源”，而不是“复制一份”。当对象内部保存大量数据时，移动比复制更高效。初学阶段不需要立刻掌握所有细节，但应该知道标准库容器和字符串已经大量使用这种能力。
+1. 给 `Student` 增加 `print() const`，观察 `const Student` 能调用哪些成员函数。
+2. 写一个拥有动态数组的 `Buffer` 类，实现构造、析构、拷贝构造和赋值运算符。
+3. 写一个 `Complex` 类，重载 `+`，并保持成员函数不修改原对象。
 
-## 常见建议
+## 小结
 
-| 旧写法倾向 | 现代写法倾向 |
-| --- | --- |
-| 手动 `new / delete` | 标准库容器、智能指针 |
-| `NULL` | `nullptr` |
-| 复杂迭代器类型手写 | 合理使用 `auto` |
-| 下标遍历全部场景 | 范围 for |
-
-## 小练习
-
-### 练习 1
-
-把一个普通 `for` 下标循环改成范围 for。
-
-### 练习 2
-
-用 `auto` 保存 `vector<int>::size()` 的结果。
-
-### 练习 3
-
-用 `make_unique<int>` 创建整数并输出。
-
-## 本节小结
-
-- 现代 C++ 更强调自动资源管理和清晰表达。
-- `auto` 要用在类型明确的地方。
-- 新代码优先使用标准库容器和智能指针。
+- `const` 是接口承诺，不只是变量修饰符。
+- 引用让传参更清晰：只读、可改、是否拷贝一眼可见。
+- 拷贝构造和赋值运算符决定对象复制时资源是否安全。
+- 静态成员用于表达类级别状态。
+- 运算符重载要服务于可读性，资源类要格外注意深拷贝。
