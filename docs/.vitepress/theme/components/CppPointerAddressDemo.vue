@@ -2,33 +2,42 @@
 import { ref } from 'vue'
 
 const selected = ref('roomA')
+const pointer = ref('roomA')
+const showValue = ref(true)
+
 const rooms = {
-  roomA: { address: '0x100', value: 18 },
-  roomB: { address: '0x104', value: 20 },
-  roomC: { address: '0x108', value: 23 }
+  roomA: { address: '0x0010', value: 18, label: 'age' },
+  roomB: { address: '0x0014', value: 20, label: 'score' },
+  roomC: { address: '0x0018', value: 23, label: 'height' }
+}
+
+function selectRoom(key: string) {
+  selected.value = key
+  pointer.value = key
 }
 </script>
 
 <template>
   <div class="pointer-demo">
-    <div class="memory-row">
-      <button
+    <div class="rooms-row">
+      <div
         v-for="(room, key) in rooms"
         :key="key"
-        type="button"
         class="memory-cell"
-        :class="{ active: key === selected }"
-        @click="selected = String(key)"
+        :class="{ active: key === pointer }"
       >
-        <span>{{ room.address }}</span>
-        <strong>{{ room.value }}</strong>
-      </button>
+        <span class="addr">{{ room.address }}</span>
+        <span class="label">{{ room.label }}</span>
+        <strong class="value">{{ room.value }}</strong>
+      </div>
     </div>
-    <p>
-      指针保存的是地址。现在 <code>p</code> 保存
-      <code>{{ rooms[selected as keyof typeof rooms].address }}</code>，
-      所以 <code>*p</code> 读到
-      {{ rooms[selected as keyof typeof rooms].value }}。
+    <div class="code-row">
+      <code>int* p = &{{ rooms[pointer as keyof typeof rooms].label }};</code>
+      <code>*p = {{ showValue ? rooms[pointer as keyof typeof rooms].value : '???' }}</code>
+    </div>
+    <p class="desc">
+      指针 <code>p</code> 保存地址 <code>{{ rooms[pointer as keyof typeof rooms].address }}</code>，
+      解引用 <code>*p</code> 访问到值 <strong>{{ rooms[pointer as keyof typeof rooms].value }}</strong>
     </p>
   </div>
 </template>
@@ -41,34 +50,69 @@ const rooms = {
   background: var(--vp-c-bg-soft);
 }
 
-.memory-row {
+.rooms-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
 .memory-cell {
-  min-height: 78px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 90px;
+  padding: 12px;
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  color: var(--vp-c-text-1);
-  cursor: pointer;
-}
-
-.memory-cell span {
-  display: block;
-  color: var(--vp-c-text-2);
-  font-size: 13px;
-}
-
-.memory-cell strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 20px;
+  transition: border-color 0.2s;
 }
 
 .memory-cell.active {
   border-color: var(--vp-c-brand-1);
+  box-shadow: inset 0 0 0 1px var(--vp-c-brand-1);
+}
+
+.addr {
+  font-size: 11px;
+  color: var(--vp-c-text-2);
+  font-family: monospace;
+}
+
+.label {
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--vp-c-text-2);
+}
+
+.value {
+  font-size: 22px;
+  margin-top: 8px;
+}
+
+.code-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.code-row code {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--vp-c-bg);
+  font-size: 13px;
+}
+
+.desc {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--vp-c-text-1);
+}
+
+@media (max-width: 480px) {
+  .rooms-row {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

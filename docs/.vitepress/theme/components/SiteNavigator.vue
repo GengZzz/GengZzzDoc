@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { withBase } from 'vitepress'
 import { computed, ref } from 'vue'
 
 type SiteItem = {
@@ -240,7 +241,7 @@ function useFallbackImage(event: Event, item: SiteItem) {
   <section class="site-navigator" aria-labelledby="site-nav-title">
     <div class="section-heading">
       <h2 id="site-nav-title">站点导航</h2>
-      <a class="section-more" href="/nav/" aria-label="查看更多站点导航">
+      <a class="section-more" :href="withBase('/nav/')" aria-label="查看更多站点导航">
         更多
         <span aria-hidden="true">→</span>
       </a>
