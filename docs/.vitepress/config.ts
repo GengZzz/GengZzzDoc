@@ -76,7 +76,9 @@ export default defineConfig({
               { text: 'Codex', link: '/ai/codex' },
               { text: 'Claude', link: '/ai/claude' },
               { text: 'Gemini', link: '/ai/gemini' },
-              { text: 'OpenCode', link: '/ai/opencode' }
+              { text: 'OpenCode', link: '/ai/opencode' },
+              { text: 'OpenClaw', link: '/ai/openclaw' },
+              { text: 'Hermes', link: '/ai/hermes' }
             ]
           }
         ]
@@ -1268,7 +1270,9 @@ export default defineConfig({
             { text: 'Codex', link: '/ai/codex' },
             { text: 'Claude', link: '/ai/claude' },
             { text: 'Gemini', link: '/ai/gemini' },
-            { text: 'OpenCode', link: '/ai/opencode' }
+            { text: 'OpenCode', link: '/ai/opencode' },
+            { text: 'OpenClaw', link: '/ai/openclaw' },
+            { text: 'Hermes', link: '/ai/hermes' }
           ]
         },
         {
