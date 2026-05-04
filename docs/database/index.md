@@ -4,8 +4,7 @@
 
 ## 目录
 
-- [MySQL](./mysql.md)
+- [MySQL](./mysql/) — 完整的 MySQL 技术文档，涵盖索引、事务、锁、查询优化、分库分表、主从复制等
 - [Redis](./redis.md)
 - [MongoDB](./mongodb.md)
 - [PostgreSQL](./postgresql.md)
-
