@@ -69,7 +69,17 @@ export default defineConfig({
           { text: '计算机网络', link: '/os/computer-networks/' }
         ]
       },
-      { text: '工具', link: '/tools/' },
+      {
+        text: '工具',
+        items: [
+          { text: '概览', link: '/tools/' },
+          { text: 'npm', link: '/tools/npm' },
+          { text: 'yarn', link: '/tools/yarn' },
+          { text: 'pnpm', link: '/tools/pnpm' },
+          { text: 'nvm', link: '/tools/nvm' },
+          { text: 'nrm', link: '/tools/nrm' }
+        ]
+      },
       {
         text: 'AI',
         items: [
