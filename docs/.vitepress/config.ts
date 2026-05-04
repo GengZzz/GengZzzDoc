@@ -24,6 +24,7 @@ export default defineConfig({
           { text: 'C', link: '/backend/c/' },
           { text: 'C++', link: '/backend/cpp/' },
           { text: 'Java', link: '/backend/java/' },
+          { text: 'C#', link: '/backend/csharp/' },
           { text: 'Python', link: '/backend/python/' }
         ]
       },
@@ -189,13 +190,122 @@ export default defineConfig({
       ],
       '/backend/python/': [
         {
-          text: 'Python',
+          text: '入门',
           items: [
             { text: '概览', link: '/backend/python/' },
-            { text: '语言基础', link: '/backend/python/language-basics' },
-            { text: 'Web 服务', link: '/backend/python/web-service' },
-            { text: '自动化脚本', link: '/backend/python/automation' },
-            { text: '工程实践', link: '/backend/python/engineering-practice' }
+            { text: 'Python 简介与环境搭建', link: '/backend/python/introduction-setup' },
+            { text: '语法基础', link: '/backend/python/syntax-basics' }
+          ]
+        },
+        {
+          text: '数据类型与流程',
+          collapsed: false,
+          items: [
+            { text: '数据类型', link: '/backend/python/data-types' },
+            { text: '控制流程', link: '/backend/python/control-flow' },
+            { text: '函数', link: '/backend/python/functions' }
+          ]
+        },
+        {
+          text: '数据结构',
+          collapsed: false,
+          items: [
+            { text: '内置数据结构', link: '/backend/python/data-structures' },
+            { text: '高级数据结构', link: '/backend/python/advanced-structures' }
+          ]
+        },
+        {
+          text: '面向对象',
+          collapsed: false,
+          items: [
+            { text: '类与对象', link: '/backend/python/classes-objects' },
+            { text: '继承与 Mixin', link: '/backend/python/inheritance-mixins' },
+            { text: '魔术方法', link: '/backend/python/magic-methods' }
+          ]
+        },
+        {
+          text: '高级特性',
+          collapsed: false,
+          items: [
+            { text: '装饰器与闭包', link: '/backend/python/decorators-closures' },
+            { text: '错误处理', link: '/backend/python/error-handling' },
+            { text: '类型注解', link: '/backend/python/type-annotations' }
+          ]
+        },
+        {
+          text: '并发编程',
+          collapsed: true,
+          items: [
+            { text: '多线程与多进程', link: '/backend/python/threading-multiprocessing' },
+            { text: '异步编程', link: '/backend/python/async-programming' }
+          ]
+        },
+        {
+          text: 'Web 开发',
+          collapsed: true,
+          items: [
+            { text: 'Web 框架', link: '/backend/python/web-frameworks' },
+            { text: '数据库与 ORM', link: '/backend/python/database-orm' }
+          ]
+        },
+        {
+          text: '工程实践',
+          collapsed: true,
+          items: [
+            { text: '标准库常用模块', link: '/backend/python/stdlib-modules' },
+            { text: '项目结构与工程化', link: '/backend/python/project-structure' }
+          ]
+        }
+      ],
+      '/backend/csharp/': [
+        {
+          text: '入门',
+          items: [
+            { text: '概览', link: '/backend/csharp/' },
+            { text: 'C# 简介与环境搭建', link: '/backend/csharp/introduction-setup' },
+            { text: '基本语法', link: '/backend/csharp/basic-syntax' }
+          ]
+        },
+        {
+          text: '核心语法',
+          collapsed: false,
+          items: [
+            { text: '控制流与方法', link: '/backend/csharp/control-flow-methods' },
+            { text: '类与结构体', link: '/backend/csharp/classes-structs' },
+            { text: '继承与接口', link: '/backend/csharp/inheritance-interfaces' }
+          ]
+        },
+        {
+          text: '面向对象进阶',
+          collapsed: false,
+          items: [
+            { text: '泛型', link: '/backend/csharp/generics' },
+            { text: '委托、事件与 Lambda', link: '/backend/csharp/delegates-events-lambda' }
+          ]
+        },
+        {
+          text: '集合与 LINQ',
+          collapsed: false,
+          items: [
+            { text: '集合', link: '/backend/csharp/collections' },
+            { text: 'LINQ', link: '/backend/csharp/linq' }
+          ]
+        },
+        {
+          text: '异步编程',
+          collapsed: false,
+          items: [
+            { text: 'async/await', link: '/backend/csharp/async-await' },
+            { text: '并行与并发', link: '/backend/csharp/parallel-concurrent' }
+          ]
+        },
+        {
+          text: '.NET 生态',
+          collapsed: true,
+          items: [
+            { text: 'ASP.NET Core', link: '/backend/csharp/aspnet-core' },
+            { text: 'Entity Framework Core', link: '/backend/csharp/ef-core' },
+            { text: '依赖注入', link: '/backend/csharp/dependency-injection' }
           ]
         }
       ],
@@ -283,6 +393,7 @@ export default defineConfig({
             { text: 'C', link: '/backend/c/' },
             { text: 'C++', link: '/backend/cpp/' },
             { text: 'Java', link: '/backend/java/' },
+            { text: 'C#', link: '/backend/csharp/' },
             { text: 'Python', link: '/backend/python/' },
             { text: '接口设计', link: '/backend/api-design' }
           ]
