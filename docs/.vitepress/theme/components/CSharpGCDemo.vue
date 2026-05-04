@@ -2,12 +2,12 @@
 import { computed, ref } from 'vue'
 
 const step = ref(0)
-const totalSteps = 6
+const totalSteps = 7
 
 interface GcObject {
   id: string
   label: string
-  size: number // bytes
+  size: number
   alive: boolean
 }
 
@@ -17,81 +17,114 @@ interface Generation {
   objects: GcObject[]
 }
 
-const gen0Color = '#3b82f6'
-const gen1Color = '#8b5cf6'
-const gen2Color = '#ef4444'
-const lohColor = '#f59e0b'
-
-function makeObjects(ids: string[], aliveSet: Set<string>): GcObject[] {
-  return ids.map(id => ({
-    id,
-    label: id,
-    size: Math.floor(Math.random() * 40) + 8,
-    alive: aliveSet.has(id)
-  }))
-}
-
-const alive1 = new Set(['o1', 'o3', 'o5'])
-const alive2 = new Set(['o1', 'o5'])
-
-const gen0: GcObject[] = makeObjects(['o1', 'o2', 'o3', 'o4', 'o5', 'o6', 'o7', 'o8'], new Set(['o1', 'o2', 'o3', 'o4', 'o5', 'o6', 'o7', 'o8']))
-const gen1: GcObject[] = []
-const gen2: GcObject[] = []
-const loh: GcObject[] = [
-  { id: 'loh1', label: 'byte[128KB]', size: 128, alive: true },
-  { id: 'loh2', label: 'byte[200KB]', size: 200, alive: true }
-]
+const gen0Color = '#22c55e'  // 绿色
+const gen1Color = '#f59e0b'  // 黄色
+const gen2Color = '#ef4444'  // 红色
+const lohColor = '#8b5cf6'   // 紫色
 
 const generations = computed<Generation[]>(() => {
   if (step.value === 0) return []
 
   if (step.value === 1) {
-    // 初始：Gen0 有所有对象
+    // 程序启动，对象在 Gen0 分配
     return [
-      { name: 'Gen0', color: gen0Color, objects: gen0.map(o => ({ ...o, alive: true })) },
+      { name: 'Gen0（256KB-4MB）', color: gen0Color, objects: [
+        { id: 'a', label: '临时变量', size: 16, alive: true },
+        { id: 'b', label: '查询结果', size: 32, alive: true },
+        { id: 'c', label: '中间对象', size: 24, alive: true },
+        { id: 'd', label: '字符串', size: 48, alive: true },
+        { id: 'e', label: '委托实例', size: 32, alive: true },
+        { id: 'f', label: '闭包对象', size: 40, alive: true },
+      ]},
       { name: 'Gen1', color: gen1Color, objects: [] },
-      { name: 'Gen2', color: gen2Color, objects: [] },
-      { name: 'LOH', color: lohColor, objects: [] }
+      { id: 'g', name: 'Gen2', color: gen2Color, objects: [] } as any,
+      { name: 'LOH（>85KB）', color: lohColor, objects: [] },
     ]
   }
 
   if (step.value === 2) {
-    // Gen0 GC：存活对象提升到 Gen1
+    // Gen0 填满，大量对象创建
     return [
-      { name: 'Gen0', color: gen0Color, objects: gen0.map(o => ({ ...o, alive: alive1.has(o.id) })).filter(o => !alive1.has(o.id) ? true : false) },
-      { name: 'Gen1', color: gen1Color, objects: gen0.filter(o => alive1.has(o.id)).map(o => ({ ...o, alive: true })) },
+      { name: 'Gen0（接近阈值）', color: gen0Color, objects: [
+        { id: 'a', label: '临时变量', size: 16, alive: false },
+        { id: 'b', label: '查询结果', size: 32, alive: true },
+        { id: 'c', label: '中间对象', size: 24, alive: false },
+        { id: 'd', label: '字符串', size: 48, alive: true },
+        { id: 'e', label: '委托实例', size: 32, alive: false },
+        { id: 'f', label: '闭包对象', size: 40, alive: true },
+        { id: 'g', label: '临时列表', size: 64, alive: false },
+        { id: 'h', label: '迭代器', size: 32, alive: false },
+      ]},
+      { name: 'Gen1', color: gen1Color, objects: [] },
       { name: 'Gen2', color: gen2Color, objects: [] },
-      { name: 'LOH', color: lohColor, objects: [] }
+      { name: 'LOH（>85KB）', color: lohColor, objects: [] },
     ]
   }
 
   if (step.value === 3) {
-    // Gen1 GC：存活对象提升到 Gen2
+    // Gen0 GC 触发，存活对象提升到 Gen1
     return [
-      { name: 'Gen0', color: gen0Color, objects: gen0.filter(o => !alive1.has(o.id)).map(o => ({ ...o, alive: false })) },
-      { name: 'Gen1', color: gen1Color, objects: gen0.filter(o => alive1.has(o.id) && !alive2.has(o.id)).map(o => ({ ...o, alive: false })) },
-      { name: 'Gen2', color: gen2Color, objects: gen0.filter(o => alive2.has(o.id)).map(o => ({ ...o, alive: true })) },
-      { name: 'LOH', color: lohColor, objects: [] }
+      { name: 'Gen0（已回收）', color: gen0Color, objects: [
+        { id: 'x1', label: '新对象1', size: 16, alive: true },
+        { id: 'x2', label: '新对象2', size: 24, alive: true },
+      ]},
+      { name: 'Gen1', color: gen1Color, objects: [
+        { id: 'b', label: '查询结果', size: 32, alive: true },
+        { id: 'd', label: '字符串', size: 48, alive: true },
+        { id: 'f', label: '闭包对象', size: 40, alive: true },
+      ]},
+      { name: 'Gen2', color: gen2Color, objects: [] },
+      { name: 'LOH（>85KB）', color: lohColor, objects: [] },
     ]
   }
 
   if (step.value === 4) {
-    // Full GC（Gen2 回收）
+    // Gen1 积累后触发 GC，存活对象提升到 Gen2
     return [
-      { name: 'Gen0', color: gen0Color, objects: [] },
-      { name: 'Gen1', color: gen1Color, objects: [] },
-      { name: 'Gen2', color: gen2Color, objects: gen0.filter(o => alive2.has(o.id)).map(o => ({ ...o, alive: true })) },
-      { name: 'LOH', color: lohColor, objects: [] }
+      { name: 'Gen0', color: gen0Color, objects: [
+        { id: 'y1', label: '新分配', size: 20, alive: true },
+      ]},
+      { name: 'Gen1（部分回收）', color: gen1Color, objects: [
+        { id: 'f', label: '闭包对象', size: 40, alive: false },
+      ]},
+      { name: 'Gen2', color: gen2Color, objects: [
+        { id: 'b', label: '查询结果', size: 32, alive: true },
+        { id: 'd', label: '字符串', size: 48, alive: true },
+      ]},
+      { name: 'LOH（>85KB）', color: lohColor, objects: [] },
     ]
   }
 
   if (step.value === 5) {
-    // 展示 LOH
+    // Background GC 展示
+    return [
+      { name: 'Gen0（可继续分配）', color: gen0Color, objects: [
+        { id: 'y1', label: '新分配', size: 20, alive: true },
+        { id: 'y2', label: '并发中创建', size: 32, alive: true },
+      ]},
+      { name: 'Gen1', color: gen1Color, objects: [] },
+      { name: 'Gen2（后台回收中...）', color: gen2Color, objects: [
+        { id: 'b', label: '查询结果', size: 32, alive: true },
+        { id: 'd', label: '字符串', size: 48, alive: true },
+      ]},
+      { name: 'LOH（>85KB）', color: lohColor, objects: [] },
+    ]
+  }
+
+  if (step.value === 6) {
+    // LOH 碎片化 + Pinned 对象
     return [
       { name: 'Gen0', color: gen0Color, objects: [] },
       { name: 'Gen1', color: gen1Color, objects: [] },
-      { name: 'Gen2', color: gen2Color, objects: gen0.filter(o => alive2.has(o.id)).map(o => ({ ...o, alive: true })) },
-      { name: 'LOH (>85KB)', color: lohColor, objects: loh.map(o => ({ ...o, alive: true })) }
+      { name: 'Gen2', color: gen2Color, objects: [
+        { id: 'b', label: '长期对象', size: 32, alive: true },
+      ]},
+      { name: 'LOH（碎片化）', color: lohColor, objects: [
+        { id: 'loh1', label: '128KB 数组', size: 128, alive: true },
+        { id: 'pin', label: 'Pinned', size: 64, alive: true },
+        { id: 'loh2', label: '200KB 数组', size: 200, alive: false },
+        { id: 'loh3', label: '256KB 缓冲', size: 256, alive: true },
+      ]},
     ]
   }
 
@@ -100,12 +133,13 @@ const generations = computed<Generation[]>(() => {
 
 const statusText = computed(() => {
   const texts = [
-    '点击"下一步"观察 .NET GC 代机制',
-    '程序启动：新对象分配到 Gen0（大多数对象生命周期极短）',
-    'Gen0 满了 → 触发 GC，存活对象提升到 Gen1（耗时极短）',
-    'Gen1 满了 → 触发 GC，存活对象提升到 Gen2（存活越久越不容易被回收）',
-    'Gen2 GC = Full GC（耗时最长，应尽量减少 Full GC 频率）',
-    '大对象（>85KB）直接分配到 LOH，LOH 随 Gen2 一起回收'
+    '点击"下一步"观察 .NET GC 三代回收完整生命周期',
+    '步骤 1：程序启动，所有新对象分配到 Gen0（大多数对象生命周期极短，很快死亡）',
+    '步骤 2：Gen0 填满 → 灰色对象已无引用，等待回收（Gen0 阈值约 256KB-4MB，动态调整）',
+    '步骤 3：Gen0 GC 触发 → 死亡对象被回收，存活对象提升到 Gen1（耗时约 0.1-1ms）',
+    '步骤 4：Gen1 积累后触发 GC → 存活对象提升到 Gen2（Gen1 是 Gen0/Gen2 的缓冲区）',
+    '步骤 5：Background GC 在后台回收 Gen2，不阻塞主线程，Gen0 仍可继续分配对象',
+    '步骤 6：大对象（>85KB）直接进 LOH，LOH 随 Gen2 回收且默认不压缩 → Pinned 对象导致碎片',
   ]
   return texts[step.value]
 })
@@ -121,9 +155,6 @@ function reset() {
 
 <template>
   <div class="gc-demo">
-    <div v-if="step === 5" class="using-note">
-      <code>using var file = File.OpenRead("data.bin");</code> —— using 语句在作用域结束时自动调用 Dispose 释放非托管资源
-    </div>
     <div class="gen-grid">
       <section v-for="gen in generations" :key="gen.name" class="gen-section">
         <h4 :style="{ borderColor: gen.color, color: gen.color }">
@@ -134,7 +165,7 @@ function reset() {
             v-for="obj in gen.objects"
             :key="obj.id"
             class="obj-box"
-            :class="{ dead: !obj.alive }"
+            :class="{ dead: !obj.alive, pinned: obj.id === 'pin' }"
             :style="{ borderColor: gen.color }"
           >
             <span class="obj-label">{{ obj.label }}</span>
@@ -160,20 +191,6 @@ function reset() {
   background: var(--vp-c-bg-soft);
 }
 
-.using-note {
-  margin-bottom: 12px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  background: var(--vp-c-bg);
-  font-size: 13px;
-  color: var(--vp-c-text-2);
-}
-
-.using-note code {
-  color: var(--vp-c-brand-1);
-  font-size: 12px;
-}
-
 .gen-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -182,7 +199,7 @@ function reset() {
 
 h4 {
   margin: 0 0 8px;
-  font-size: 14px;
+  font-size: 13px;
   padding-bottom: 4px;
   border-bottom: 2px solid var(--vp-c-border);
 }
@@ -207,8 +224,18 @@ h4 {
 }
 
 .obj-box.dead {
-  opacity: 0.35;
+  opacity: 0.3;
   text-decoration: line-through;
+}
+
+.obj-box.pinned {
+  border-style: dashed;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .obj-label {

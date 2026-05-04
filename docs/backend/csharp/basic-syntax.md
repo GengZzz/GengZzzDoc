@@ -1,5 +1,7 @@
 # 基本语法
 
+C# 的类型系统建立在值类型与引用类型的精确区分之上，理解内存分配规则是写出高效 C# 代码的基础。
+
 ## 变量与类型系统
 
 C# 是强类型语言，每个变量都有编译时确定的类型。
@@ -18,7 +20,7 @@ char grade = 'A';
 string message = "Hello";
 
 // 常量与只读
-const double Pi = 3.14159;         // 编译时常量，不可修改
+const double Pi = 3.14159;         // 编译时常量，嵌入 IL，不可修改
 readonly string ConnectionString;  // 运行时常量，只能在构造函数中赋值
 ```
 
@@ -40,93 +42,184 @@ readonly string ConnectionString;  // 运行时常量，只能在构造函数中
 | 文本 | `string` | 引用类型 | UTF-16 字符序列 |
 | 布尔 | `bool` | 1 字节 | true / false |
 
-## 值类型 vs 引用类型
+## 值类型 vs 引用类型深入
 
-这是 C# 类型系统最核心的区分，直接影响内存布局和赋值行为。
+这是 C# 类型系统最核心的区分，直接影响内存布局、赋值行为和性能特征。
 
-### 值类型（Value Type）
+### 精确的内存分配规则
 
-值类型包括：所有数值类型（int, double, ...）、bool、char、struct、enum。
+值类型的分配位置取决于**上下文**，而非"值类型总在栈上"：
 
-```csharp
-int a = 10;
-int b = a;    // b 是 a 的完整副本
-b = 20;
-Console.WriteLine(a);  // 10，a 不受影响
-```
-
-**内存布局**：值类型的变量直接存储数据本身。局部变量和方法参数存储在**栈（Stack）**上；作为类的字段时，随对象存储在**堆（Heap）**上。
-
-```
-栈 (Stack)
-┌──────────┐
-│  a = 10  │  ← int 直接存储值
-└──────────┘
-┌──────────┐
-│  b = 10  │  ← 赋值时复制完整数据
-└──────────┘
-```
-
-### 引用类型（Reference Type）
-
-引用类型包括：class、string、array、delegate、interface。
+| 上下文 | 分配位置 | 原因 |
+| --- | --- | --- |
+| 局部变量 | 栈 | 生命周期与方法一致 |
+| 方法参数（非 ref/in/out） | 栈 | 按值复制到栈帧 |
+| 方法参数（ref/in/out） | 原始位置 | 传递引用（指针） |
+| 类的字段（field） | 堆 | 随对象在堆上分配 |
+| struct 的字段 | 跟随 struct | struct 在哪，字段就在哪 |
+| 数组元素 | 堆 | 数组是引用类型 |
+| 装箱后 | 堆 | 值被复制到堆上的包装对象 |
 
 ```csharp
-var list1 = new List<int> { 1, 2, 3 };
-var list2 = list1;    // list2 和 list1 指向同一个对象
-list2.Add(4);
-Console.WriteLine(list1.Count);  // 4，两个变量共享同一对象
-```
+public class MyClass
+{
+    private int _value;       // 在堆上（随 MyClass 实例）
+    private Point _location;  // 在堆上（随 MyClass 实例）
+}
 
-**内存布局**：引用类型的变量存储的是指向堆上对象的**引用（地址）**。
-
-```
-栈 (Stack)                    堆 (Heap)
-┌──────────────┐
-│ list1 → ──────────────→  ┌──────────────────┐
-└──────────────┘            │ List<int> 对象    │
-┌──────────────┐            │ { 1, 2, 3 }      │
-│ list2 → ──────────────→  └──────────────────┘
-└──────────────┘            （两个引用指向同一对象）
-```
-
-### struct vs class 的关键差异
-
-```csharp
-// struct：值类型
 public struct Point
 {
-    public double X;
-    public double Y;
+    public int X;  // 跟随 Point——Point 在栈则 X 在栈，Point 在堆则 X 在堆
+    public int Y;
 }
-
-// class：引用类型
-public class PointRef
-{
-    public double X;
-    public double Y;
-}
-
-// 使用对比
-var p1 = new Point { X = 1, Y = 2 };
-var p2 = p1;         // 完整复制
-p2.X = 10;
-Console.WriteLine(p1.X);  // 1，p1 不受影响
-
-var r1 = new PointRef { X = 1, Y = 2 };
-var r2 = r1;         // 复制引用
-r2.X = 10;
-Console.WriteLine(r1.X);  // 10，r1 和 r2 指向同一对象
 ```
 
-::: warning 装箱与拆箱
-值类型赋值给 `object`（或任何接口类型）时发生**装箱（Boxing）**——在堆上分配新对象并复制数据。反向操作是**拆箱（Unboxing）**。这两个操作都有性能开销，热路径中应避免。
+### 装箱与拆箱的 IL 分析
+
+装箱不仅仅是"性能开销"，它在 IL 层面是一个完整的操作：
 
 ```csharp
 int num = 42;
-object boxed = num;           // 装箱：堆上分配，复制值
-int unboxed = (int)boxed;    // 拆箱：类型检查 + 复制值
+object boxed = num;           // 装箱
+int unboxed = (int)boxed;    // 拆箱
 ```
+
+对应的 IL 代码：
+
+```il
+// 装箱 (Boxing)
+IL_0001: ldloc.0          // 将局部变量 num 压栈
+IL_0002: box [mscorlib]System.Int32  // 在堆上分配 Object + 复制值 + 返回引用
+
+// 拆箱 (Unboxing)
+IL_0007: unbox.any [mscorlib]System.Int32  // 检查类型 + 获取指针 + 复制值
+```
+
+装箱的完整成本：
+1. 在堆上分配 12/24 字节（对象头 + 类型句柄 + 值）
+2. 将值复制到堆上对象
+3. 返回引用
+
+拆箱的成本：
+1. 类型检查（确保是正确类型）
+2. 获取值的指针
+3. 复制值到栈上
+
+::: warning 高频路径中的意外装箱
+最常见的意外装箱来源：
+
+```csharp
+// 1. 接口调用导致的装箱
+var list = new List<int> { 1, 2, 3 };
+IList<int> iList = list;      // 没有装箱
+IEnumerable enumerable = list; // 没有装箱
+IComparable<int> comp = 42;   // 装箱！int 赋值给接口类型
+
+// 2. Console.WriteLine 导致的装箱（参数是 object）
+int value = 100;
+Console.WriteLine(value);     // 装箱！string.Format 内部处理
+
+// 3. 非泛型集合
+var oldList = new ArrayList();
+oldList.Add(42);              // 装箱！ArrayList 接受 object
+
+// 4. string.Format 中的值类型
+string msg = string.Format("Count: {0}", 42);  // 装箱
+
+// 性能对比（BenchmarkDotNet 结果，仅供参考）：
+// 不装箱的 List<int>.Count: ~0.5 ns
+// 装箱后: ~25 ns（50 倍差距）
+```
+:::
+
+### struct 字段对齐
+
+CLR 对 struct 的字段进行内存对齐以优化 CPU 访问：
+
+```csharp
+// 字段按声明顺序排列，按最大字段大小对齐
+public struct BadLayout
+{
+    byte a;    // 偏移 0，占用 1 字节
+    // 3 字节填充
+    int b;     // 偏移 4，占用 4 字节
+    byte c;    // 偏移 8，占用 1 字节
+    // 3 字节填充
+    // 总大小：12 字节
+}
+
+// 更紧凑的布局
+public struct GoodLayout
+{
+    int b;     // 偏移 0，占用 4 字节
+    byte a;    // 偏移 4，占用 1 字节
+    byte c;    // 偏移 5，占用 1 字节
+    // 2 字节填充
+    // 总大小：8 字节
+}
+```
+
+可以使用 `StructLayout` 属性控制布局：
+
+```csharp
+[StructLayout(LayoutKind.Sequential, Pack = 1)]  // 按 1 字节对齐
+public struct PackedStruct
+{
+    byte a;
+    int b;
+    byte c;
+    // 总大小：6 字节（无填充）
+    // 注意：CPU 访问未对齐的数据可能更慢
+}
+```
+
+### string 驻留池
+
+CLR 维护一个字符串驻留池（String Intern Pool），字面量字符串自动进入池中：
+
+```csharp
+string a = "hello";
+string b = "hello";
+Console.WriteLine(object.ReferenceEquals(a, b));  // true，同一个对象
+
+string c = new string(new[] { 'h', 'e', 'l', 'l', 'o' });
+Console.WriteLine(object.ReferenceEquals(a, c));  // false，不同对象
+
+// 手动驻留
+string d = string.Intern(c);
+Console.WriteLine(object.ReferenceEquals(a, d));  // true
+
+// 手动检查是否已驻留
+bool isInterned = string.IsInterned(c) != null;
+```
+
+驻留池的内存不会被 GC 回收（字符串永久保留），因此只对高复用率的字符串有意义。
+
+### Span\<T\> 与 Memory\<T\> 零拷贝切片
+
+`Span<T>` 和 `Memory<T>` 是 .NET Core 2.1+ 引入的零拷贝切片类型，避免了 Substring 等操作的内存分配：
+
+```csharp
+// 传统方式：每次 Substring 分配新字符串
+string text = "Hello, World!";
+string sub = text.Substring(0, 5);  // 分配新字符串 "Hello"
+
+// Span 方式：零拷贝，只记录指针和长度
+ReadOnlySpan<char> span = text.AsSpan();
+ReadOnlySpan<char> subSpan = span.Slice(0, 5);  // 无分配！指向原字符串
+
+// 栈上分配的 Span
+Span<int> numbers = stackalloc int[100];  // 栈上分配，无 GC 压力
+numbers[0] = 42;
+```
+
+::: tip Span\<T\> 的限制
+`Span<T>` 是 `ref struct`，只能存在于栈上：
+- 不能作为类的字段
+- 不能用于 async 方法
+- 不能用于 lambda 捕获
+
+`Memory<T>` 不是 ref struct，可以用在上述场景，但需要额外的 `MemoryMarshal` 操作。
 :::
 
 ## 类型转换
@@ -149,6 +242,17 @@ long big = 300;
 byte b = (byte)big;   // 44，溢出（300 % 256）
 ```
 
+### checked / unchecked 上下文
+
+```csharp
+// unchecked（默认）：溢出时静默截断
+int x = int.MaxValue;
+unchecked { x += 1; }  // x = -2147483648（最小值）
+
+// checked：溢出时抛 OverflowException
+checked { x += 1; }    // OverflowException
+```
+
 ### Convert 类与 Parse
 
 ```csharp
@@ -159,7 +263,6 @@ bool c = Convert.ToBoolean(1);  // true
 
 // int.Parse：遇到 null 或格式错误会抛异常
 int d = int.Parse("42");
-// int e = int.Parse("abc");  // FormatException
 
 // int.TryParse：安全方式
 if (int.TryParse("abc", out int result))
@@ -188,6 +291,10 @@ string str = obj as string;     // "hello"
 int? num = obj as int?;         // null
 ```
 
+::: warning as 与值类型
+`as` 不能用于值类型（int、struct 等），因为值类型没有 null 语义（Nullable 除外）。使用 `is` + 模式匹配代替。
+:::
+
 ## 字符串
 
 ### 字符串插值（C# 6+）
@@ -211,9 +318,6 @@ string price = $"Price: {99.9,10:F2}";  // 右对齐 10 字符，保留 2 位小
 ```csharp
 // 逐字字符串（@ 前缀）：不转义，保留换行
 string path = @"C:\Users\Alice\Documents";
-string sql = @"SELECT *
-FROM Users
-WHERE Name = 'Alice'";
 
 // 原始字符串字面量（C# 11+，三个引号）
 string json = """
@@ -222,9 +326,16 @@ string json = """
     "age": 25
 }
 """;
+
+// 插值原始字符串
+string name = "Alice";
+string msg = $"""
+    Hello, {name}!
+    Welcome to .NET.
+    """;
 ```
 
-### 字符串不可变性
+### 字符串不可变性与 string.Create
 
 ```csharp
 string s = "Hello";
@@ -239,15 +350,21 @@ for (int i = 0; i < 1000; i++)
     sb.Append(' ');
 }
 string result = sb.ToString();
+
+// string.Create：零分配构建字符串（栈上处理字符，一次性分配）
+string created = string.Create(10, 42, (span, state) =>
+{
+    span.Fill('X');
+    var numStr = state.ToString();
+    numStr.AsSpan().CopyTo(span.Slice(0, numStr.Length));
+});
 ```
 
 ::: tip 为什么 string 是引用类型但表现像值类型？
-`string` 是 class（引用类型），但它是**不可变的（immutable）**。任何修改操作都返回新对象，因此赋值和传参时行为上类似值类型——不会出现意外的共享修改。`string.Intern()` 还会利用字符串驻留池复用相同内容的对象。
+`string` 是 class（引用类型），但它是**不可变的（immutable）**。任何修改操作都返回新对象，因此赋值和传参时行为上类似值类型——不会出现意外的共享修改。
 :::
 
 ## 命名空间
-
-命名空间用于组织代码、避免命名冲突。
 
 ```csharp
 // 定义命名空间
@@ -269,6 +386,7 @@ global using System.Collections.Generic;
 
 // using 别名
 using Json = System.Text.Json.JsonSerializer;
+using Dict = System.Collections.Generic.Dictionary<string, int>;
 
 var obj = Json.Deserialize<MyClass>(jsonString);
 ```

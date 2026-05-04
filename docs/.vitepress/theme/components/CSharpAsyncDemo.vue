@@ -6,24 +6,23 @@ const totalSteps = 7
 
 const statusText = computed(() => {
   const texts = [
-    '点击"下一步"观察 async/await 状态机执行过程',
-    '调用方调用 await DownloadAsync()，方法开始执行，遇到第一个 await 时挂起',
-    '控制权返回调用者，主线程继续执行其他工作（UI 不阻塞）',
-    'IO 操作完成 → SynchronizationContext 恢复上下文，调度回调',
-    '从 await 之后继续执行，拿到下载结果',
-    'Task.WhenAll 并发执行多个异步操作，等待最慢的一个完成',
-    '对比同步阻塞 vs 异步等待的时间线'
+    '点击"下一步"观察 async/await 状态机执行时序',
+    '步骤 1：主线程调用 await DownloadAsync()，状态机启动，开始执行异步方法',
+    '步骤 2：遇到第一个 await → 挂起，控制权返回主线程（主线程继续做其他工作）',
+    '步骤 3：IO 完成 → 线程池线程处理回调（IO 完成端口通知）',
+    '步骤 4：SynchronizationContext 恢复上下文（UI 线程/请求上下文/ThreadPool）',
+    '步骤 5：从 await 位置继续执行，拿到下载结果',
+    '步骤 6：Task.WhenAll 并发时间线（3 个 API 并发 vs 串行，总耗时 = 最慢的）',
+    '步骤 7：反面案例 —— 同步调用 .Result 导致死锁（主线程等 Task，Task 等主线程上下文）',
   ]
   return texts[step.value]
 })
 
-const showMain = computed(() => step.value >= 1)
-const showMethod = computed(() => step.value >= 1)
 const methodState = computed(() => {
   if (step.value === 1) return 'running'
   if (step.value === 2) return 'suspended'
-  if (step.value === 3) return 'resuming'
-  if (step.value >= 4) return 'completed'
+  if (step.value === 3 || step.value === 4) return 'resuming'
+  if (step.value >= 5) return 'completed'
   return 'idle'
 })
 
@@ -45,31 +44,51 @@ function reset() {
 
 <template>
   <div class="async-demo">
-    <!-- Step 6: Sync vs Async timeline -->
-    <div v-if="step === 6" class="timeline">
-      <div class="timeline-row">
-        <span class="timeline-label">同步阻塞</span>
-        <div class="timeline-bar sync-bar">
-          <span>下载 2s</span><span>处理 1s</span><span>写入 1s</span>
+    <!-- Step 7: Deadlock scenario -->
+    <div v-if="step === 7" class="deadlock-demo">
+      <h4>异步死锁场景</h4>
+      <div class="deadlock-scene">
+        <div class="dlk-box dlk-main">
+          <span class="dlk-title">主线程</span>
+          <code>.Result</code>
+          <span class="dlk-desc">阻塞等待 Task 完成</span>
+        </div>
+        <div class="dlk-arrow">⇄ 死锁</div>
+        <div class="dlk-box dlk-task">
+          <span class="dlk-title">Task 回调</span>
+          <code>SynchronizationContext.Post</code>
+          <span class="dlk-desc">等待主线程空闲以恢复上下文</span>
         </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-label">异步 await</span>
-        <div class="timeline-bar async-bar">
-          <span>下载 2s</span><span class="overlap">处理+写入 并行</span>
+      <div class="deadlock-solution">
+        <code>// 解决方案：全链路 async，永不阻塞</code>
+        <code>var result = await DownloadAsync();  // 不阻塞</code>
+      </div>
+    </div>
+
+    <!-- Step 6: WhenAll -->
+    <div v-else-if="step === 6" class="whenall-demo">
+      <h4>Task.WhenAll 并发</h4>
+      <div class="whenall-row">
+        <div class="whenall-task" style="border-color: #3b82f6">
+          <span>API A</span>
+          <span class="task-time">200ms</span>
+        </div>
+        <div class="whenall-task" style="border-color: #8b5cf6">
+          <span>API B</span>
+          <span class="task-time">500ms</span>
+        </div>
+        <div class="whenall-task" style="border-color: #22c55e">
+          <span>API C</span>
+          <span class="task-time">300ms</span>
         </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-label">ConfigureAwait(false)</span>
-        <div class="timeline-bar config-bar">
-          <span>下载 2s（不恢复上下文，直接在线程池继续）</span>
-        </div>
-      </div>
+      <div class="whenall-note">→ 总耗时 ≈ 500ms（最慢的 API B），串行则需要 1000ms</div>
     </div>
 
     <!-- Normal steps -->
     <div v-else class="panels">
-      <section v-if="showMain" class="panel">
+      <section class="panel">
         <h4>主线程 / 调用者</h4>
         <div class="thread-area">
           <div class="thread-item call-site" :class="{ active: step >= 1 }">
@@ -88,7 +107,7 @@ function reset() {
         </div>
       </section>
 
-      <section v-if="showMethod" class="panel">
+      <section class="panel">
         <h4>DownloadAsync() 状态机</h4>
         <div class="state-machine">
           <div class="state-item" :class="{ current: methodState === 'running' }">
@@ -108,26 +127,6 @@ function reset() {
           </div>
         </div>
       </section>
-    </div>
-
-    <!-- Step 5: WhenAll -->
-    <div v-if="step === 5" class="whenall-demo">
-      <h4>Task.WhenAll 并发</h4>
-      <div class="whenall-row">
-        <div class="whenall-task" style="border-color: #3b82f6">
-          <span>API A</span>
-          <span class="task-time">200ms</span>
-        </div>
-        <div class="whenall-task" style="border-color: #8b5cf6">
-          <span>API B</span>
-          <span class="task-time">500ms</span>
-        </div>
-        <div class="whenall-task" style="border-color: #22c55e">
-          <span>API C</span>
-          <span class="task-time">300ms</span>
-        </div>
-      </div>
-      <div class="whenall-note">→ 等待最慢的完成，总耗时 ≈ 500ms（非 1000ms）</div>
     </div>
 
     <div class="status-bar">{{ statusText }}</div>
@@ -266,44 +265,72 @@ h4 {
   text-align: center;
 }
 
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.deadlock-demo {
   margin-bottom: 12px;
 }
 
-.timeline-row {
+.deadlock-scene {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.timeline-label {
-  width: 120px;
+.dlk-box {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid var(--vp-c-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  text-align: center;
+}
+
+.dlk-main {
+  border-color: #ef4444;
+}
+
+.dlk-task {
+  border-color: #f59e0b;
+}
+
+.dlk-title {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.dlk-box code {
+  display: block;
   font-size: 12px;
+  color: var(--vp-c-brand-1);
+  margin-bottom: 4px;
+}
+
+.dlk-desc {
+  font-size: 11px;
   color: var(--vp-c-text-2);
+}
+
+.dlk-arrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ef4444;
   flex-shrink: 0;
 }
 
-.timeline-bar {
-  flex: 1;
-  display: flex;
+.deadlock-solution {
+  padding: 10px;
+  border: 1px dashed #22c55e;
   border-radius: 6px;
-  overflow: hidden;
-  font-size: 11px;
+  background: rgba(34, 197, 94, 0.05);
 }
 
-.timeline-bar span {
-  padding: 6px 8px;
-  border: 1px solid var(--vp-c-border);
-  background: var(--vp-c-bg);
+.deadlock-solution code {
+  display: block;
+  font-size: 12px;
+  color: var(--vp-c-text-2);
 }
-
-.sync-bar span { background: rgba(239, 68, 68, 0.08); border-color: #ef4444; color: #ef4444; }
-.async-bar span { background: rgba(34, 197, 94, 0.08); border-color: #22c55e; color: #22c55e; }
-.async-bar .overlap { background: rgba(139, 92, 246, 0.08); border-color: #8b5cf6; color: #8b5cf6; }
-.config-bar span { background: rgba(59, 130, 246, 0.08); border-color: #3b82f6; color: #3b82f6; width: 100%; }
 
 .status-bar {
   padding: 8px 12px;
@@ -336,8 +363,8 @@ button {
   .whenall-row {
     flex-direction: column;
   }
-  .timeline-label {
-    width: 80px;
+  .deadlock-scene {
+    flex-direction: column;
   }
 }
 </style>

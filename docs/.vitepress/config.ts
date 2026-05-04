@@ -315,7 +315,8 @@ export default defineConfig({
           items: [
             { text: '控制流与方法', link: '/backend/csharp/control-flow-methods' },
             { text: '类与结构体', link: '/backend/csharp/classes-structs' },
-            { text: '继承与接口', link: '/backend/csharp/inheritance-interfaces' }
+            { text: '继承与接口', link: '/backend/csharp/inheritance-interfaces' },
+            { text: '模式匹配', link: '/backend/csharp/pattern-matching' }
           ]
         },
         {
@@ -323,7 +324,8 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '泛型', link: '/backend/csharp/generics' },
-            { text: '委托、事件与 Lambda', link: '/backend/csharp/delegates-events-lambda' }
+            { text: '委托、事件与 Lambda', link: '/backend/csharp/delegates-events-lambda' },
+            { text: 'Record 与不可变设计', link: '/backend/csharp/records-immutability' }
           ]
         },
         {
@@ -331,7 +333,16 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '集合', link: '/backend/csharp/collections' },
-            { text: 'LINQ', link: '/backend/csharp/linq' }
+            { text: 'LINQ', link: '/backend/csharp/linq' },
+            { text: 'LINQ 高级', link: '/backend/csharp/linq-advanced' }
+          ]
+        },
+        {
+          text: '内存与异常',
+          collapsed: false,
+          items: [
+            { text: 'GC 与内存管理', link: '/backend/csharp/gc-memory-management' },
+            { text: '异常处理', link: '/backend/csharp/exception-handling' }
           ]
         },
         {
@@ -348,7 +359,9 @@ export default defineConfig({
           items: [
             { text: 'ASP.NET Core', link: '/backend/csharp/aspnet-core' },
             { text: 'Entity Framework Core', link: '/backend/csharp/ef-core' },
-            { text: '依赖注入', link: '/backend/csharp/dependency-injection' }
+            { text: '依赖注入', link: '/backend/csharp/dependency-injection' },
+            { text: '反射与源生成器', link: '/backend/csharp/reflection-source-generators' },
+            { text: '性能调优', link: '/backend/csharp/performance-tuning' }
           ]
         }
       ],
