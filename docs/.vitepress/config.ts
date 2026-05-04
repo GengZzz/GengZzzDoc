@@ -58,7 +58,16 @@ export default defineConfig({
       { text: '插件', link: '/plugins/' },
       { text: '操作系统', link: '/os/' },
       { text: '工具', link: '/tools/' },
-      { text: 'AI', link: '/ai/' },
+      {
+        text: 'AI',
+        items: [
+          { text: '概览', link: '/ai/' },
+          { text: 'Codex', link: '/ai/codex' },
+          { text: 'Claude', link: '/ai/claude' },
+          { text: 'Gemini', link: '/ai/gemini' },
+          { text: 'OpenCode', link: '/ai/opencode' }
+        ]
+      },
       { text: '其他', link: '/other/' }
     ],
     sidebar: {
@@ -1175,13 +1184,23 @@ export default defineConfig({
       ],
       '/ai/': [
         {
-          text: 'AI',
-          collapsed: true,
+          text: '基础',
+          collapsed: false,
           items: [
             { text: '概览', link: '/ai/' },
             { text: '模型基础', link: '/ai/model-basics' },
             { text: 'Prompt', link: '/ai/prompt' },
             { text: 'Agent', link: '/ai/agent' }
+          ]
+        },
+        {
+          text: 'AI 工具',
+          collapsed: false,
+          items: [
+            { text: 'Codex', link: '/ai/codex' },
+            { text: 'Claude', link: '/ai/claude' },
+            { text: 'Gemini', link: '/ai/gemini' },
+            { text: 'OpenCode', link: '/ai/opencode' }
           ]
         }
       ],
