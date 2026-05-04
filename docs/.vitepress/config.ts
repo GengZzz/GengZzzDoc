@@ -24,8 +24,13 @@ export default defineConfig({
           { text: 'CSS3', link: '/frontend/css3/' },
           { text: 'JavaScript', link: '/frontend/javascript/' },
           { text: 'TypeScript', link: '/frontend/typescript' },
-          { text: 'Vue', link: '/frontend/vue' },
-          { text: 'Vite', link: '/frontend/vite' }
+          {
+            text: '框架',
+            items: [
+              { text: 'Vue', link: '/frontend/vue' },
+              { text: 'Vite', link: '/frontend/vite' }
+            ]
+          }
         ]
       },
       {
@@ -544,14 +549,20 @@ export default defineConfig({
       ],
       '/frontend/': [
         {
-          text: '前端',
+          text: '基础语言',
           collapsed: false,
           items: [
             { text: '概览', link: '/frontend/' },
             { text: 'HTML', link: '/frontend/html/' },
             { text: 'CSS3', link: '/frontend/css3/' },
             { text: 'JavaScript', link: '/frontend/javascript/' },
-            { text: 'TypeScript', link: '/frontend/typescript' },
+            { text: 'TypeScript', link: '/frontend/typescript' }
+          ]
+        },
+        {
+          text: '框架与工具',
+          collapsed: false,
+          items: [
             { text: 'Vue', link: '/frontend/vue' },
             { text: 'Vite', link: '/frontend/vite' }
           ]
