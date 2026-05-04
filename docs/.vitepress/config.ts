@@ -510,6 +510,64 @@ export default defineConfig({
           ]
         }
       ],
+      '/database/elasticsearch/': [
+        {
+          text: '入门',
+          items: [
+            { text: 'Elasticsearch 概览', link: '/database/elasticsearch/' },
+            { text: 'Elasticsearch 简介与安装', link: '/database/elasticsearch/introduction-install' },
+            { text: '核心概念', link: '/database/elasticsearch/basic-concepts' }
+          ]
+        },
+        {
+          text: '索引与映射',
+          collapsed: false,
+          items: [
+            { text: '映射与分词', link: '/database/elasticsearch/mapping-analysis' },
+            { text: '索引设计', link: '/database/elasticsearch/index-design' }
+          ]
+        },
+        {
+          text: '写入与存储',
+          collapsed: false,
+          items: [
+            { text: '写入流程', link: '/database/elasticsearch/write-process' },
+            { text: '存储引擎', link: '/database/elasticsearch/storage-engines' }
+          ]
+        },
+        {
+          text: '搜索深入',
+          collapsed: false,
+          items: [
+            { text: '搜索与查询', link: '/database/elasticsearch/search-queries' },
+            { text: '聚合分析', link: '/database/elasticsearch/aggregations' }
+          ]
+        },
+        {
+          text: '分布式架构',
+          collapsed: false,
+          items: [
+            { text: '分布式架构', link: '/database/elasticsearch/distributed-architecture' },
+            { text: '集群运维', link: '/database/elasticsearch/cluster-operations' }
+          ]
+        },
+        {
+          text: '性能调优与实践',
+          collapsed: true,
+          items: [
+            { text: '性能调优', link: '/database/elasticsearch/performance-tuning' },
+            { text: '实战场景', link: '/database/elasticsearch/real-world-scenarios' }
+          ]
+        },
+        {
+          text: '与数据库协作',
+          collapsed: true,
+          items: [
+            { text: 'ES + MySQL 同步', link: '/database/elasticsearch/es-mysql-sync' },
+            { text: '数据建模', link: '/database/elasticsearch/data-modeling' }
+          ]
+        }
+      ],
       '/cicd/': [
         {
           text: 'CICD',
