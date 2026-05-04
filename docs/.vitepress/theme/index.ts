@@ -15,6 +15,12 @@ import JavaInterfaceVsAbstractDemo from './components/JavaInterfaceVsAbstractDem
 import JavaObjectMemoryDemo from './components/JavaObjectMemoryDemo.vue'
 import JavaPolymorphismDemo from './components/JavaPolymorphismDemo.vue'
 import JavaStreamPipelineDemo from './components/JavaStreamPipelineDemo.vue'
+import MySQLBPlusTreeDemo from './components/MySQLBPlusTreeDemo.vue'
+import MySQLLockDemo from './components/MySQLLockDemo.vue'
+import MySQLMvccDemo from './components/MySQLMvccDemo.vue'
+import MySQLQueryExecutionDemo from './components/MySQLQueryExecutionDemo.vue'
+import MySQLReplicationDemo from './components/MySQLReplicationDemo.vue'
+import MySQLShardingDemo from './components/MySQLShardingDemo.vue'
 import './style.css'
 
 export default {
@@ -36,5 +42,11 @@ export default {
     app.component('JavaObjectMemoryDemo', JavaObjectMemoryDemo)
     app.component('JavaPolymorphismDemo', JavaPolymorphismDemo)
     app.component('JavaStreamPipelineDemo', JavaStreamPipelineDemo)
+    app.component('MySQLBPlusTreeDemo', MySQLBPlusTreeDemo)
+    app.component('MySQLLockDemo', MySQLLockDemo)
+    app.component('MySQLMvccDemo', MySQLMvccDemo)
+    app.component('MySQLQueryExecutionDemo', MySQLQueryExecutionDemo)
+    app.component('MySQLReplicationDemo', MySQLReplicationDemo)
+    app.component('MySQLShardingDemo', MySQLShardingDemo)
   }
 }

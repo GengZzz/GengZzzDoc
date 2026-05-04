@@ -283,13 +283,111 @@ export default defineConfig({
       '/database/': [
         {
           text: '数据库',
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: '概览', link: '/database/' },
-            { text: 'MySQL', link: '/database/mysql' },
+            { text: 'MySQL', link: '/database/mysql/' },
             { text: 'Redis', link: '/database/redis' },
             { text: 'MongoDB', link: '/database/mongodb' },
             { text: 'PostgreSQL', link: '/database/postgresql' }
+          ]
+        }
+      ],
+      '/database/mysql/': [
+        {
+          text: '入门',
+          items: [
+            { text: 'MySQL 概览', link: '/database/mysql/' },
+            { text: 'MySQL 简介与安装', link: '/database/mysql/introduction-setup' },
+            { text: 'SQL 基础操作', link: '/database/mysql/sql-basics' },
+            { text: '数据库与表管理', link: '/database/mysql/database-table-management' }
+          ]
+        },
+        {
+          text: 'SQL 进阶',
+          collapsed: false,
+          items: [
+            { text: '数据类型详解', link: '/database/mysql/data-types' },
+            { text: 'DDL 数据定义', link: '/database/mysql/ddl' },
+            { text: 'DML 数据操作', link: '/database/mysql/dml' },
+            { text: 'DQL 数据查询', link: '/database/mysql/dql' }
+          ]
+        },
+        {
+          text: '表设计',
+          collapsed: false,
+          items: [
+            { text: '范式与反范式', link: '/database/mysql/normalization' },
+            { text: '表结构设计实践', link: '/database/mysql/table-design' },
+            { text: '字符集与排序规则', link: '/database/mysql/charset-collation' }
+          ]
+        },
+        {
+          text: '索引技术',
+          collapsed: false,
+          items: [
+            { text: '索引原理', link: '/database/mysql/index-principles' },
+            { text: '聚簇索引与二级索引', link: '/database/mysql/clustered-secondary-index' },
+            { text: '索引优化策略', link: '/database/mysql/index-optimization' },
+            { text: '覆盖索引与索引下推', link: '/database/mysql/covering-index-icp' },
+            { text: '索引失效与排查', link: '/database/mysql/index-failure' }
+          ]
+        },
+        {
+          text: '事务与锁',
+          collapsed: false,
+          items: [
+            { text: '事务基础与 ACID', link: '/database/mysql/transaction-basics' },
+            { text: '隔离级别', link: '/database/mysql/isolation-levels' },
+            { text: 'MVCC 机制', link: '/database/mysql/mvcc' },
+            { text: '锁类型与锁策略', link: '/database/mysql/locking' },
+            { text: '死锁分析与处理', link: '/database/mysql/deadlock' }
+          ]
+        },
+        {
+          text: '查询优化',
+          collapsed: false,
+          items: [
+            { text: 'EXPLAIN 执行计划', link: '/database/mysql/explain' },
+            { text: '慢查询分析', link: '/database/mysql/slow-query' },
+            { text: 'JOIN 优化', link: '/database/mysql/join-optimization' },
+            { text: '子查询与优化器', link: '/database/mysql/subquery-optimizer' }
+          ]
+        },
+        {
+          text: '存储引擎',
+          collapsed: true,
+          items: [
+            { text: 'InnoDB 存储引擎', link: '/database/mysql/innodb' },
+            { text: 'MyISAM 与对比', link: '/database/mysql/myisam-comparison' },
+            { text: 'Buffer Pool 机制', link: '/database/mysql/buffer-pool' }
+          ]
+        },
+        {
+          text: '日志系统',
+          collapsed: true,
+          items: [
+            { text: 'Redo Log', link: '/database/mysql/redo-log' },
+            { text: 'Undo Log', link: '/database/mysql/undo-log' },
+            { text: 'Binlog', link: '/database/mysql/binlog' }
+          ]
+        },
+        {
+          text: '架构实践',
+          collapsed: true,
+          items: [
+            { text: '分库分表', link: '/database/mysql/sharding' },
+            { text: '主从复制', link: '/database/mysql/replication' },
+            { text: '读写分离', link: '/database/mysql/read-write-split' }
+          ]
+        },
+        {
+          text: '运维与安全',
+          collapsed: true,
+          items: [
+            { text: '备份与恢复', link: '/database/mysql/backup-recovery' },
+            { text: '权限管理', link: '/database/mysql/privileges' },
+            { text: '监控与调优实践', link: '/database/mysql/monitoring-tuning' }
           ]
         }
       ],
