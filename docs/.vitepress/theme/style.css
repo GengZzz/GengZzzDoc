@@ -35,6 +35,11 @@ body {
   backdrop-filter: blur(14px);
 }
 
+.VPNavScreen {
+  z-index: 40;
+  pointer-events: auto;
+}
+
 :root:not(.dark) .VPSocialLink[href*="github.com"] {
   color: #181717;
 }
