@@ -174,16 +174,104 @@ private:
 
 构造函数前加 `explicit` 可以阻止很多意外的隐式转换。初学时优先让转换显式一点，代码会更容易读。
 
-## 练习
+## C++17 核心特性
 
-1. 给 `Student` 增加 `print() const`，观察 `const Student` 能调用哪些成员函数。
-2. 写一个拥有动态数组的 `Buffer` 类，实现构造、析构、拷贝构造和赋值运算符。
-3. 写一个 `Complex` 类，重载 `+`，并保持成员函数不修改原对象。
+### 结构化绑定
 
-## 小结
+```cpp
+auto [x, y] = getPoint();
+auto [key, value] = *map.begin();
+```
 
-- `const` 是接口承诺，不只是变量修饰符。
-- 引用让传参更清晰：只读、可改、是否拷贝一眼可见。
-- 拷贝构造和赋值运算符决定对象复制时资源是否安全。
-- 静态成员用于表达类级别状态。
-- 运算符重载要服务于可读性，资源类要格外注意深拷贝。
+### std::optional
+
+表示可能不存在的值，替代魔法数字和空指针。
+
+```cpp
+optional<int> findIndex(const vector<string>& data, const string& target) {
+    for (int i = 0; i < data.size(); ++i) {
+        if (data[i] == target) return i;
+    }
+    return nullopt;
+}
+```
+
+### std::variant
+
+类型安全的 union。
+
+```cpp
+variant<int, double, string> v = 42;
+v = 3.14;
+v = "hello";
+
+visit([](auto&& val) { cout << val << endl; }, v);
+```
+
+### std::string_view
+
+非拥有字符串引用，避免不必要的拷贝。
+
+```cpp
+void process(string_view sv) {
+    cout << sv.substr(0, 5) << endl;
+}
+```
+
+### if constexpr
+
+编译期分支，详见 [高级模板](./advanced-templates.md#if-constexprc17)。
+
+### 折叠表达式
+
+简化变参模板，详见 [高级模板](./advanced-templates.md#折叠表达式c17)。
+
+## C++20 核心特性
+
+### Concepts
+
+类型约束，替代 SFINAE，详见 [高级模板](./advanced-templates.md#conceptsc20)。
+
+### Ranges
+
+惰性求值的管道式数据处理。
+
+```cpp
+#include <ranges>
+
+auto result = nums
+    | views::filter([](int n) { return n % 2 == 0; })
+    | views::transform([](int n) { return n * n; })
+    | views::take(5);
+```
+
+### 协程
+
+`co_await` / `co_yield` / `co_return` 实现无栈协程，适合异步和生成器模式。
+
+### 三路比较运算符 <=>
+
+自动生成全部比较运算符，详见 [运算符重载](./operator-overloading.md#比较运算符)。
+
+## C++23 新特性
+
+| 特性 | 说明 |
+| --- | --- |
+| `std::expected` | 错误处理，类似 Rust 的 Result |
+| `std::print` | 格式化输出，替代 printf/cout |
+| `std::flat_map` | 扁平化的有序 map |
+| `auto(x)` / `auto{x}` | 显式创建副本 |
+| `std::ranges::to<Container>` | Range 转容器 |
+
+## 专题导航
+
+现代 C++ 的深入内容分布在以下专题页：
+
+- [构造与析构](./constructors-destructors.md) — 三/五法则、移动构造、explicit
+- [运算符重载](./operator-overloading.md) — 算术/比较/流运算符、仿函数
+- [智能指针](./smart-pointers.md) — unique_ptr/shared_ptr/weak_ptr、自定义删除器
+- [移动语义](./move-semantics.md) — 左右值、std::move、完美转发、引用折叠
+- [Lambda 表达式](./lambda-expressions.md) — 捕获列表、泛型 Lambda、constexpr Lambda
+- [高级模板](./advanced-templates.md) — 特化、SFINAE、变参模板、Concepts
+- [设计模式](./design-patterns-cpp.md) — Singleton、Factory、Observer、RAII
+- [构建系统](./build-systems.md) — CMake、FetchContent、vcpkg/Conan

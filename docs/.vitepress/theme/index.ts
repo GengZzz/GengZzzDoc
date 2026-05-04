@@ -1,6 +1,9 @@
 import DefaultTheme from 'vitepress/theme'
 import Layout from './Layout.vue'
 import CppAlgorithmSortDemo from './components/CppAlgorithmSortDemo.vue'
+import CppConcurrencyDemo from './components/CppConcurrencyDemo.vue'
+import CppMoveSemanticsDemo from './components/CppMoveSemanticsDemo.vue'
+import CppSmartPointerDemo from './components/CppSmartPointerDemo.vue'
 import CppArrayIndexDemo from './components/CppArrayIndexDemo.vue'
 import CppClassObjectDemo from './components/CppClassObjectDemo.vue'
 import CppCompileFlow from './components/CppCompileFlow.vue'
@@ -41,10 +44,13 @@ export default {
   enhanceApp({ app }) {
     app.component('CppAlgorithmSortDemo', CppAlgorithmSortDemo)
     app.component('CppArrayIndexDemo', CppArrayIndexDemo)
+    app.component('CppConcurrencyDemo', CppConcurrencyDemo)
     app.component('CppClassObjectDemo', CppClassObjectDemo)
     app.component('CppCompileFlow', CppCompileFlow)
     app.component('CppInheritancePolymorphismDemo', CppInheritancePolymorphismDemo)
+    app.component('CppMoveSemanticsDemo', CppMoveSemanticsDemo)
     app.component('CppPointerAddressDemo', CppPointerAddressDemo)
+    app.component('CppSmartPointerDemo', CppSmartPointerDemo)
     app.component('CppStackHeapDemo', CppStackHeapDemo)
     app.component('CppVectorGrowthDemo', CppVectorGrowthDemo)
     app.component('JavaConcurrencyDemo', JavaConcurrencyDemo)
