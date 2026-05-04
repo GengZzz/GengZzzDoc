@@ -1,3 +1,7 @@
+---
+outline: false
+---
+
 # Codex
 
 Codex 是 OpenAI 基于 GPT 系列微调的代码生成模型，专注于代码理解、生成与转换。它曾是 GitHub Copilot 的底层引擎，也是 OpenAI API 中 `code-davinci-002` 等模型的基础。虽然 Codex 独立 API 已于 2023 年停止公开访问，但其技术已融入 ChatGPT 和 GPT-4 系列，至今仍影响着整个 AI 编程工具生态。
