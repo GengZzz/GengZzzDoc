@@ -232,16 +232,20 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '指针与引用', link: '/backend/cpp/pointers-references-resources' },
-            { text: '栈与堆', link: '/backend/cpp/stack-heap-memory' }
+            { text: '栈与堆', link: '/backend/cpp/stack-heap-memory' },
+            { text: '智能指针', link: '/backend/cpp/smart-pointers' }
           ]
         },
         {
-          text: '结构与面向对象',
+          text: '面向对象',
           collapsed: false,
           items: [
             { text: '结构体', link: '/backend/cpp/structs' },
             { text: '类与对象', link: '/backend/cpp/classes-objects' },
-            { text: '继承与多态', link: '/backend/cpp/inheritance-polymorphism' }
+            { text: '构造与析构', link: '/backend/cpp/constructors-destructors' },
+            { text: '运算符重载', link: '/backend/cpp/operator-overloading' },
+            { text: '继承与多态', link: '/backend/cpp/inheritance-polymorphism' },
+            { text: '高级面向对象', link: '/backend/cpp/advanced-oop' }
           ]
         },
         {
@@ -250,6 +254,8 @@ export default defineConfig({
           items: [
             { text: 'STL 容器', link: '/backend/cpp/stl-templates' },
             { text: '常用算法', link: '/backend/cpp/common-algorithms' },
+            { text: '移动语义', link: '/backend/cpp/move-semantics' },
+            { text: 'Lambda 表达式', link: '/backend/cpp/lambda-expressions' },
             { text: '模板基础', link: '/backend/cpp/templates-generic' }
           ]
         },
@@ -259,7 +265,11 @@ export default defineConfig({
           items: [
             { text: '文件与异常', link: '/backend/cpp/io-files-exceptions' },
             { text: '现代 C++', link: '/backend/cpp/modern-cpp' },
-            { text: '并发基础', link: '/backend/cpp/concurrency' },
+            { text: '高级模板', link: '/backend/cpp/advanced-templates' },
+            { text: '并发编程', link: '/backend/cpp/concurrency' },
+            { text: '现代并发', link: '/backend/cpp/modern-concurrency' },
+            { text: '设计模式', link: '/backend/cpp/design-patterns-cpp' },
+            { text: '构建系统', link: '/backend/cpp/build-systems' },
             { text: '工程实践', link: '/backend/cpp/engineering-practice' }
           ]
         }
