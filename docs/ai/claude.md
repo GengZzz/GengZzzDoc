@@ -19,7 +19,7 @@ Claude 基于 Anthropic 提出的 Constitutional AI（宪法 AI）理念训练�
 | Sonnet | 速度与能力平衡 | 日常编码、文档写作、中等复杂度推理 |
 | Opus | 能力最强 | 复杂架构设计、深度分析、高质量内容创作 |
 
-## 核能能力
+## 核心能力
 
 ### 长上下文理解
 
@@ -90,9 +90,21 @@ Claude Code 是 Anthropic 的官方命令行工具，让你在终端中直接使
 
 ### 安装
 
-```bash
+::: code-group
+
+```bash [npm]
 npm install -g @anthropic-ai/claude-code
 ```
+
+```bash [yarn]
+yarn global add @anthropic-ai/claude-code
+```
+
+```bash [pnpm]
+pnpm add -g @anthropic-ai/claude-code
+```
+
+:::
 
 ### 基本使用
 
@@ -145,6 +157,24 @@ Claude Code 默认在沙箱环境中运行，对文件写入和命令执行会�
 ```
 
 ## API 使用示例
+
+**安装 SDK：**
+
+::: code-group
+
+```bash [pip]
+pip install anthropic
+```
+
+```bash [poetry]
+poetry add anthropic
+```
+
+```bash [uv]
+uv add anthropic
+```
+
+:::
 
 使用 Anthropic Python SDK 调用 Claude API：
 

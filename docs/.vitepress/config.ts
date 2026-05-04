@@ -61,11 +61,16 @@ export default defineConfig({
       {
         text: 'AI',
         items: [
-          { text: '概览', link: '/ai/' },
-          { text: 'Codex', link: '/ai/codex' },
-          { text: 'Claude', link: '/ai/claude' },
-          { text: 'Gemini', link: '/ai/gemini' },
-          { text: 'OpenCode', link: '/ai/opencode' }
+          { text: 'AI 入门', link: '/ai/' },
+          {
+            text: '工具',
+            items: [
+              { text: 'Codex', link: '/ai/codex' },
+              { text: 'Claude', link: '/ai/claude' },
+              { text: 'Gemini', link: '/ai/gemini' },
+              { text: 'OpenCode', link: '/ai/opencode' }
+            ]
+          }
         ]
       },
       { text: '其他', link: '/other/' }
@@ -1187,7 +1192,7 @@ export default defineConfig({
           text: '基础',
           collapsed: false,
           items: [
-            { text: '概览', link: '/ai/' },
+            { text: 'AI 入门', link: '/ai/' },
             { text: '模型基础', link: '/ai/model-basics' },
             { text: 'Prompt', link: '/ai/prompt' },
             { text: 'Agent', link: '/ai/agent' }

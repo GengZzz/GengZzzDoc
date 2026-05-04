@@ -19,18 +19,27 @@ OpenCode 的核心设计理念是"终端优先"。与 IDE 插件不同，它在�
 
 ### 通过包管理器安装
 
-```bash
-# macOS / Linux (Homebrew)
+::: code-group
+
+```bash [Homebrew]
 brew install opencode
+```
 
-# npm 全局安装
+```bash [npm]
 npm install -g opencode
+```
 
-# 从源码构建 (需要 Go 环境)
+```bash [pnpm]
+pnpm add -g opencode
+```
+
+```bash [源码构建]
 git clone https://github.com/opencode-ai/opencode.git
 cd opencode
 go build -o opencode .
 ```
+
+:::
 
 ### 配置 API Key
 

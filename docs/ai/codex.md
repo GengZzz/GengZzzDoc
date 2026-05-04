@@ -82,6 +82,24 @@ ChatGPT（GPT-4 及以上）集成了 Codex 的代码能力，直接在对话中
 
 通过 OpenAI Python SDK 调用代码相关模型。
 
+**安装 SDK：**
+
+::: code-group
+
+```bash [pip]
+pip install openai
+```
+
+```bash [poetry]
+poetry add openai
+```
+
+```bash [uv]
+uv add openai
+```
+
+:::
+
 **代码补全示例：**
 
 ```python

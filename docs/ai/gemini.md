@@ -96,9 +96,21 @@ Gemini 已内置于 Google Docs、Sheets、Slides、Gmail 等产品中，作为�
 
 ### 安装 SDK
 
-```bash
+::: code-group
+
+```bash [pip]
 pip install google-genai
 ```
+
+```bash [poetry]
+poetry add google-genai
+```
+
+```bash [uv]
+uv add google-genai
+```
+
+:::
 
 ### 基础对话
 
