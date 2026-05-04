@@ -11,6 +11,7 @@ export default defineConfig({
   lang: 'zh-CN',
   base: '/GengZzzDoc/',
   cleanUrls: true,
+  ignoreDeadLinks: true,
   lastUpdated: true,
   themeConfig: {
     logo: '/logo.svg',
@@ -30,9 +31,10 @@ export default defineConfig({
         text: '数据库',
         items: [
           { text: 'MySQL', link: '/database/mysql/' },
-          { text: 'Redis', link: '/database/redis' },
-          { text: 'MongoDB', link: '/database/mongodb' },
-          { text: 'PostgreSQL', link: '/database/postgresql' }
+          { text: 'Redis', link: '/database/redis/' },
+          { text: 'MongoDB', link: '/database/mongodb/' },
+          { text: 'PostgreSQL', link: '/database/postgresql' },
+          { text: 'Elasticsearch', link: '/database/elasticsearch/' }
         ]
       },
       { text: 'CICD', link: '/cicd/' },
@@ -295,9 +297,64 @@ export default defineConfig({
           items: [
             { text: '概览', link: '/database/' },
             { text: 'MySQL', link: '/database/mysql/' },
-            { text: 'Redis', link: '/database/redis' },
-            { text: 'MongoDB', link: '/database/mongodb' },
-            { text: 'PostgreSQL', link: '/database/postgresql' }
+            { text: 'Redis', link: '/database/redis/' },
+            { text: 'MongoDB', link: '/database/mongodb/' },
+            { text: 'PostgreSQL', link: '/database/postgresql' },
+            { text: 'Elasticsearch', link: '/database/elasticsearch/' }
+          ]
+        }
+      ],
+      '/database/redis/': [
+        {
+          text: '入门',
+          items: [
+            { text: 'Redis 概览', link: '/database/redis/' },
+            { text: 'Redis 简介与安装', link: '/database/redis/introduction-install' },
+            { text: '数据结构与编码', link: '/database/redis/data-structures' }
+          ]
+        },
+        {
+          text: '数据结构深入',
+          collapsed: false,
+          items: [
+            { text: 'String 与 SDS', link: '/database/redis/string-implementation' },
+            { text: 'List 与阻塞队列', link: '/database/redis/list-implementation' },
+            { text: 'Hash、Set 与 ZSet', link: '/database/redis/hash-set-zset' },
+            { text: '高级数据结构', link: '/database/redis/advanced-structures' }
+          ]
+        },
+        {
+          text: '持久化',
+          collapsed: false,
+          items: [
+            { text: 'RDB 持久化', link: '/database/redis/rdb-persistence' },
+            { text: 'AOF 持久化', link: '/database/redis/aof-persistence' }
+          ]
+        },
+        {
+          text: '高可用与集群',
+          collapsed: false,
+          items: [
+            { text: '主从复制', link: '/database/redis/replication' },
+            { text: 'Sentinel 哨兵', link: '/database/redis/sentinel' },
+            { text: 'Redis Cluster', link: '/database/redis/cluster' }
+          ]
+        },
+        {
+          text: '应用场景与实践',
+          collapsed: false,
+          items: [
+            { text: '分布式锁', link: '/database/redis/distributed-lock' },
+            { text: '缓存模式', link: '/database/redis/cache-patterns' },
+            { text: 'Pipeline 与 Lua', link: '/database/redis/pipeline-lua' }
+          ]
+        },
+        {
+          text: '运维与调优',
+          collapsed: true,
+          items: [
+            { text: '内存管理', link: '/database/redis/memory-management' },
+            { text: '监控与调优', link: '/database/redis/monitoring-tuning' }
           ]
         }
       ],
@@ -396,6 +453,60 @@ export default defineConfig({
             { text: '备份与恢复', link: '/database/mysql/backup-recovery' },
             { text: '权限管理', link: '/database/mysql/privileges' },
             { text: '监控与调优实践', link: '/database/mysql/monitoring-tuning' }
+          ]
+        }
+      ],
+      '/database/mongodb/': [
+        {
+          text: '入门',
+          items: [
+            { text: 'MongoDB 概览', link: '/database/mongodb/' },
+            { text: 'MongoDB 简介与安装', link: '/database/mongodb/introduction-install' },
+            { text: '文档模型', link: '/database/mongodb/document-model' }
+          ]
+        },
+        {
+          text: 'CRUD 与查询',
+          collapsed: false,
+          items: [
+            { text: 'CRUD 操作深入', link: '/database/mongodb/crud-operations' },
+            { text: '查询、投影与排序', link: '/database/mongodb/query-projection-sort' },
+            { text: '聚合管道', link: '/database/mongodb/aggregation-pipeline' }
+          ]
+        },
+        {
+          text: '索引',
+          collapsed: false,
+          items: [
+            { text: '索引类型', link: '/database/mongodb/index-types' },
+            { text: '索引策略', link: '/database/mongodb/index-strategy' },
+            { text: '查询优化', link: '/database/mongodb/query-optimization' }
+          ]
+        },
+        {
+          text: '架构与部署',
+          collapsed: false,
+          items: [
+            { text: '副本集', link: '/database/mongodb/replica-set' },
+            { text: '分片集群', link: '/database/mongodb/sharding-cluster' },
+            { text: '事务', link: '/database/mongodb/transactions' }
+          ]
+        },
+        {
+          text: '存储引擎与数据管理',
+          collapsed: false,
+          items: [
+            { text: '存储引擎', link: '/database/mongodb/storage-engines' },
+            { text: '文档建模', link: '/database/mongodb/schema-design' }
+          ]
+        },
+        {
+          text: '运维与实践',
+          collapsed: true,
+          items: [
+            { text: 'Change Streams', link: '/database/mongodb/change-streams' },
+            { text: '备份与恢复', link: '/database/mongodb/backup-restore' },
+            { text: '监控与安全', link: '/database/mongodb/monitoring-security' }
           ]
         }
       ],

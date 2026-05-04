@@ -21,6 +21,18 @@ import MySQLMvccDemo from './components/MySQLMvccDemo.vue'
 import MySQLQueryExecutionDemo from './components/MySQLQueryExecutionDemo.vue'
 import MySQLReplicationDemo from './components/MySQLReplicationDemo.vue'
 import MySQLShardingDemo from './components/MySQLShardingDemo.vue'
+import RedisDataStructureDemo from './components/RedisDataStructureDemo.vue'
+import RedisClusterDemo from './components/RedisClusterDemo.vue'
+import RedisPersistenceDemo from './components/RedisPersistenceDemo.vue'
+import MongoReplicaSetDemo from './components/MongoReplicaSetDemo.vue'
+import MongoShardingDemo from './components/MongoShardingDemo.vue'
+import MongoAggregationDemo from './components/MongoAggregationDemo.vue'
+import EsInvertedIndexDemo from './components/EsInvertedIndexDemo.vue'
+import EsWriteProcessDemo from './components/EsWriteProcessDemo.vue'
+import EsClusterDemo from './components/EsClusterDemo.vue'
+import PgMvccDemo from './components/PgMvccDemo.vue'
+import PgQueryPlannerDemo from './components/PgQueryPlannerDemo.vue'
+import PgReplicationDemo from './components/PgReplicationDemo.vue'
 import './style.css'
 
 export default {
@@ -48,5 +60,17 @@ export default {
     app.component('MySQLQueryExecutionDemo', MySQLQueryExecutionDemo)
     app.component('MySQLReplicationDemo', MySQLReplicationDemo)
     app.component('MySQLShardingDemo', MySQLShardingDemo)
+    app.component('RedisDataStructureDemo', RedisDataStructureDemo)
+    app.component('RedisClusterDemo', RedisClusterDemo)
+    app.component('RedisPersistenceDemo', RedisPersistenceDemo)
+    app.component('MongoReplicaSetDemo', MongoReplicaSetDemo)
+    app.component('MongoShardingDemo', MongoShardingDemo)
+    app.component('MongoAggregationDemo', MongoAggregationDemo)
+    app.component('EsInvertedIndexDemo', EsInvertedIndexDemo)
+    app.component('EsWriteProcessDemo', EsWriteProcessDemo)
+    app.component('EsClusterDemo', EsClusterDemo)
+    app.component('PgMvccDemo', PgMvccDemo)
+    app.component('PgQueryPlannerDemo', PgQueryPlannerDemo)
+    app.component('PgReplicationDemo', PgReplicationDemo)
   }
 }
