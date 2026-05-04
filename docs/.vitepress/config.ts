@@ -48,26 +48,69 @@ export default defineConfig({
     sidebar: {
       '/backend/c/': [
         {
-          text: 'C 语言',
+          text: '入门',
           items: [
             { text: '概览', link: '/backend/c/' },
             { text: '程序设计与 C 语言', link: '/backend/c/getting-started' },
-            { text: '计算、变量与表达式', link: '/backend/c/calculation-variables-expressions' },
-            { text: '判断与循环', link: '/backend/c/conditions-loops' },
-            { text: '循环控制与枚举', link: '/backend/c/loop-control' },
-            { text: '数组与函数', link: '/backend/c/arrays-functions' },
-            { text: '数组运算与算法入门', link: '/backend/c/array-algorithms' },
-            { text: '指针与字符串', link: '/backend/c/pointers-strings' },
-            { text: '工程实践', link: '/backend/c/engineering-practice' }
+            { text: '开发环境搭建', link: '/backend/c/development-setup' }
           ]
         },
         {
-          text: '兼容入口',
+          text: '基础语法',
+          collapsed: false,
+          items: [
+            { text: '数据类型与表达式', link: '/backend/c/data-types-expressions' },
+            { text: '判断与循环', link: '/backend/c/control-flow' },
+            { text: '高级类型', link: '/backend/c/advanced-types' }
+          ]
+        },
+        {
+          text: '函数',
+          collapsed: false,
+          items: [
+            { text: '函数深入', link: '/backend/c/functions' }
+          ]
+        },
+        {
+          text: '指针与内存',
+          collapsed: false,
+          items: [
+            { text: '指针深入', link: '/backend/c/pointers' },
+            { text: '动态内存管理', link: '/backend/c/dynamic-memory' },
+            { text: '内存布局', link: '/backend/c/memory-layout' }
+          ]
+        },
+        {
+          text: '字符串与数组',
+          collapsed: false,
+          items: [
+            { text: '字符串处理', link: '/backend/c/strings' },
+            { text: '数组深入', link: '/backend/c/arrays' }
+          ]
+        },
+        {
+          text: '复合类型与预处理',
+          collapsed: false,
+          items: [
+            { text: '结构体与内存对齐', link: '/backend/c/structs-advanced' },
+            { text: '预处理器', link: '/backend/c/preprocessor' }
+          ]
+        },
+        {
+          text: '系统编程',
+          collapsed: false,
+          items: [
+            { text: '文件 I/O 与错误处理', link: '/backend/c/file-io-errors' },
+            { text: '进程与信号', link: '/backend/c/processes-signals' },
+            { text: '多线程与同步', link: '/backend/c/threads-sync' }
+          ]
+        },
+        {
+          text: '网络与工程',
           collapsed: true,
           items: [
-            { text: '语言基础', link: '/backend/c/language-basics' },
-            { text: '内存管理', link: '/backend/c/memory-management' },
-            { text: '网络编程', link: '/backend/c/network-programming' }
+            { text: '网络编程', link: '/backend/c/network-programming' },
+            { text: '构建与调试工具', link: '/backend/c/engineering-tools' }
           ]
         }
       ],
