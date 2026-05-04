@@ -2,6 +2,8 @@
 
 CSS 动画（Animation）通过 `@keyframes` 定义关键帧序列，比过渡更强大——支持多步骤、循环播放、延迟触发等。适合做加载动画、入场效果、持续运动等场景。
 
+<CssAnimationPlayground />
+
 ## @keyframes
 
 `@keyframes` 定义动画的关键帧序列，指定动画在不同时间点的样式。

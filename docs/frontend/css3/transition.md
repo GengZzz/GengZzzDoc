@@ -2,6 +2,8 @@
 
 CSS 过渡（Transition）让属性值的变化以平滑动画的方式呈现，而不是瞬间跳变。过渡是被动的——由用户交互（如 hover）或类名切换触发。
 
+<CssTransitionDemo />
+
 ## transition-property
 
 `transition-property` 指定哪些 CSS 属性参与过渡。可以是具体属性名、`all`（所有可过渡属性）或 `none`。
