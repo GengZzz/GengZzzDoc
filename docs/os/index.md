@@ -17,45 +17,12 @@
 
 ## 科目导航
 
-### 数据结构（45 分）
-
-| 章节 | 入口 |
-|------|------|
-| 线性表 | [开始学习](./linear-list.md) |
-| 栈与队列 | [开始学习](./stack-queue.md) |
-| 树与二叉树 | [开始学习](./tree.md) |
-| 图 | [开始学习](./graph.md) |
-| 查找 | [开始学习](./search.md) |
-| 排序 | [开始学习](./sorting.md) |
-
-### 计算机组成原理（45 分）
-
-| 章节 | 入口 |
-|------|------|
-| 数据表示与运算 | [开始学习](./data-representation.md) |
-| 存储系统 | [开始学习](./storage-system.md) |
-| 指令系统 | [开始学习](./instruction-system.md) |
-| CPU 与控制器 | [开始学习](./cpu-controller.md) |
-| 总线与 I/O | [开始学习](./bus-io.md) |
-
-### 操作系统（35 分）
-
-| 章节 | 入口 |
-|------|------|
-| 进程管理 | [开始学习](./process-management.md) |
-| 内存管理 | [开始学习](./memory-management.md) |
-| 文件系统 | [开始学习](./file-system.md) |
-| I/O 管理 | [开始学习](./io-management.md) |
-
-### 计算机网络（25 分）
-
-| 章节 | 入口 |
-|------|------|
-| 体系结构 | [开始学习](./network-architecture.md) |
-| 物理层与数据链路层 | [开始学习](./physical-datalink.md) |
-| 网络层 | [开始学习](./network-layer.md) |
-| 传输层 | [开始学习](./transport-layer.md) |
-| 应用层 | [开始学习](./application-layer.md) |
+| 科目 | 分值 | 入口 |
+|------|------|------|
+| 数据结构 | 45 分 | [开始学习](./data-structures/) |
+| 计算机组成原理 | 45 分 | [开始学习](./computer-organization/) |
+| 计算机操作系统 | 35 分 | [开始学习](./operating-system/) |
+| 计算机网络 | 25 分 | [开始学习](./computer-networks/) |
 
 ## 实用知识
 
