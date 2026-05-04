@@ -36,6 +36,12 @@ import EsClusterDemo from './components/EsClusterDemo.vue'
 import PgMvccDemo from './components/PgMvccDemo.vue'
 import PgQueryPlannerDemo from './components/PgQueryPlannerDemo.vue'
 import PgReplicationDemo from './components/PgReplicationDemo.vue'
+import CSharpGCDemo from './components/CSharpGCDemo.vue'
+import CSharpAsyncDemo from './components/CSharpAsyncDemo.vue'
+import CSharpLINQDemo from './components/CSharpLINQDemo.vue'
+import PythonGeneratorDemo from './components/PythonGeneratorDemo.vue'
+import PythonDecoratorDemo from './components/PythonDecoratorDemo.vue'
+import PythonAsyncDemo from './components/PythonAsyncDemo.vue'
 import './style.css'
 
 export default {
@@ -78,5 +84,11 @@ export default {
     app.component('PgMvccDemo', PgMvccDemo)
     app.component('PgQueryPlannerDemo', PgQueryPlannerDemo)
     app.component('PgReplicationDemo', PgReplicationDemo)
+    app.component('CSharpGCDemo', CSharpGCDemo)
+    app.component('CSharpAsyncDemo', CSharpAsyncDemo)
+    app.component('CSharpLINQDemo', CSharpLINQDemo)
+    app.component('PythonGeneratorDemo', PythonGeneratorDemo)
+    app.component('PythonDecoratorDemo', PythonDecoratorDemo)
+    app.component('PythonAsyncDemo', PythonAsyncDemo)
   }
 }
