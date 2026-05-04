@@ -13,6 +13,9 @@ export default defineConfig({
   cleanUrls: true,
   ignoreDeadLinks: true,
   lastUpdated: true,
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/GengZzzDoc/logo.svg' }],
+  ],
   themeConfig: {
     logo: '/logo.svg',
     nav: [
