@@ -49,6 +49,8 @@ import PythonAsyncDemo from './components/PythonAsyncDemo.vue'
 import PhpZvalDemo from './components/PhpZvalDemo.vue'
 import PhpRequestLifecycleDemo from './components/PhpRequestLifecycleDemo.vue'
 import PhpOpcacheDemo from './components/PhpOpcacheDemo.vue'
+import HtmlRenderPipelineDemo from './components/HtmlRenderPipelineDemo.vue'
+import HtmlShadowDomDemo from './components/HtmlShadowDomDemo.vue'
 import './style.css'
 
 export default {
@@ -104,5 +106,7 @@ export default {
     app.component('PhpZvalDemo', PhpZvalDemo)
     app.component('PhpRequestLifecycleDemo', PhpRequestLifecycleDemo)
     app.component('PhpOpcacheDemo', PhpOpcacheDemo)
+    app.component('HtmlRenderPipelineDemo', HtmlRenderPipelineDemo)
+    app.component('HtmlShadowDomDemo', HtmlShadowDomDemo)
   }
 }

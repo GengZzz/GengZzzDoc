@@ -17,7 +17,17 @@ export default defineConfig({
     logo: '/logo.svg',
     nav: [
       { text: '首页', link: '/' },
-      { text: '前端', link: '/frontend/' },
+      {
+        text: '前端',
+        items: [
+          { text: 'HTML', link: '/frontend/html/' },
+          { text: 'CSS3', link: '/frontend/css3/' },
+          { text: 'JavaScript', link: '/frontend/javascript/' },
+          { text: 'TypeScript', link: '/frontend/typescript' },
+          { text: 'Vue', link: '/frontend/vue' },
+          { text: 'Vite', link: '/frontend/vite' }
+        ]
+      },
       {
         text: '服务端',
         items: [
@@ -538,9 +548,76 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '概览', link: '/frontend/' },
-            { text: 'Vue', link: '/frontend/vue' },
+            { text: 'HTML', link: '/frontend/html/' },
+            { text: 'CSS3', link: '/frontend/css3/' },
+            { text: 'JavaScript', link: '/frontend/javascript/' },
             { text: 'TypeScript', link: '/frontend/typescript' },
+            { text: 'Vue', link: '/frontend/vue' },
             { text: 'Vite', link: '/frontend/vite' }
+          ]
+        }
+      ],
+      '/frontend/html/': [
+        {
+          text: '入门',
+          items: [
+            { text: 'HTML 概览', link: '/frontend/html/' },
+            { text: '文档结构', link: '/frontend/html/document-structure' },
+            { text: '语义化元素', link: '/frontend/html/semantic-elements' }
+          ]
+        },
+        {
+          text: '文本与链接',
+          collapsed: false,
+          items: [
+            { text: '文本元素', link: '/frontend/html/text-elements' },
+            { text: '链接与导航', link: '/frontend/html/links-navigation' }
+          ]
+        },
+        {
+          text: '表单',
+          collapsed: false,
+          items: [
+            { text: '表单与输入', link: '/frontend/html/forms-inputs' },
+            { text: '表单验证', link: '/frontend/html/form-validation' }
+          ]
+        },
+        {
+          text: '多媒体与图形',
+          collapsed: false,
+          items: [
+            { text: '图片与响应式', link: '/frontend/html/images-figures' },
+            { text: '音视频与 Canvas', link: '/frontend/html/audio-video-canvas' }
+          ]
+        },
+        {
+          text: '表格与数据',
+          collapsed: false,
+          items: [
+            { text: '表格', link: '/frontend/html/tables-data' }
+          ]
+        },
+        {
+          text: '可访问性',
+          collapsed: false,
+          items: [
+            { text: '无障碍访问', link: '/frontend/html/accessibility' }
+          ]
+        },
+        {
+          text: 'Web Components',
+          collapsed: true,
+          items: [
+            { text: '自定义元素', link: '/frontend/html/custom-elements' },
+            { text: 'Shadow DOM', link: '/frontend/html/shadow-dom-templates' }
+          ]
+        },
+        {
+          text: '性能与 SEO',
+          collapsed: true,
+          items: [
+            { text: '性能与加载', link: '/frontend/html/performance-loading' },
+            { text: 'SEO 与元标签', link: '/frontend/html/seo-meta' }
           ]
         }
       ],
