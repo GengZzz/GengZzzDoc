@@ -1,6 +1,6 @@
 # LINQ
 
-LINQ（Language Integrated Query）将查询能力直接嵌入 C# 语言，提供统一的语法操作集合、数据库、XML 等数据源。
+LINQ（Language Integrated Query）将查询能力直接嵌入 C# 语言。理解延迟执行的内部机制（yield return 状态机）和 IEnumerable vs IQueryable 的区别，是避免常见性能陷阱的关键。
 
 ## 查询语法 vs 方法语法
 
@@ -23,70 +23,100 @@ var query2 = numbers
 // 两者等价：{ 100, 64, 36, 16, 4 }
 ```
 
-## 延迟执行原理
+## yield return 编译器生成的代码
 
-LINQ 查询默认是**延迟执行（Deferred Execution）**的——只在真正需要结果时才执行。
-
-```csharp
-var source = Enumerable.Range(1, 10);
-Console.WriteLine("定义查询...");
-
-var query = source.Where(x =>
-{
-    Console.WriteLine($"  过滤: {x}");
-    return x % 2 == 0;
-});
-
-Console.WriteLine("查询已定义，但尚未执行");
-Console.WriteLine("开始枚举:");
-
-foreach (var x in query)
-{
-    Console.WriteLine($"  结果: {x}");
-}
-
-// 输出：
-// 定义查询...
-// 查询已定义，但尚未执行
-// 开始枚举:
-//   过滤: 1
-//   过滤: 2
-//   结果: 2
-//   过滤: 3
-//   过滤: 4
-//   结果: 4
-//   ...
-```
-
-### 延迟执行的内部机制
-
-延迟执行依赖 `IEnumerable<T>` + `yield return`。每个 LINQ 方法返回一个新的迭代器对象，枚举时逐元素处理。
+`yield return` 是延迟执行的核心。编译器将迭代器方法转换为一个状态机类：
 
 ```csharp
-// 简化的 Where 实现
-public static IEnumerable<T> Where<T>(
-    this IEnumerable<T> source,
-    Func<T, bool> predicate)
+// 你写的代码
+public static IEnumerable<int> Where(this IEnumerable<int> source,
+    Func<int, bool> predicate)
 {
     foreach (var item in source)
     {
         if (predicate(item))
-        {
-            yield return item;  // 暂停，返回当前元素
-        }
+            yield return item;
     }
 }
+
+// 编译器生成的简化版本
+public class WhereIterator : IEnumerable<int>, IEnumerator<int>
+{
+    private int _state;
+    private int _current;
+    private IEnumerable<int> _source;
+    private Func<int, bool> _predicate;
+    private IEnumerator<int> _sourceEnumerator;
+
+    public int Current => _current;
+    object IEnumerator.Current => _current;
+
+    public bool MoveNext()
+    {
+        switch (_state)
+        {
+            case 0:  // 初始化
+                _sourceEnumerator = _source.GetEnumerator();
+                _state = 1;
+                goto case 1;
+            case 1:  // 循环
+                while (_sourceEnumerator.MoveNext())
+                {
+                    int item = _sourceEnumerator.Current;
+                    if (_predicate(item))
+                    {
+                        _current = item;
+                        return true;  // yield return item
+                    }
+                }
+                _state = -1;  // 结束
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    public void Dispose() { _sourceEnumerator?.Dispose(); }
+    public void Reset() { throw new NotSupportedException(); }
+    public IEnumerator<int> GetEnumerator() => new WhereIterator { ... };
+}
+```
+
+每个 LINQ 方法返回一个新的迭代器对象，枚举时逐元素穿透多层迭代器。这使得 LINQ 查询是**流式处理**——一次只处理一个元素，不会将全部中间结果加载到内存。
+
+## 延迟执行与立即执行
+
+### 延迟执行的操作
+
+以下操作返回 `IEnumerable<T>` 或 `IQueryable<T>`，不会立即执行：
+
+```csharp
+// 过滤
+.Where()  .Take()  .Skip()  .Distinct()
+
+// 投影
+.Select()  .SelectMany()
+
+// 排序
+.OrderBy()  .ThenBy()  .Reverse()
+
+// 连接
+.Join()  .GroupJoin()  .Zip()
+
+// 分组
+.GroupBy()
 ```
 
 ### 立即执行的操作
 
-以下操作会触发立即执行：
+以下操作会立即执行查询：
 
 ```csharp
 // 聚合
 int count = query.Count();
 int sum = query.Sum();
 double avg = query.Average();
+int min = query.Min();
 
 // 转换
 List<int> list = query.ToList();
@@ -96,16 +126,17 @@ Dictionary<int, string> dict = query.ToDictionary(x => x, x => x.ToString());
 // 元素
 int first = query.First();
 int last = query.Last();
-int single = query.Single(x => x > 5);  // 多个匹配则抛异常
+bool any = query.Any(x => x > 5);
+bool all = query.All(x => x > 0);
 ```
 
 ::: warning 多次枚举陷阱
-每次枚举 LINQ 查询都会重新执行。如果查询有副作用（如网络请求、日志），会执行多次。解决方案：用 `.ToList()` 或 `.ToArray()` 缓存结果。
+每次枚举 LINQ 查询都会重新执行。如果查询有副作用（如网络请求、日志），会执行多次：
 
 ```csharp
 var expensiveQuery = data.Where(x => ExpensiveCheck(x));
 
-// 错误：执行两次
+// 错误：执行两次（Count 一次，First 一次）
 int count = expensiveQuery.Count();
 var first = expensiveQuery.First();
 
@@ -113,6 +144,49 @@ var first = expensiveQuery.First();
 var cached = expensiveQuery.ToList();
 int count2 = cached.Count;
 var first2 = cached.First();
+```
+
+**何时用 ToList vs ToArray？**
+- 后续需要多次枚举或需要索引访问 → `ToList`
+- 知道最终大小且不需要修改 → `ToArray`
+- 只枚举一次 → 不要 ToList，保持延迟执行
+:::
+
+## IEnumerable vs IQueryable
+
+这是 LINQ 最核心的区别：
+
+| 特性 | IEnumerable\<T\> | IQueryable\<T\> |
+| --- | --- | --- |
+| 执行位置 | 内存中（客户端） | 数据源（服务端） |
+| Lambda 类型 | `Func<T, bool>` | `Expression<Func<T, bool>>` |
+| 可分析性 | 编译为 IL，不可分析 | 表达式树，可分析和翻译 |
+| 适用场景 | 集合操作 | 数据库查询 |
+
+```csharp
+// IEnumerable<T>：在内存中执行
+IEnumerable<User> enumerable = dbContext.Users;
+var memoryFiltered = enumerable.Where(u => u.Age > 18);
+// 实际 SQL: SELECT * FROM Users（加载全部数据到内存，然后过滤）
+
+// IQueryable<T>：翻译为 SQL 在数据库执行
+IQueryable<User> queryable = dbContext.Users;
+var dbFiltered = queryable.Where(u => u.Age > 18);
+// 实际 SQL: SELECT * FROM Users WHERE Age > 18
+```
+
+::: warning IQueryable 的过早转换陷阱
+```csharp
+// 错误：AsEnumerable() 后的 Where 在内存中执行
+var result = dbContext.Orders
+    .AsEnumerable()  // 转为 IEnumerable，后续操作在内存中
+    .Where(o => o.Total > 1000);  // 在内存中过滤！数据库返回了全部订单
+
+// 正确：保持 IQueryable 直到最终执行
+var result = dbContext.Orders
+    .Where(o => o.Total > 1000)  // 翻译为 SQL
+    .AsEnumerable()               // 此时才从数据库取数据
+    .Where(o => CustomFilter(o)); // 只有不可翻译的条件才用 AsEnumerable
 ```
 :::
 
@@ -130,7 +204,7 @@ var adults = users.Where(u => u.Age >= 18);
 var names = users.Select(u => u.Name);
 
 // SelectMany：展平嵌套集合
-var allTags = users.SelectMany(u => u.Tags);  // List<List<Tag>> → IEnumerable<Tag>
+var allTags = users.SelectMany(u => u.Tags);
 ```
 
 ### 排序
@@ -146,7 +220,7 @@ var sorted = users
 
 ```csharp
 // GroupBy：分组
-var byAge = users.GroupBy(u => u.Age / 10 * 10);  // 按年龄段分组
+var byAge = users.GroupBy(u => u.Age / 10 * 10);
 foreach (var group in byAge)
 {
     Console.WriteLine($"{group.Key}s: {group.Count()} 人");
@@ -160,14 +234,6 @@ var result = users.Join(
     order => order.UserId,
     (user, order) => new { user.Name, order.Product }
 );
-
-// GroupJoin：左外连接
-var withOrders = users.GroupJoin(
-    orders,
-    user => user.Id,
-    order => order.UserId,
-    (user, oList) => new { user.Name, Orders = oList.ToList() }
-);
 ```
 
 ### 聚合
@@ -175,15 +241,10 @@ var withOrders = users.GroupJoin(
 ```csharp
 int sum = numbers.Sum();
 int max = numbers.Max();
-int min = numbers.Min();
 double avg = numbers.Average();
 
 // Aggregate：自定义聚合
-string csv = names.Aggregate(
-    "Names:",
-    (current, name) => current + $" {name},"
-);
-// 也可以用 seed
+string csv = names.Aggregate("Names:", (current, name) => current + $" {name},");
 int product = numbers.Aggregate(1, (acc, n) => acc * n);
 ```
 
@@ -198,64 +259,83 @@ var intersect = set1.Intersect(set2);   // { 3, 4 }
 var except = set1.Except(set2);         // { 1, 2 }
 ```
 
-## IQueryable 与数据库查询翻译
-
-这是 LINQ 最强大的应用场景。
+## 自定义 LINQ 扩展方法
 
 ```csharp
-// IEnumerable<T>：在内存中执行
-IEnumerable<User> enumerable = dbContext.Users;
-var memoryFiltered = enumerable.Where(u => u.Age > 18);  // 加载全部数据到内存再过滤
-
-// IQueryable<T>：翻译为 SQL 在数据库执行
-IQueryable<User> queryable = dbContext.Users;
-var dbFiltered = queryable.Where(u => u.Age > 18);  // 翻译为 SELECT * FROM Users WHERE Age > 18
-```
-
-`IQueryable` 携带**表达式树（Expression\<Func\<T, bool\>\>）**，EF Core 分析表达式树结构生成 SQL。
-
-```csharp
-var query = dbContext.Orders
-    .Include(o => o.User)           // LEFT JOIN Users
-    .Where(o => o.Total > 1000)     // WHERE Total > 1000
-    .OrderByDescending(o => o.Date) // ORDER BY Date DESC
-    .Select(o => new               // SELECT User.Name, o.Total
+public static class EnumerableExtensions
+{
+    // 批量处理：将集合分批
+    public static IEnumerable<IEnumerable<T>> Batch<T>(
+        this IEnumerable<T> source, int batchSize)
     {
-        Customer = o.User.Name,
-        o.Total
-    });
+        var batch = new List<T>(batchSize);
+        foreach (var item in source)
+        {
+            batch.Add(item);
+            if (batch.Count == batchSize)
+            {
+                yield return batch;
+                batch = new List<T>(batchSize);
+            }
+        }
+        if (batch.Count > 0)
+            yield return batch;
+    }
 
-// 此时还未执行
-var results = await query.ToListAsync();  // 执行 SQL 并返回结果
+    // DistinctBy：按特定属性去重（.NET 6 已内置，这里展示原理）
+    public static IEnumerable<T> DistinctBy<T, TKey>(
+        this IEnumerable<T> source,
+        Func<T, TKey> keySelector)
+    {
+        var seen = new HashSet<TKey>();
+        foreach (var item in source)
+        {
+            if (seen.Add(keySelector(item)))
+                yield return item;
+        }
+    }
+}
+
+// 使用
+var batches = items.Batch(100);
+foreach (var batch in batches)
+{
+    ProcessBatch(batch);
+}
 ```
 
-## 性能陷阱
-
-### N+1 查询问题
+## N+1 查询问题
 
 ```csharp
 // 错误：N+1（1 次查询订单 + N 次查询用户）
 var orders = dbContext.Orders.ToList();
 foreach (var order in orders)
 {
-    // 每次循环触发一次数据库查询
-    Console.WriteLine(order.User.Name);
+    Console.WriteLine(order.User.Name);  // 每次循环触发一次 SQL
 }
 
 // 正确：用 Include 一次性加载
 var orders2 = dbContext.Orders
     .Include(o => o.User)
     .ToList();
-```
 
-### Select 投影减少数据传输
-
-```csharp
-// 只需要 Name 和 Email，不要加载整个 User 实体
-var brief = dbContext.Users
-    .Where(u => u.IsActive)
-    .Select(u => new { u.Name, u.Email })
+// 更好：用 Select 只取需要的字段
+var result = dbContext.Orders
+    .Select(o => new { o.Id, UserName = o.User.Name, o.Total })
     .ToList();
-
-// 生成的 SQL：SELECT Name, Email FROM Users WHERE IsActive = 1
+// SQL: SELECT o.Id, u.Name, o.Total FROM Orders o JOIN Users u ON ...
 ```
+
+::: warning 过度使用 ToList 的内存问题
+```csharp
+// 错误：加载全部数据到内存
+var allUsers = dbContext.Users.ToList();
+var activeUsers = allUsers.Where(u => u.IsActive).ToList();
+
+// 正确：保持 IQueryable，让数据库过滤
+var activeUsers2 = dbContext.Users
+    .Where(u => u.IsActive)
+    .ToList();
+// SQL: SELECT * FROM Users WHERE IsActive = 1
+```
+:::

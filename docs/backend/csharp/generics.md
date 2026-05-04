@@ -1,127 +1,200 @@
 # 泛型
 
-泛型让代码在编译时确定类型，避免运行时类型转换和装箱开销。
+泛型是 C# 类型系统的核心特性。CLR 对泛型的实现方式直接影响运行时性能和内存使用——引用类型和值类型在泛型实例化时有本质区别。
 
-## 泛型类
+## 泛型基础
+
+### 泛型类与方法
 
 ```csharp
+// 泛型类
 public class Stack<T>
 {
-    private T[] _items;
+    private T[] _items = new T[10];
     private int _count;
-
-    public Stack(int capacity = 16)
-    {
-        _items = new T[capacity];
-    }
 
     public void Push(T item)
     {
-        if (_count == _items.Length)
-        {
-            Array.Resize(ref _items, _items.Length * 2);
-        }
+        if (_count == _items.Length) Array.Resize(ref _items, _count * 2);
         _items[_count++] = item;
     }
 
-    public T Pop()
-    {
-        if (_count == 0)
-            throw new InvalidOperationException("栈为空");
-        return _items[--_count];
-    }
+    public T Pop() => _items[--_count];
+}
 
-    public T Peek() => _count > 0 ? _items[_count - 1] : throw new InvalidOperationException("栈为空");
-    public int Count => _count;
+// 泛型方法
+public T Max<T>(T a, T b) where T : IComparable<T>
+{
+    return a.CompareTo(b) >= 0 ? a : b;
 }
 
 // 使用
 var intStack = new Stack<int>();
 intStack.Push(42);
-int value = intStack.Pop();  // 无需类型转换
-
-var strStack = new Stack<string>();
-strStack.Push("hello");
+int value = intStack.Pop();  // 42
 ```
 
-## 泛型方法
+### 泛型约束完整列表
+
+| 约束 | 含义 |
+| --- | --- |
+| `where T : class` | T 必须是引用类型 |
+| `where T : class?` | T 必须是引用类型（可为 null） |
+| `where T : struct` | T 必须是值类型（非 Nullable） |
+| `where T : notnull` | T 必须是非 null 类型 |
+| `where T : unmanaged` | T 必须是非托管类型（无引用类型字段） |
+| `where T : new()` | T 必须有无参构造函数 |
+| `where T : BaseClass` | T 必须继承自 BaseClass |
+| `where T : IInterface` | T 必须实现 IInterface |
+| `where T : U` | T 必须是 U 或 U 的派生类 |
+| `where T : default` | 解决约束冲突（用于 override 场景） |
+| `where T : Enum` | T 必须是枚举类型（C# 7.3+） |
+| `where T : Delegate` | T 必须是委托类型（C# 10+） |
 
 ```csharp
-public static class ArrayHelper
+// 多约束示例
+public TEntity Create<TEntity>(string name)
+    where TEntity : IEntity, new()
+    where TEntity : class, notnull
 {
-    public static T[] Filter<T>(T[] source, Func<T, bool> predicate)
-    {
-        var result = new List<T>();
-        foreach (var item in source)
-        {
-            if (predicate(item))
-                result.Add(item);
-        }
-        return result.ToArray();
-    }
-
-    // 多个泛型参数
-    public static TResult[] Transform<TSource, TResult>(
-        TSource[] source,
-        Func<TSource, TResult> selector)
-    {
-        var result = new TResult[source.Length];
-        for (int i = 0; i < source.Length; i++)
-        {
-            result[i] = selector(source[i]);
-        }
-        return result;
-    }
+    var entity = new TEntity();
+    entity.Name = name;
+    return entity;
 }
-
-// 使用
-int[] numbers = { 1, 2, 3, 4, 5, 6 };
-int[] evens = ArrayHelper.Filter(numbers, x => x % 2 == 0);
-string[] labels = ArrayHelper.Transform(numbers, n => $"#{n}");
 ```
 
-## 泛型约束
-
-约束限定泛型参数必须满足的条件，让编译器知道能对 T 做什么操作。
+### 泛型递归约束
 
 ```csharp
-// where T : class        —— T 必须是引用类型
-// where T : struct       —— T 必须是值类型（不含 Nullable）
-// where T : notnull      —— T 不能是可空类型（C# 8+）
-// where T : new()        —— T 必须有无参构造函数
-// where T : BaseClass    —— T 必须继承自 BaseClass
-// where T : IComparable  —— T 必须实现 IComparable
-// where T : unmanaged    —— T 必须是非托管类型（无引用类型字段）
-// where T : default      —— 消除与非约束类型的重载歧义（C# 9+）
-
-// 实际示例：通用排序
-public static T Max<T>(T[] items) where T : IComparable<T>
+// 经典的自引用泛型模式：接口约束自身
+public interface IEntity<TSelf> where TSelf : IEntity<TSelf>
 {
-    if (items.Length == 0)
-        throw new ArgumentException("数组为空");
-
-    T max = items[0];
-    for (int i = 1; i < items.Length; i++)
-    {
-        if (items[i].CompareTo(max) > 0)
-            max = items[i];
-    }
-    return max;
+    TSelf Clone();
+    bool Equals(TSelf other);
 }
 
-// 实例工厂
-public static T CreateInstance<T>() where T : new()
+public class Order : IEntity<Order>
 {
-    return new T();  // 有了 new() 约束才能调用 new T()
-}
-
-// 多重约束
-public void Process<T>(T item)
-    where T : class, IComparable<T>, new()
-{
-    // T 必须是引用类型、实现 IComparable<T>、有无参构造函数
+    public Order Clone() => new Order { Id = Id, Total = Total };
+    public bool Equals(Order other) => Id == other.Id;
+    public int Id { get; set; }
+    public decimal Total { get; set; }
 }
 ```
+
+## CLR 泛型实现原理
+
+### 引用类型共享 vs 值类型特化
+
+CLR 对泛型有两种不同的代码生成策略：
+
+| 类型参数 | 策略 | 原因 |
+| --- | --- | --- |
+| 引用类型 | 共享一份 JIT 编译代码 | 所有引用类型在内存中都是指针，操作方式相同 |
+| 值类型 | 每种类型特化一份代码 | 值类型大小不同，需要不同的 IL 代码 |
+
+```
+List<string>   ──→ 共享代码（string 是引用类型）
+List<object>   ──→ 共享代码（与 List<string> 用同一份机器码）
+List<int>      ──→ 特化代码（int 是值类型，4 字节）
+List<double>   ──→ 特化代码（与 List<int> 不同，8 字节）
+List<MyStruct> ──→ 特化代码（每个 struct 都有一份）
+```
+
+这意味着：
+- `List<string>`、`List<object>`、`List<Dog>` 共享同一份机器码，节省内存
+- `List<int>`、`List<double>`、`List<MyStruct>` 各有一份，值类型泛型太多会增加内存
+
+::: tip 泛型与 GC
+引用类型的共享泛型代码不涉及 GC 特殊处理。值类型的特化代码中，GC 知道值类型字段的精确布局，可以正确追踪引用类型字段。
+:::
+
+## 协变与逆变
+
+### 协变（out）：输出位置
+
+```csharp
+// IEnumerable<out T> 是协变的
+IEnumerable<string> strings = new List<string>();
+IEnumerable<object> objects = strings;  // 安全：string 是 object 的子类型
+
+// 为什么安全？
+// 因为 IEnumerable<string> 只产出 string
+// 每个 string 都是 object，所以赋值给 IEnumerable<object> 安全
+```
+
+### 逆变（in）：输入位置
+
+```csharp
+// Action<in T> 是逆变的
+Action<object> actObj = obj => Console.WriteLine(obj);
+Action<string> actStr = actObj;  // 安全：期望处理 string 的地方给了能处理 object 的
+
+// 为什么安全？
+// actObj 能处理任何 object，当然也能处理 string
+```
+
+### 类型安全证明
+
+协变和逆变的类型安全基于里氏替换原则：
+
+- **协变（out）**：如果 `Dog : Animal`，则 `IEnumerable<Dog> : IEnumerable<Animal>`（输出类型可以收窄）
+- **逆变（in）**：如果 `Dog : Animal`，则 `Action<Animal> : Action<Dog>`（输入类型可以放宽）
+
+```csharp
+// 协变只允许在输出位置（返回值、get 属性）
+public interface IEnumerable<out T>  // out T：只能作为返回值
+{
+    IEnumerator<T> GetEnumerator();
+}
+
+// 逆变只允许在输入位置（方法参数、set 属性）
+public interface IComparer<in T>  // in T：只能作为参数
+{
+    int Compare(T x, T y);
+}
+```
+
+::: warning 协变逆变的限制
+- 只能用于接口和委托，不能用于类和结构体
+- 只能用于引用类型（`IEnumerable<int>` 不协变，因为 int 是值类型）
+- 只影响引用转换，不创建新集合
+:::
+
+## 泛型的性能特征
+
+### 装箱消除
+
+泛型最大的性能优势之一是消除值类型的装箱：
+
+```csharp
+// 非泛型集合：每次 Add 装箱
+var list = new ArrayList();
+list.Add(42);  // int 装箱为 object
+int val = (int)list[0];  // 拆箱
+
+// 泛型集合：无装箱
+var genericList = new List<int>();
+genericList.Add(42);  // 直接存储 int，无装箱
+int val2 = genericList[0];  // 无拆箱
+```
+
+### JIT 编译开销
+
+首次使用新的泛型实例化时有 JIT 编译开销：
+
+| 场景 | JIT 编译次数 |
+| --- | --- |
+| `List<string>` | 1 次（首次使用引用类型泛型时） |
+| `List<Dog>` | 0 次（共享 `List<string>` 的代码） |
+| `List<int>` | 1 次（值类型特化） |
+| `List<double>` | 1 次（值类型特化） |
+
+::: warning 泛型与 Native AOT
+AOT 编译时需要预先知道所有泛型实例化。引用类型的共享策略大幅减少了需要特化的代码量。值类型泛型仍然需要为每种类型生成代码，这会增加 AOT 产物的大小。
+
+AOT 不支持某些运行时泛型实例化场景，如通过反射创建 `List<T>`（T 运行时确定）。
+:::
 
 ## 泛型接口
 
@@ -147,68 +220,31 @@ public class UserRepository : IRepository<User>
 }
 ```
 
-## 协变与逆变
-
-协变和逆变让泛型类型的赋值更灵活。
-
-### 协变（out T）—— 只读输出
+## default 关键字
 
 ```csharp
-// IEnumerable<out T> 是协变的
-IEnumerable<string> strings = new List<string>();
-IEnumerable<object> objects = strings;  // string 是 object 的子类，OK
-
-// 协变要求 T 只出现在输出位置（返回值）
-public interface IEnumerable<out T>
+// 泛型中的 default：获取类型的默认值
+T CreateDefault<T>()
 {
-    IEnumerator<T> GetEnumerator();
-    // T 只作为返回值出现，所以可以协变
+    return default(T);  // 引用类型 → null，值类型 → 0/false
+}
+
+// C# 7.1+ 可以省略类型
+T result = default;
+```
+
+## typeof 与泛型
+
+```csharp
+// typeof 用于泛型类型
+Type listType = typeof(List<>);  // 开放泛型类型
+Type intListType = typeof(List<int>);  // 封闭泛型类型
+
+// 泛型类型参数的类型信息
+public void PrintType<T>()
+{
+    Console.WriteLine(typeof(T).Name);
+    Console.WriteLine(typeof(T).IsValueType);  // 是否值类型
+    Console.WriteLine(typeof(T).IsClass);      // 是否引用类型
 }
 ```
-
-### 逆变（in T）—— 只写输入
-
-```csharp
-// IComparer<in T> 是逆变的
-IComparer<object> objectComparer = /* ... */;
-IComparer<string> stringComparer = objectComparer;  // 反向赋值
-
-// 逆变要求 T 只出现在输入位置（参数）
-public interface IComparer<in T>
-{
-    int Compare(T x, T y);
-    // T 只作为参数出现，所以可以逆变
-}
-```
-
-### 实际应用
-
-```csharp
-// Action<in T>：逆变
-Action<object> logObj = obj => Console.WriteLine(obj);
-Action<string> logStr = logObj;  // OK：任何处理 object 的函数也能处理 string
-
-// Func<out TResult>：协变
-Func<string> getName = () => "Alice";
-Func<object> getObject = getName;  // OK：返回 string 的函数也可以视为返回 object
-```
-
-## 泛型与性能
-
-泛型的核心优势是**避免装箱和类型转换**。
-
-```csharp
-// 非泛型 ArrayList：存储 object，值类型会装箱
-var list1 = new ArrayList();
-list1.Add(42);             // int 装箱为 object
-int x = (int)list1[0];    // 拆箱 + 类型转换
-
-// 泛型 List<T>：存储具体类型，无装箱
-var list2 = new List<int>();
-list2.Add(42);             // 无装箱，直接存储 int
-int y = list2[0];          // 无拆箱，无类型转换
-```
-
-::: tip 泛型的运行时实现
-CLR 为每个泛型类型维护一个内部表示。引用类型（如 `List<string>`、`List<object>`）共享同一份 JIT 编译代码（因为引用都是指针大小相同）。值类型（如 `List<int>`、`List<double>`）各自生成独立代码，因为内存布局不同。这比 C++ 模板的全展开实例化更节省空间。
-:::

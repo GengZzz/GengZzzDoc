@@ -1,67 +1,129 @@
 # 继承与接口
 
-## 继承
+C# 的继承体系基于虚方法表（vtable）实现方法调度，接口调度有其独立的机制。理解这些底层原理对编写高性能多态代码至关重要。
 
-C# 只支持单继承（一个类只能有一个父类），但可以实现多个接口。
+## 虚方法表（vtable）
+
+CLR 通过虚方法表实现多态调用。每个类型有一个 vtable，虚方法调用时通过 vtable 查找实际实现：
+
+```
+┌─────────────────────────────────────────┐
+│  Animal 的 MethodTable                   │
+├─────────────────────────────────────────┤
+│  TypeHandle → EEClass                   │
+│  vtable:                                │
+│    [0] → Animal.Speak()                 │
+│    [1] → Animal.Eat()                   │
+│    [2] → Object.ToString()              │
+│    ...                                  │
+└─────────────────────────────────────────┘
+
+┌─────────────────────────────────────────┐
+│  Dog 的 MethodTable                      │
+├─────────────────────────────────────────┤
+│  TypeHandle → EEClass                   │
+│  vtable:                                │
+│    [0] → Dog.Speak()    （重写）          │
+│    [1] → Animal.Eat()   （继承）          │
+│    [2] → Object.ToString()              │
+│    ...                                  │
+└─────────────────────────────────────────┘
+```
+
+虚方法调用（`animal.Speak()`）的 IL：
+
+```il
+// 虚方法调用：通过 vtable 查找
+IL_0001: ldloc.0             // 加载 animal 引用
+IL_0002: callvirt instance void Animal::Speak()  // 通过 vtable 调用
+```
+
+`callvirt` 指令会：
+1. 检查引用是否为 null（null 检查）
+2. 获取对象的 MethodTable
+3. 从 vtable 中按槽位索引获取方法地址
+4. 调用该方法
+
+::: warning callvirt 与 null 检查
+即使是非虚方法，C# 编译器也会用 `callvirt` 调用实例方法（而非 `call`），因为 `callvirt` 会做 null 检查。只有静态方法和 base 调用才用 `call`。
+:::
+
+## 继承基础
+
+### virtual / override / sealed
 
 ```csharp
 public class Animal
 {
-    public string Name { get; set; }
-
-    // virtual：允许子类重写
     public virtual void Speak()
     {
-        Console.WriteLine($"{Name} 发出了声音");
+        Console.WriteLine("...");
     }
 
-    // 非虚方法：子类用 new 隐藏（不推荐）
-    public void Eat()
+    public void Eat()  // 非虚方法，不能被 override
     {
-        Console.WriteLine($"{Name} 在吃东西");
+        Console.WriteLine("吃东西");
     }
 }
 
 public class Dog : Animal
 {
-    // override：重写虚方法
     public override void Speak()
     {
-        Console.WriteLine($"{Name} 汪汪叫");
+        Console.WriteLine("汪汪");
     }
 
-    // sealed override：禁止进一步重写
-    public sealed override string ToString()
+    // sealed override 阻止进一步重写
+    public sealed override void Eat()
     {
-        return $"Dog: {Name}";
+        Console.WriteLine("啃骨头");
     }
 }
 
-public class Puppy : Dog
+public class Husky : Dog
 {
-    // 无法重写 sealed 的 ToString
-    // public override string ToString() { }  // 编译错误
-
-    public override void Speak()
-    {
-        Console.WriteLine($"{Name} 奶声奶气地叫");
-    }
+    // 不能重写 Eat，因为 Dog sealed 了
+    // override void Eat() { }  // 编译错误
 }
 ```
+
+### new 关键字：方法隐藏
+
+```csharp
+public class Base
+{
+    public void Show() => Console.WriteLine("Base");
+}
+
+public class Derived : Base
+{
+    public new void Show() => Console.WriteLine("Derived");
+}
+
+Base b = new Derived();
+b.Show();  // "Base"（调用 Base.Show，非虚方法按引用类型分派）
+
+Derived d = new Derived();
+d.Show();  // "Derived"
+```
+
+::: warning new 与 override 的区别
+- `override`：修改 vtable 中的槽位，虚方法调用时派生类的实现会被调用
+- `new`：不修改 vtable，创建新方法。通过基类引用调用时仍然调用基类方法
+
+在大多数情况下，应该使用 `override` 而非 `new`。
+:::
 
 ### 多态的本质
 
 ```csharp
 Animal animal = new Dog { Name = "旺财" };
-animal.Speak();  // "旺财 汪汪叫" —— 调用的是 Dog.Speak()
+animal.Speak();  // "旺财 汪汪叫" —— 运行时根据实际类型调用 Dog.Speak()
 
-// 运行时根据实际类型调用对应的方法（虚方法表 vtable）
+// 编译时类型是 Animal，运行时类型是 Dog
+// Speak() 是 virtual，所以运行时查 vtable 获取 Dog.Speak()
 // 如果 Speak() 不是 virtual，则调用 Animal.Speak()
 ```
-
-::: warning virtual 与性能
-虚方法调用需要查虚方法表（vtable），比直接调用多一次间接寻址。在极高性能场景（如每帧循环百万次）可考虑用 `sealed class` 或非虚方法。编译器的去虚拟化优化（Devirtualization）在某些条件下可以消除这个开销。
-:::
 
 ## 抽象类
 
@@ -87,22 +149,34 @@ public class Circle : Shape
         return Math.PI * Radius * Radius;
     }
 }
-
-public class Rectangle : Shape
-{
-    public double Width { get; set; }
-    public double Height { get; set; }
-
-    public override double Area()
-    {
-        return Width * Height;
-    }
-}
 ```
 
 ## 接口
 
-接口定义行为契约，不含实现（C# 8 之前）。
+### 接口调度（Interface Dispatch）
+
+接口方法调用比虚方法调用更复杂，因为类可以实现多个接口，vtable 不能直接索引：
+
+```
+调用 obj.Method() （obj 实现了 IMyInterface）
+  │
+  ▼
+[获取对象的 MethodTable]
+  │
+  ▼
+[接口映射表：MethodTable → InterfaceMap]
+  │
+  ▼
+[在 InterfaceMap 中查找 IMyInterface]
+  │
+  ▼
+[获取 IMyInterface 的方法槽位]
+  │
+  ▼
+[调用对应方法]
+```
+
+接口调度比虚方法调度多一次查找，性能略低。.NET 运行时通过 **Devirtualization**（去虚拟化）在 JIT 阶段优化此开销。
 
 ```csharp
 public interface ILogger
@@ -111,7 +185,6 @@ public interface ILogger
     void LogError(string message, Exception ex);
 }
 
-// 实现接口
 public class ConsoleLogger : ILogger
 {
     public void Log(string message)
@@ -124,42 +197,16 @@ public class ConsoleLogger : ILogger
         Console.WriteLine($"[ERROR] {message}: {ex.Message}");
     }
 }
-
-// 一个类实现多个接口
-public class FileLogger : ILogger, IDisposable
-{
-    private StreamWriter _writer;
-
-    public FileLogger(string path)
-    {
-        _writer = new StreamWriter(path, append: true);
-    }
-
-    public void Log(string message)
-    {
-        _writer.WriteLine($"[INFO] {DateTime.Now}: {message}");
-    }
-
-    public void LogError(string message, Exception ex)
-    {
-        _writer.WriteLine($"[ERROR] {DateTime.Now}: {message}: {ex}");
-    }
-
-    public void Dispose()
-    {
-        _writer?.Dispose();
-    }
-}
 ```
 
-### 接口默认实现（C# 8+）
+### 接口的默认实现（C# 8+）
 
 ```csharp
 public interface INotifier
 {
     void Send(string message);
 
-    // 默认实现：提供一个便捷方法
+    // 默认实现
     void SendToAll(IEnumerable<string> recipients, string message)
     {
         foreach (var r in recipients)
@@ -170,63 +217,111 @@ public interface INotifier
 }
 ```
 
-### 抽象类 vs 接口选择
+::: warning 菱形继承问题
+接口默认实现带来了类似 C++ 的菱形继承问题：
 
-| 维度 | 抽象类 | 接口 |
+```csharp
+public interface IA { void Method() => Console.WriteLine("IA"); }
+public interface IB { void Method() => Console.WriteLine("IB"); }
+public class C : IA, IB { }  // C 必须显式解决歧义
+
+// 用基接口指定优先级
+public class C : IA, IB
+{
+    void IA.Method() => Console.WriteLine("IA 优先");
+}
+```
+:::
+
+### 显式接口实现
+
+```csharp
+public interface IReadable
+{
+    byte Read();
+}
+
+public interface IWritable
+{
+    void Write(byte data);
+}
+
+public class MyStream : IReadable, IWritable
+{
+    // 显式实现：只能通过接口引用调用
+    byte IReadable.Read() => 0;
+    void IWritable.Write(byte data) { }
+
+    // 隐式实现：直接通过对象调用
+    public void Flush() { }
+}
+
+var stream = new MyStream();
+stream.Flush();              // OK
+// stream.Read();            // 编译错误：Read 是显式实现
+IReadable reader = stream;
+reader.Read();               // OK
+```
+
+### sealed 类与方法
+
+```csharp
+// sealed 类：不能被继承（JIT 可去虚拟化优化性能）
+public sealed class Singleton
+{
+    public static Singleton Instance { get; } = new Singleton();
+    private Singleton() { }
+}
+```
+
+::: tip sealed 的性能优势
+sealed 类的虚方法调用可能被 JIT 去虚拟化为直接调用，避免 vtable 查找开销。
+:::
+
+## 抽象类 vs 接口
+
+| 特性 | 抽象类 | 接口 |
 | --- | --- | --- |
-| 继承数量 | 单继承 | 可实现多个 |
-| 状态 | 可以有字段 | 不能有字段（C# 8+ 可有默认实现） |
-| 构造函数 | 有 | 没有 |
-| 适用场景 | "是什么"（is-a 关系） | "能做什么"（能力契约） |
-| 性能 | 直接调用 | 接口调用略慢（但 JIT 可优化） |
+| 实例化 | 不能 | 不能 |
+| 构造函数 | 可以有 | 不能有 |
+| 字段 | 可以有 | 不能有（C# 8 后可有静态成员） |
+| 方法实现 | 可以有 | C# 8+ 可以有默认实现 |
+| 继承 | 单继承 | 多实现 |
+| 访问修饰符 | 支持 | 所有成员默认 public |
 
-## 模式匹配
+::: tip 选择原则
+- **抽象类**：有共享状态或实现逻辑，is-a 关系明确
+- **接口**：定义能力/契约，can-do 关系，需要多实现
+- .NET 8+ 趋势：更多使用接口 + 默认实现，减少抽象类的使用
+:::
 
-模式匹配让类型检查和数据提取更简洁。
+## 模式匹配与类型判断
 
-### 类型模式（C# 7+）
+### is 运算符
 
 ```csharp
-if (shape is Circle c)
+// is 类型检查
+if (animal is Dog dog)
 {
-    Console.WriteLine($"圆的半径: {c.Radius}");
+    dog.Bark();  // 直接使用转换后的变量
 }
+
+// is null 检查（不触发 == 运算符重载）
+if (obj is null) { }
+
+// is not（C# 9+）
+if (animal is not Dog) { }
 ```
 
-### 属性模式（C# 8+）
+### switch 模式匹配
 
 ```csharp
-bool IsPremium(User user) => user switch
+string Describe(Animal animal) => animal switch
 {
-    { Subscription: "Premium", IsActive: true } => true,
-    _ => false
+    Dog { Name: var name } => $"一只叫{name}的狗",
+    Cat { Age: < 2 } => "小猫",
+    Cat => "大猫",
+    null => "空",
+    _ => "未知动物"
 };
-```
-
-### 关系模式（C# 9+）
-
-```csharp
-string Classify(double temperature) => temperature switch
-{
-    < 0 => "冰冻",
-    >= 0 and < 20 => "寒冷",
-    >= 20 and < 30 => "舒适",
-    >= 30 => "炎热"
-};
-```
-
-### 列表模式（C# 11+）
-
-```csharp
-int[] numbers = { 1, 2, 3, 4, 5 };
-
-if (numbers is [1, 2, ..])  // 以 1, 2 开头
-{
-    Console.WriteLine("以 1, 2 开头");
-}
-
-if (numbers is [_, _, var third, ..])  // 提取第三个元素
-{
-    Console.WriteLine($"第三个元素: {third}");  // 3
-}
 ```
