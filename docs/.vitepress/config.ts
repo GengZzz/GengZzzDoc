@@ -58,12 +58,11 @@ export default defineConfig({
       { text: '插件', link: '/plugins/' },
       {
         text: '408',
-        link: '/os/',
         items: [
-          { text: '计算机操作系统', link: '/os/os' },
-          { text: '计算机组成原理', link: '/os/computer-organization' },
-          { text: '数据结构', link: '/os/data-structures' },
-          { text: '计算机网络', link: '/os/computer-networks' }
+          { text: '计算机操作系统', link: '/os/operating-system/' },
+          { text: '计算机组成原理', link: '/os/computer-organization/' },
+          { text: '数据结构', link: '/os/data-structures/' },
+          { text: '计算机网络', link: '/os/computer-networks/' }
         ]
       },
       { text: '工具', link: '/tools/' },
@@ -1174,51 +1173,55 @@ export default defineConfig({
           ]
         }
       ],
-      '/os/': [
+      '/os/operating-system/': [
         {
           text: '计算机操作系统',
           collapsed: false,
           items: [
-            { text: '进程管理', link: '/os/process-management' },
-            { text: '内存管理', link: '/os/memory-management' },
-            { text: '文件系统', link: '/os/file-system' },
-            { text: 'I/O 管理', link: '/os/io-management' },
-            { text: 'Linux', link: '/os/linux' },
-            { text: 'Windows', link: '/os/windows' }
+            { text: '进程管理', link: '/os/operating-system/process-management' },
+            { text: '内存管理', link: '/os/operating-system/memory-management' },
+            { text: '文件系统', link: '/os/operating-system/file-system' },
+            { text: 'I/O 管理', link: '/os/operating-system/io-management' }
           ]
-        },
+        }
+      ],
+      '/os/computer-organization/': [
         {
           text: '计算机组成原理',
           collapsed: false,
           items: [
-            { text: '数据表示与运算', link: '/os/data-representation' },
-            { text: '存储系统', link: '/os/storage-system' },
-            { text: '指令系统', link: '/os/instruction-system' },
-            { text: 'CPU 与控制器', link: '/os/cpu-controller' },
-            { text: '总线与 I/O', link: '/os/bus-io' }
+            { text: '数据表示与运算', link: '/os/computer-organization/data-representation' },
+            { text: '存储系统', link: '/os/computer-organization/storage-system' },
+            { text: '指令系统', link: '/os/computer-organization/instruction-system' },
+            { text: 'CPU 与控制器', link: '/os/computer-organization/cpu-controller' },
+            { text: '总线与 I/O', link: '/os/computer-organization/bus-io' }
           ]
-        },
+        }
+      ],
+      '/os/data-structures/': [
         {
           text: '数据结构',
           collapsed: false,
           items: [
-            { text: '线性表', link: '/os/linear-list' },
-            { text: '栈与队列', link: '/os/stack-queue' },
-            { text: '树与二叉树', link: '/os/tree' },
-            { text: '图', link: '/os/graph' },
-            { text: '查找', link: '/os/search' },
-            { text: '排序', link: '/os/sorting' }
+            { text: '线性表', link: '/os/data-structures/linear-list' },
+            { text: '栈与队列', link: '/os/data-structures/stack-queue' },
+            { text: '树与二叉树', link: '/os/data-structures/tree' },
+            { text: '图', link: '/os/data-structures/graph' },
+            { text: '查找', link: '/os/data-structures/search' },
+            { text: '排序', link: '/os/data-structures/sorting' }
           ]
-        },
+        }
+      ],
+      '/os/computer-networks/': [
         {
           text: '计算机网络',
           collapsed: false,
           items: [
-            { text: '体系结构', link: '/os/network-architecture' },
-            { text: '物理层与数据链路层', link: '/os/physical-datalink' },
-            { text: '网络层', link: '/os/network-layer' },
-            { text: '传输层', link: '/os/transport-layer' },
-            { text: '应用层', link: '/os/application-layer' }
+            { text: '体系结构', link: '/os/computer-networks/network-architecture' },
+            { text: '物理层与数据链路层', link: '/os/computer-networks/physical-datalink' },
+            { text: '网络层', link: '/os/computer-networks/network-layer' },
+            { text: '传输层', link: '/os/computer-networks/transport-layer' },
+            { text: '应用层', link: '/os/computer-networks/application-layer' }
           ]
         }
       ],
