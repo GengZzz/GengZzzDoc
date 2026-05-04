@@ -51,6 +51,9 @@ import PhpRequestLifecycleDemo from './components/PhpRequestLifecycleDemo.vue'
 import PhpOpcacheDemo from './components/PhpOpcacheDemo.vue'
 import HtmlRenderPipelineDemo from './components/HtmlRenderPipelineDemo.vue'
 import HtmlShadowDomDemo from './components/HtmlShadowDomDemo.vue'
+import JsEventLoopDemo from './components/JsEventLoopDemo.vue'
+import JsPromiseChainDemo from './components/JsPromiseChainDemo.vue'
+import JsPrototypeChainDemo from './components/JsPrototypeChainDemo.vue'
 import './style.css'
 
 export default {
@@ -108,5 +111,8 @@ export default {
     app.component('PhpOpcacheDemo', PhpOpcacheDemo)
     app.component('HtmlRenderPipelineDemo', HtmlRenderPipelineDemo)
     app.component('HtmlShadowDomDemo', HtmlShadowDomDemo)
+    app.component('JsEventLoopDemo', JsEventLoopDemo)
+    app.component('JsPromiseChainDemo', JsPromiseChainDemo)
+    app.component('JsPrototypeChainDemo', JsPrototypeChainDemo)
   }
 }
