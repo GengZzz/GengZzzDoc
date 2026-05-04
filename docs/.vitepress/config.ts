@@ -619,6 +619,101 @@ export default defineConfig({
           ]
         }
       ],
+      '/frontend/css3/': [
+        {
+          text: '入门',
+          items: [
+            { text: '概览', link: '/frontend/css3/' },
+            { text: '选择器', link: '/frontend/css3/selectors' },
+            { text: '盒模型', link: '/frontend/css3/box-model' }
+          ]
+        },
+        {
+          text: '布局',
+          collapsed: false,
+          items: [
+            { text: 'Flex 布局', link: '/frontend/css3/flexbox' },
+            { text: 'Grid 布局', link: '/frontend/css3/grid' },
+            { text: '定位', link: '/frontend/css3/positioning' }
+          ]
+        },
+        {
+          text: '视觉效果',
+          collapsed: false,
+          items: [
+            { text: '背景与边框', link: '/frontend/css3/background-border' },
+            { text: '变换', link: '/frontend/css3/transform' },
+            { text: '过渡', link: '/frontend/css3/transition' },
+            { text: '动画', link: '/frontend/css3/animation' }
+          ]
+        },
+        {
+          text: '响应式与进阶',
+          collapsed: false,
+          items: [
+            { text: '媒体查询', link: '/frontend/css3/media-queries' },
+            { text: '响应式设计', link: '/frontend/css3/responsive-design' },
+            { text: 'CSS 变量', link: '/frontend/css3/variables' },
+            { text: '排版与文本', link: '/frontend/css3/typography-text' },
+            { text: '现代 CSS', link: '/frontend/css3/modern-css' }
+          ]
+        }
+      ],
+      '/frontend/typescript/': [
+        {
+          text: '入门',
+          items: [
+            { text: '概览', link: '/frontend/typescript/' },
+            { text: '简介与环境搭建', link: '/frontend/typescript/introduction-setup' },
+            { text: '基础类型', link: '/frontend/typescript/basic-types' }
+          ]
+        },
+        {
+          text: '类型系统',
+          collapsed: false,
+          items: [
+            { text: '类型断言', link: '/frontend/typescript/type-assertion' },
+            { text: '接口', link: '/frontend/typescript/interfaces' },
+            { text: '类型别名', link: '/frontend/typescript/type-aliases' },
+            { text: '枚举与元组', link: '/frontend/typescript/enum-tuples' }
+          ]
+        },
+        {
+          text: '函数与泛型',
+          collapsed: false,
+          items: [
+            { text: '函数', link: '/frontend/typescript/functions' },
+            { text: '泛型', link: '/frontend/typescript/generics' },
+            { text: '工具类型', link: '/frontend/typescript/utility-types' }
+          ]
+        },
+        {
+          text: '类与面向对象',
+          collapsed: false,
+          items: [
+            { text: '类', link: '/frontend/typescript/classes' },
+            { text: '装饰器', link: '/frontend/typescript/decorators' }
+          ]
+        },
+        {
+          text: '模块与工程',
+          collapsed: false,
+          items: [
+            { text: '模块与命名空间', link: '/frontend/typescript/modules-namespaces' },
+            { text: '声明文件', link: '/frontend/typescript/declaration-files' },
+            { text: 'tsconfig 完整指南', link: '/frontend/typescript/tsconfig' }
+          ]
+        },
+        {
+          text: '高级类型',
+          collapsed: false,
+          items: [
+            { text: '高级类型', link: '/frontend/typescript/advanced-types' },
+            { text: '类型守卫与收窄', link: '/frontend/typescript/type-guard-narrowing' },
+            { text: '最佳实践', link: '/frontend/typescript/best-practices' }
+          ]
+        }
+      ],
       '/frontend/html/': [
         {
           text: '入门',

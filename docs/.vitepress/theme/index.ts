@@ -54,6 +54,12 @@ import HtmlShadowDomDemo from './components/HtmlShadowDomDemo.vue'
 import JsEventLoopDemo from './components/JsEventLoopDemo.vue'
 import JsPromiseChainDemo from './components/JsPromiseChainDemo.vue'
 import JsPrototypeChainDemo from './components/JsPrototypeChainDemo.vue'
+import CssFlexboxDemo from './components/CssFlexboxDemo.vue'
+import CssGridLayoutDemo from './components/CssGridLayoutDemo.vue'
+import CssSelectorCascadeDemo from './components/CssSelectorCascadeDemo.vue'
+import TsGenericsDemo from './components/TsGenericsDemo.vue'
+import TsTypeInferenceDemo from './components/TsTypeInferenceDemo.vue'
+import TsTypeSystemDemo from './components/TsTypeSystemDemo.vue'
 import './style.css'
 
 export default {
@@ -114,5 +120,11 @@ export default {
     app.component('JsEventLoopDemo', JsEventLoopDemo)
     app.component('JsPromiseChainDemo', JsPromiseChainDemo)
     app.component('JsPrototypeChainDemo', JsPrototypeChainDemo)
+    app.component('CssFlexboxDemo', CssFlexboxDemo)
+    app.component('CssGridLayoutDemo', CssGridLayoutDemo)
+    app.component('CssSelectorCascadeDemo', CssSelectorCascadeDemo)
+    app.component('TsGenericsDemo', TsGenericsDemo)
+    app.component('TsTypeInferenceDemo', TsTypeInferenceDemo)
+    app.component('TsTypeSystemDemo', TsTypeSystemDemo)
   }
 }
