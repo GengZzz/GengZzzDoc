@@ -72,7 +72,7 @@ export default defineConfig({
       {
         text: '工具',
         items: [
-          { text: '概览', link: '/tools/' },
+          { text: 'Git', link: '/tools/git' },
           { text: 'npm', link: '/tools/npm' },
           { text: 'yarn', link: '/tools/yarn' },
           { text: 'pnpm', link: '/tools/pnpm' },

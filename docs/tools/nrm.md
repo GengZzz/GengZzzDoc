@@ -1,3 +1,7 @@
+---
+sidebar: false
+---
+
 # nrm
 
 nrm（npm Registry Manager）是 npm 镜像源管理工具，用于快速切换 npm registry，解决国内网络环境下 npm 安装速度慢的问题。

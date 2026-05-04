@@ -1,3 +1,7 @@
+---
+sidebar: false
+---
+
 # nvm
 
 nvm（Node Version Manager）是 Node.js 的版本管理工具，允许在同一台机器上安装和切换多个 Node.js 版本。

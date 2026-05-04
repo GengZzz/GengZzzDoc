@@ -1,3 +1,7 @@
+---
+sidebar: false
+---
+
 # pnpm
 
 pnpm（Performant npm）是速度最快、磁盘效率最高的包管理器。它通过硬链接和符号链接机制，避免了重复存储相同的依赖包。

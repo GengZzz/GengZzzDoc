@@ -1,3 +1,7 @@
+---
+sidebar: false
+---
+
 # Yarn
 
 Yarn 是 Facebook（Meta）于 2016 年发布的包管理器，旨在解决 npm 早期的速度和可靠性问题。Yarn v1（Classic）是最广泛使用的版本，Yarn Berry（v2+）采用了全新的 Plug'n'Play 策略。
