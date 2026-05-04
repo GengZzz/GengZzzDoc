@@ -23,7 +23,7 @@ export default defineConfig({
           { text: 'HTML', link: '/frontend/html/' },
           { text: 'CSS3', link: '/frontend/css3/' },
           { text: 'JavaScript', link: '/frontend/javascript/' },
-          { text: 'TypeScript', link: '/frontend/typescript' },
+          { text: 'TypeScript', link: '/frontend/typescript/' },
           {
             text: '框架',
             items: [
