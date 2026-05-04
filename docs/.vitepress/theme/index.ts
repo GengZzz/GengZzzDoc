@@ -46,6 +46,9 @@ import CSharpLINQDemo from './components/CSharpLINQDemo.vue'
 import PythonGeneratorDemo from './components/PythonGeneratorDemo.vue'
 import PythonDecoratorDemo from './components/PythonDecoratorDemo.vue'
 import PythonAsyncDemo from './components/PythonAsyncDemo.vue'
+import PhpZvalDemo from './components/PhpZvalDemo.vue'
+import PhpRequestLifecycleDemo from './components/PhpRequestLifecycleDemo.vue'
+import PhpOpcacheDemo from './components/PhpOpcacheDemo.vue'
 import './style.css'
 
 export default {
@@ -98,5 +101,8 @@ export default {
     app.component('PythonGeneratorDemo', PythonGeneratorDemo)
     app.component('PythonDecoratorDemo', PythonDecoratorDemo)
     app.component('PythonAsyncDemo', PythonAsyncDemo)
+    app.component('PhpZvalDemo', PhpZvalDemo)
+    app.component('PhpRequestLifecycleDemo', PhpRequestLifecycleDemo)
+    app.component('PhpOpcacheDemo', PhpOpcacheDemo)
   }
 }

@@ -25,7 +25,8 @@ export default defineConfig({
           { text: 'C++', link: '/backend/cpp/' },
           { text: 'Java', link: '/backend/java/' },
           { text: 'C#', link: '/backend/csharp/' },
-          { text: 'Python', link: '/backend/python/' }
+          { text: 'Python', link: '/backend/python/' },
+          { text: 'PHP', link: '/backend/php/' }
         ]
       },
       {
@@ -300,6 +301,81 @@ export default defineConfig({
           ]
         }
       ],
+      '/backend/php/': [
+        {
+          text: '入门',
+          items: [
+            { text: '概览', link: '/backend/php/' },
+            { text: 'PHP 简介与环境搭建', link: '/backend/php/introduction-setup' },
+            { text: '语言基础', link: '/backend/php/language-basics' }
+          ]
+        },
+        {
+          text: '类型与函数',
+          collapsed: false,
+          items: [
+            { text: '类型系统', link: '/backend/php/type-system' },
+            { text: '函数与闭包', link: '/backend/php/functions-closures' }
+          ]
+        },
+        {
+          text: '面向对象',
+          collapsed: false,
+          items: [
+            { text: '类与对象', link: '/backend/php/classes-objects' },
+            { text: '继承与接口', link: '/backend/php/inheritance-interfaces' },
+            { text: '魔术方法与属性', link: '/backend/php/magic-methods-attributes' }
+          ]
+        },
+        {
+          text: '数组与数据处理',
+          collapsed: false,
+          items: [
+            { text: '数组与数据结构', link: '/backend/php/arrays-data' },
+            { text: '文件 I/O 与流', link: '/backend/php/file-io-stream' }
+          ]
+        },
+        {
+          text: '数据库与 ORM',
+          collapsed: false,
+          items: [
+            { text: 'PDO 数据库操作', link: '/backend/php/database-pdo' },
+            { text: 'Eloquent 模型', link: '/backend/php/eloquent-models' }
+          ]
+        },
+        {
+          text: 'Web 开发',
+          collapsed: false,
+          items: [
+            { text: 'HTTP 与 Session', link: '/backend/php/http-sessions' },
+            { text: 'Laravel 架构', link: '/backend/php/laravel-architecture' },
+            { text: 'Laravel 进阶', link: '/backend/php/laravel-advanced' }
+          ]
+        },
+        {
+          text: '异步与扩展',
+          collapsed: true,
+          items: [
+            { text: '异步与并发', link: '/backend/php/async-concurrency' },
+            { text: '扩展与 FFI', link: '/backend/php/extensions-ffi' }
+          ]
+        },
+        {
+          text: '安全',
+          collapsed: true,
+          items: [
+            { text: 'Web 安全', link: '/backend/php/security' }
+          ]
+        },
+        {
+          text: '部署与调优',
+          collapsed: true,
+          items: [
+            { text: '部署', link: '/backend/php/deployment' },
+            { text: '性能与调试', link: '/backend/php/performance-debugging' }
+          ]
+        }
+      ],
       '/backend/csharp/': [
         {
           text: '入门',
@@ -451,6 +527,7 @@ export default defineConfig({
             { text: 'Java', link: '/backend/java/' },
             { text: 'C#', link: '/backend/csharp/' },
             { text: 'Python', link: '/backend/python/' },
+            { text: 'PHP', link: '/backend/php/' },
             { text: '接口设计', link: '/backend/api-design' }
           ]
         }
