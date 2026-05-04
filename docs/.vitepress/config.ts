@@ -1189,13 +1189,27 @@ export default defineConfig({
       ],
       '/ai/': [
         {
-          text: '基础',
+          text: '基础概念',
           collapsed: false,
           items: [
             { text: 'AI 入门', link: '/ai/' },
-            { text: '模型基础', link: '/ai/model-basics' },
-            { text: 'Prompt', link: '/ai/prompt' },
-            { text: 'Agent', link: '/ai/agent' }
+            { text: '大语言模型', link: '/ai/llm' },
+            { text: '核心参数', link: '/ai/parameters' }
+          ]
+        },
+        {
+          text: 'Prompt 工程',
+          collapsed: false,
+          items: [
+            { text: '基础技巧', link: '/ai/prompt-basics' },
+            { text: '进阶技巧', link: '/ai/prompt-advanced' }
+          ]
+        },
+        {
+          text: 'Agent 智能体',
+          collapsed: false,
+          items: [
+            { text: '概念与实战', link: '/ai/agent' }
           ]
         },
         {
@@ -1206,6 +1220,14 @@ export default defineConfig({
             { text: 'Claude', link: '/ai/claude' },
             { text: 'Gemini', link: '/ai/gemini' },
             { text: 'OpenCode', link: '/ai/opencode' }
+          ]
+        },
+        {
+          text: '工程实践',
+          collapsed: false,
+          items: [
+            { text: 'API 接入', link: '/ai/api-integration' },
+            { text: '成本与安全', link: '/ai/cost-security' }
           ]
         }
       ],
