@@ -26,7 +26,15 @@ export default defineConfig({
           { text: 'Python', link: '/backend/python/' }
         ]
       },
-      { text: '数据库', link: '/database/' },
+      {
+        text: '数据库',
+        items: [
+          { text: 'MySQL', link: '/database/mysql/' },
+          { text: 'Redis', link: '/database/redis' },
+          { text: 'MongoDB', link: '/database/mongodb' },
+          { text: 'PostgreSQL', link: '/database/postgresql' }
+        ]
+      },
       { text: 'CICD', link: '/cicd/' },
       { text: '插件', link: '/plugins/' },
       { text: '操作系统', link: '/os/' },
