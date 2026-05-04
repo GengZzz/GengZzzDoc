@@ -568,6 +568,56 @@ export default defineConfig({
           ]
         }
       ],
+      '/frontend/javascript/': [
+        {
+          text: '入门',
+          items: [
+            { text: '概览', link: '/frontend/javascript/' },
+            { text: '语言基础', link: '/frontend/javascript/language-basics' },
+            { text: '控制流', link: '/frontend/javascript/control-flow' },
+            { text: '函数深入', link: '/frontend/javascript/functions' }
+          ]
+        },
+        {
+          text: '核心机制',
+          collapsed: false,
+          items: [
+            { text: '原型与继承', link: '/frontend/javascript/prototypes' },
+            { text: '异步编程', link: '/frontend/javascript/async-programming' },
+            { text: '事件循环', link: '/frontend/javascript/event-loop' }
+          ]
+        },
+        {
+          text: '现代特性',
+          collapsed: false,
+          items: [
+            { text: 'ES6+ 特性', link: '/frontend/javascript/es6-features' },
+            { text: '集合类型', link: '/frontend/javascript/collections' },
+            { text: '迭代器与生成器', link: '/frontend/javascript/iterators-generators' },
+            { text: 'Proxy 与 Reflect', link: '/frontend/javascript/proxy-reflect' }
+          ]
+        },
+        {
+          text: '模块与工程',
+          collapsed: false,
+          items: [
+            { text: '模块系统', link: '/frontend/javascript/modules' },
+            { text: '错误处理', link: '/frontend/javascript/error-handling' },
+            { text: 'DOM 与 BOM', link: '/frontend/javascript/dom-bom' }
+          ]
+        },
+        {
+          text: '进阶',
+          collapsed: true,
+          items: [
+            { text: '性能优化', link: '/frontend/javascript/performance' },
+            { text: '设计模式', link: '/frontend/javascript/design-patterns' },
+            { text: '类型转换与相等性', link: '/frontend/javascript/type-coercion' },
+            { text: '元编程', link: '/frontend/javascript/metaprogramming' },
+            { text: '正则表达式', link: '/frontend/javascript/regex' }
+          ]
+        }
+      ],
       '/frontend/html/': [
         {
           text: '入门',
