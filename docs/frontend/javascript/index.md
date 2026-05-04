@@ -13,6 +13,7 @@ JavaScript 是一门运行在浏览器和 Node.js 中的动态类型语言，也
 | [语言基础](./language-basics) | 变量声明、类型系统、运算符、类型转换与强制转换 |
 | [控制流](./control-flow) | 条件、循环、异常处理、标签循环 |
 | [函数深入](./functions) | 函数类型、作用域链、闭包、IIFE、柯里化 |
+| [常用方法](./common-methods) | 数组 map/filter/reduce/sort、字符串 split/replace/trim 等 |
 
 ### 核心机制
 

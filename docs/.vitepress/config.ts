@@ -575,7 +575,8 @@ export default defineConfig({
             { text: '概览', link: '/frontend/javascript/' },
             { text: '语言基础', link: '/frontend/javascript/language-basics' },
             { text: '控制流', link: '/frontend/javascript/control-flow' },
-            { text: '函数深入', link: '/frontend/javascript/functions' }
+            { text: '函数深入', link: '/frontend/javascript/functions' },
+            { text: '常用方法', link: '/frontend/javascript/common-methods' }
           ]
         },
         {
