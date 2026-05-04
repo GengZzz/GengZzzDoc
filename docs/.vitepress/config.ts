@@ -33,7 +33,7 @@ export default defineConfig({
           { text: 'MySQL', link: '/database/mysql/' },
           { text: 'Redis', link: '/database/redis/' },
           { text: 'MongoDB', link: '/database/mongodb/' },
-          { text: 'PostgreSQL', link: '/database/postgresql' },
+          { text: 'PostgreSQL', link: '/database/postgresql/' },
           { text: 'Elasticsearch', link: '/database/elasticsearch/' }
         ]
       },
@@ -299,8 +299,82 @@ export default defineConfig({
             { text: 'MySQL', link: '/database/mysql/' },
             { text: 'Redis', link: '/database/redis/' },
             { text: 'MongoDB', link: '/database/mongodb/' },
-            { text: 'PostgreSQL', link: '/database/postgresql' },
+            { text: 'PostgreSQL', link: '/database/postgresql/' },
             { text: 'Elasticsearch', link: '/database/elasticsearch/' }
+          ]
+        }
+      ],
+      '/database/postgresql/': [
+        {
+          text: '入门',
+          items: [
+            { text: 'PostgreSQL 概览', link: '/database/postgresql/' },
+            { text: 'PostgreSQL 简介与安装', link: '/database/postgresql/introduction-install' },
+            { text: 'SQL 基础', link: '/database/postgresql/sql-fundamentals' }
+          ]
+        },
+        {
+          text: '高级 SQL',
+          collapsed: false,
+          items: [
+            { text: 'JSONB 操作', link: '/database/postgresql/jsonb-operations' },
+            { text: 'CTE 与视图', link: '/database/postgresql/cte-views' },
+            { text: '全文搜索', link: '/database/postgresql/full-text-search' }
+          ]
+        },
+        {
+          text: '索引',
+          collapsed: false,
+          items: [
+            { text: '索引类型', link: '/database/postgresql/index-types' },
+            { text: '索引优化', link: '/database/postgresql/index-optimization' }
+          ]
+        },
+        {
+          text: '事务与 MVCC',
+          collapsed: false,
+          items: [
+            { text: 'MVCC 机制', link: '/database/postgresql/mvcc-mechanism' },
+            { text: 'VACUUM 机制', link: '/database/postgresql/vacuum-mechanism' }
+          ]
+        },
+        {
+          text: '查询优化',
+          collapsed: false,
+          items: [
+            { text: '查询计划器', link: '/database/postgresql/query-planner' },
+            { text: '查询性能调优', link: '/database/postgresql/query-performance' }
+          ]
+        },
+        {
+          text: '扩展与编程',
+          collapsed: false,
+          items: [
+            { text: 'PL/pgSQL', link: '/database/postgresql/plpgsql' },
+            { text: '扩展生态', link: '/database/postgresql/extensions' }
+          ]
+        },
+        {
+          text: '高可用与复制',
+          collapsed: true,
+          items: [
+            { text: '复制机制', link: '/database/postgresql/replication' },
+            { text: '高可用方案', link: '/database/postgresql/high-availability' }
+          ]
+        },
+        {
+          text: '分区与大数据',
+          collapsed: true,
+          items: [
+            { text: '分区表', link: '/database/postgresql/partitioning' },
+            { text: '大数据处理', link: '/database/postgresql/large-data' }
+          ]
+        },
+        {
+          text: '运维与安全',
+          collapsed: true,
+          items: [
+            { text: '运维与安全', link: '/database/postgresql/operations-security' }
           ]
         }
       ],
