@@ -56,7 +56,16 @@ export default defineConfig({
       },
       { text: 'CICD', link: '/cicd/' },
       { text: '插件', link: '/plugins/' },
-      { text: '操作系统', link: '/os/' },
+      {
+        text: '408',
+        items: [
+          { text: '概览', link: '/os/' },
+          { text: '计算机操作系统', link: '/os/os' },
+          { text: '计算机组成原理', link: '/os/computer-organization' },
+          { text: '数据结构', link: '/os/data-structures' },
+          { text: '计算机网络', link: '/os/computer-networks' }
+        ]
+      },
       { text: '工具', link: '/tools/' },
       {
         text: 'AI',
@@ -1167,12 +1176,56 @@ export default defineConfig({
       ],
       '/os/': [
         {
-          text: '操作系统',
-          collapsed: true,
+          text: '概览',
+          collapsed: false,
           items: [
-            { text: '概览', link: '/os/' },
-            { text: 'Windows', link: '/os/windows' },
-            { text: 'Linux', link: '/os/linux' }
+            { text: '408 总览', link: '/os/' }
+          ]
+        },
+        {
+          text: '计算机操作系统',
+          collapsed: false,
+          items: [
+            { text: '进程管理', link: '/os/process-management' },
+            { text: '内存管理', link: '/os/memory-management' },
+            { text: '文件系统', link: '/os/file-system' },
+            { text: 'I/O 管理', link: '/os/io-management' },
+            { text: 'Linux', link: '/os/linux' },
+            { text: 'Windows', link: '/os/windows' }
+          ]
+        },
+        {
+          text: '计算机组成原理',
+          collapsed: false,
+          items: [
+            { text: '数据表示与运算', link: '/os/data-representation' },
+            { text: '存储系统', link: '/os/storage-system' },
+            { text: '指令系统', link: '/os/instruction-system' },
+            { text: 'CPU 与控制器', link: '/os/cpu-controller' },
+            { text: '总线与 I/O', link: '/os/bus-io' }
+          ]
+        },
+        {
+          text: '数据结构',
+          collapsed: false,
+          items: [
+            { text: '线性表', link: '/os/linear-list' },
+            { text: '栈与队列', link: '/os/stack-queue' },
+            { text: '树与二叉树', link: '/os/tree' },
+            { text: '图', link: '/os/graph' },
+            { text: '查找', link: '/os/search' },
+            { text: '排序', link: '/os/sorting' }
+          ]
+        },
+        {
+          text: '计算机网络',
+          collapsed: false,
+          items: [
+            { text: '体系结构', link: '/os/network-architecture' },
+            { text: '物理层与数据链路层', link: '/os/physical-datalink' },
+            { text: '网络层', link: '/os/network-layer' },
+            { text: '传输层', link: '/os/transport-layer' },
+            { text: '应用层', link: '/os/application-layer' }
           ]
         }
       ],
