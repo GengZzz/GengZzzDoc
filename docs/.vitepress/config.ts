@@ -58,8 +58,8 @@ export default defineConfig({
       { text: '插件', link: '/plugins/' },
       {
         text: '408',
+        link: '/os/',
         items: [
-          { text: '概览', link: '/os/' },
           { text: '计算机操作系统', link: '/os/os' },
           { text: '计算机组成原理', link: '/os/computer-organization' },
           { text: '数据结构', link: '/os/data-structures' },
@@ -1175,13 +1175,6 @@ export default defineConfig({
         }
       ],
       '/os/': [
-        {
-          text: '概览',
-          collapsed: false,
-          items: [
-            { text: '408 总览', link: '/os/' }
-          ]
-        },
         {
           text: '计算机操作系统',
           collapsed: false,
