@@ -34,7 +34,17 @@ const groups: SiteGroup[] = [
       { title: 'ESLint', desc: 'JavaScript 代码检查。', link: 'https://eslint.org/', color: '#4b32c3' },
       { title: 'Prettier', desc: '代码格式化工具。', link: 'https://prettier.io/', color: '#ec4899' },
       { title: 'Can I use', desc: '浏览器兼容性查询。', link: 'https://caniuse.com/', color: '#f59e0b' },
-      { title: 'UnoCSS', desc: '即时原子化 CSS 引擎。', link: 'https://unocss.dev/', color: '#334155' }
+      { title: 'UnoCSS', desc: '即时原子化 CSS 引擎。', link: 'https://unocss.dev/', color: '#334155' },
+      { title: 'Angular', desc: 'Google 前端框架。', link: 'https://angular.dev/', color: '#dd0031' },
+      { title: 'Svelte', desc: '编译型前端框架。', link: 'https://svelte.dev/', color: '#ff3e00' },
+      { title: 'Astro', desc: '内容优先的 Web 框架。', link: 'https://astro.build/', color: '#bc52ee' },
+      { title: 'Webpack', desc: '模块打包工具。', link: 'https://webpack.js.org/', color: '#8dd6f9' },
+      { title: 'Rollup', desc: 'ES 模块打包器。', link: 'https://rollupjs.org/', color: '#ef3335' },
+      { title: 'esbuild', desc: '极速 JS 打包器。', link: 'https://esbuild.github.io/', color: '#ffcf00' },
+      { title: 'Sass', desc: 'CSS 预处理器。', link: 'https://sass-lang.com/', color: '#cc6699' },
+      { title: 'Bootstrap', desc: '流行 CSS 框架。', link: 'https://getbootstrap.com/', color: '#7952b3' },
+      { title: 'CodePen', desc: '在线前端代码编辑器。', link: 'https://codepen.io/', color: '#1e1e1e' },
+      { title: 'Pinia', desc: 'Vue 状态管理库。', link: 'https://pinia.vuejs.org/', color: '#ffd859' }
     ]
   },
   {
@@ -56,7 +66,18 @@ const groups: SiteGroup[] = [
       { title: 'Express', desc: 'Node Web 框架。', link: 'https://expressjs.com/', color: '#374151' },
       { title: 'Gin', desc: 'Go Web 框架。', link: 'https://gin-gonic.com/docs/', color: '#06b6d4' },
       { title: 'Actix', desc: 'Rust Web 框架。', link: 'https://actix.rs/docs/', color: '#ef4444' },
-      { title: 'Swagger', desc: '接口文档与调试工具。', link: 'https://swagger.io/tools/', color: '#85ea2d' }
+      { title: 'Swagger', desc: '接口文档与调试工具。', link: 'https://swagger.io/tools/', color: '#85ea2d' },
+      { title: 'Spring Cloud', desc: '微服务开发工具集。', link: 'https://spring.io/projects/spring-cloud', color: '#6db33f' },
+      { title: 'Flask', desc: 'Python 轻量 Web 框架。', link: 'https://flask.palletsprojects.com/', color: '#111827' },
+      { title: 'Laravel', desc: 'PHP Web 框架。', link: 'https://laravel.com/docs', color: '#ff2d20' },
+      { title: '.NET', desc: '微软开发平台。', link: 'https://dotnet.microsoft.com/', color: '#512bd4' },
+      { title: 'GraphQL', desc: 'API 查询语言。', link: 'https://graphql.org/', color: '#e535ab' },
+      { title: 'gRPC', desc: '高性能 RPC 框架。', link: 'https://grpc.io/', color: '#244c5a' },
+      { title: 'RabbitMQ', desc: '消息队列中间件。', link: 'https://www.rabbitmq.com/docs', color: '#ff6600' },
+      { title: 'Apache Kafka', desc: '分布式事件流平台。', link: 'https://kafka.apache.org/', color: '#111827' },
+      { title: 'Redis', desc: '内存数据结构存储。', link: 'https://redis.io/docs/latest/', color: '#dc2626' },
+      { title: 'Ktor', desc: 'Kotlin 异步框架。', link: 'https://ktor.io/', color: '#7c3aed' },
+      { title: 'Hono', desc: '超快 Web 框架。', link: 'https://hono.dev/', color: '#ff6b35' }
     ]
   },
   {
@@ -78,7 +99,18 @@ const groups: SiteGroup[] = [
       { title: 'MariaDB', desc: 'MariaDB 官方文档。', link: 'https://mariadb.com/kb/en/documentation/', color: '#7c3aed' },
       { title: 'TypeORM', desc: 'TypeScript ORM。', link: 'https://typeorm.io/', color: '#f97316' },
       { title: 'Sequelize', desc: 'Node.js ORM。', link: 'https://sequelize.org/docs/v6/', color: '#2563eb' },
-      { title: 'PlanetScale', desc: '云原生 MySQL 平台。', link: 'https://planetscale.com/docs', color: '#334155' }
+      { title: 'PlanetScale', desc: '云原生 MySQL 平台。', link: 'https://planetscale.com/docs', color: '#334155' },
+      { title: 'Neo4j', desc: '图数据库。', link: 'https://neo4j.com/docs/', color: '#018bff' },
+      { title: 'InfluxDB', desc: '时序数据库。', link: 'https://docs.influxdata.com/', color: '#22adf6' },
+      { title: 'CockroachDB', desc: '分布式 SQL 数据库。', link: 'https://www.cockroachlabs.com/docs/', color: '#6933ff' },
+      { title: 'Firebase', desc: 'Google 应用开发平台。', link: 'https://firebase.google.com/docs', color: '#ffca28' },
+      { title: 'Drizzle ORM', desc: 'TypeScript ORM。', link: 'https://orm.drizzle.team/', color: '#c4f042' },
+      { title: 'Knex.js', desc: 'SQL 查询构建器。', link: 'https://knexjs.org/', color: '#e16352' },
+      { title: 'phpMyAdmin', desc: 'MySQL 管理工具。', link: 'https://www.phpmyadmin.net/', color: '#6c7ab0' },
+      { title: 'DataGrip', desc: 'JetBrains 数据库 IDE。', link: 'https://www.jetbrains.com/datagrip/', color: '#22d176' },
+      { title: 'Navicat', desc: '数据库管理工具。', link: 'https://www.navicat.com/', color: '#334155' },
+      { title: 'DynamoDB', desc: 'AWS NoSQL 数据库。', link: 'https://docs.aws.amazon.com/dynamodb/', color: '#ff9900' },
+      { title: 'PocketBase', desc: 'Go 后端一体化。', link: 'https://pocketbase.io/', color: '#111827' }
     ]
   },
   {
@@ -100,7 +132,18 @@ const groups: SiteGroup[] = [
       { title: 'Yarn', desc: '包管理器文档。', link: 'https://yarnpkg.com/getting-started', color: '#2563eb' },
       { title: 'Homebrew', desc: 'macOS 包管理器。', link: 'https://docs.brew.sh/', color: '#fbbf24' },
       { title: 'Carbon', desc: '代码图片生成。', link: 'https://carbon.now.sh/', color: '#111827' },
-      { title: 'Excalidraw', desc: '手绘风图表工具。', link: 'https://excalidraw.com/', color: '#8b5cf6' }
+      { title: 'Excalidraw', desc: '手绘风图表工具。', link: 'https://excalidraw.com/', color: '#8b5cf6' },
+      { title: 'GitHub Actions', desc: 'CI/CD 自动化。', link: 'https://docs.github.com/actions', color: '#2088ff' },
+      { title: 'Jenkins', desc: '开源 CI/CD 服务器。', link: 'https://www.jenkins.io/doc/', color: '#d33833' },
+      { title: 'Terraform', desc: '基础设施即代码。', link: 'https://developer.hashicorp.com/terraform', color: '#7b42bc' },
+      { title: 'SonarQube', desc: '代码质量与安全。', link: 'https://docs.sonarsource.com/sonarqube/', color: '#4e9bcd' },
+      { title: 'VitePress', desc: 'Vite 驱动的文档站。', link: 'https://vitepress.dev/', color: '#5c6e34' },
+      { title: 'Storybook', desc: 'UI 组件开发环境。', link: 'https://storybook.js.org/docs/', color: '#ff4785' },
+      { title: 'Husky', desc: 'Git hooks 管理。', link: 'https://typicode.github.io/husky/', color: '#111827' },
+      { title: 'lint-staged', desc: '暂存文件检查。', link: 'https://lint-staged.dev/', color: '#d97706' },
+      { title: 'Changesets', desc: '版本管理与发版。', link: 'https://github.com/changesets/changesets', color: '#7c3aed' },
+      { title: 'Neovim', desc: '现代化 Vim 编辑器。', link: 'https://neovim.io/doc/', color: '#57a143' },
+      { title: 'tmux', desc: '终端多路复用器。', link: 'https://github.com/tmux/tmux/wiki', color: '#1bb92c' }
     ]
   },
   {
@@ -122,7 +165,18 @@ const groups: SiteGroup[] = [
       { title: 'Claude', desc: 'Claude 产品入口。', link: 'https://claude.ai/', color: '#b45309' },
       { title: 'Gemini', desc: 'Google AI 产品入口。', link: 'https://gemini.google.com/', color: '#4285f4' },
       { title: '通义千问', desc: '通义模型产品入口。', link: 'https://tongyi.aliyun.com/', color: '#7c3aed' },
-      { title: '魔搭文档', desc: 'ModelScope 使用文档。', link: 'https://modelscope.cn/docs', color: '#0ea5e9' }
+      { title: '魔搭文档', desc: 'ModelScope 使用文档。', link: 'https://modelscope.cn/docs', color: '#0ea5e9' },
+      { title: 'Anthropic', desc: 'Claude 背后公司。', link: 'https://docs.anthropic.com/', color: '#d4a574' },
+      { title: 'Midjourney', desc: 'AI 图像生成平台。', link: 'https://docs.midjourney.com/', color: '#111827' },
+      { title: 'Stable Diffusion', desc: '开源图像生成模型。', link: 'https://stability.ai/', color: '#9c6b3a' },
+      { title: 'ComfyUI', desc: '节点式 Stable Diffusion UI。', link: 'https://docs.comfy.org/', color: '#16a34a' },
+      { title: 'vLLM', desc: '大模型推理引擎。', link: 'https://docs.vllm.ai/', color: '#111827' },
+      { title: 'LMDeploy', desc: '大模型部署工具。', link: 'https://github.com/InternLM/lmdeploy', color: '#7c3aed' },
+      { title: 'CrewAI', desc: '多 Agent 协作框架。', link: 'https://docs.crewai.com/', color: '#ff6b35' },
+      { title: 'Dify', desc: 'LLM 应用开发平台。', link: 'https://docs.dify.ai/', color: '#6c5ce7' },
+      { title: 'OpenAI Cookbook', desc: 'OpenAI 使用示例。', link: 'https://cookbook.openai.com/', color: '#16a34a' },
+      { title: 'Cursor', desc: 'AI 编程编辑器。', link: 'https://docs.cursor.com/', color: '#000000' },
+      { title: 'Windsurf', desc: 'AI 编程 IDE。', link: 'https://docs.codeium.com/', color: '#00d4aa' }
     ]
   },
   {
@@ -144,7 +198,16 @@ const groups: SiteGroup[] = [
       { title: 'W3Schools', desc: 'Web 入门参考。', link: 'https://www.w3schools.com/', color: '#16a34a' },
       { title: 'CSS Tricks', desc: 'CSS 技巧与文章。', link: 'https://css-tricks.com/', color: '#ec4899' },
       { title: 'Smashing', desc: '前端设计与开发文章。', link: 'https://www.smashingmagazine.com/', color: '#dc2626' },
-      { title: 'edX', desc: '开放在线课程。', link: 'https://www.edx.org/', color: '#dc2626' }
+      { title: 'edX', desc: '开放在线课程。', link: 'https://www.edx.org/', color: '#dc2626' },
+      { title: 'GitHub Trending', desc: '热门开源项目。', link: 'https://github.com/trending', color: '#111827' },
+      { title: 'Udemy', desc: '在线技能学习平台。', link: 'https://www.udemy.com/', color: '#a435f0' },
+      { title: 'GeeksforGeeks', desc: '编程与算法学习。', link: 'https://www.geeksforgeeks.org/', color: '#2f8d46' },
+      { title: '菜鸟教程', desc: '编程基础教程。', link: 'https://www.runoob.com/', color: '#2b934e' },
+      { title: '力扣', desc: '算法刷题平台。', link: 'https://leetcode.cn/', color: '#ffa116' },
+      { title: '牛客网', desc: '求职刷题与面经。', link: 'https://www.nowcoder.com/', color: '#00d0a0' },
+      { title: '知乎', desc: '综合问答社区。', link: 'https://www.zhihu.com/', color: '#0084ff' },
+      { title: 'Khan Academy', desc: '免费在线教育。', link: 'https://www.khanacademy.org/', color: '#14bf96' },
+      { title: 'Project Euler', desc: '数学与编程挑战。', link: 'https://projecteuler.net/', color: '#111827' }
     ]
   },
   {
@@ -166,7 +229,16 @@ const groups: SiteGroup[] = [
       { title: 'Google Fonts', desc: '开源字体资源。', link: 'https://fonts.google.com/', color: '#4285f4' },
       { title: 'Fontshare', desc: '免费商用字体。', link: 'https://www.fontshare.com/', color: '#111827' },
       { title: 'Shots', desc: '快速生成产品截图。', link: 'https://shots.so/', color: '#8b5cf6' },
-      { title: 'Haikei', desc: 'SVG 背景生成工具。', link: 'https://haikei.app/', color: '#14b8a6' }
+      { title: 'Haikei', desc: 'SVG 背景生成工具。', link: 'https://haikei.app/', color: '#14b8a6' },
+      { title: 'Framer', desc: '交互式网站构建器。', link: 'https://www.framer.com/', color: '#0055ff' },
+      { title: 'Webflow', desc: '可视化网页设计。', link: 'https://webflow.com/', color: '#4353ff' },
+      { title: 'Spline', desc: '3D 设计工具。', link: 'https://spline.design/', color: '#111827' },
+      { title: 'Lottie', desc: '轻量动画格式。', link: 'https://lottiefiles.com/', color: '#00d4aa' },
+      { title: 'undraw', desc: '开源插画素材。', link: 'https://undraw.co/', color: '#6c63ff' },
+      { title: 'Phosphor', desc: '灵活图标库。', link: 'https://phosphoricons.com/', color: '#111827' },
+      { title: 'Tabler Icons', desc: '免费 SVG 图标。', link: 'https://tabler-icons.io/', color: '#0669f7' },
+      { title: 'Coze', desc: 'AI 应用搭建平台。', link: 'https://www.coze.com/', color: '#5a67d8' },
+      { title: 'Remove.bg', desc: 'AI 抠图工具。', link: 'https://www.remove.bg/', color: '#111827' }
     ]
   },
   {
@@ -188,7 +260,60 @@ const groups: SiteGroup[] = [
       { title: 'Sentry', desc: '错误监控与性能追踪。', link: 'https://docs.sentry.io/', color: '#362d59' },
       { title: 'Grafana', desc: '监控与可视化平台。', link: 'https://grafana.com/docs/', color: '#f97316' },
       { title: 'UptimeRobot', desc: '站点可用性监控。', link: 'https://uptimerobot.com/', color: '#16a34a' },
-      { title: 'Namecheap', desc: '域名注册与管理。', link: 'https://www.namecheap.com/support/', color: '#f97316' }
+      { title: 'Namecheap', desc: '域名注册与管理。', link: 'https://www.namecheap.com/support/', color: '#f97316' },
+      { title: 'DigitalOcean', desc: '开发者云平台。', link: 'https://docs.digitalocean.com/', color: '#0080ff' },
+      { title: 'Heroku', desc: '应用托管平台。', link: 'https://devcenter.heroku.com/', color: '#430098' },
+      { title: 'Firebase Hosting', desc: 'Google 静态托管。', link: 'https://firebase.google.com/docs/hosting', color: '#ffca28' },
+      { title: 'Docker Hub', desc: '容器镜像仓库。', link: 'https://hub.docker.com/', color: '#2496ed' },
+      { title: 'Prometheus', desc: '监控与告警系统。', link: 'https://prometheus.io/docs/', color: '#e6522c' },
+      { title: 'Datadog', desc: '云监控与 APM。', link: 'https://docs.datadoghq.com/', color: '#632ca6' },
+      { title: 'Lark', desc: '飞书开放平台。', link: 'https://open.feishu.cn/', color: '#3370ff' },
+      { title: 'Supabase', desc: '开源 Firebase 替代。', link: 'https://supabase.com/docs', color: '#10b981' },
+      { title: 'Bunny.net', desc: 'CDN 与存储服务。', link: 'https://bunny.net/', color: '#f5a623' }
+    ]
+  },
+  {
+    name: '安全与渗透',
+    desc: '网络安全、渗透测试、漏洞扫描与安全学习资源。',
+    items: [
+      { title: 'OWASP', desc: 'Web 安全开放项目。', link: 'https://owasp.org/', color: '#000000' },
+      { title: 'HackTheBox', desc: '渗透测试练习平台。', link: 'https://www.hackthebox.com/', color: '#9fef00' },
+      { title: 'TryHackMe', desc: '交互式安全学习。', link: 'https://tryhackme.com/', color: '#111827' },
+      { title: 'Vulhub', desc: '漏洞环境集合。', link: 'https://vulhub.org/', color: '#dc2626' },
+      { title: 'Burp Suite', desc: 'Web 安全测试工具。', link: 'https://portswigger.net/burp', color: '#ff6633' },
+      { title: 'Nmap', desc: '网络扫描工具。', link: 'https://nmap.org/', color: '#409eff' },
+      { title: 'Metasploit', desc: '渗透测试框架。', link: 'https://www.metasploit.com/', color: '#264d2f' },
+      { title: 'SQLMap', desc: 'SQL 注入自动化工具。', link: 'https://sqlmap.org/', color: '#dc2626' },
+      { title: 'Wireshark', desc: '网络协议分析器。', link: 'https://www.wireshark.org/', color: '#1679a7' },
+      { title: 'Kali Linux', desc: '安全渗透发行版。', link: 'https://www.kali.org/', color: '#2b934e' },
+      { title: 'HackerOne', desc: '漏洞赏金平台。', link: 'https://www.hackerone.com/', color: '#494a4f' },
+      { title: 'Snyk', desc: '开发者安全平台。', link: 'https://snyk.io/', color: '#404040' },
+      { title: 'SecurityHeaders', desc: 'HTTP 安全头检测。', link: 'https://securityheaders.com/', color: '#059669' },
+      { title: 'SSL Labs', desc: 'SSL/TLS 配置检测。', link: 'https://www.ssllabs.com/', color: '#43595c' },
+      { title: 'CVE', desc: '通用漏洞披露。', link: 'https://cve.org/', color: '#111827' },
+      { title: 'ExploitDB', desc: '漏洞利用数据库。', link: 'https://www.exploit-db.com/', color: '#dc2626' }
+    ]
+  },
+  {
+    name: '效率工具',
+    desc: '笔记、协作、API 工具、调试与开发者日常效率。',
+    items: [
+      { title: 'Notion', desc: '笔记与知识管理。', link: 'https://www.notion.so/', color: '#111827' },
+      { title: 'Obsidian', desc: '本地 Markdown 笔记。', link: 'https://obsidian.md/', color: '#7c3aed' },
+      { title: 'Typora', desc: 'Markdown 编辑器。', link: 'https://typora.io/', color: '#111827' },
+      { title: 'Logseq', desc: '开源知识管理。', link: 'https://logseq.com/', color: '#16a34a' },
+      { title: 'Linear', desc: '项目与 Issue 管理。', link: 'https://linear.app/', color: '#5e6ad2' },
+      { title: 'Slack', desc: '团队沟通工具。', link: 'https://slack.com/', color: '#e01e5a' },
+      { title: 'Discord', desc: '社区与开发者沟通。', link: 'https://discord.com/', color: '#5865f2' },
+      { title: 'Insomnia', desc: 'API 调试工具。', link: 'https://insomnia.rest/', color: '#6259f7' },
+      { title: 'Hoppscotch', desc: '开源 API 调试。', link: 'https://hoppscotch.io/', color: '#16a34a' },
+      { title: 'JSON Crack', desc: 'JSON 可视化工具。', link: 'https://jsoncrack.com/', color: '#111827' },
+      { title: 'CyberChef', desc: '数据加密/解密瑞士军刀。', link: 'https://gchq.github.io/CyberChef/', color: '#c9302c' },
+      { title: 'Raycast', desc: 'macOS 效率启动器。', link: 'https://www.raycast.com/', color: '#ff6363' },
+      { title: 'Snipaste', desc: '截图与贴图工具。', link: 'https://www.snipaste.com/', color: '#16a34a' },
+      { title: 'PicGo', desc: '图床上传工具。', link: 'https://picgo.github.io/PicGo-Doc/', color: '#111827' },
+      { title: 'ProcessOn', desc: '在线作图工具。', link: 'https://www.processon.com/', color: '#2563eb' },
+      { title: 'draw.io', desc: '免费在线图表。', link: 'https://app.diagrams.net/', color: '#f08705' }
     ]
   }
 ]
@@ -224,7 +349,55 @@ const iconHostByTitle: Record<string, string> = {
   'Cloudflare': 'cloudflare.com',
   'Railway': 'railway.app',
   'Sentry': 'sentry.io',
-  '中文技术文档': 'docschina.org'
+  '中文技术文档': 'docschina.org',
+  'Angular': 'angular.dev',
+  'Svelte': 'svelte.dev',
+  'Laravel': 'laravel.com',
+  '.NET': 'dotnet.microsoft.com',
+  'GraphQL': 'graphql.org',
+  'Apache Kafka': 'kafka.apache.org',
+  'Neo4j': 'neo4j.com',
+  'Firebase': 'firebase.google.com',
+  'DynamoDB': 'aws.amazon.com',
+  'GitHub Actions': 'github.com',
+  'Jenkins': 'jenkins.io',
+  'Terraform': 'terraform.io',
+  'Storybook': 'storybook.js.org',
+  'Anthropic': 'anthropic.com',
+  'Stable Diffusion': 'stability.ai',
+  'vLLM': 'vllm.ai',
+  'Dify': 'dify.ai',
+  'Cursor': 'cursor.com',
+  'Windsurf': 'codeium.com',
+  'GitHub Trending': 'github.com',
+  '力扣': 'leetcode.cn',
+  '牛客网': 'nowcoder.com',
+  'Framer': 'framer.com',
+  'Spline': 'spline.design',
+  'OWASP': 'owasp.org',
+  'HackTheBox': 'hackthebox.com',
+  'TryHackMe': 'tryhackme.com',
+  'Burp Suite': 'portswigger.net',
+  'Metasploit': 'metasploit.com',
+  'Kali Linux': 'kali.org',
+  'HackerOne': 'hackerone.com',
+  'ExploitDB': 'exploit-db.com',
+  'Notion': 'notion.so',
+  'Obsidian': 'obsidian.md',
+  'Logseq': 'logseq.com',
+  'Linear': 'linear.app',
+  'Hoppscotch': 'hoppscotch.io',
+  'CyberChef': 'gchq.github.io',
+  'Raycast': 'raycast.com',
+  'Snipaste': 'snipaste.com',
+  'draw.io': 'drawio.com',
+  'Heroku': 'heroku.com',
+  'DigitalOcean': 'digitalocean.com',
+  'Prometheus': 'prometheus.io',
+  'Datadog': 'datadoghq.com',
+  'Lark': 'feishu.cn',
+  'Bunny.net': 'bunny.net',
+  'PocketBase': 'pocketbase.io'
 }
 
 function hostnameFor(link: string) {
