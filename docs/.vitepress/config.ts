@@ -30,8 +30,9 @@ export default defineConfig({
           {
             text: '框架',
             items: [
-              { text: 'Vue', link: '/frontend/vue' },
-              { text: 'Vite', link: '/frontend/vite' }
+              { text: 'Vue', link: '/frontend/vue/' },
+              { text: 'Vite', link: '/frontend/vite/' },
+              { text: 'React', link: '/frontend/react/' }
             ]
           }
         ]
@@ -590,8 +591,49 @@ export default defineConfig({
           text: '框架与工具',
           collapsed: false,
           items: [
-            { text: 'Vue', link: '/frontend/vue' },
-            { text: 'Vite', link: '/frontend/vite' }
+            { text: 'Vue', link: '/frontend/vue/' },
+            { text: 'Vite', link: '/frontend/vite/' },
+            { text: 'React', link: '/frontend/react/' }
+          ]
+        }
+      ],
+      '/frontend/vue/': [
+        {
+          text: 'Vue',
+          collapsed: false,
+          items: [
+            { text: '概览', link: '/frontend/vue/' },
+            { text: '核心概念', link: '/frontend/vue/basics' },
+            { text: '组件基础', link: '/frontend/vue/components' },
+            { text: '组合式 API', link: '/frontend/vue/composition-api' },
+            { text: '路由', link: '/frontend/vue/router' },
+            { text: '状态管理', link: '/frontend/vue/pinia' }
+          ]
+        }
+      ],
+      '/frontend/vite/': [
+        {
+          text: 'Vite',
+          collapsed: false,
+          items: [
+            { text: '概览', link: '/frontend/vite/' },
+            { text: '快速开始', link: '/frontend/vite/getting-started' },
+            { text: '配置详解', link: '/frontend/vite/config' },
+            { text: '插件系统', link: '/frontend/vite/plugins' },
+            { text: '构建优化', link: '/frontend/vite/build-optimize' }
+          ]
+        }
+      ],
+      '/frontend/react/': [
+        {
+          text: 'React',
+          collapsed: false,
+          items: [
+            { text: '概览', link: '/frontend/react/' },
+            { text: 'JSX 与组件', link: '/frontend/react/jsx-components' },
+            { text: 'Hooks', link: '/frontend/react/hooks' },
+            { text: '路由', link: '/frontend/react/routing' },
+            { text: '状态管理', link: '/frontend/react/state-management' }
           ]
         }
       ],
