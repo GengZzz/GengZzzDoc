@@ -2,6 +2,8 @@
 
 CSS 定位（Positioning）控制元素在页面中的位置和层叠顺序。理解五种定位模式和层叠上下文是掌握复杂布局的前提。
 
+<CssPositioningDemo />
+
 ## 定位类型
 
 ### static（默认定位）

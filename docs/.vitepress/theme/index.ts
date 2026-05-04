@@ -55,9 +55,12 @@ import JsEventLoopDemo from './components/JsEventLoopDemo.vue'
 import JsPromiseChainDemo from './components/JsPromiseChainDemo.vue'
 import JsPrototypeChainDemo from './components/JsPrototypeChainDemo.vue'
 import CssAnimationPlayground from './components/CssAnimationPlayground.vue'
+import CssBoxModelDemo from './components/CssBoxModelDemo.vue'
 import CssFlexboxDemo from './components/CssFlexboxDemo.vue'
 import CssGridLayoutDemo from './components/CssGridLayoutDemo.vue'
+import CssPositioningDemo from './components/CssPositioningDemo.vue'
 import CssSelectorCascadeDemo from './components/CssSelectorCascadeDemo.vue'
+import CssSelectorDemo from './components/CssSelectorDemo.vue'
 import CssTransformDemo from './components/CssTransformDemo.vue'
 import CssTransitionDemo from './components/CssTransitionDemo.vue'
 import TsGenericsDemo from './components/TsGenericsDemo.vue'
@@ -124,9 +127,12 @@ export default {
     app.component('JsPromiseChainDemo', JsPromiseChainDemo)
     app.component('JsPrototypeChainDemo', JsPrototypeChainDemo)
     app.component('CssAnimationPlayground', CssAnimationPlayground)
+    app.component('CssBoxModelDemo', CssBoxModelDemo)
     app.component('CssFlexboxDemo', CssFlexboxDemo)
     app.component('CssGridLayoutDemo', CssGridLayoutDemo)
+    app.component('CssPositioningDemo', CssPositioningDemo)
     app.component('CssSelectorCascadeDemo', CssSelectorCascadeDemo)
+    app.component('CssSelectorDemo', CssSelectorDemo)
     app.component('CssTransformDemo', CssTransformDemo)
     app.component('CssTransitionDemo', CssTransitionDemo)
     app.component('TsGenericsDemo', TsGenericsDemo)

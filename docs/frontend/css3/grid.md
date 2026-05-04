@@ -2,6 +2,8 @@
 
 CSS Grid 是一种二维布局系统，可以同时控制行和列，适合构建复杂的页面结构。与 Flexbox 的一维排列互补，Grid 擅长宏观布局，Flex 擅长组件内部排列。
 
+<CssGridLayoutDemo />
+
 ## 基本概念
 
 ```css

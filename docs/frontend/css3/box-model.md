@@ -2,6 +2,8 @@
 
 盒模型（Box Model）是 CSS 布局的基石，每个 HTML 元素都被渲染为一个矩形盒子，由内到外依次是内容区（content）、内边距（padding）、边框（border）、外边距（margin）。
 
+<CssBoxModelDemo />
+
 ## 标准盒模型 vs IE 盒模型
 
 ### content-box（标准盒模型）
