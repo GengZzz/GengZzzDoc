@@ -178,6 +178,12 @@ EAT = α × (t_TLB + t_mem) + (1-α) × (t_TLB + 2×t_mem)
 FIFO 算法可能出现分配的物理块越多缺页次数反而越多的异常现象。LRU 和 OPT 不会出现此异常。
 :::
 
+### 交互演示
+
+切换 FIFO / LRU / OPT 三种算法，逐步观察页面置换过程，对比缺页率差异。
+
+<OsPageReplacementDemo />
+
 ### Clock 算法（近似 LRU）
 
 ```text

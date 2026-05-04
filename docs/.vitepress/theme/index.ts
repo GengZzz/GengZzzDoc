@@ -54,6 +54,10 @@ import HtmlShadowDomDemo from './components/HtmlShadowDomDemo.vue'
 import JsEventLoopDemo from './components/JsEventLoopDemo.vue'
 import JsPromiseChainDemo from './components/JsPromiseChainDemo.vue'
 import JsPrototypeChainDemo from './components/JsPrototypeChainDemo.vue'
+import OsCacheMappingDemo from './components/OsCacheMappingDemo.vue'
+import OsPageReplacementDemo from './components/OsPageReplacementDemo.vue'
+import OsPipelineDemo from './components/OsPipelineDemo.vue'
+import OsPVDemo from './components/OsPVDemo.vue'
 import CssAnimationPlayground from './components/CssAnimationPlayground.vue'
 import CssBoxModelDemo from './components/CssBoxModelDemo.vue'
 import CssFlexboxDemo from './components/CssFlexboxDemo.vue'
@@ -126,6 +130,10 @@ export default {
     app.component('JsEventLoopDemo', JsEventLoopDemo)
     app.component('JsPromiseChainDemo', JsPromiseChainDemo)
     app.component('JsPrototypeChainDemo', JsPrototypeChainDemo)
+    app.component('OsCacheMappingDemo', OsCacheMappingDemo)
+    app.component('OsPageReplacementDemo', OsPageReplacementDemo)
+    app.component('OsPipelineDemo', OsPipelineDemo)
+    app.component('OsPVDemo', OsPVDemo)
     app.component('CssAnimationPlayground', CssAnimationPlayground)
     app.component('CssBoxModelDemo', CssBoxModelDemo)
     app.component('CssFlexboxDemo', CssFlexboxDemo)
