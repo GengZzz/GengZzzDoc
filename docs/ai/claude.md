@@ -1,5 +1,5 @@
 ---
-outline: false
+sidebar: false
 ---
 
 # Claude
