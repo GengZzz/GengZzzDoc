@@ -13,6 +13,15 @@ export default defineConfig({
   cleanUrls: true,
   ignoreDeadLinks: true,
   lastUpdated: true,
+  markdown: {
+    languages: [
+      { name: 'il', scopeName: 'text.il', embeddedLangs: [] },
+      { name: 'gitignore', scopeName: 'text.gitignore', embeddedLangs: [] }
+    ],
+    languageAlias: {
+      conf: 'ini'
+    }
+  },
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/GengZzzDoc/logo.svg' }],
   ],
