@@ -31,6 +31,9 @@ body {
 
 .VPNav {
   border-bottom: 1px solid var(--vp-c-border);
+}
+
+.VPNavBar {
   background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent);
   backdrop-filter: blur(14px);
 }
