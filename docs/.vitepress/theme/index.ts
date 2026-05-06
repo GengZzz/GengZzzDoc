@@ -81,6 +81,7 @@ import CssTransitionDemo from './components/CssTransitionDemo.vue'
 import TsGenericsDemo from './components/TsGenericsDemo.vue'
 import TsTypeInferenceDemo from './components/TsTypeInferenceDemo.vue'
 import TsTypeSystemDemo from './components/TsTypeSystemDemo.vue'
+import GitHubActionsWorkflowDemo from './components/GitHubActionsWorkflowDemo.vue'
 import './style.css'
 
 export default {
@@ -168,5 +169,6 @@ export default {
     app.component('TsGenericsDemo', TsGenericsDemo)
     app.component('TsTypeInferenceDemo', TsTypeInferenceDemo)
     app.component('TsTypeSystemDemo', TsTypeSystemDemo)
+    app.component('GitHubActionsWorkflowDemo', GitHubActionsWorkflowDemo)
   }
 }
