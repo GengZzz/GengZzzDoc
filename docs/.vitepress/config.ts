@@ -74,7 +74,8 @@ export default defineConfig({
             text: '框架',
             items: [
               { text: 'Spring', link: '/backend/framework/spring' },
-              { text: 'Spring Boot', link: '/backend/framework/springboot' }
+              { text: 'Spring Boot', link: '/backend/framework/springboot' },
+              { text: 'MyBatis', link: '/backend/framework/mybatis' }
             ]
           }
         ]
@@ -654,7 +655,8 @@ export default defineConfig({
           items: [
             { text: '概览', link: '/backend/framework/' },
             { text: 'Spring', link: '/backend/framework/spring' },
-            { text: 'Spring Boot', link: '/backend/framework/springboot' }
+            { text: 'Spring Boot', link: '/backend/framework/springboot' },
+            { text: 'MyBatis', link: '/backend/framework/mybatis' }
           ]
         }
       ],
