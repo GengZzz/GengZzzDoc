@@ -69,6 +69,12 @@ export default defineConfig({
               { text: 'Python', link: '/backend/python/' },
               { text: 'PHP', link: '/backend/php/' }
             ]
+          },
+          {
+            text: '框架',
+            items: [
+              { text: 'Spring', link: '/backend/framework/spring' }
+            ]
           }
         ]
       },
@@ -637,6 +643,16 @@ export default defineConfig({
             { text: 'Python', link: '/backend/python/' },
             { text: 'PHP', link: '/backend/php/' },
             { text: '接口设计', link: '/backend/api-design' }
+          ]
+        }
+      ],
+      '/backend/framework/': [
+        {
+          text: '框架',
+          collapsed: false,
+          items: [
+            { text: '概览', link: '/backend/framework/' },
+            { text: 'Spring', link: '/backend/framework/spring' }
           ]
         }
       ],
