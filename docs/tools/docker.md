@@ -1,5 +1,6 @@
 ---
-outline: [2, 2]
+sidebar: false
+outline: false
 ---
 
 # Docker
