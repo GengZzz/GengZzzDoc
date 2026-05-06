@@ -4,9 +4,9 @@
 
 学习顺序建议是：
 
-1. 先看 [Spring](./spring)：理解 IoC、AOP、事务这些底层能力。
-2. 再看 [Spring Boot](./springboot)：理解自动配置、起步依赖、配置绑定、内嵌容器和生产可观测能力。
-3. 最后看 [MyBatis](./mybatis)：理解 SQL 映射、执行链路、缓存、动态 SQL 和与 Spring 体系的集成。
+1. 先看 [Spring](./spring/)：理解 IoC、AOP、事务这些底层能力。
+2. 再看 [Spring Boot](./springboot/)：理解自动配置、起步依赖、配置绑定、内嵌容器和生产可观测能力。
+3. 最后看 [MyBatis](./mybatis/)：理解 SQL 映射、执行链路、缓存、动态 SQL 和与 Spring 体系的集成。
 
 这三者在日常项目中的关系可以简单理解为：Spring 提供核心容器和基础设施，Spring Boot 负责把工程启动和运行治理做顺，MyBatis 负责让 SQL 与 Java 对象之间的边界更清楚。
 

@@ -73,9 +73,9 @@ export default defineConfig({
           {
             text: '框架',
             items: [
-              { text: 'Spring', link: '/backend/framework/spring' },
-              { text: 'Spring Boot', link: '/backend/framework/springboot' },
-              { text: 'MyBatis', link: '/backend/framework/mybatis' }
+              { text: 'Spring', link: '/backend/framework/spring/' },
+              { text: 'Spring Boot', link: '/backend/framework/springboot/' },
+              { text: 'MyBatis', link: '/backend/framework/mybatis/' }
             ]
           }
         ]
@@ -654,9 +654,110 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '概览', link: '/backend/framework/' },
-            { text: 'Spring', link: '/backend/framework/spring' },
-            { text: 'Spring Boot', link: '/backend/framework/springboot' },
-            { text: 'MyBatis', link: '/backend/framework/mybatis' }
+            { text: 'Spring', link: '/backend/framework/spring/' },
+            { text: 'Spring Boot', link: '/backend/framework/springboot/' },
+            { text: 'MyBatis', link: '/backend/framework/mybatis/' }
+          ]
+        }
+      ],
+      '/backend/framework/spring/': [
+        {
+          text: '入门',
+          collapsed: false,
+          items: [
+            { text: '学习路径', link: '/backend/framework/spring/' },
+            { text: '概览与定位', link: '/backend/framework/spring/overview' }
+          ]
+        },
+        {
+          text: '核心容器',
+          collapsed: false,
+          items: [
+            { text: 'IoC 容器与 Bean 生命周期', link: '/backend/framework/spring/ioc-bean-lifecycle' },
+            { text: '依赖注入与循环依赖', link: '/backend/framework/spring/dependency-injection' }
+          ]
+        },
+        {
+          text: 'AOP 与事务',
+          collapsed: false,
+          items: [
+            { text: '代理与事务边界', link: '/backend/framework/spring/aop-transaction' }
+          ]
+        },
+        {
+          text: '工程实践',
+          collapsed: false,
+          items: [
+            { text: '事件、资源与环境', link: '/backend/framework/spring/events-resources-profile' },
+            { text: '测试与日常排查', link: '/backend/framework/spring/testing-practice' }
+          ]
+        }
+      ],
+      '/backend/framework/springboot/': [
+        {
+          text: '入门',
+          collapsed: false,
+          items: [
+            { text: '学习路径', link: '/backend/framework/springboot/' },
+            { text: '概览与 Starter', link: '/backend/framework/springboot/overview-starter' }
+          ]
+        },
+        {
+          text: '自动配置与配置',
+          collapsed: false,
+          items: [
+            { text: '自动配置与条件注解', link: '/backend/framework/springboot/auto-configuration' },
+            { text: '配置绑定与多环境', link: '/backend/framework/springboot/configuration-profile' }
+          ]
+        },
+        {
+          text: 'Web 与运行',
+          collapsed: false,
+          items: [
+            { text: 'Web 容器与启动流程', link: '/backend/framework/springboot/web-startup' },
+            { text: '请求处理与 Actuator', link: '/backend/framework/springboot/request-actuator' }
+          ]
+        },
+        {
+          text: '工程实践',
+          collapsed: false,
+          items: [
+            { text: '日志、测试与部署', link: '/backend/framework/springboot/testing-deployment' },
+            { text: '常见问题与实践', link: '/backend/framework/springboot/troubleshooting-practice' }
+          ]
+        }
+      ],
+      '/backend/framework/mybatis/': [
+        {
+          text: '入门',
+          collapsed: false,
+          items: [
+            { text: '学习路径', link: '/backend/framework/mybatis/' },
+            { text: '概览与执行链路', link: '/backend/framework/mybatis/overview-executor' }
+          ]
+        },
+        {
+          text: 'SQL 映射',
+          collapsed: false,
+          items: [
+            { text: '会话、Mapper 与 SQL 写法', link: '/backend/framework/mybatis/session-mapper-sql' },
+            { text: '参数绑定与动态 SQL', link: '/backend/framework/mybatis/parameters-dynamic-sql' },
+            { text: '结果映射与 N+1', link: '/backend/framework/mybatis/resultmap-n-plus-one' }
+          ]
+        },
+        {
+          text: '执行机制',
+          collapsed: false,
+          items: [
+            { text: '缓存与 Executor', link: '/backend/framework/mybatis/cache-executor' },
+            { text: '插件、分页与批量写入', link: '/backend/framework/mybatis/plugins-pagination-batch' }
+          ]
+        },
+        {
+          text: '集成实践',
+          collapsed: false,
+          items: [
+            { text: 'Spring 集成与常见坑', link: '/backend/framework/mybatis/spring-integration-practice' }
           ]
         }
       ],
