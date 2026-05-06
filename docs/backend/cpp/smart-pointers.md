@@ -2,6 +2,8 @@
 
 手动 `new` / `delete` 容易忘记释放或重复释放。C++11 引入三种智能指针，把资源管理交给对象生命周期，这就是 RAII 思想在指针层面的体现。
 
+<CppSmartPointerDemo />
+
 ## unique_ptr：独占所有权
 
 `unique_ptr` 保证同一时刻只有一个指针拥有该资源。

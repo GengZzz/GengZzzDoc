@@ -65,7 +65,8 @@ const status = computed(() => {
     '创建 shared_ptr<int> s1，引用计数=1',
     's2 = s1，两个指针共享同一对象，引用计数=2',
     's1 销毁，引用计数减为 1，对象仍然存活',
-    's2 销毁，引用计数减为 0，对象被释放'
+    's2 销毁，引用计数减为 0，对象被释放',
+    'weak_ptr 只观察对象，不增加引用计数，适合打破 shared_ptr 循环引用'
   ]
   return msgs[step.value]
 })

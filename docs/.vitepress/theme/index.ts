@@ -16,6 +16,7 @@ import CppClassObjectDemo from './components/CppClassObjectDemo.vue'
 import CppCompileFlow from './components/CppCompileFlow.vue'
 import CppInheritancePolymorphismDemo from './components/CppInheritancePolymorphismDemo.vue'
 import CppPointerAddressDemo from './components/CppPointerAddressDemo.vue'
+import CppRAIIDemo from './components/CppRAIIDemo.vue'
 import CppStackHeapDemo from './components/CppStackHeapDemo.vue'
 import CppVectorGrowthDemo from './components/CppVectorGrowthDemo.vue'
 import JavaConcurrencyDemo from './components/JavaConcurrencyDemo.vue'
@@ -45,6 +46,7 @@ import PgQueryPlannerDemo from './components/PgQueryPlannerDemo.vue'
 import PgReplicationDemo from './components/PgReplicationDemo.vue'
 import CSharpGCDemo from './components/CSharpGCDemo.vue'
 import CSharpAsyncDemo from './components/CSharpAsyncDemo.vue'
+import CSharpDelegateEventDemo from './components/CSharpDelegateEventDemo.vue'
 import CSharpLINQDemo from './components/CSharpLINQDemo.vue'
 import PythonGeneratorDemo from './components/PythonGeneratorDemo.vue'
 import PythonDecoratorDemo from './components/PythonDecoratorDemo.vue'
@@ -100,6 +102,7 @@ export default {
     app.component('CppInheritancePolymorphismDemo', CppInheritancePolymorphismDemo)
     app.component('CppMoveSemanticsDemo', CppMoveSemanticsDemo)
     app.component('CppPointerAddressDemo', CppPointerAddressDemo)
+    app.component('CppRAIIDemo', CppRAIIDemo)
     app.component('CppSmartPointerDemo', CppSmartPointerDemo)
     app.component('CppStackHeapDemo', CppStackHeapDemo)
     app.component('CppVectorGrowthDemo', CppVectorGrowthDemo)
@@ -130,6 +133,7 @@ export default {
     app.component('PgReplicationDemo', PgReplicationDemo)
     app.component('CSharpGCDemo', CSharpGCDemo)
     app.component('CSharpAsyncDemo', CSharpAsyncDemo)
+    app.component('CSharpDelegateEventDemo', CSharpDelegateEventDemo)
     app.component('CSharpLINQDemo', CSharpLINQDemo)
     app.component('PythonGeneratorDemo', PythonGeneratorDemo)
     app.component('PythonDecoratorDemo', PythonDecoratorDemo)

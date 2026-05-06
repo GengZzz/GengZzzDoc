@@ -2,6 +2,8 @@
 
 async/await 是 C# 异步编程的核心，其底层基于编译器生成的状态机结构体。理解 SynchronizationContext、ConfigureAwait、ValueTask 的正确使用模式，以及异步死锁的成因，是写出健壮异步代码的关键。
 
+<CSharpAsyncDemo />
+
 ## 状态机内部实现
 
 ### 结构体 vs 类

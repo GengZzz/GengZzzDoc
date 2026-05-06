@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 
 const step = ref(0)
-const totalSteps = 7
+const totalSteps = 8
 
 const statusText = computed(() => {
   const texts = [

@@ -2,6 +2,8 @@
 
 委托是 C# 中函数作为一等公民的基础，其内部的多播委托链机制、事件的线程安全模式、以及表达式树的可分析数据结构是理解 LINQ 和 async/await 的关键。
 
+<CSharpDelegateEventDemo />
+
 ## 委托类型
 
 委托是类型安全的函数指针，编译器为每个委托类型生成一个继承自 `System.MulticastDelegate` 的类。

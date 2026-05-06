@@ -1,8 +1,8 @@
 # C++
 
-这组笔记以浙江大学翁恺教授《面向对象程序设计 - C++》的课程主线为参考，重新组织为一条更适合自学复习的路径：先建立对象视角，再理解 C++ 如何用类、构造、继承、多态、拷贝、运算符重载、模板、异常、流和 STL 表达这种视角。
+这组笔记把 C++ 按日常开发会遇到的问题重新组织：先让程序跑起来，再把类型、对象、生命周期、资源管理、泛型标准库、并发和工程实践串成一条主线。
 
-这不是把课时逐字搬运，而是把课程里反复强调的思路整理成可查、可练、可继续扩展的文档。
+学习 C++ 最容易被语法细节淹没。这里的重点不是背每个关键字，而是持续理解三件事：对象在哪里、资源归谁管、接口如何避免误用。
 
 ## 学习顺序
 
@@ -12,43 +12,44 @@
 - [开发环境](./development-environment.md)：准备编译器和编辑器。
 - [输入与输出](./input-output.md)：用 `cin`、`cout` 写出可交互的小程序。
 
-### 2. 从对象开始，而不是从语法清单开始
+### 2. 打好语言基础
 
-- [类与对象](./classes-objects.md)：第一个程序、对象、类、成员变量、成员函数。
-- [结构体](./structs.md)：理解数据聚合，再过渡到类。
-- [函数](./functions-modular.md)：把动作拆出来，让对象的行为更清楚。
+- [语法与变量](./syntax-data-expressions.md)：类型、变量、表达式和基本运算。
+- [类型转换](./type-conversion.md)：隐式转换、显式转换和类型安全边界。
+- [条件与循环](./control-flow.md)：把分支和重复逻辑写清楚。
+- [函数](./functions-modular.md)：参数传递、返回值和模块拆分。
+- [数组](./arrays.md) 与 [字符串](./strings.md)：理解连续内存和常见数据处理方式。
 
-### 3. 掌握对象生命周期
+### 3. 把对象生命周期吃透
 
-- [类与对象](./classes-objects.md#构造函数)：构造函数、析构函数、初始化列表、对象组合。
-- [构造与析构](./constructors-destructors.md)：构造函数类型、三/五法则、explicit、构造函数异常。
-- [指针与引用](./pointers-references-resources.md)：理解对象地址、引用传参和资源归属。
-- [栈与堆](./stack-heap-memory.md)：分清自动对象和动态对象，写出能正确释放资源的程序。
-- [智能指针](./smart-pointers.md)：unique_ptr/shared_ptr/weak_ptr、自定义删除器、循环引用。
+- [结构体](./structs.md) 与 [类与对象](./classes-objects.md)：从数据聚合过渡到封装行为。
+- [构造与析构](./constructors-destructors.md)：对象如何初始化、清理和应对异常。
+- [指针与引用](./pointers-references-resources.md)：看清地址、别名和资源归属。
+- [栈与堆](./stack-heap-memory.md)：分清自动生命周期和动态生命周期。
+- [智能指针](./smart-pointers.md)：用 `unique_ptr`、`shared_ptr`、`weak_ptr` 表达所有权。
+- [移动语义](./move-semantics.md)：在不深拷贝的情况下转移资源。
 
-### 4. 进入面向对象的核心
+### 4. 建立面向对象设计感
 
-- [继承与多态](./inheritance-polymorphism.md)：继承、向上造型、虚函数、动态绑定。
-- [运算符重载](./operator-overloading.md)：算术/比较/流运算符、仿函数、类型转换运算符。
-- [高级面向对象](./advanced-oop.md)：多继承与虚继承、RTTI、CRTP 模式。
-- [现代 C++](./modern-cpp.md)：`const`、引用再研究、拷贝构造、静态成员、C++17/20/23 新特性总览。
+- [继承与多态](./inheritance-polymorphism.md)：虚函数、动态绑定和接口替换。
+- [运算符重载](./operator-overloading.md)：让自定义类型自然参与表达式。
+- [高级面向对象](./advanced-oop.md)：多继承、RTTI、CRTP 等高级机制的取舍。
+
+### 5. 接上泛型与标准库
+
 - [模板基础](./templates-generic.md)：用类型参数写可复用代码。
-
-### 5. 接上标准库和工程实践
-
+- [高级模板](./advanced-templates.md)：特化、SFINAE、变参模板、折叠表达式、Concepts。
+- [Lambda 表达式](./lambda-expressions.md)：捕获、闭包对象和泛型 Lambda。
 - [STL 容器](./stl-templates.md)：`vector`、`map`、`set` 等常用容器。
 - [常用算法](./common-algorithms.md)：让算法作用在范围上，而不是只盯着某个数组。
-- [移动语义](./move-semantics.md)：左值/右值、std::move、完美转发、引用折叠。
-- [Lambda 表达式](./lambda-expressions.md)：捕获列表、泛型 Lambda、constexpr Lambda。
+
+### 6. 进入工程实践
+
+- [现代 C++](./modern-cpp.md)：`const`、引用、静态成员和 C++17/20/23 特性总览。
 - [文件与异常](./io-files-exceptions.md)：流、文件读写、异常抛出和捕获。
-
-### 6. 进阶专题
-
-- [高级模板](./advanced-templates.md)：特化、SFINAE、变参模板、折叠表达式、Concepts。
-- [并发编程](./concurrency.md)：线程、mutex、内存模型、死锁避免。
-- [现代并发](./modern-concurrency.md)：async/future/promise、原子操作、内存顺序、线程池。
-- [设计模式](./design-patterns-cpp.md)：Singleton、Factory、Observer、RAII 等 C++ 实现。
-- [构建系统](./build-systems.md)：CMake 基础与最佳实践、FetchContent、vcpkg/Conan。
+- [并发编程](./concurrency.md) 与 [现代并发](./modern-concurrency.md)：线程、锁、原子操作和异步任务。
+- [设计模式](./design-patterns-cpp.md)：用 C++ 实现常见设计模式，尤其关注 RAII。
+- [构建系统](./build-systems.md)：CMake、依赖管理和跨平台构建。
 - [工程实践](./engineering-practice.md)：多文件组织、命名、调试和练习节奏。
 
 ## 对应课程主线
