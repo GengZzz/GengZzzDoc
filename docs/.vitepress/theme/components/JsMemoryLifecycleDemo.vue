@@ -2,24 +2,19 @@
 import { computed, ref } from 'vue'
 
 const step = ref(0)
-const totalSteps = 5
+const states = [
+  { refs: ['user'], removed: false, desc: '变量 user 指向堆对象，对象可达。' },
+  { refs: ['user', 'listener'], removed: false, desc: '事件监听器闭包也引用对象，引用路径增加。' },
+  { refs: ['user', 'listener', 'timer'], removed: false, desc: '定时器引用回调，回调继续引用对象。' },
+  { refs: ['listener', 'timer'], removed: true, desc: '把 user 设为 null 后，对象仍可从监听器和定时器到达。' },
+  { refs: [], removed: true, desc: '清理监听器和定时器后，对象不可达，等待 GC 回收。' }
+]
 
-const reachable = computed(() => step.value < 4)
-const hasTimer = computed(() => step.value >= 2 && step.value < 4)
-
-const description = computed(() => {
-  const text = [
-    '创建对象后，变量 user 指向堆中的对象。',
-    'DOM 监听器闭包也引用了 user，对象仍然可达。',
-    '定时器继续引用回调，回调又引用 user。',
-    '即使页面节点移除，只要监听器或定时器还在，user 仍然不能回收。',
-    '清理监听器和定时器后，对象不可达，等待 GC 回收。'
-  ]
-  return text[step.value]
-})
+const current = computed(() => states[step.value])
+const reachable = computed(() => current.value.refs.length > 0)
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % states.length
 }
 
 function reset() {
@@ -31,27 +26,29 @@ function reset() {
   <div class="memory-demo">
     <div class="memory-grid">
       <section>
-        <h4>引用来源</h4>
-        <div class="ref" :class="{ active: step >= 0 && step < 4 }">变量 user</div>
-        <div class="ref" :class="{ active: step >= 1 && step < 4 }">事件监听器</div>
-        <div class="ref" :class="{ active: hasTimer }">定时器回调</div>
+        <h4>引用路径</h4>
+        <div class="ref" :class="{ active: current.refs.includes('user'), removed: current.removed }">user 变量</div>
+        <div class="ref" :class="{ active: current.refs.includes('listener') }">click listener</div>
+        <div class="ref" :class="{ active: current.refs.includes('timer') }">setInterval callback</div>
       </section>
 
-      <section class="heap">
+      <section>
         <h4>堆对象</h4>
-        <div class="object" :class="{ collectable: !reachable }">
-          {{ reachable ? '{ name: "Alice" }' : '不可达对象' }}
+        <div class="object" :class="{ unreachable: !reachable }">
+          <strong>{ name: "Alice" }</strong>
+          <span>{{ reachable ? 'reachable' : 'unreachable' }}</span>
         </div>
       </section>
 
       <section>
-        <h4>GC 判断</h4>
-        <div class="gc" :class="{ ready: !reachable }">
-          {{ reachable ? '仍然可达，不回收' : '不可达，可回收' }}
+        <h4>GC 结论</h4>
+        <div class="decision" :class="{ collect: !reachable }">
+          {{ reachable ? '保留：仍有引用路径' : '可回收：无引用路径' }}
         </div>
       </section>
     </div>
-    <div class="status">{{ description }}</div>
+
+    <div class="status">{{ current.desc }}</div>
     <div class="actions">
       <button type="button" @click="next">下一步</button>
       <button type="button" @click="reset">重置</button>
@@ -87,8 +84,8 @@ h4 {
 
 .ref,
 .object,
-.gc {
-  min-height: 40px;
+.decision {
+  min-height: 42px;
   display: grid;
   place-items: center;
   margin-top: 8px;
@@ -97,33 +94,56 @@ h4 {
   color: var(--vp-c-text-2);
   text-align: center;
   font-size: 13px;
-  font-family: var(--vp-font-family-mono);
 }
 
 .ref.active {
   border-style: solid;
   border-color: #38bdf8;
   color: #0284c7;
-  animation: ref-pulse 1.4s ease-in-out infinite;
+  background: rgba(56, 189, 248, .08);
+}
+
+.ref.removed {
+  text-decoration: line-through;
+  opacity: .45;
 }
 
 .object {
-  min-height: 116px;
+  min-height: 132px;
   border-style: solid;
   border-color: #f59e0b;
+}
+
+.object strong {
+  font-family: var(--vp-font-family-mono);
   color: #d97706;
 }
 
-.object.collectable {
-  border-color: #10b981;
-  color: #059669;
-  opacity: .55;
+.object span {
+  color: var(--vp-c-text-2);
 }
 
-.gc.ready {
+.object.unreachable {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, .08);
+}
+
+.object.unreachable strong {
+  color: #059669;
+}
+
+.decision {
+  min-height: 132px;
   border-style: solid;
+  border-color: #f59e0b;
+  color: #d97706;
+  font-weight: 700;
+}
+
+.decision.collect {
   border-color: #10b981;
   color: #059669;
+  background: rgba(16, 185, 129, .08);
 }
 
 .status {
@@ -148,11 +168,6 @@ button {
   background: var(--vp-c-bg);
   color: var(--vp-c-text-1);
   cursor: pointer;
-}
-
-@keyframes ref-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, .2); }
-  50% { box-shadow: 0 0 0 4px rgba(56, 189, 248, .18); }
 }
 
 @media (max-width: 720px) {

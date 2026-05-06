@@ -2,28 +2,44 @@
 import { computed, ref } from 'vue'
 
 const step = ref(0)
-const totalSteps = 5
-
-const descriptions = [
-  'outer() 还没有执行，只有全局上下文。',
-  '调用 outer()，创建 outer 词法环境，count 被初始化为 0。',
-  '创建 increment 函数，它记录了外层词法环境的引用。',
-  'outer() 返回后，调用栈清空，但 increment 仍然引用 count。',
-  '调用 increment()，沿闭包引用找到 count，并把它更新为 1。'
+const steps = [
+  {
+    title: '准备阶段',
+    desc: '全局作用域里只有 createCounter 函数声明，还没有 count。',
+    stack: ['global'],
+    active: 'global'
+  },
+  {
+    title: '调用 createCounter',
+    desc: '函数入栈，创建词法环境，局部变量 count 初始化为 0。',
+    stack: ['global', 'createCounter()'],
+    active: 'outer'
+  },
+  {
+    title: '创建 increment',
+    desc: 'increment 函数在 createCounter 内部创建，因此记录了 Outer Lexical Env 的引用。',
+    stack: ['global', 'createCounter()'],
+    active: 'function'
+  },
+  {
+    title: '返回函数',
+    desc: 'createCounter 出栈，但返回的 increment 仍然被 counter 变量引用。',
+    stack: ['global'],
+    active: 'closure'
+  },
+  {
+    title: '再次调用',
+    desc: 'counter() 入栈，通过闭包引用找到 count，把 0 更新为 1。',
+    stack: ['global', 'counter()'],
+    active: 'count'
+  }
 ]
 
-const stack = computed(() => {
-  if (step.value === 1 || step.value === 2) return ['outer()']
-  if (step.value === 4) return ['increment()']
-  return []
-})
-
-const hasOuterEnv = computed(() => step.value >= 1)
-const hasClosureLink = computed(() => step.value >= 2)
-const countValue = computed(() => (step.value >= 4 ? 1 : 0))
+const current = computed(() => steps[step.value])
+const countValue = computed(() => (step.value === 4 ? 1 : 0))
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % steps.length
 }
 
 function reset() {
@@ -33,30 +49,45 @@ function reset() {
 
 <template>
   <div class="closure-demo">
+    <div class="step-header">
+      <strong>{{ current.title }}</strong>
+      <span>{{ step + 1 }} / {{ steps.length }}</span>
+    </div>
+
     <div class="demo-grid">
       <section class="panel">
         <h4>调用栈</h4>
-        <div v-if="stack.length === 0" class="empty">空</div>
-        <div v-for="frame in stack" :key="frame" class="frame">{{ frame }}</div>
+        <div class="stack">
+          <div v-for="frame in current.stack" :key="frame" class="frame">{{ frame }}</div>
+        </div>
       </section>
 
       <section class="panel env-panel">
         <h4>词法环境</h4>
-        <div class="env global">Global Env<br><span>counter -> increment</span></div>
-        <div class="link" :class="{ active: hasClosureLink }"></div>
-        <div class="env outer" :class="{ active: hasOuterEnv }">
-          Outer Env<br><span>count = {{ countValue }}</span>
+        <div class="env" :class="{ active: current.active === 'global' }">
+          Global Lexical Env
+          <span>counter -> increment</span>
+        </div>
+        <div class="connector" :class="{ active: step >= 2 }">
+          <span>[[Environment]]</span>
+        </div>
+        <div class="env outer" :class="{ active: ['outer', 'closure', 'count'].includes(current.active) }">
+          Outer Lexical Env
+          <span :class="{ changed: current.active === 'count' }">count = {{ countValue }}</span>
         </div>
       </section>
 
-      <section class="panel function-panel">
-        <h4>返回的函数</h4>
-        <div class="fn" :class="{ active: hasClosureLink }">increment()</div>
-        <p>函数对象保存对 Outer Env 的引用。</p>
+      <section class="panel">
+        <h4>函数对象</h4>
+        <div class="fn" :class="{ active: ['function', 'closure', 'count'].includes(current.active) }">
+          increment()
+          <span>读取并更新 count</span>
+        </div>
+        <div class="note" :class="{ active: current.active === 'closure' }">函数返回后，环境没有被释放</div>
       </section>
     </div>
 
-    <div class="status">{{ descriptions[step] }}</div>
+    <div class="status">{{ current.desc }}</div>
     <div class="actions">
       <button type="button" @click="next">下一步</button>
       <button type="button" @click="reset">重置</button>
@@ -72,6 +103,19 @@ function reset() {
   background: var(--vp-c-bg-soft);
 }
 
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--vp-c-text-1);
+}
+
+.step-header span {
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+}
+
 .demo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -79,7 +123,7 @@ function reset() {
 }
 
 .panel {
-  min-height: 180px;
+  min-height: 210px;
   padding: 12px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
@@ -91,71 +135,84 @@ h4 {
   font-size: 14px;
 }
 
-.empty,
+.stack {
+  display: flex;
+  min-height: 150px;
+  flex-direction: column-reverse;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
 .frame,
+.env,
 .fn,
-.env {
-  display: grid;
-  place-items: center;
-  min-height: 42px;
-  border: 1px dashed var(--vp-c-divider);
+.note {
+  border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
+  background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-2);
-  text-align: center;
-  font-family: var(--vp-font-family-mono);
   font-size: 13px;
 }
 
 .frame {
-  border-style: solid;
-  border-color: #8b5cf6;
-  color: #8b5cf6;
+  padding: 10px;
+  font-family: var(--vp-font-family-mono);
 }
 
-.env {
-  border-style: solid;
-  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+.env,
+.fn {
+  display: grid;
+  min-height: 58px;
+  place-items: center;
+  padding: 10px;
+  text-align: center;
+  font-family: var(--vp-font-family-mono);
 }
 
-.env span {
+.env span,
+.fn span {
+  display: block;
   margin-top: 4px;
   color: var(--vp-c-text-2);
   font-family: var(--vp-font-family-base);
 }
 
-.outer {
-  opacity: .35;
+.active {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, .14);
 }
 
-.outer.active {
-  opacity: 1;
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, .15);
+.outer .changed {
+  color: #059669;
+  font-weight: 700;
 }
 
-.link {
-  height: 26px;
-  margin: 8px auto;
-  width: 3px;
-  border-radius: 999px;
+.connector {
+  position: relative;
+  margin: 12px auto;
+  width: 2px;
+  height: 34px;
   background: var(--vp-c-divider);
 }
 
-.link.active {
-  background: #10b981;
-  animation: pulse-line 1.2s ease-in-out infinite;
-}
-
-.fn.active {
-  border-style: solid;
-  border-color: #f59e0b;
-  color: #f59e0b;
-}
-
-.function-panel p {
-  margin: 10px 0 0;
+.connector span {
+  position: absolute;
+  left: 10px;
+  top: 6px;
+  white-space: nowrap;
   color: var(--vp-c-text-2);
-  font-size: 13px;
+  font-size: 12px;
+}
+
+.connector.active {
+  background: #10b981;
+}
+
+.note {
+  margin-top: 12px;
+  padding: 10px;
+  text-align: center;
 }
 
 .status {
@@ -181,11 +238,6 @@ button {
   background: var(--vp-c-bg);
   color: var(--vp-c-text-1);
   cursor: pointer;
-}
-
-@keyframes pulse-line {
-  0%, 100% { opacity: .4; transform: scaleY(.8); }
-  50% { opacity: 1; transform: scaleY(1.2); }
 }
 
 @media (max-width: 720px) {

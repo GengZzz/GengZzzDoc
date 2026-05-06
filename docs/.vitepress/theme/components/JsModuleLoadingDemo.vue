@@ -1,22 +1,61 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const mode = ref<'esm' | 'cjs'>('esm')
+const step = ref(0)
+
+const esmSteps = [
+  ['解析 import/export', '先不执行代码，只收集依赖关系。'],
+  ['实例化模块记录', '为导入导出建立 live binding。'],
+  ['按依赖顺序执行', '执行模块顶层代码并填充值。'],
+  ['导入方读取绑定', '读取的是同一个绑定的最新值。']
+]
+
+const cjsSteps = [
+  ['遇到 require()', '运行到这一行才开始加载目标模块。'],
+  ['执行目标文件', '模块顶层代码立即执行。'],
+  ['填充 module.exports', '导出的是 exports 对象。'],
+  ['缓存并返回', '下次 require 直接返回缓存对象。']
+]
+
+const currentSteps = computed(() => (mode.value === 'esm' ? esmSteps : cjsSteps))
+const current = computed(() => currentSteps.value[step.value])
+
+function setMode(nextMode: 'esm' | 'cjs') {
+  mode.value = nextMode
+  step.value = 0
+}
+
+function next() {
+  step.value = (step.value + 1) % currentSteps.value.length
+}
 </script>
 
 <template>
   <div class="module-demo">
     <div class="switcher">
-      <button :class="{ active: mode === 'esm' }" type="button" @click="mode = 'esm'">ESM</button>
-      <button :class="{ active: mode === 'cjs' }" type="button" @click="mode = 'cjs'">CommonJS</button>
+      <button :class="{ active: mode === 'esm' }" type="button" @click="setMode('esm')">ESM</button>
+      <button :class="{ active: mode === 'cjs' }" type="button" @click="setMode('cjs')">CommonJS</button>
     </div>
+
     <div class="pipeline" :class="mode">
-      <div class="stage">解析依赖</div>
-      <div class="stage">建立模块记录</div>
-      <div class="stage">执行模块</div>
-      <div class="stage final">{{ mode === 'esm' ? 'live binding' : 'exports 快照/对象' }}</div>
+      <div
+        v-for="(item, index) in currentSteps"
+        :key="item[0]"
+        class="stage"
+        :class="{ active: index === step, done: index < step }"
+      >
+        <span>{{ index + 1 }}</span>
+        <strong>{{ item[0] }}</strong>
+      </div>
     </div>
-    <p>{{ mode === 'esm' ? 'ESM 先静态分析依赖，再执行模块，导出是实时绑定。' : 'CommonJS 在运行时 require，首次执行后缓存 module.exports。' }}</p>
+
+    <div class="explain">
+      <strong>{{ current[0] }}</strong>
+      <p>{{ current[1] }}</p>
+    </div>
+
+    <button type="button" @click="next">下一步</button>
   </div>
 </template>
 
@@ -56,51 +95,56 @@ button.active {
 }
 
 .stage {
-  position: relative;
-  min-height: 64px;
+  min-height: 82px;
   display: grid;
   place-items: center;
+  padding: 10px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
   text-align: center;
+}
+
+.stage span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--vp-c-bg-soft);
+  font-size: 12px;
+}
+
+.stage strong {
   font-size: 13px;
 }
 
-.stage::after {
-  position: absolute;
-  right: -12px;
-  content: ">";
-  color: var(--vp-c-text-3);
+.stage.done {
+  border-color: #10b981;
+  color: #059669;
 }
 
-.stage.final::after {
-  content: "";
+.stage.active {
+  border-color: #f59e0b;
+  color: #d97706;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, .14);
 }
 
-.esm .stage {
-  border-color: rgba(16, 185, 129, .5);
-  animation: module-flow 1.6s ease-in-out infinite;
+.explain {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: var(--vp-c-bg);
 }
 
-.cjs .stage {
-  border-color: rgba(245, 158, 11, .55);
-  animation: module-flow 1.6s ease-in-out infinite;
-}
-
-p {
-  margin: 12px 0 0;
+.explain p {
+  margin: 4px 0 0;
   color: var(--vp-c-text-2);
   font-size: 13px;
 }
 
-@keyframes module-flow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
 @media (max-width: 720px) {
   .pipeline { grid-template-columns: 1fr; }
-  .stage::after { content: ""; }
 }
 </style>

@@ -2,42 +2,24 @@
 import { computed, ref } from 'vue'
 
 const step = ref(0)
-const totalSteps = 6
 const tasks = ['A', 'B', 'C', 'D', 'E']
+const states = [
+  { pointer: 0, runner1: '', runner2: '', done: [] as string[], desc: '等待队列中有 5 个任务，两个 runner 都空闲。' },
+  { pointer: 2, runner1: 'A', runner2: 'B', done: [] as string[], desc: '两个 runner 同时领取任务 A、B，nextIndex 指向 C。' },
+  { pointer: 3, runner1: 'C', runner2: 'B', done: ['A'], desc: 'A 完成后进入结果区，Runner 1 继续领取 C。' },
+  { pointer: 4, runner1: 'C', runner2: 'D', done: ['A', 'B'], desc: 'B 完成，Runner 2 继续领取 D，并发数仍然不超过 2。' },
+  { pointer: 5, runner1: 'E', runner2: 'D', done: ['A', 'B', 'C'], desc: 'C 完成后领取最后一个任务 E，等待队列已经耗尽。' },
+  { pointer: 5, runner1: '', runner2: '', done: ['A', 'B', 'C', 'D', 'E'], desc: '所有任务完成，结果仍按原始任务顺序汇总。' }
+]
 
-const running = computed(() => {
-  if (step.value === 0) return []
-  if (step.value === 1) return ['A', 'B']
-  if (step.value === 2) return ['B', 'C']
-  if (step.value === 3) return ['C', 'D']
-  if (step.value === 4) return ['D', 'E']
-  return []
-})
-
-const done = computed(() => {
-  if (step.value <= 1) return []
-  if (step.value === 2) return ['A']
-  if (step.value === 3) return ['A', 'B']
-  if (step.value === 4) return ['A', 'B', 'C']
-  return ['A', 'B', 'C', 'D', 'E']
-})
-
-const waiting = computed(() => tasks.filter(task => !running.value.includes(task) && !done.value.includes(task)))
-
-const description = computed(() => {
-  const text = [
-    '任务还在等待队列中，并发池最多同时运行 2 个任务。',
-    'Runner 1 和 Runner 2 分别领取 A、B。',
-    'A 完成后释放一个位置，Runner 1 继续领取 C。',
-    'B 完成后释放一个位置，Runner 2 继续领取 D。',
-    'C 完成后继续领取 E，始终保持最多 2 个任务运行。',
-    '全部任务完成，结果按原任务顺序汇总。'
-  ]
-  return text[step.value]
+const current = computed(() => states[step.value])
+const waiting = computed(() => {
+  const active = [current.value.runner1, current.value.runner2].filter(Boolean)
+  return tasks.filter(task => !active.includes(task) && !current.value.done.includes(task))
 })
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % states.length
 }
 
 function reset() {
@@ -47,30 +29,40 @@ function reset() {
 
 <template>
   <div class="concurrency-demo">
-    <div class="lanes">
+    <div class="header">
+      <strong>并发池 limit = 2</strong>
+      <span>nextIndex = {{ current.pointer }}</span>
+    </div>
+
+    <div class="queue">
+      <div v-for="task in tasks" :key="task" class="task" :class="{
+        done: current.done.includes(task),
+        running: task === current.runner1 || task === current.runner2,
+        waiting: waiting.includes(task)
+      }">
+        {{ task }}
+      </div>
+    </div>
+
+    <div class="runners">
       <section>
-        <h4>等待队列</h4>
-        <div class="task-row">
-          <span v-for="task in waiting" :key="task" class="task wait">{{ task }}</span>
-          <span v-if="waiting.length === 0" class="empty">空</span>
-        </div>
+        <h4>Runner 1</h4>
+        <div class="slot" :class="{ active: current.runner1 }">{{ current.runner1 || '空闲' }}</div>
       </section>
       <section>
-        <h4>运行中 limit = 2</h4>
-        <div class="task-row running-zone">
-          <span v-for="task in running" :key="task" class="task run">{{ task }}</span>
-          <span v-if="running.length === 0" class="empty">空</span>
-        </div>
+        <h4>Runner 2</h4>
+        <div class="slot" :class="{ active: current.runner2 }">{{ current.runner2 || '空闲' }}</div>
       </section>
       <section>
-        <h4>已完成</h4>
-        <div class="task-row">
-          <span v-for="task in done" :key="task" class="task done">{{ task }}</span>
-          <span v-if="done.length === 0" class="empty">空</span>
+        <h4>结果区</h4>
+        <div class="result-row">
+          <span v-for="task in current.done" :key="task">{{ task }}</span>
+          <em v-if="current.done.length === 0">暂无</em>
         </div>
       </section>
     </div>
-    <div class="status">{{ description }}</div>
+
+    <div class="status">{{ current.desc }}</div>
     <div class="actions">
       <button type="button" @click="next">下一步</button>
       <button type="button" @click="reset">重置</button>
@@ -86,8 +78,52 @@ function reset() {
   background: var(--vp-c-bg-soft);
 }
 
-.lanes {
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.header span {
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-mono);
+  font-size: 13px;
+}
+
+.queue {
   display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.task {
+  display: grid;
+  min-height: 50px;
+  place-items: center;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+  font-weight: 700;
+}
+
+.task.running {
+  border-color: #f59e0b;
+  color: #d97706;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, .15);
+}
+
+.task.done {
+  border-color: #10b981;
+  color: #059669;
+  background: rgba(16, 185, 129, .1);
+}
+
+.runners {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
@@ -103,40 +139,44 @@ h4 {
   font-size: 14px;
 }
 
-.task-row {
+.slot {
+  display: grid;
+  min-height: 56px;
+  place-items: center;
+  border: 1px dashed var(--vp-c-divider);
+  border-radius: 8px;
+  color: var(--vp-c-text-2);
+}
+
+.slot.active {
+  border-style: solid;
+  border-color: #f59e0b;
+  color: #d97706;
+  font-weight: 700;
+}
+
+.result-row {
   display: flex;
-  min-height: 48px;
+  min-height: 56px;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.running-zone {
-  border: 1px dashed #f59e0b;
-  border-radius: 8px;
-  padding: 8px;
-}
-
-.task {
+.result-row span {
   display: grid;
+  width: 34px;
+  height: 34px;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 8px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, .14);
+  color: #059669;
   font-weight: 700;
-  font-family: var(--vp-font-family-mono);
 }
 
-.wait { background: rgba(148, 163, 184, .18); color: var(--vp-c-text-2); }
-.run {
-  background: rgba(245, 158, 11, .18);
-  color: #d97706;
-  animation: working 1s ease-in-out infinite;
-}
-.done { background: rgba(16, 185, 129, .18); color: #059669; }
-
-.empty {
+.result-row em {
   color: var(--vp-c-text-2);
+  font-style: normal;
   font-size: 13px;
 }
 
@@ -164,8 +204,8 @@ button {
   cursor: pointer;
 }
 
-@keyframes working {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+@media (max-width: 720px) {
+  .queue,
+  .runners { grid-template-columns: 1fr; }
 }
 </style>
