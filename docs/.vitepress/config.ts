@@ -75,7 +75,10 @@ export default defineConfig({
             items: [
               { text: 'Spring', link: '/backend/framework/spring/' },
               { text: 'Spring Boot', link: '/backend/framework/springboot/' },
-              { text: 'MyBatis', link: '/backend/framework/mybatis/' }
+              { text: 'MyBatis', link: '/backend/framework/mybatis/' },
+              { text: 'MyBatis-Plus', link: '/backend/framework/mybatisplus/' },
+              { text: 'Laravel', link: '/backend/framework/laravel/' },
+              { text: 'ThinkPHP', link: '/backend/framework/thinkphp/' }
             ]
           }
         ]
@@ -656,7 +659,10 @@ export default defineConfig({
             { text: '概览', link: '/backend/framework/' },
             { text: 'Spring', link: '/backend/framework/spring/' },
             { text: 'Spring Boot', link: '/backend/framework/springboot/' },
-            { text: 'MyBatis', link: '/backend/framework/mybatis/' }
+            { text: 'MyBatis', link: '/backend/framework/mybatis/' },
+            { text: 'MyBatis-Plus', link: '/backend/framework/mybatisplus/' },
+            { text: 'Laravel', link: '/backend/framework/laravel/' },
+            { text: 'ThinkPHP', link: '/backend/framework/thinkphp/' }
           ]
         }
       ],
@@ -758,6 +764,93 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Spring 集成与常见坑', link: '/backend/framework/mybatis/spring-integration-practice' }
+          ]
+        }
+      ],
+      '/backend/framework/mybatisplus/': [
+        {
+          text: '入门',
+          collapsed: false,
+          items: [
+            { text: '学习路径', link: '/backend/framework/mybatisplus/' },
+            { text: '概览与集成方式', link: '/backend/framework/mybatisplus/overview-integration' }
+          ]
+        },
+        {
+          text: 'CRUD 与条件',
+          collapsed: false,
+          items: [
+            { text: 'Mapper、Service 与通用 CRUD', link: '/backend/framework/mybatisplus/mapper-service-crud' },
+            { text: 'Wrapper 条件构造器', link: '/backend/framework/mybatisplus/wrapper-condition' }
+          ]
+        },
+        {
+          text: '实体与插件',
+          collapsed: false,
+          items: [
+            { text: '实体映射、自动填充与逻辑删除', link: '/backend/framework/mybatisplus/entity-fill-logic-delete' },
+            { text: '插件、分页与多租户', link: '/backend/framework/mybatisplus/plugin-pagination-tenant' }
+          ]
+        },
+        {
+          text: '工程实践',
+          collapsed: false,
+          items: [
+            { text: '代码生成与日常实践', link: '/backend/framework/mybatisplus/generator-practice' }
+          ]
+        }
+      ],
+      '/backend/framework/laravel/': [
+        {
+          text: '入门',
+          collapsed: false,
+          items: [
+            { text: '学习路径', link: '/backend/framework/laravel/' },
+            { text: '概览、目录与路由', link: '/backend/framework/laravel/overview-routing' }
+          ]
+        },
+        {
+          text: '核心机制',
+          collapsed: false,
+          items: [
+            { text: '服务容器与服务提供者', link: '/backend/framework/laravel/container-service-provider' },
+            { text: '请求生命周期与中间件', link: '/backend/framework/laravel/request-middleware-controller' },
+            { text: 'Eloquent 与查询设计', link: '/backend/framework/laravel/eloquent-query' }
+          ]
+        },
+        {
+          text: '工程实践',
+          collapsed: false,
+          items: [
+            { text: '校验、认证与测试', link: '/backend/framework/laravel/validation-auth-testing' },
+            { text: '队列、任务与部署实践', link: '/backend/framework/laravel/queue-deployment-practice' }
+          ]
+        }
+      ],
+      '/backend/framework/thinkphp/': [
+        {
+          text: '入门',
+          collapsed: false,
+          items: [
+            { text: '学习路径', link: '/backend/framework/thinkphp/' },
+            { text: '概览、目录与入口', link: '/backend/framework/thinkphp/overview-structure' }
+          ]
+        },
+        {
+          text: '核心机制',
+          collapsed: false,
+          items: [
+            { text: '路由、中间件与控制器', link: '/backend/framework/thinkphp/routing-middleware-controller' },
+            { text: '容器、门面与配置', link: '/backend/framework/thinkphp/container-facade-config' },
+            { text: '模型、查询与事务', link: '/backend/framework/thinkphp/orm-model-query' }
+          ]
+        },
+        {
+          text: '工程实践',
+          collapsed: false,
+          items: [
+            { text: '验证、缓存、队列与事件', link: '/backend/framework/thinkphp/validation-cache-queue' },
+            { text: '部署与日常实践', link: '/backend/framework/thinkphp/deployment-practice' }
           ]
         }
       ],
