@@ -54,6 +54,12 @@ import HtmlShadowDomDemo from './components/HtmlShadowDomDemo.vue'
 import JsEventLoopDemo from './components/JsEventLoopDemo.vue'
 import JsPromiseChainDemo from './components/JsPromiseChainDemo.vue'
 import JsPrototypeChainDemo from './components/JsPrototypeChainDemo.vue'
+import JsClosureScopeDemo from './components/JsClosureScopeDemo.vue'
+import JsAsyncConcurrencyDemo from './components/JsAsyncConcurrencyDemo.vue'
+import JsMemoryLifecycleDemo from './components/JsMemoryLifecycleDemo.vue'
+import JsThisBindingDemo from './components/JsThisBindingDemo.vue'
+import JsModuleLoadingDemo from './components/JsModuleLoadingDemo.vue'
+import JsTypeCoercionDemo from './components/JsTypeCoercionDemo.vue'
 import OsCacheMappingDemo from './components/OsCacheMappingDemo.vue'
 import OsPageReplacementDemo from './components/OsPageReplacementDemo.vue'
 import OsPipelineDemo from './components/OsPipelineDemo.vue'
@@ -130,6 +136,12 @@ export default {
     app.component('JsEventLoopDemo', JsEventLoopDemo)
     app.component('JsPromiseChainDemo', JsPromiseChainDemo)
     app.component('JsPrototypeChainDemo', JsPrototypeChainDemo)
+    app.component('JsClosureScopeDemo', JsClosureScopeDemo)
+    app.component('JsAsyncConcurrencyDemo', JsAsyncConcurrencyDemo)
+    app.component('JsMemoryLifecycleDemo', JsMemoryLifecycleDemo)
+    app.component('JsThisBindingDemo', JsThisBindingDemo)
+    app.component('JsModuleLoadingDemo', JsModuleLoadingDemo)
+    app.component('JsTypeCoercionDemo', JsTypeCoercionDemo)
     app.component('OsCacheMappingDemo', OsCacheMappingDemo)
     app.component('OsPageReplacementDemo', OsPageReplacementDemo)
     app.component('OsPipelineDemo', OsPipelineDemo)

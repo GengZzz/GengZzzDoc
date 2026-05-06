@@ -128,6 +128,8 @@ function debounce(fn, delay) {
 
 `this` 的值在函数**调用时**确定，有四种绑定规则。
 
+<JsThisBindingDemo />
+
 ### 默认绑定
 
 ```javascript

@@ -2,6 +2,8 @@
 
 JavaScript 有两种主要的模块系统：CommonJS（Node.js）和 ES Modules（浏览器 + 现代 Node.js）。
 
+<JsModuleLoadingDemo />
+
 ## ES Modules
 
 ESM 是 JavaScript 的标准模块系统，浏览器原生支持。

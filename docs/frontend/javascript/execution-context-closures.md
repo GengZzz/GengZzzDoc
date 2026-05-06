@@ -117,6 +117,8 @@ let b = 2;
 
 闭包 = 函数 + 函数创建时能访问的词法环境。
 
+<JsClosureScopeDemo />
+
 ```javascript
 function createCounter() {
   let count = 0;
@@ -300,4 +302,3 @@ for (let i = 0; i < 3; i++) {
 - 闭包是否捕获了大对象、DOM 节点、定时器或订阅？
 - 是否需要提供取消函数来释放引用？
 - `this` 是否可能在回调中丢失？
-

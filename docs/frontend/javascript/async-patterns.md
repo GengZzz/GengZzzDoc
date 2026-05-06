@@ -37,6 +37,8 @@ const results = await Promise.all(
 
 常见需求：批量处理 100 个任务，但同一时间最多只跑 5 个。
 
+<JsAsyncConcurrencyDemo />
+
 ```javascript
 async function limitConcurrency(items, worker, limit = 5) {
   const results = new Array(items.length);
@@ -332,4 +334,3 @@ queue.add(() => uploadFile(fileC));
 - 请求是否需要超时和取消？
 - 是否需要重试？哪些错误可以重试？
 - async 函数的返回 Promise 是否被处理？
-
