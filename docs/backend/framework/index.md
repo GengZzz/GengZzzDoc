@@ -5,17 +5,20 @@
 学习顺序建议是：
 
 1. 先看 [Spring](./spring)：理解 IoC、AOP、事务这些底层能力。
+2. 再看 [Spring Boot](./springboot)：理解自动配置、起步依赖、配置绑定、内嵌容器和生产可观测能力。
 
-后续会继续补充 Spring Boot 和 MyBatis，把工程启动治理、SQL 映射和 Spring 体系集成串起来。
+后续会继续补充 MyBatis，把 SQL 映射和 Spring 体系集成串起来。
 
 ## 学习主线
 
 | 技术 | 重点问题 | 日常开发落点 |
 | --- | --- | --- |
 | Spring | 对象如何创建、装配、代理和参与事务 | Bean 生命周期、依赖注入、AOP、声明式事务 |
+| Spring Boot | 应用如何快速启动并获得生产能力 | starter、自动配置、配置绑定、Actuator、打包部署 |
 
 ## 重难点动画
 
 每个技术页都会把关键机制做成交互动画：
 
 - Spring：IoC 容器生命周期、AOP/事务代理链路。
+- Spring Boot：自动配置条件匹配、请求处理与运行监控链路。
