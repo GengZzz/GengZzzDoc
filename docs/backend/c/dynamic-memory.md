@@ -38,6 +38,10 @@ int *arr = calloc(10, sizeof(int));  // 10 个 int，全部初始化为 0
 
 调整已分配内存块的大小：
 
+<CHeapLifecycleDemo />
+
+`realloc` 最容易误解的点是：它不保证原地扩容。内存块变大时，分配器可能申请一块新内存，把旧数据复制过去，再释放旧块。所以 `realloc` 的返回值必须先放到临时指针里，确认成功后再覆盖原指针。
+
 ```c
 int *arr = malloc(5 * sizeof(int));
 // ... 使用 arr ...
@@ -58,6 +62,23 @@ arr = tmp;  // 更新指针
 - 如果无法原地扩展，`realloc` 会分配新内存并**拷贝旧数据**，旧内存被释放
 - 失败时返回 `NULL`，**原内存块不变**
 :::
+
+不要这样写：
+
+```c
+arr = realloc(arr, new_size);  // 失败时 arr 变成 NULL，原内存地址丢失，造成泄漏
+```
+
+应该这样写：
+
+```c
+int *tmp = realloc(arr, new_size);
+if (tmp == NULL) {
+    free(arr);
+    return -1;
+}
+arr = tmp;
+```
 
 ### free
 

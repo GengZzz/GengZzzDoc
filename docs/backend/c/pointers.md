@@ -32,6 +32,10 @@ int main(void) {
 
 指针加减整数时，实际移动的字节数等于 `n * sizeof(*ptr)`：
 
+<CPointerArithmeticDemo />
+
+这条规则是很多段错误的源头：指针运算以“元素”为单位，不以字节为单位。`int *` 每次移动一个 `int`，`double *` 每次移动一个 `double`，`struct Node *` 每次移动一个结构体。只有把指针转成 `char *` 或 `unsigned char *` 时，移动单位才是 1 字节。
+
 ```c
 int arr[] = {10, 20, 30, 40, 50};
 int *p = arr;  // p 指向 arr[0]
@@ -61,6 +65,16 @@ for (int *p = begin; p < end; p++) {
 ::: warning 越界指针
 `&arr[5]` 是一个合法的指针值（指向数组末尾之后一个位置），可以用于比较，但**不能解引用**。解引用越界指针是未定义行为。
 :::
+
+日常写循环时，推荐使用半开区间 `[begin, end)`：
+
+```c
+for (int *p = arr, *end = arr + 5; p != end; ++p) {
+    printf("%d\n", *p);
+}
+```
+
+这样 `end` 永远只参与比较，不参与解引用，边界更清楚。
 
 ## 多级指针
 

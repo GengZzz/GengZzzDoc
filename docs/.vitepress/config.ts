@@ -195,19 +195,15 @@ export default defineConfig({
           ]
         },
         {
-          text: '基础语法',
+          text: '语言基础',
           collapsed: false,
           items: [
             { text: '数据类型与表达式', link: '/backend/c/data-types-expressions' },
             { text: '判断与循环', link: '/backend/c/control-flow' },
+            { text: '函数深入', link: '/backend/c/functions' },
+            { text: '数组深入', link: '/backend/c/arrays' },
+            { text: '字符串处理', link: '/backend/c/strings' },
             { text: '高级类型', link: '/backend/c/advanced-types' }
-          ]
-        },
-        {
-          text: '函数',
-          collapsed: false,
-          items: [
-            { text: '函数深入', link: '/backend/c/functions' }
           ]
         },
         {
@@ -217,14 +213,6 @@ export default defineConfig({
             { text: '指针深入', link: '/backend/c/pointers' },
             { text: '动态内存管理', link: '/backend/c/dynamic-memory' },
             { text: '内存布局', link: '/backend/c/memory-layout' }
-          ]
-        },
-        {
-          text: '字符串与数组',
-          collapsed: false,
-          items: [
-            { text: '字符串处理', link: '/backend/c/strings' },
-            { text: '数组深入', link: '/backend/c/arrays' }
           ]
         },
         {
@@ -245,7 +233,7 @@ export default defineConfig({
           ]
         },
         {
-          text: '网络与工程',
+          text: '工程实践',
           collapsed: true,
           items: [
             { text: '网络编程', link: '/backend/c/network-programming' },

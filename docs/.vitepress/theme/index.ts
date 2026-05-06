@@ -1,8 +1,11 @@
 import DefaultTheme from 'vitepress/theme'
 import Layout from './Layout.vue'
 import CArrayPointerDemo from './components/CArrayPointerDemo.vue'
+import CHeapLifecycleDemo from './components/CHeapLifecycleDemo.vue'
 import CMemoryLayoutDemo from './components/CMemoryLayoutDemo.vue'
 import CPointerMemoryDemo from './components/CPointerMemoryDemo.vue'
+import CPointerArithmeticDemo from './components/CPointerArithmeticDemo.vue'
+import CStackFrameOverflowDemo from './components/CStackFrameOverflowDemo.vue'
 import CSocketCommDemo from './components/CSocketCommDemo.vue'
 import CppAlgorithmSortDemo from './components/CppAlgorithmSortDemo.vue'
 import CppConcurrencyDemo from './components/CppConcurrencyDemo.vue'
@@ -83,8 +86,11 @@ export default {
   Layout,
   enhanceApp({ app }) {
     app.component('CArrayPointerDemo', CArrayPointerDemo)
+    app.component('CHeapLifecycleDemo', CHeapLifecycleDemo)
     app.component('CMemoryLayoutDemo', CMemoryLayoutDemo)
     app.component('CPointerMemoryDemo', CPointerMemoryDemo)
+    app.component('CPointerArithmeticDemo', CPointerArithmeticDemo)
+    app.component('CStackFrameOverflowDemo', CStackFrameOverflowDemo)
     app.component('CSocketCommDemo', CSocketCommDemo)
     app.component('CppAlgorithmSortDemo', CppAlgorithmSortDemo)
     app.component('CppArrayIndexDemo', CppArrayIndexDemo)
