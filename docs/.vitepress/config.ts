@@ -740,6 +740,7 @@ export default defineConfig({
             { text: '语言基础', link: '/frontend/javascript/language-basics' },
             { text: '控制流', link: '/frontend/javascript/control-flow' },
             { text: '函数深入', link: '/frontend/javascript/functions' },
+            { text: '执行上下文与闭包', link: '/frontend/javascript/execution-context-closures' },
             { text: '常用方法', link: '/frontend/javascript/common-methods' }
           ]
         },
@@ -749,6 +750,7 @@ export default defineConfig({
           items: [
             { text: '原型与继承', link: '/frontend/javascript/prototypes' },
             { text: '异步编程', link: '/frontend/javascript/async-programming' },
+            { text: '异步并发实战', link: '/frontend/javascript/async-patterns' },
             { text: '事件循环', link: '/frontend/javascript/event-loop' }
           ]
         },
@@ -776,6 +778,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: '性能优化', link: '/frontend/javascript/performance' },
+            { text: '运行时与内存模型', link: '/frontend/javascript/runtime-memory' },
             { text: '设计模式', link: '/frontend/javascript/design-patterns' },
             { text: '类型转换与相等性', link: '/frontend/javascript/type-coercion' },
             { text: '元编程', link: '/frontend/javascript/metaprogramming' },

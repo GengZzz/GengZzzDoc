@@ -13,6 +13,7 @@ JavaScript 是一门运行在浏览器和 Node.js 中的动态类型语言，也
 | [语言基础](./language-basics) | 变量声明、类型系统、运算符、类型转换与强制转换 |
 | [控制流](./control-flow) | 条件、循环、异常处理、标签循环 |
 | [函数深入](./functions) | 函数类型、作用域链、闭包、IIFE、柯里化 |
+| [执行上下文与闭包](./execution-context-closures) | 调用栈、词法环境、变量提升、闭包生命周期、this 捕获 |
 | [常用方法](./common-methods) | 数组 map/filter/reduce/sort、字符串 split/replace/trim 等 |
 
 ### 核心机制
@@ -21,6 +22,7 @@ JavaScript 是一门运行在浏览器和 Node.js 中的动态类型语言，也
 | --- | --- |
 | [原型与继承](./prototypes) | 原型链、构造函数、class 语法糖、继承方式对比 |
 | [异步编程](./async-programming) | 回调、Promise、async/await、并发控制 |
+| [异步并发实战](./async-patterns) | 限制并发、超时取消、重试退避、批量任务错误策略 |
 | [事件循环](./event-loop) | 调用栈、宏任务/微任务、浏览器 vs Node.js 差异 |
 
 <JsPromiseChainDemo />
@@ -47,6 +49,7 @@ JavaScript 是一门运行在浏览器和 Node.js 中的动态类型语言，也
 | 章节 | 内容 |
 | --- | --- |
 | [性能优化](./performance) | 内存管理、GC、V8 优化、防抖节流、长列表优化 |
+| [运行时与内存模型](./runtime-memory) | 栈与堆、可达性、内存泄漏、WeakMap、V8 优化心智 |
 | [设计模式](./design-patterns) | 观察者、发布订阅、单例、策略、装饰器、组合 |
 | [类型系统](./type-coercion) | 隐式转换规则、== vs ===、typeof/instanceof 原理 |
 | [元编程](./metaprogramming) | Reflect API、Symbol、well-known Symbols、装饰器提案 |
