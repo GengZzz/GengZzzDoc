@@ -2,6 +2,8 @@
 
 PDO（PHP Data Objects）是 PHP 的数据库抽象层，提供统一的接口访问 MySQL、PostgreSQL、SQLite 等数据库。其预处理语句是防御 SQL 注入的核心机制。
 
+<PhpPdoTransactionDemo />
+
 ## PDO 连接管理
 
 ```php

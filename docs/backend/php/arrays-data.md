@@ -2,6 +2,8 @@
 
 PHP 数组是语言中最核心的数据结构，它同时扮演了列表（list）和字典（map）的角色。理解其底层实现对于编写高效 PHP 代码至关重要。
 
+<PhpArrayHashTableDemo />
+
 ## PHP 数组的底层实现
 
 PHP 数组底层是 **HashTable + 双向链表** 的组合结构：

@@ -54,6 +54,9 @@ import PythonAsyncDemo from './components/PythonAsyncDemo.vue'
 import PhpZvalDemo from './components/PhpZvalDemo.vue'
 import PhpRequestLifecycleDemo from './components/PhpRequestLifecycleDemo.vue'
 import PhpOpcacheDemo from './components/PhpOpcacheDemo.vue'
+import PhpArrayHashTableDemo from './components/PhpArrayHashTableDemo.vue'
+import PhpPdoTransactionDemo from './components/PhpPdoTransactionDemo.vue'
+import PhpFpmPoolDemo from './components/PhpFpmPoolDemo.vue'
 import HtmlRenderPipelineDemo from './components/HtmlRenderPipelineDemo.vue'
 import HtmlShadowDomDemo from './components/HtmlShadowDomDemo.vue'
 import JsEventLoopDemo from './components/JsEventLoopDemo.vue'
@@ -142,6 +145,9 @@ export default {
     app.component('PhpZvalDemo', PhpZvalDemo)
     app.component('PhpRequestLifecycleDemo', PhpRequestLifecycleDemo)
     app.component('PhpOpcacheDemo', PhpOpcacheDemo)
+    app.component('PhpArrayHashTableDemo', PhpArrayHashTableDemo)
+    app.component('PhpPdoTransactionDemo', PhpPdoTransactionDemo)
+    app.component('PhpFpmPoolDemo', PhpFpmPoolDemo)
     app.component('HtmlRenderPipelineDemo', HtmlRenderPipelineDemo)
     app.component('HtmlShadowDomDemo', HtmlShadowDomDemo)
     app.component('JsEventLoopDemo', JsEventLoopDemo)
