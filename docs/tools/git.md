@@ -1,5 +1,7 @@
 ---
 sidebar: false
+title: "Git"
+description: "Git 是目前最流行的分布式版本控制系统，由 Linus Torvalds 于 2005 年创建，用于追踪文件变化、协作开发和管理项目历史。"
 ---
 
 # Git

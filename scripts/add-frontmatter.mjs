@@ -87,7 +87,30 @@ let changed = 0;
 const skipped = [];
 for (const f of files) {
   const raw = readFileSync(f, 'utf8');
-  if (raw.startsWith('---')) continue; // 已有 frontmatter
+
+  if (raw.startsWith('---')) {
+    // 已有 frontmatter：若缺 title/description 则补进去（home 布局除外）
+    const close = raw.indexOf('\n---', 3);
+    if (close === -1) continue;
+    const fmBlock = raw.slice(0, close);
+    const rest = raw.slice(close); // 含结尾 ---
+    if (/\blayout:\s*home/.test(fmBlock)) continue; // 首页无需 title/description
+    const needTitle = !/\btitle:\s*\S/.test(fmBlock);
+    const needDesc = !/\bdescription:\s*\S/.test(fmBlock);
+    if (!needTitle && !needDesc) continue;
+    const { title, desc } = extract(raw.slice(close + 4));
+    if (!title) {
+      skipped.push(f + ' (无 H1)');
+      continue;
+    }
+    let injected = '';
+    if (needTitle) injected += `title: ${JSON.stringify(title)}\n`;
+    if (needDesc) injected += `description: ${JSON.stringify(truncate(desc || title))}\n`;
+    if (!DRY) writeFileSync(f, fmBlock + '\n' + injected + rest.slice(1), 'utf8');
+    changed++;
+    continue;
+  }
+
   const { title, desc } = extract(raw);
   if (!title) {
     skipped.push(f + ' (无 H1)');

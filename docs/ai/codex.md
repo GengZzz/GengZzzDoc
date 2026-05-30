@@ -1,5 +1,7 @@
 ---
 sidebar: false
+title: "Codex"
+description: "Codex 是 OpenAI 基于 GPT 系列微调的代码生成模型，专注于代码理解、生成与转换。它曾是 GitHub Copilot 的底层引擎。"
 ---
 
 # Codex

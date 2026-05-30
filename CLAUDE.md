@@ -25,7 +25,18 @@ npm run lint:md:fix   # 自动修复
 npm run format        # prettier 格式化（仅配置/主题代码，不动文档 md）
 npm run format:check  # 检查格式
 npm run check         # 一键：lint:md + format:check + docs:build
+npm run check:doc -- docs/x/y.md  # 单篇健壮性自检（frontmatter/取舍/延伸/代码块语言）
 ```
+
+## 给 AI 写文档的导引（本仓库是一个 AI 文档创作 harness）
+
+本仓库被刻意配置成「让 AI 高效、可靠地写文档」的支架。写或改文档时，按以下顺序获取上下文与验证：
+
+1. **先调用 `site-doc-author` 技能**——它是写作入口，统领规范。
+2. **读上下文，有顺序**：本文件（项目约定）→ 目标板块的 `docs/<板块>/index.md`（看知识地图与「规划与完成度」，定选题）→ 技能里的 `content-standard.md`（写作三原则与深度标准）→ 邻近同类文章（对齐风格与术语）。
+3. **动笔前先定主线**：一句话写出本篇核心问题，列小标题确认是条逻辑链。
+4. **写完走验证回路**：`npm run check:doc -- <文件>` 自检单篇 → `npm run lint:md` → `npm run docs:build`。验证而非信任。
+5. 更新该板块 index 的完成度清单，再按提交规范提交、推两端。
 
 ## 工程化约定（重要）
 

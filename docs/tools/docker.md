@@ -1,6 +1,8 @@
 ---
 sidebar: false
 outline: [2, 2]
+title: "Docker"
+description: "Docker 用来把应用和运行环境打包成镜像，再用容器运行。日常开发里，它最常解决三类问题：统一环境、快速启动依赖服务、把应用交付成可重复部署的产物。"
 ---
 
 # Docker

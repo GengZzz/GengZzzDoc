@@ -1,5 +1,7 @@
 ---
 sidebar: false
+title: "Claude"
+description: "Claude 是由 Anthropic 开发的 AI 助手，以安全性和实用性为核心设计目标。它能够理解长上下文、编写和分析代码、撰写文档、进行复杂推理，并通过工具调用与外部系统交互。"
 ---
 
 # Claude

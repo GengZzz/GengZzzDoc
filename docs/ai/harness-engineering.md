@@ -108,6 +108,20 @@ description: 同样的模型，为什么有人能让它干成复杂任务、有�
 
 理想的组合是：**用对的模型打底，用 harness 把它接进真实世界、管好上下文与安全，用 prompt 打磨每一次具体交互。** 当下，性价比最高、最被低估的那一环，往往是中间的 harness。
 
+## 案例：你正在读的这个文档站，本身就是一个 harness
+
+harness 不只属于「做 Agent 产品」的人。这个知识库（GengZzzDoc）就被刻意配置成一个**让 AI 高效、可靠地写文档**的 harness——而写这篇文章的，正是在这套 harness 里干活的 AI。对照前面的五个组成：
+
+| harness 组成 | 本仓库里的对应 |
+| --- | --- |
+| 上下文（context） | `CLAUDE.md`——AI 每次进来自动加载的项目约定与「先读什么」的导引 |
+| 工具/技能（tools） | `site-doc-author` 技能：把知识地图、写作三原则、提交规范打包成可调用能力 |
+| 护栏（guardrails） | 写作三原则与单篇 checklist、`commitlint` 提交规范、`markdownlint` 校验 |
+| 验证回路（feedback） | `npm run check:doc` 自检单篇、`npm run docs:build` 死链校验、CI 兜底 |
+| 环境（environment） | 规范化的 `docs/` 结构、frontmatter、侧边栏约定 |
+
+这恰好印证了前面的原则：**模型（写作能力）是上限，但能不能稳定写出合格文档，取决于这套外壳给不给对上下文、给不给工具、能不能在出错时把关**。换个模型进来，这套 harness 依然成立。
+
 ## 延伸阅读
 
 - 智能体的概念与实战见 [Agent 智能体](./agent)

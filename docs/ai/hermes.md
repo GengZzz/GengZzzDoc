@@ -1,5 +1,7 @@
 ---
 sidebar: false
+title: "Hermes"
+description: "Hermes 是 Nous Research 开发的开源大语言模型系列，基于 Llama 架构进行指令微调，以出色的指令跟随能力、推理能力和角色扮演能力著称。Hermes 3 是当前最新版本，在多项基准测试中表现优异。"
 ---
 
 # Hermes

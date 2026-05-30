@@ -1,5 +1,7 @@
 ---
 sidebar: false
+title: "npm"
+description: "npm（Node Package Manager）是 Node.js 默认的包管理器，也是全球最大的软件注册中心。它用于安装、分享和管理项目依赖。"
 ---
 
 # npm

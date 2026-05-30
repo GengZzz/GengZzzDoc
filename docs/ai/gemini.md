@@ -1,5 +1,7 @@
 ---
 sidebar: false
+title: "Gemini"
+description: "Gemini 是由 Google DeepMind 开发的多模态 AI 模型系列，能够同时理解文本、图像、音频和视频等多种输入形式。它以超长上下文窗口（最高 100 万 tokens）和强大的多模态推理能力著称。"
 ---
 
 # Gemini

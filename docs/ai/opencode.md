@@ -1,5 +1,7 @@
 ---
 sidebar: false
+title: "OpenCode"
+description: "OpenCode 是一个开源的终端 AI 编程助手，直接在命令行中提供代码生成、文件编辑、命令执行等能力。它支持多种大语言模型后端（OpenAI、Anthropic、Google 等）。"
 ---
 
 # OpenCode

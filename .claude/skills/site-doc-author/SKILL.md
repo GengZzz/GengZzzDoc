@@ -51,10 +51,13 @@ description: 为本 VitePress 技术知识库（GengZzzDoc）撰写或扩充文�
 ## 四、校验与提交（工程化闭环）
 
 ```bash
-npm run lint:md        # 0 error
-npm run format:check   # 通过（新增 .vue/.ts 先 npm run format）
-npm run docs:build     # 构建通过（含内部死链校验）
+npm run check:doc -- <本次文件>  # 单篇健壮性自检（frontmatter/取舍/延伸/代码块语言）
+npm run lint:md                  # 0 error
+npm run format:check             # 通过（新增 .vue/.ts 先 npm run format）
+npm run docs:build               # 构建通过（含内部死链校验）
 ```
+
+> `check:doc` 是「验证而非信任」的机检回路：硬性拦 frontmatter 缺失，并提醒缺取舍/延伸/代码块语言等。提醒项尽量清掉再提交。
 
 提交遵循 Conventional Commits（`commit-msg` 钩子强制）：
 
