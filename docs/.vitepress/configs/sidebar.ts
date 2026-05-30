@@ -1371,6 +1371,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         { text: '总览', link: '/architecture/' },
         { text: '系统设计', link: '/architecture/system-design' },
+        { text: '缓存', link: '/architecture/caching' },
         { text: '分布式与中间件', link: '/architecture/distributed' },
         { text: '安全', link: '/architecture/security' },
         { text: '测试', link: '/architecture/testing' },
