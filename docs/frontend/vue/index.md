@@ -40,16 +40,18 @@ Vue 由尤雨溪（Evan You）于 2014 年创建，核心理念是**渐进式框
 | [组件基础](./components) | Props、事件、插槽、组件通信 |
 | [组合式 API](./composition-api) | ref、reactive、生命周期钩子、自定义 Hook |
 | [内置组件](./built-in-components) | Transition、KeepAlive、Teleport、Suspense |
+| [自定义指令与插件](./directives-plugins) | 自定义指令、插件 install、横向复用取舍 |
 | [路由](./router) | Vue Router 安装、路由配置、导航守卫 |
 | [状态管理](./pinia) | Pinia 安装、Store 定义、持久化 |
+| [性能优化](./performance) | `v-memo`、懒加载、虚拟列表、按需优化 |
+| [TypeScript 集成](./typescript) | props/emits/ref 类型、InjectionKey |
+| [组件测试](./testing) | Vitest + Vue Test Utils、测行为不测实现 |
+| [SSR 与 Nuxt](./ssr-nuxt) | 服务端渲染、hydration、渲染模式取舍 |
 
 ## 规划与完成度
 
 > 本板块的知识地图与建设进度。✅ 已完成 ⬜ 规划中。
 
-- ✅ 核心概念、组件基础、组合式 API、内置组件、路由、状态管理
-- ⬜ 自定义指令与插件
-- ⬜ 性能优化（懒加载、`v-memo`、虚拟列表、打包体积）
-- ⬜ TypeScript 集成（`defineProps` 泛型、组件类型）
-- ⬜ 测试（Vitest + Vue Test Utils）
-- ⬜ SSR 与 Nuxt 入门
+- ✅ 核心概念、组件基础、组合式 API、内置组件、自定义指令与插件
+- ✅ 路由、状态管理、性能优化、TypeScript 集成、组件测试、SSR 与 Nuxt
+- 🎉 Vue 板块知识地图已覆盖完毕，后续按需深化各专题
