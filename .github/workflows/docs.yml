@@ -2,13 +2,20 @@ name: Docs CI
 
 on:
   pull_request:
+  push:
+    branches-ignore:
+      - main # main 分支由 deploy.yml 负责构建并发布
 
 permissions:
   contents: read
 
+concurrency:
+  group: docs-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
-    name: Build VitePress
+  quality:
+    name: Lint, format & build
     runs-on: ubuntu-latest
 
     steps:
@@ -24,5 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build docs
+      - name: Lint markdown
+        run: npm run lint:md
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Build docs (internal dead-link check)
         run: npm run docs:build

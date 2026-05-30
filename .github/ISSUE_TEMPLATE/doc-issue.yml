@@ -1,0 +1,20 @@
+name: 文档问题
+description: 报告文档中的错误、过时内容或失效链接
+title: 'docs: '
+labels: [documentation]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: 相关页面
+      description: 出问题的文档路径或站点 URL
+      placeholder: docs/database/redis/persistence.md
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题描述
+      description: 哪里有误？期望的正确内容是什么？
+    validations:
+      required: true
