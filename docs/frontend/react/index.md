@@ -27,3 +27,15 @@ React 是一个用于构建用户界面的 JavaScript 库，由 Meta（Facebook�
 | [Hooks](./hooks) | useState、useEffect、useRef、useMemo、自定义 Hook |
 | [路由](./routing) | React Router 安装与使用 |
 | [状态管理](./state-management) | Context、Zustand、Redux Toolkit |
+
+## 规划与完成度
+
+> 本板块的知识地图与建设进度。✅ 已完成 ⬜ 规划中。
+
+- ✅ JSX 与组件、Hooks、路由、状态管理
+- ⬜ 性能优化（`memo`、`useMemo`、`useCallback`、列表 key）
+- ⬜ Context 深入与组合
+- ⬜ 错误边界与 Suspense / 并发特性
+- ⬜ TypeScript 集成（组件 Props、Hooks 泛型）
+- ⬜ 测试（React Testing Library）
+- ⬜ SSR 与 Next.js 入门

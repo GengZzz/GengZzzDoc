@@ -54,6 +54,18 @@ fix: 修正 MySQL 索引文档中的失效链接
 ## 新增文档约定
 
 1. 文档按主题放入对应目录（`docs/frontend`、`docs/backend`、`docs/database` 等）。
-2. 在 `docs/.vitepress/config.ts` 中补充对应的导航或侧边栏入口。
-3. 内容尽量保持可检索、可复用、可迭代；代码块标注语言。
-4. 构建产物、缓存、依赖与本地日志不提交到仓库。
+2. 在 `docs/.vitepress/configs/sidebar.ts`（侧边栏）/ `nav.ts`（导航）中补充入口。
+3. 每篇补 frontmatter `title` + `description`（可用 `node scripts/add-frontmatter.mjs` 生成草稿）。
+4. 内容尽量保持可检索、可复用、可迭代；代码块标注语言。
+5. 构建产物、缓存、依赖与本地日志不提交到仓库。
+
+## 板块知识地图与完成度
+
+每个板块的 `index.md` 应包含两部分，让知识体系**可见、可追踪**：
+
+- **学习路径**：已完成章节的有序列表/表格（带链接与一句话简介）。
+- **规划与完成度**：一份知识地图清单，用 `✅ 已完成` / `⬜ 规划中` 标注，显式列出该技术「讲全」所需的章节——包括尚未写的，避免「想到哪写到哪」。
+
+> 示例见 [`docs/frontend/vue/index.md`](docs/frontend/vue/index.md)、[`docs/architecture/index.md`](docs/architecture/index.md)。
+
+单篇文档的内容深度、结构与验收标准见 `.claude/skills/` 下的写作技能。
