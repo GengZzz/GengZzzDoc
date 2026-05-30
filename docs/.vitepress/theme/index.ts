@@ -85,6 +85,7 @@ import TsGenericsDemo from './components/TsGenericsDemo.vue';
 import TsTypeInferenceDemo from './components/TsTypeInferenceDemo.vue';
 import TsTypeSystemDemo from './components/TsTypeSystemDemo.vue';
 import GitHubActionsWorkflowDemo from './components/GitHubActionsWorkflowDemo.vue';
+import HarnessLayersDemo from './components/HarnessLayersDemo.vue';
 import './style.css';
 
 export default {
@@ -176,5 +177,6 @@ export default {
     app.component('TsTypeInferenceDemo', TsTypeInferenceDemo);
     app.component('TsTypeSystemDemo', TsTypeSystemDemo);
     app.component('GitHubActionsWorkflowDemo', GitHubActionsWorkflowDemo);
+    app.component('HarnessLayersDemo', HarnessLayersDemo);
   },
 };

@@ -1482,6 +1482,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         { text: 'API 接入', link: '/ai/api-integration' },
         { text: '成本与安全', link: '/ai/cost-security' },
+        { text: 'Harness Engineering', link: '/ai/harness-engineering' },
       ],
     },
   ],
