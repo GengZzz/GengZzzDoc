@@ -1,3 +1,8 @@
+---
+title: "记录类与密封类"
+description: "Java 14 引入 Record（记录类），Java 17 正式引入 Sealed Class（密封类）。这两个特性让 Java 的数据建模更加简洁和安全。"
+---
+
 # 记录类与密封类
 
 Java 14 引入 Record（记录类），Java 17 正式引入 Sealed Class（密封类）。这两个特性让 Java 的数据建模更加简洁和安全，配合 pattern matching 可以写出清晰的数据处理代码。

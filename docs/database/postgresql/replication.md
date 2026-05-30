@@ -1,3 +1,8 @@
+---
+title: "复制机制"
+description: "PostgreSQL 的复制机制建立在 WAL（Write-Ahead Log）之上。WAL 不仅保证了崩溃恢复，还提供了物理复制和逻辑复制的基础。理解复制原理是搭建高可用架构的前提。"
+---
+
 # 复制机制
 
 PostgreSQL 的复制机制建立在 WAL（Write-Ahead Log）之上。WAL 不仅保证了崩溃恢复，还提供了物理复制和逻辑复制的基础。理解复制原理是搭建高可用架构的前提。

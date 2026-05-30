@@ -1,3 +1,8 @@
+---
+title: "LINQ"
+description: "LINQ（Language Integrated Query）将查询能力直接嵌入 C# 语言。理解延迟执行的内部机制（yield return 状态机）和 IEnumerable vs IQueryable 的区别。"
+---
+
 # LINQ
 
 LINQ（Language Integrated Query）将查询能力直接嵌入 C# 语言。理解延迟执行的内部机制（yield return 状态机）和 IEnumerable vs IQueryable 的区别，是避免常见性能陷阱的关键。

@@ -1,3 +1,8 @@
+---
+title: "路由、中间件与控制器"
+description: "ThinkPHP 请求处理的关键是路由和中间件。路由决定请求进入哪个控制器动作，中间件负责在控制器前后处理横切逻辑，控制器只应该组织输入、调用业务服务、返回响应。"
+---
+
 <script setup>
 import ThinkPhpLifecycleDemo from '../../../.vitepress/theme/components/ThinkPhpLifecycleDemo.vue'
 </script>

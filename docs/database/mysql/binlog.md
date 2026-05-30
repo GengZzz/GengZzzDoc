@@ -1,3 +1,8 @@
+---
+title: "Binlog 深度解析"
+description: "Binlog（二进制日志）是 MySQL Server 层的日志，承担两个核心职责："
+---
+
 # Binlog 深度解析
 
 ## Binlog 的作用

@@ -1,3 +1,8 @@
+---
+title: "InnoDB 存储引擎"
+description: "InnoDB 是 MySQL 的默认存储引擎，支持事务、行级锁、MVCC、外键约束，是 OLTP 场景的首选引擎。"
+---
+
 # InnoDB 存储引擎
 
 InnoDB 是 MySQL 的默认存储引擎，支持事务、行级锁、MVCC、外键约束，是 OLTP 场景的首选引擎。

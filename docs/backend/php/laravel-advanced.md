@@ -1,3 +1,8 @@
+---
+title: "Laravel 进阶"
+description: "Laravel 提供了一系列高级功能来处理 Web 应用中的常见模式：队列异步处理、事件解耦、任务调度、通知发送、API 构建。"
+---
+
 # Laravel 进阶
 
 Laravel 提供了一系列高级功能来处理 Web 应用中的常见模式：队列异步处理、事件解耦、任务调度、通知发送、API 构建。

@@ -1,3 +1,8 @@
+---
+title: "MyBatis"
+description: "MyBatis 3 当前版本线为 3.5.19。它的定位不是完整 ORM，而是 SQL mapper framework：开发者仍然掌握 SQL。"
+---
+
 <script setup>
 import MyBatisExecutorFlowDemo from '../../../.vitepress/theme/components/MyBatisExecutorFlowDemo.vue'
 import MyBatisCacheKeyDemo from '../../../.vitepress/theme/components/MyBatisCacheKeyDemo.vue'

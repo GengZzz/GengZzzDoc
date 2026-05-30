@@ -1,3 +1,8 @@
+---
+title: "Pinia 状态管理"
+description: "Pinia 是 Vue 的官方状态管理库，是 Vuex 的继任者。它提供类型安全、DevTools 支持和极简的 API。"
+---
+
 # Pinia 状态管理
 
 Pinia 是 Vue 的官方状态管理库，是 Vuex 的继任者。它提供类型安全、DevTools 支持和极简的 API。

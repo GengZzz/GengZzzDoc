@@ -1,3 +1,8 @@
+---
+title: "类型守卫与收窄"
+description: "typeof 操作符在运行时检查原始类型，TypeScript 自动在条件分支中收窄类型。"
+---
+
 # 类型守卫与收窄
 
 ## typeof 守卫

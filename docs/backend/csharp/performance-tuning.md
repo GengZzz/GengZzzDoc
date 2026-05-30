@@ -1,3 +1,8 @@
+---
+title: "性能调优"
+description: "C# 性能调优需要基于数据而非猜测。BenchmarkDotNet 是 .NET 生态的标准基准测试工具，配合对象池、Span 零拷贝、以及 SIMD 向量化，可以显著提升热路径性能。"
+---
+
 # 性能调优
 
 C# 性能调优需要基于数据而非猜测。BenchmarkDotNet 是 .NET 生态的标准基准测试工具，配合对象池、Span 零拷贝、以及 SIMD 向量化，可以显著提升热路径性能。

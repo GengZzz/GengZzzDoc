@@ -1,3 +1,8 @@
+---
+title: "依赖注入"
+description: "ASP.NET Core 内置的 DI 容器是轻量级的 IoC 容器，理解其服务解析流程、Scoped 陷阱（Captive Dependency）、以及 .NET 8 的 Keyed Services。"
+---
+
 # 依赖注入
 
 ASP.NET Core 内置的 DI 容器是轻量级的 IoC 容器，理解其服务解析流程、Scoped 陷阱（Captive Dependency）、以及 .NET 8 的 Keyed Services，是避免运行时错误的关键。

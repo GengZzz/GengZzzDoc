@@ -1,3 +1,8 @@
+---
+title: "AOF 持久化"
+description: "AOF（Append Only File）持久化记录每个写操作到日志文件中，重启时重放所有命令恢复数据。相比 RDB 的快照方式，AOF 能提供更好的数据安全性（durability）。"
+---
+
 # AOF 持久化
 
 AOF（Append Only File）持久化记录每个写操作到日志文件中，重启时重放所有命令恢复数据。相比 RDB 的快照方式，AOF 能提供更好的数据安全性（durability）。

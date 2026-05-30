@@ -1,3 +1,8 @@
+---
+title: "模块系统"
+description: "JavaScript 有两种主要的模块系统：CommonJS（Node.js）和 ES Modules（浏览器 + 现代 Node.js）。"
+---
+
 # 模块系统
 
 JavaScript 有两种主要的模块系统：CommonJS（Node.js）和 ES Modules（浏览器 + 现代 Node.js）。

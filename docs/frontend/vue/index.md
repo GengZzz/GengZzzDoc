@@ -1,3 +1,8 @@
+---
+title: "Vue"
+description: "Vue 是一款用于构建用户界面的渐进式 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript，提供了一套声明式的、组件化的编程模型，帮助开发者高效地开发用户界面。"
+---
+
 # Vue
 
 Vue 是一款用于构建用户界面的渐进式 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript，提供了一套声明式的、组件化的编程模型，帮助开发者高效地开发用户界面。

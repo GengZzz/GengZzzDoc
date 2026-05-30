@@ -1,3 +1,8 @@
+---
+title: "Spring Framework"
+description: "Spring 是 Java 后端开发中最常用的基础框架之一。它不是只解决某一个功能点，而是提供一套应用组织方式：用 IoC 容器管理对象，用 AOP 扩展横切逻辑，用事务抽象屏蔽底层资源差异。"
+---
+
 # Spring Framework
 
 Spring 是 Java 后端开发中最常用的基础框架之一。它不是只解决某一个功能点，而是提供一套应用组织方式：用 IoC 容器管理对象，用 AOP 扩展横切逻辑，用事务抽象屏蔽底层资源差异，再向上支撑 Web MVC、WebFlux、数据访问、测试等模块。Spring Framework 6.0+ 要求 Java 17+，Spring Framework 7.0.x 是当前稳定主线之一；日常开发更应掌握这些通用机制，而不是只记版本新闻。

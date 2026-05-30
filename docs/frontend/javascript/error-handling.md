@@ -1,3 +1,8 @@
+---
+title: "错误处理"
+description: "ES2022 引入了 cause 属性，用于保留原始错误。"
+---
+
 # 错误处理
 
 ## Error 类型

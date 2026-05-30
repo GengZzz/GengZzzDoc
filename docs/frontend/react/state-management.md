@@ -1,3 +1,8 @@
+---
+title: "状态管理"
+description: "React 有多种状态管理方案，从轻量的 Context API 到专库如 Zustand、Redux Toolkit。"
+---
+
 # 状态管理
 
 React 有多种状态管理方案，从轻量的 Context API 到专库如 Zustand、Redux Toolkit。

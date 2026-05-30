@@ -1,3 +1,8 @@
+---
+title: "异步编程"
+description: "Python 的异步编程基于协程（coroutine）和事件循环（event loop）。与多线程不同，协程在单线程内通过主动让出控制权实现并发，不存在竞态条件，也不受 GIL 限制。"
+---
+
 # 异步编程
 
 Python 的异步编程基于协程（coroutine）和事件循环（event loop）。与多线程不同，协程在单线程内通过主动让出控制权实现并发，不存在竞态条件，也不受 GIL 限制。

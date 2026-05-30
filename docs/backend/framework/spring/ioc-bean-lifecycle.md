@@ -1,3 +1,8 @@
+---
+title: "BeanDefinition"
+description: "BeanDefinition 是 Spring 容器中 Bean 的元数据，不是 Bean 实例本身。它描述了“将来如何创建一个 Bean”："
+---
+
 <script setup>
 import SpringIocLifecycleDemo from '../../../.vitepress/theme/components/SpringIocLifecycleDemo.vue'
 import SpringAopTransactionDemo from '../../../.vitepress/theme/components/SpringAopTransactionDemo.vue'

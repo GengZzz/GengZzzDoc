@@ -1,3 +1,8 @@
+---
+title: "ES6+ 特性"
+description: "ES6（ECMAScript 2015）及后续版本引入了大量现代特性，彻底改变了 JavaScript 的编码方式。"
+---
+
 # ES6+ 特性
 
 ES6（ECMAScript 2015）及后续版本引入了大量现代特性，彻底改变了 JavaScript 的编码方式。

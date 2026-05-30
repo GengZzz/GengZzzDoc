@@ -1,3 +1,8 @@
+---
+title: "PHP 简介与环境搭建"
+description: "PHP（PHP: Hypertext Preprocessor）最初由 Rasmus Lerdorf 于 1994 年创建，最初只是一个用 C 编写的 CGI 脚本，用于追踪访问者信息。经过 30 年发展。"
+---
+
 # PHP 简介与环境搭建
 
 PHP（PHP: Hypertext Preprocessor）最初由 Rasmus Lerdorf 于 1994 年创建，最初只是一个用 C 编写的 CGI 脚本，用于追踪访问者信息。经过 30 年发展，PHP 已经演变为一门成熟的动态语言，拥有强大的生态系统。

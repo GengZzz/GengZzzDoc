@@ -1,3 +1,8 @@
+---
+title: "插件、分页与多租户"
+description: "MyBatis-Plus 插件通过 MyBatis 拦截器改写或增强 SQL。分页、乐观锁、多租户、数据权限、非法 SQL 检查等都属于这一类。难点是插件顺序和 SQL 改写边界。"
+---
+
 <script setup>
 import MyBatisPlusWrapperInterceptorDemo from '../../../.vitepress/theme/components/MyBatisPlusWrapperInterceptorDemo.vue'
 </script>

@@ -1,3 +1,8 @@
+---
+title: "最佳实践"
+description: "unknown 是类型安全的 any。它要求使用前必须进行类型检查，从而避免运行时类型错误。"
+---
+
 # 最佳实践
 
 ## 何时用 any vs unknown

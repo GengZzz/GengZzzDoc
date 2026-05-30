@@ -1,3 +1,8 @@
+---
+title: "存储引擎"
+description: "MongoDB 支持多种存储引擎，但自 3.2 版本起 WiredTiger 成为默认引擎。理解 WiredTiger 的内部架构对性能调优至关重要。"
+---
+
 # 存储引擎
 
 MongoDB 支持多种存储引擎，但自 3.2 版本起 WiredTiger 成为默认引擎。理解 WiredTiger 的内部架构对性能调优至关重要。

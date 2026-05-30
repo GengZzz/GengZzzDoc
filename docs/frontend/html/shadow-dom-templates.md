@@ -1,3 +1,8 @@
+---
+title: "Shadow DOM 与模板"
+description: "Shadow DOM 提供了真正的 DOM 和样式封装，是 Web Components 实现组件化的关键。"
+---
+
 # Shadow DOM 与模板
 
 Shadow DOM 提供了真正的 DOM 和样式封装，是 Web Components 实现组件化的关键。

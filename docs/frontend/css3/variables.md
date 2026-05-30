@@ -1,3 +1,8 @@
+---
+title: "CSS 变量"
+description: "CSS 变量（Custom Properties，自定义属性）允许在 CSS 中定义可复用的值，并通过 var() 函数引用。它们支持级联、继承和运行时修改，是构建主题系统和设计令牌的基础。"
+---
+
 # CSS 变量
 
 CSS 变量（Custom Properties，自定义属性）允许在 CSS 中定义可复用的值，并通过 `var()` 函数引用。它们支持级联、继承和运行时修改，是构建主题系统和设计令牌的基础。

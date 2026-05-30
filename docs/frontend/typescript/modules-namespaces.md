@@ -1,3 +1,8 @@
+---
+title: "模块与命名空间"
+description: "TypeScript 使用 ES Module 语法进行模块化，与 JavaScript 完全一致。"
+---
+
 # 模块与命名空间
 
 ## import / export

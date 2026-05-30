@@ -1,3 +1,8 @@
+---
+title: "数据结构与编码"
+description: "Redis 提供 5 种基本数据类型：String、List、Hash、Set、ZSet。每种类型在底层可能使用不同的编码方式，Redis 会根据数据特征自动选择最优编码，以平衡内存使用和性能。"
+---
+
 # 数据结构与编码
 
 Redis 提供 5 种基本数据类型：String、List、Hash、Set、ZSet。每种类型在底层可能使用不同的编码方式，Redis 会根据数据特征自动选择最优编码，以平衡内存使用和性能。

@@ -1,3 +1,8 @@
+---
+title: "隔离级别"
+description: "SQL 标准定义了四种隔离级别，从低到高依次为：READ UNCOMMITTED、READ COMMITTED、REPEATABLE READ、SERIALIZABLE。"
+---
+
 # 隔离级别
 
 SQL 标准定义了四种隔离级别，从低到高依次为：READ UNCOMMITTED、READ COMMITTED、REPEATABLE READ、SERIALIZABLE。不同的隔离级别在并发性能和数据一致性之间做出不同的取舍。

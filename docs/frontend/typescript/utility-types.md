@@ -1,3 +1,8 @@
+---
+title: "工具类型"
+description: "TypeScript 内置了一系列工具类型（Utility Types），用于对现有类型进行变换。它们都是基于泛型实现的。"
+---
+
 # 工具类型
 
 TypeScript 内置了一系列工具类型（Utility Types），用于对现有类型进行变换。它们都是基于泛型实现的。

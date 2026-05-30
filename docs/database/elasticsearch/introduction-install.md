@@ -1,3 +1,8 @@
+---
+title: "Elasticsearch 简介与安装"
+description: "Elasticsearch 是一个分布式的 RESTful 风格搜索和数据分析引擎。它底层基于 Apache Lucene，对外暴露简洁的 HTTP JSON 接口。"
+---
+
 # Elasticsearch 简介与安装
 
 Elasticsearch 是一个分布式的 RESTful 风格搜索和数据分析引擎。它底层基于 Apache Lucene，对外暴露简洁的 HTTP JSON 接口，能够对海量数据进行近实时的全文搜索、结构化查询和聚合分析。

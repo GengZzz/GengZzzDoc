@@ -1,3 +1,8 @@
+---
+title: "类与对象"
+description: "Python 的面向对象系统与 Java/C++ 有本质区别。在 Python 中，类本身也是对象（type 的实例），属性访问是一个可定制的过程。"
+---
+
 # 类与对象
 
 Python 的面向对象系统与 Java/C++ 有本质区别。在 Python 中，类本身也是对象（type 的实例），属性访问是一个可定制的过程，描述符协议是 property、classmethod、staticmethod 的底层实现。

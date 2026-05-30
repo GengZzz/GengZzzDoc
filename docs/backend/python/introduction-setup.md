@@ -1,3 +1,8 @@
+---
+title: "Python 简介与环境搭建"
+description: "Python 由 Guido van Rossum 于 1991 年发布，采用缩进来定义代码块，强调可读性。它是一门解释型语言，但\"解释\"的具体实现因运行时而异。"
+---
+
 # Python 简介与环境搭建
 
 Python 由 Guido van Rossum 于 1991 年发布，采用缩进来定义代码块，强调可读性。它是一门解释型语言，但"解释"的具体实现因运行时而异。

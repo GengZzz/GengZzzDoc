@@ -1,3 +1,8 @@
+---
+title: "DML 数据操作语言"
+description: "DML（Data Manipulation Language）用于对表中的数据进行增、删、改操作。虽然 DML 语法相对简单，但在生产环境中，批量操作的性能优化、死锁预防、事务控制等方面有大量需要注意的细节。"
+---
+
 # DML 数据操作语言
 
 DML（Data Manipulation Language）用于对表中的数据进行增、删、改操作。虽然 DML 语法相对简单，但在生产环境中，批量操作的性能优化、死锁预防、事务控制等方面有大量需要注意的细节。本文将深入讲解 INSERT、UPDATE、DELETE 的各种用法及最佳实践。

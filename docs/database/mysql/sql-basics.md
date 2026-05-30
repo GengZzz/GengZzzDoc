@@ -1,3 +1,8 @@
+---
+title: "SQL 基础"
+description: "SQL（Structured Query Language）是关系型数据库的标准操作语言，几乎所有关系型数据库都遵循或兼容 SQL 标准。掌握 SQL 基础是数据库开发的核心前提，本文将从分类体系出发。"
+---
+
 # SQL 基础
 
 SQL（Structured Query Language）是关系型数据库的标准操作语言，几乎所有关系型数据库都遵循或兼容 SQL 标准。掌握 SQL 基础是数据库开发的核心前提，本文将从分类体系出发，深入讲解 CRUD 操作、条件过滤、排序分页、聚合计算等核心语法，并给出生产环境中的书写规范建议。

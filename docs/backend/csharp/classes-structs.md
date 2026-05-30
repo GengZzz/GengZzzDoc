@@ -1,3 +1,8 @@
+---
+title: "类与结构体"
+description: "class 和 struct 在内存布局上有本质区别，record 类型的编译器生成代码揭示了 C# 语法糖背后的机制。"
+---
+
 # 类与结构体
 
 class 和 struct 在内存布局上有本质区别，record 类型的编译器生成代码揭示了 C# 语法糖背后的机制。

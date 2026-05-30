@@ -1,3 +1,8 @@
+---
+title: "并行与并发"
+description: "TaskScheduler 和 ThreadPool 的内部机制决定了并行任务的调度效率。理解 Hill Climbing 算法、Channel 的完整生产者消费者模式、以及各种锁的实现原理，是编写高并发代码的基础。"
+---
+
 # 并行与并发
 
 TaskScheduler 和 ThreadPool 的内部机制决定了并行任务的调度效率。理解 Hill Climbing 算法、Channel 的完整生产者消费者模式、以及各种锁的实现原理，是编写高并发代码的基础。

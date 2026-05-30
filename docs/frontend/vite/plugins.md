@@ -1,3 +1,8 @@
+---
+title: "插件系统"
+description: "Vite 插件基于 Rollup 插件接口，扩展了 Vite 特有的配置项。"
+---
+
 # 插件系统
 
 Vite 插件基于 Rollup 插件接口，扩展了 Vite 特有的配置项。

@@ -1,3 +1,8 @@
+---
+title: "性能与调试"
+description: "PHP 应用的性能优化需要从 OPcache 配置、PHP-FPM 调优、代码级分析三个层面入手。本节讲解 OPcache/JIT 配置、Xdebug 调试、Blackfire 性能分析以及常见问题排查。"
+---
+
 # 性能与调试
 
 PHP 应用的性能优化需要从 OPcache 配置、PHP-FPM 调优、代码级分析三个层面入手。本节讲解 OPcache/JIT 配置、Xdebug 调试、Blackfire 性能分析以及常见问题排查。

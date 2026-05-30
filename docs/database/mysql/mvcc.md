@@ -1,3 +1,8 @@
+---
+title: "MVCC 机制"
+description: "MVCC（Multi-Version Concurrency Control，多版本并发控制）是 InnoDB 存储引擎实现高并发的核心技术。它使得读操作不需要加锁，读写互不阻塞，极大地提高了数据库的并发性能。"
+---
+
 # MVCC 机制
 
 MVCC（Multi-Version Concurrency Control，多版本并发控制）是 InnoDB 存储引擎实现高并发的核心技术。它使得读操作不需要加锁，读写互不阻塞，极大地提高了数据库的并发性能。

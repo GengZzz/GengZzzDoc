@@ -1,3 +1,8 @@
+---
+title: "Hash、Set 与 ZSet"
+description: "Hash、Set、ZSet 三种类型在底层共享 hashtable 和 listpack/ziplist 两种编码方式。理解它们的底层实现对优化内存使用和查询性能至关重要。"
+---
+
 # Hash、Set 与 ZSet
 
 Hash、Set、ZSet 三种类型在底层共享 hashtable 和 listpack/ziplist 两种编码方式。理解它们的底层实现对优化内存使用和查询性能至关重要。

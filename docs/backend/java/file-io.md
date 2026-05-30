@@ -1,3 +1,8 @@
+---
+title: "文件输入输出"
+description: "Java 提供了丰富的文件 IO API，从早期的 java.io 字节/字符流到 Java 7 引入的 java.nio.file（NIO.2）。现代 Java 开发优先使用 NIO.2，它更简洁、功能更强。"
+---
+
 # 文件输入输出
 
 Java 提供了丰富的文件 IO API，从早期的 `java.io` 字节/字符流到 Java 7 引入的 `java.nio.file`（NIO.2）。现代 Java 开发优先使用 NIO.2，它更简洁、功能更强。

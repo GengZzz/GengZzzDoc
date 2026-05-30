@@ -1,3 +1,8 @@
+---
+title: "装饰器"
+description: "装饰器（Decorators）是一种特殊的声明，可以附加到类、方法、属性或参数上，修改它们的行为。装饰器使用 @expression 语法，其中 expression 必须是一个函数。"
+---
+
 # 装饰器
 
 装饰器（Decorators）是一种特殊的声明，可以附加到类、方法、属性或参数上，修改它们的行为。装饰器使用 `@expression` 语法，其中 `expression` 必须是一个函数。

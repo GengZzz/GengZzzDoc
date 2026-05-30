@@ -1,3 +1,8 @@
+---
+title: "SQL 基础"
+description: "PostgreSQL 的 SQL 方言高度遵循 SQL 标准，同时提供了大量扩展语法。理解 PostgreSQL 特有的语法细节和数据类型，是从其他数据库迁移过来的第一步。"
+---
+
 # SQL 基础
 
 PostgreSQL 的 SQL 方言高度遵循 SQL 标准，同时提供了大量扩展语法。理解 PostgreSQL 特有的语法细节和数据类型，是从其他数据库迁移过来的第一步。

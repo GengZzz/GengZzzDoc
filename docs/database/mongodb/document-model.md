@@ -1,3 +1,8 @@
+---
+title: "文档模型"
+description: "MongoDB 的核心在于文档模型——以 BSON（Binary JSON）格式存储数据。理解文档模型与关系模型的本质差异，以及嵌入与引用的工程权衡，是 MongoDB 建模的第一步。"
+---
+
 # 文档模型
 
 MongoDB 的核心在于文档模型——以 BSON（Binary JSON）格式存储数据。理解文档模型与关系模型的本质差异，以及嵌入与引用的工程权衡，是 MongoDB 建模的第一步。

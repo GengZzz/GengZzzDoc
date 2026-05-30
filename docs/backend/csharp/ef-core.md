@@ -1,3 +1,8 @@
+---
+title: "Entity Framework Core"
+description: "EF Core 是 .NET 的 ORM 框架，其 Change Tracker 的状态管理、查询编译缓存、并发控制机制是理解 EF Core 行为的关键。"
+---
+
 # Entity Framework Core
 
 EF Core 是 .NET 的 ORM 框架，其 Change Tracker 的状态管理、查询编译缓存、并发控制机制是理解 EF Core 行为的关键。

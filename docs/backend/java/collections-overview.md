@@ -1,3 +1,8 @@
+---
+title: "Java 集合体系概览"
+description: "Java 集合框架（Collections Framework）提供了一套设计良好的接口和类，用于存储和操作一组对象。掌握集合体系是日常开发的基础。"
+---
+
 # Java 集合体系概览
 
 Java 集合框架（Collections Framework）提供了一套设计良好的接口和类，用于存储和操作一组对象。掌握集合体系是日常开发的基础。

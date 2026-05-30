@@ -1,3 +1,8 @@
+---
+title: "异步编程"
+description: "JavaScript 是单线程语言，异步编程是处理 IO 密集型任务的核心手段。从回调到 Promise 再到 async/await，每一步都在解决前一步的痛点。"
+---
+
 # 异步编程
 
 JavaScript 是单线程语言，异步编程是处理 IO 密集型任务的核心手段。从回调到 Promise 再到 async/await，每一步都在解决前一步的痛点。

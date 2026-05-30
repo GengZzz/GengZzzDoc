@@ -1,3 +1,8 @@
+---
+title: "高可用方案"
+description: "PostgreSQL 本身不内置高可用方案，但社区提供了成熟的工具链。本节覆盖 Patroni 自动故障转移、PgBouncer 连接池、pgpool-II 读写分离和 HAProxy 负载均衡的实践配置。"
+---
+
 # 高可用方案
 
 PostgreSQL 本身不内置高可用方案，但社区提供了成熟的工具链。本节覆盖 Patroni 自动故障转移、PgBouncer 连接池、pgpool-II 读写分离和 HAProxy 负载均衡的实践配置。

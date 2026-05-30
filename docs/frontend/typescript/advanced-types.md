@@ -1,3 +1,8 @@
+---
+title: "高级类型"
+description: "条件类型根据类型关系动态选择类型，语法为 T extends U ? X : Y。它是 TypeScript 类型编程的基础。"
+---
+
 # 高级类型
 
 ## 条件类型

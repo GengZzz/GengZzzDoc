@@ -1,3 +1,8 @@
+---
+title: "ThinkPHP"
+description: "ThinkPHP 是国内 PHP 项目中常见的 Web framework，强调轻量、快速落地和符合中文团队习惯的工程组织。"
+---
+
 # ThinkPHP
 
 ThinkPHP 是国内 PHP 项目中常见的 Web framework，强调轻量、快速落地和符合中文团队习惯的工程组织。学习 ThinkPHP 要抓住入口生命周期、路由中间件、容器与门面、模型查询、验证器、缓存队列和部署实践。

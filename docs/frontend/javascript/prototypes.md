@@ -1,3 +1,8 @@
+---
+title: "原型与继承"
+description: "JavaScript 的继承机制基于原型链（Prototype Chain），而非类继承。ES6 的 class 语法只是原型继承的语法糖。"
+---
+
 # 原型与继承
 
 JavaScript 的继承机制基于**原型链**（Prototype Chain），而非类继承。ES6 的 `class` 语法只是原型继承的语法糖。

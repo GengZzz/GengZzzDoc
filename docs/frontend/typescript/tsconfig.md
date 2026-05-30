@@ -1,3 +1,8 @@
+---
+title: "tsconfig.json 完整指南"
+description: "tsconfig.json 是 TypeScript 项目的配置文件。它告诉编译器 tsc 如何编译项目：包含哪些文件、使用什么语法特性、输出到哪里、启用哪些检查等。"
+---
+
 # tsconfig.json 完整指南
 
 ## 文件作用

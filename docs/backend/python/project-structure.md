@@ -1,3 +1,8 @@
+---
+title: "项目结构与工程化"
+description: "Python 项目的工程化围绕 pyproject.toml 展开，统一管理依赖、构建、测试和发布。虚拟环境隔离项目依赖，pytest 驱动测试。"
+---
+
 # 项目结构与工程化
 
 Python 项目的工程化围绕 `pyproject.toml` 展开，统一管理依赖、构建、测试和发布。虚拟环境隔离项目依赖，pytest 驱动测试。

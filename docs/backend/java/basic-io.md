@@ -1,3 +1,8 @@
+---
+title: "基本输入输出"
+description: "Java 的标准输入输出通过 System.out（输出）和 Scanner（输入）实现。"
+---
+
 # 基本输入输出
 
 Java 的标准输入输出通过 `System.out`（输出）和 `Scanner`（输入）实现。

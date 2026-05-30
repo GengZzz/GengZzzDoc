@@ -1,3 +1,8 @@
+---
+title: "TypeScript 简介与环境搭建"
+description: "TypeScript（简称 TS）是微软于 2012 年推出的开源编程语言。它是 JavaScript 的超集，意味着任何合法的 JS 代码都是合法的 TS 代码。"
+---
+
 # TypeScript 简介与环境搭建
 
 ## 什么是 TypeScript

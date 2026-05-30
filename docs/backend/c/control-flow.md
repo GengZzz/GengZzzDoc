@@ -1,3 +1,8 @@
+---
+title: "判断与循环"
+description: "控制流决定了程序的执行路径。除了基本的 if/for 用法，switch 的 fall-through 陷阱和 goto 的合法用途是容易忽略的知识点。"
+---
+
 # 判断与循环
 
 控制流决定了程序的执行路径。除了基本的 if/for 用法，switch 的 fall-through 陷阱和 goto 的合法用途是容易忽略的知识点。

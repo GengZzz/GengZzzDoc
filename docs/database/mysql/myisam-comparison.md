@@ -1,3 +1,8 @@
+---
+title: "MyISAM 与存储引擎对比"
+description: "MyISAM 是 MySQL 5.5 之前的默认存储引擎，设计简单、读取速度快，但在现代应用中已被 InnoDB 全面超越。"
+---
+
 # MyISAM 与存储引擎对比
 
 ## MyISAM 特点

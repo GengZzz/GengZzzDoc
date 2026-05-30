@@ -1,3 +1,8 @@
+---
+title: "LINQ 高级"
+description: "深入理解自定义 LINQ Provider 的实现、表达式树的访问者模式、以及 EF Core 如何将表达式树翻译为 SQL，是扩展 LINQ 能力和调试查询问题的基础。"
+---
+
 # LINQ 高级
 
 深入理解自定义 LINQ Provider 的实现、表达式树的访问者模式、以及 EF Core 如何将表达式树翻译为 SQL，是扩展 LINQ 能力和调试查询问题的基础。

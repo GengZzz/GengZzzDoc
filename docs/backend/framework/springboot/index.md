@@ -1,3 +1,8 @@
+---
+title: "Spring Boot"
+description: "Spring Boot 用约定、starter、自动配置和生产可观测能力，把 Spring 应用的启动、配置、运行和部署流程整理成一条更短的工程路径。原来的长文已经拆分为多章节，建议按左侧顺序学习。"
+---
+
 # Spring Boot
 
 Spring Boot 用约定、starter、自动配置和生产可观测能力，把 Spring 应用的启动、配置、运行和部署流程整理成一条更短的工程路径。原来的长文已经拆分为多章节，建议按左侧顺序学习。

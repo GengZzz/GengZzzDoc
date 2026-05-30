@@ -1,3 +1,8 @@
+---
+title: "GitHub Actions"
+description: "GitHub Actions 用来把“提交代码之后必须做的事”自动化：安装依赖、运行测试、构建产物、上传制品、发布到 GitHub Pages 或其他环境。"
+---
+
 # GitHub Actions
 
 GitHub Actions 用来把“提交代码之后必须做的事”自动化：安装依赖、运行测试、构建产物、上传制品、发布到 GitHub Pages 或其他环境。

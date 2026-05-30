@@ -1,3 +1,8 @@
+---
+title: "CTE 与视图"
+description: "CTE（Common Table Expressions）和视图是 SQL 模块化的基础。PostgreSQL 对 CTE 的实现有独特的行为——普通 CTE 是优化栅栏（optimization fence）。"
+---
+
 # CTE 与视图
 
 CTE（Common Table Expressions）和视图是 SQL 模块化的基础。PostgreSQL 对 CTE 的实现有独特的行为——普通 CTE 是优化栅栏（optimization fence），而物化视图和窗口函数提供了额外的分析能力。

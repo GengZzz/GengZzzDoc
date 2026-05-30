@@ -1,3 +1,8 @@
+---
+title: "EXPLAIN 执行计划"
+description: "EXPLAIN 是 MySQL 查询优化最重要的工具。通过分析 EXPLAIN 的输出，可以了解 MySQL 优化器如何执行一条查询，从而找到性能瓶颈并进行针对性优化。"
+---
+
 # EXPLAIN 执行计划
 
 EXPLAIN 是 MySQL 查询优化最重要的工具。通过分析 EXPLAIN 的输出，可以了解 MySQL 优化器如何执行一条查询，从而找到性能瓶颈并进行针对性优化。

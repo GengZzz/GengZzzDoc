@@ -1,3 +1,8 @@
+---
+title: "与 Spring / Spring Boot 集成"
+description: "典型依赖是 mybatis-spring-boot-starter。启动时自动配置会做几件事："
+---
+
 # 与 Spring / Spring Boot 集成
 
 典型依赖是 `mybatis-spring-boot-starter`。启动时自动配置会做几件事：

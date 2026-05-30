@@ -1,3 +1,8 @@
+---
+title: "DOM 与 BOM"
+description: "事件传播三个阶段：捕获 → 目标 → 冒泡。"
+---
+
 # DOM 与 BOM
 
 ## DOM 节点操作

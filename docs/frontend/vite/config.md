@@ -1,3 +1,8 @@
+---
+title: "配置详解"
+description: "Vite 的配置文件是项目根目录的 vite.config.js（或 .ts）。"
+---
+
 # 配置详解
 
 Vite 的配置文件是项目根目录的 `vite.config.js`（或 `.ts`）。

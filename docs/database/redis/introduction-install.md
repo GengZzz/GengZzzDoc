@@ -1,3 +1,8 @@
+---
+title: "Redis 简介与安装"
+description: "Redis 是一个基于内存的 Key-Value 存储系统，由 Salvatore Sanfilippo 开发，2009 年首次发布。它支持丰富的数据结构，提供亚毫秒级的响应速度，同时支持持久化和主从复制。"
+---
+
 # Redis 简介与安装
 
 Redis 是一个基于内存的 Key-Value 存储系统，由 Salvatore Sanfilippo 开发，2009 年首次发布。它支持丰富的数据结构，提供亚毫秒级的响应速度，同时支持持久化和主从复制。

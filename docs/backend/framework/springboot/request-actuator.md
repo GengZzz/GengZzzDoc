@@ -1,3 +1,8 @@
+---
+title: "请求处理与可观测链路"
+description: "Web 请求进入 Boot 应用后，不是直接到 Controller，而是先经过内嵌容器和 Spring MVC 的前端控制器。"
+---
+
 <script setup>
 import SpringBootAutoConfigDemo from '../../../.vitepress/theme/components/SpringBootAutoConfigDemo.vue'
 import SpringBootRequestOpsDemo from '../../../.vitepress/theme/components/SpringBootRequestOpsDemo.vue'

@@ -1,3 +1,8 @@
+---
+title: "动态内存管理"
+description: "malloc 和 free 看起来简单，但堆内存管理是 C 语言中最容易出 bug 的领域。内存泄漏、double free、use-after-free 是三种最常见的致命错误。"
+---
+
 # 动态内存管理
 
 `malloc` 和 `free` 看起来简单，但堆内存管理是 C 语言中最容易出 bug 的领域。内存泄漏、double free、use-after-free 是三种最常见的致命错误。

@@ -1,3 +1,8 @@
+---
+title: "MyBatis-Plus"
+description: "MyBatis-Plus 是 MyBatis 的增强工具，核心目标是减少通用 CRUD 和条件构造样板代码，同时保留 MyBatis 对 SQL 的掌控能力。学习重点不是“会不会调用 selectById”。"
+---
+
 # MyBatis-Plus
 
 MyBatis-Plus 是 MyBatis 的增强工具，核心目标是减少通用 CRUD 和条件构造样板代码，同时保留 MyBatis 对 SQL 的掌控能力。学习重点不是“会不会调用 `selectById`”，而是理解 BaseMapper、Service、Wrapper、自动填充、逻辑删除、分页插件、多租户插件和自定义 SQL 如何协同。

@@ -1,3 +1,8 @@
+---
+title: "List 与阻塞队列"
+description: "Redis 的 List 是有序的字符串列表，支持从头部和尾部插入/弹出，常用作消息队列和最新列表。Redis 7.0 中 List 统一使用 quicklist 作为底层实现。"
+---
+
 # List 与阻塞队列
 
 Redis 的 List 是有序的字符串列表，支持从头部和尾部插入/弹出，常用作消息队列和最新列表。Redis 7.0 中 List 统一使用 quicklist 作为底层实现。

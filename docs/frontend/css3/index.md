@@ -1,3 +1,8 @@
+---
+title: "CSS3"
+description: "CSS3 是层叠样式表（Cascading Style Sheets）的第三个主要版本，在 CSS2.1 基础上引入了 Flexbox、Grid、动画、变换、变量、媒体查询等现代特性，使前端布局和视觉表现能力大幅提升。"
+---
+
 # CSS3
 
 CSS3 是层叠样式表（Cascading Style Sheets）的第三个主要版本，在 CSS2.1 基础上引入了 Flexbox、Grid、动画、变换、变量、媒体查询等现代特性，使前端布局和视觉表现能力大幅提升。

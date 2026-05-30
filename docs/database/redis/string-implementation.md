@@ -1,3 +1,8 @@
+---
+title: "String 与 SDS"
+description: "Redis 没有直接使用 C 语言原生的 char* 字符串，而是设计了 SDS（Simple Dynamic String）作为默认的字符串实现。SDS 解决了 C 字符串在 Redis 场景下的多个痛点。"
+---
+
 # String 与 SDS
 
 Redis 没有直接使用 C 语言原生的 `char*` 字符串，而是设计了 SDS（Simple Dynamic String）作为默认的字符串实现。SDS 解决了 C 字符串在 Redis 场景下的多个痛点。

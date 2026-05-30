@@ -1,3 +1,8 @@
+---
+title: "Spring Framework"
+description: "Spring 是 Java 后端开发的基础框架，核心是 IoC 容器、依赖注入、AOP 代理和声明式事务。原来的长文已经拆成多个学习章节，建议按左侧顺序阅读。"
+---
+
 # Spring Framework
 
 Spring 是 Java 后端开发的基础框架，核心是 IoC 容器、依赖注入、AOP 代理和声明式事务。原来的长文已经拆成多个学习章节，建议按左侧顺序阅读。

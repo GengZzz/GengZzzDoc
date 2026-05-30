@@ -1,3 +1,8 @@
+---
+title: "指令系统"
+description: "指令系统（Instruction Set）是软硬件之间的接口。408 考试重点考查指令格式、寻址方式、CISC 与 RISC 的区别。"
+---
+
 # 指令系统
 
 指令系统（Instruction Set）是软硬件之间的接口。408 考试重点考查指令格式、寻址方式、CISC 与 RISC 的区别。

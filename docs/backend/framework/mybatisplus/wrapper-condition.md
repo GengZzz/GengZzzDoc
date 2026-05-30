@@ -1,3 +1,8 @@
+---
+title: "Wrapper 条件构造器"
+description: "Wrapper 是 MyBatis-Plus 最常用的增强能力之一，用 Java API 构造 where、order、select 等 SQL 片段。它适合动态条件查询，但如果链式调用太长。"
+---
+
 # Wrapper 条件构造器
 
 Wrapper 是 MyBatis-Plus 最常用的增强能力之一，用 Java API 构造 where、order、select 等 SQL 片段。它适合动态条件查询，但如果链式调用太长，会让 SQL 意图变得不直观。

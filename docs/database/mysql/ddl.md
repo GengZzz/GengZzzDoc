@@ -1,3 +1,8 @@
+---
+title: "DDL 数据定义语言"
+description: "DDL（Data Definition Language）用于定义和管理数据库的结构对象，包括表、索引、视图等。DDL 操作在 MySQL 中大多会触发表结构变更，直接影响数据字典和存储引擎的元数据。"
+---
+
 # DDL 数据定义语言
 
 DDL（Data Definition Language）用于定义和管理数据库的结构对象，包括表、索引、视图等。DDL 操作在 MySQL 中大多会触发表结构变更，直接影响数据字典和存储引擎的元数据。本文将深入讲解 CREATE TABLE 完整语法、约束体系、ALTER TABLE 的各种操作以及大表 DDL 的生产实践。

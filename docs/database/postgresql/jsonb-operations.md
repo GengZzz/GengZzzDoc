@@ -1,3 +1,8 @@
+---
+title: "JSONB 操作"
+description: "PostgreSQL 的 JSONB 类型将 JSON 数据存储为二进制格式，支持索引和高效查询。这让 PostgreSQL 可以在关系型数据上叠加文档数据库的能力，适合半结构化数据、API 响应存储、配置管理等场景。"
+---
+
 # JSONB 操作
 
 PostgreSQL 的 JSONB 类型将 JSON 数据存储为二进制格式，支持索引和高效查询。这让 PostgreSQL 可以在关系型数据上叠加文档数据库的能力，适合半结构化数据、API 响应存储、配置管理等场景。

@@ -1,3 +1,8 @@
+---
+title: "设计模式"
+description: "JavaScript 中常用的设计模式，结合实际开发场景讲解。"
+---
+
 # 设计模式
 
 JavaScript 中常用的设计模式，结合实际开发场景讲解。

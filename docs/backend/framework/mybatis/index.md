@@ -1,3 +1,8 @@
+---
+title: "MyBatis"
+description: "MyBatis 是 SQL mapper framework，适合需要掌控 SQL、参数绑定、结果映射和执行性能的 Java 后端项目。原来的长文已经拆成多个章节，方便按主题学习和回查。"
+---
+
 # MyBatis
 
 MyBatis 是 SQL mapper framework，适合需要掌控 SQL、参数绑定、结果映射和执行性能的 Java 后端项目。原来的长文已经拆成多个章节，方便按主题学习和回查。

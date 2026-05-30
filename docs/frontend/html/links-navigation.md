@@ -1,3 +1,8 @@
+---
+title: "链接与导航"
+description: "超链接是 Web 最核心的特性。 标签看似简单，但它的 href 协议、rel 属性、target 属性、以及 download 属性都有深入的细节。"
+---
+
 # 链接与导航
 
 超链接是 Web 最核心的特性。`<a>` 标签看似简单，但它的 `href` 协议、`rel` 属性、`target` 属性、以及 `download` 属性都有深入的细节。

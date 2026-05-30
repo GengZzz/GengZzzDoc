@@ -1,3 +1,8 @@
+---
+title: "Redo Log 深度解析"
+description: "WAL 是 InnoDB 保证数据持久性的核心原则：先写日志，再写磁盘。"
+---
+
 # Redo Log 深度解析
 
 ## WAL (Write-Ahead Logging)

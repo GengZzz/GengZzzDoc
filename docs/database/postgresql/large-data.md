@@ -1,3 +1,8 @@
+---
+title: "大数据处理"
+description: "PostgreSQL 作为单机数据库，大数据处理的核心策略是：减少 I/O、利用并行、合理分层。本节覆盖大表优化、TOAST 机制、并行查询、FDW 外部数据封装和 TimescaleDB 时序扩展。"
+---
+
 # 大数据处理
 
 PostgreSQL 作为单机数据库，大数据处理的核心策略是：减少 I/O、利用并行、合理分层。本节覆盖大表优化、TOAST 机制、并行查询、FDW 外部数据封装和 TimescaleDB 时序扩展。

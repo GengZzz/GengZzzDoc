@@ -1,3 +1,8 @@
+---
+title: "Prompt 进阶技巧"
+description: "掌握基础 Prompt 技巧后，进阶技巧能帮助你应对更复杂的场景：多步推理、多路径探索、Agent 设计、长上下文管理等。"
+---
+
 # Prompt 进阶技巧
 
 掌握基础 Prompt 技巧后，进阶技巧能帮助你应对更复杂的场景：多步推理、多路径探索、Agent 设计、长上下文管理等。本章介绍 Chain of Thought、Tree of Thought、ReAct 等高级 Prompt 策略，并通过实战案例展示从模糊需求到高质量 Prompt 的完整过程。

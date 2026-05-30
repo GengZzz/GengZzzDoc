@@ -1,3 +1,8 @@
+---
+title: "Redis"
+description: "Redis（Remote Dictionary Server）是一个开源的内存数据结构存储，支持 String、List、Hash、Set、ZSet 等多种数据结构，广泛用于缓存、消息队列、分布式锁等场景。"
+---
+
 # Redis
 
 Redis（Remote Dictionary Server）是一个开源的内存数据结构存储，支持 String、List、Hash、Set、ZSet 等多种数据结构，广泛用于缓存、消息队列、分布式锁等场景。Redis 的单线程事件循环模型、丰富的数据结构和灵活的持久化机制，使其成为后端开发中不可或缺的中间件。

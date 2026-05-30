@@ -1,3 +1,8 @@
+---
+title: "快速开始"
+description: "与 Webpack 不同，Vite 的 index.html 在项目根目录而非 public/ 目录。Vite 将 index.html 作为入口文件，通过 加载 JS。"
+---
+
 # 快速开始
 
 ## 创建项目

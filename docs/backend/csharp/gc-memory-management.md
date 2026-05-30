@@ -1,3 +1,8 @@
+---
+title: "GC 与内存管理"
+description: ".NET 的自动内存管理由 GC（Garbage Collector）负责，但\"自动\"不意味着\"无须关注\"。理解三代回收的触发机制、LOH 碎片化问题、以及 IDisposable 完整模式。"
+---
+
 # GC 与内存管理
 
 .NET 的自动内存管理由 GC（Garbage Collector）负责，但"自动"不意味着"无须关注"。理解三代回收的触发机制、LOH 碎片化问题、以及 IDisposable 完整模式，是避免内存泄漏和 GC 停顿导致 P99 延迟飙升的关键。

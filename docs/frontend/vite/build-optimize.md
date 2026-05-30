@@ -1,3 +1,8 @@
+---
+title: "构建与优化"
+description: "Vite 的生产构建基于 Rollup，输出高度优化的静态资源。"
+---
+
 # 构建与优化
 
 Vite 的生产构建基于 Rollup，输出高度优化的静态资源。

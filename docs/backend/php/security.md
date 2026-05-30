@@ -1,3 +1,8 @@
+---
+title: "Web 安全"
+description: "PHP 应用面临的 Web 安全威胁与 OWASP Top 10 密切相关。本节深入讲解 SQL 注入、XSS、CSRF、密码安全、Session 安全和文件上传漏洞的防御方法。"
+---
+
 # Web 安全
 
 PHP 应用面临的 Web 安全威胁与 OWASP Top 10 密切相关。本节深入讲解 SQL 注入、XSS、CSRF、密码安全、Session 安全和文件上传漏洞的防御方法。

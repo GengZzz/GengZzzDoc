@@ -1,3 +1,8 @@
+---
+title: "PHP 技术文档"
+description: "PHP 是一门面向 Web 后端的服务端语言。现代 PHP 不只是模板脚本，它已经形成了以 Composer、PSR 规范、PHP-FPM、OPcache、PDO、Laravel/Symfony、队列和容器化部署为核心的…"
+---
+
 # PHP 技术文档
 
 PHP 是一门面向 Web 后端的服务端语言。现代 PHP 不只是模板脚本，它已经形成了以 Composer、PSR 规范、PHP-FPM、OPcache、PDO、Laravel/Symfony、队列和容器化部署为核心的完整工程体系。

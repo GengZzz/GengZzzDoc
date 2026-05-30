@@ -1,3 +1,8 @@
+---
+title: "HTML"
+description: "HTML（HyperText Markup Language）是构建 Web 页面的基石。它不是编程语言，而是一种描述文档结构的标记语言。浏览器通过解析 HTML 构建 DOM 树。"
+---
+
 # HTML
 
 HTML（HyperText Markup Language）是构建 Web 页面的基石。它不是编程语言，而是一种描述文档结构的标记语言。浏览器通过解析 HTML 构建 DOM 树，再结合 CSSOM 渲染出用户看到的页面。

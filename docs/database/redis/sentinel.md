@@ -1,3 +1,8 @@
+---
+title: "Sentinel 哨兵"
+description: "Redis Sentinel 是 Redis 的高可用方案，在主从复制的基础上提供自动故障转移（failover）。Sentinel 监控主从节点的健康状态，在主节点故障时自动将一个从节点提升为新主节点。"
+---
+
 # Sentinel 哨兵
 
 Redis Sentinel 是 Redis 的高可用方案，在主从复制的基础上提供自动故障转移（failover）。Sentinel 监控主从节点的健康状态，在主节点故障时自动将一个从节点提升为新主节点。

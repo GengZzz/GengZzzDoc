@@ -1,3 +1,8 @@
+---
+title: "MySQL 权限管理"
+description: "MySQL 的权限体系是一个多层级的访问控制系统，从粗到细分为四个层级："
+---
+
 # MySQL 权限管理
 
 ## MySQL 权限体系

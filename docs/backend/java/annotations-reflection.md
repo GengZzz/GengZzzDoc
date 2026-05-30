@@ -1,3 +1,8 @@
+---
+title: "注解与反射"
+description: "注解（Annotation）为代码提供元数据，反射（Reflection）允许程序在运行时动态获取类的信息、创建对象和调用方法。两者结合是 Spring、Jackson 等框架的核心基础。"
+---
+
 # 注解与反射
 
 注解（Annotation）为代码提供元数据，反射（Reflection）允许程序在运行时动态获取类的信息、创建对象和调用方法。两者结合是 Spring、Jackson 等框架的核心基础。

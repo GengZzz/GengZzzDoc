@@ -1,3 +1,8 @@
+---
+title: "Lambda 表达式"
+description: "Lambda 是匿名函数对象，让代码更紧凑，特别适合回调、STL 算法和一次性小函数。"
+---
+
 # Lambda 表达式
 
 Lambda 是匿名函数对象，让代码更紧凑，特别适合回调、STL 算法和一次性小函数。

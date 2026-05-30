@@ -1,3 +1,8 @@
+---
+title: "Proxy 与 Reflect"
+description: "Proxy 可以拦截对象的基本操作，Reflect 提供了与 Proxy 拦截器对应的标准方法。它们是实现响应式系统、数据验证、日志记录等高级功能的基础。"
+---
+
 # Proxy 与 Reflect
 
 `Proxy` 可以拦截对象的基本操作，`Reflect` 提供了与 Proxy 拦截器对应的标准方法。它们是实现响应式系统、数据验证、日志记录等高级功能的基础。

@@ -1,3 +1,8 @@
+---
+title: "魔术方法与属性"
+description: "PHP 提供了一组特殊的方法（Magic Methods），在特定条件下自动调用。配合 ArrayAccess、Iterator 等接口，可以实现高度灵活的对象行为。PHP 8."
+---
+
 # 魔术方法与属性
 
 PHP 提供了一组特殊的方法（Magic Methods），在特定条件下自动调用。配合 ArrayAccess、Iterator 等接口，可以实现高度灵活的对象行为。PHP 8.0 引入的 Attributes（属性注解）替代了文档注释中的元数据方案。

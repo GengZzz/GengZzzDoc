@@ -1,3 +1,8 @@
+---
+title: "JVM 基础"
+description: "Java 虚拟机（JVM）是 Java 程序的运行平台。Java 源码编译为 .class 字节码后，由 JVM 加载、验证并执行。理解 JVM 的工作原理有助于编写更高效的代码和排查性能问题。"
+---
+
 # JVM 基础
 
 Java 虚拟机（JVM）是 Java 程序的运行平台。Java 源码编译为 `.class` 字节码后，由 JVM 加载、验证并执行。理解 JVM 的工作原理有助于编写更高效的代码和排查性能问题。

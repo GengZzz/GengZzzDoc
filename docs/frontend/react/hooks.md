@@ -1,3 +1,8 @@
+---
+title: "Hooks"
+description: "Hooks 是 React 16.8 引入的特性，让你在函数组件中使用状态和其他 React 特性。"
+---
+
 # Hooks
 
 Hooks 是 React 16.8 引入的特性，让你在函数组件中使用状态和其他 React 特性。

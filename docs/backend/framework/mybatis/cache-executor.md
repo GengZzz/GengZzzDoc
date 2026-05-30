@@ -1,3 +1,8 @@
+---
+title: "一级缓存、二级缓存与 CacheKey"
+description: "缓存是 MyBatis 面试常问、线上也常踩坑的部分。先用动画看边界。"
+---
+
 <script setup>
 import MyBatisExecutorFlowDemo from '../../../.vitepress/theme/components/MyBatisExecutorFlowDemo.vue'
 import MyBatisCacheKeyDemo from '../../../.vitepress/theme/components/MyBatisCacheKeyDemo.vue'

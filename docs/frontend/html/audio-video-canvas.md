@@ -1,3 +1,8 @@
+---
+title: "音视频与 Canvas"
+description: "HTML5 原生支持多媒体（audio/video）和绘图（canvas/SVG），不再需要 Flash 等插件。"
+---
+
 # 音视频与 Canvas
 
 HTML5 原生支持多媒体（audio/video）和绘图（canvas/SVG），不再需要 Flash 等插件。

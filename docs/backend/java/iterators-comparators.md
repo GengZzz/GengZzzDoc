@@ -1,3 +1,8 @@
+---
+title: "Iterator 与 Comparator"
+description: "遍历集合和排序集合元素是日常开发中最常见的操作。Java 提供了 Iterator 用于遍历、Comparable 和 Comparator 用于排序。"
+---
+
 # Iterator 与 Comparator
 
 遍历集合和排序集合元素是日常开发中最常见的操作。Java 提供了 Iterator 用于遍历、Comparable 和 Comparator 用于排序。

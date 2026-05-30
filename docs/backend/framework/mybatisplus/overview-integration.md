@@ -1,3 +1,8 @@
+---
+title: "概览与集成方式"
+description: "MyBatis-Plus 建立在 MyBatis 之上，不替代 MyBatis 的核心执行链路。它主要增强三类能力：通用 Mapper 方法、条件构造器、常用插件。也就是说。"
+---
+
 # 概览与集成方式
 
 MyBatis-Plus 建立在 MyBatis 之上，不替代 MyBatis 的核心执行链路。它主要增强三类能力：通用 Mapper 方法、条件构造器、常用插件。也就是说，复杂 SQL、ResultMap、TypeHandler、事务、Mapper 扫描这些基础仍然属于 MyBatis 和 Spring 体系。

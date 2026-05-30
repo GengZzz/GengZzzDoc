@@ -1,3 +1,8 @@
+---
+title: "Redis Cluster"
+description: "Redis Cluster 是 Redis 3.0 引入的分布式方案，通过数据分片（sharding）将数据分布到多个节点上，支持水平扩展和自动故障转移。与 Sentinel 只提供高可用不同。"
+---
+
 # Redis Cluster
 
 Redis Cluster 是 Redis 3.0 引入的分布式方案，通过数据分片（sharding）将数据分布到多个节点上，支持水平扩展和自动故障转移。与 Sentinel 只提供高可用不同，Cluster 同时解决了**数据分片**和**高可用**两个问题。

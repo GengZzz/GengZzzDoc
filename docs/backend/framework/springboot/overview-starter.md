@@ -1,3 +1,8 @@
+---
+title: "Spring Boot"
+description: "Spring Boot 是 Spring 生态里用于快速构建应用的工程化框架。它的目标不是替代 Spring Framework。"
+---
+
 # Spring Boot
 
 Spring Boot 是 Spring 生态里用于快速构建应用的工程化框架。它的目标不是替代 Spring Framework，而是把企业开发里反复出现的非功能能力整理成一套默认约定：内嵌 Web 容器、自动配置、外部化配置、健康检查、指标、日志、测试支持和可执行包。

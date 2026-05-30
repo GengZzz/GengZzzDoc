@@ -1,3 +1,8 @@
+---
+title: "主从复制"
+description: "Redis 主从复制（Replication）允许从节点（replica）复制主节点（master）的数据，提供数据冗余和读扩展能力。主节点处理写操作，从节点异步同步数据并处理读请求。"
+---
+
 # 主从复制
 
 Redis 主从复制（Replication）允许从节点（replica）复制主节点（master）的数据，提供数据冗余和读扩展能力。主节点处理写操作，从节点异步同步数据并处理读请求。

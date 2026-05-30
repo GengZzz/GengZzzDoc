@@ -1,3 +1,8 @@
+---
+title: "Optional 类"
+description: "Optional 是 Java 8 引入的容器类，用于表示一个值可能存在也可能不存在。它的设计目的是替代 null，让代码中的空值处理更加明确和安全。"
+---
+
 # Optional 类
 
 `Optional<T>` 是 Java 8 引入的容器类，用于表示一个值可能存在也可能不存在。它的设计目的是替代 `null`，让代码中的空值处理更加明确和安全。

@@ -1,3 +1,8 @@
+---
+title: "C++ 字符串"
+description: "std::string 的基本用法"
+---
+
 # C++ 字符串
 
 ## 这一节你会学到什么

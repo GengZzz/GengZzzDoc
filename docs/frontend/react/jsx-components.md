@@ -1,3 +1,8 @@
+---
+title: "JSX 与组件"
+description: "JSX 是 JavaScript 的语法扩展，让你在 JS 中编写类似 HTML 的结构。React 组件是构建 UI 的基本单元。"
+---
+
 # JSX 与组件
 
 JSX 是 JavaScript 的语法扩展，让你在 JS 中编写类似 HTML 的结构。React 组件是构建 UI 的基本单元。

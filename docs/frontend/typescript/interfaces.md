@@ -1,3 +1,8 @@
+---
+title: "接口"
+description: "interface 用于定义对象的结构（shape），描述对象应该包含哪些属性以及属性的类型。它是 TypeScript 中描述对象类型的首选方式。"
+---
+
 # 接口
 
 ## 定义对象形状

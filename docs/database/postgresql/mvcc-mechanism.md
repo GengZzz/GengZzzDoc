@@ -1,3 +1,8 @@
+---
+title: "MVCC 机制"
+description: "PostgreSQL 的 MVCC（Multi-Version Concurrency Control）直接内建在存储层。每个事务看到的是数据的一个快照版本，读写操作互不阻塞。理解 MVCC 的实现细节。"
+---
+
 # MVCC 机制
 
 PostgreSQL 的 MVCC（Multi-Version Concurrency Control）直接内建在存储层。每个事务看到的是数据的一个快照版本，读写操作互不阻塞。理解 MVCC 的实现细节，是排查锁等待、理解隔离级别差异、调优 VACUUM 策略的基础。

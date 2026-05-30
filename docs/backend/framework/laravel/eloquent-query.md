@@ -1,3 +1,8 @@
+---
+title: "Eloquent 与查询设计"
+description: "Eloquent 是 Active Record 风格 ORM，模型既表达表结构映射，也承载关系、类型转换、Scope、访问器和修改器。它开发效率高，但如果关系加载和查询边界失控，很容易出现 N+1、慢查询和模型过胖。"
+---
+
 <script setup>
 import LaravelEloquentRelationDemo from '../../../.vitepress/theme/components/LaravelEloquentRelationDemo.vue'
 </script>

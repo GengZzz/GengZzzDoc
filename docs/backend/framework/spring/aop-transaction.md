@@ -1,3 +1,8 @@
+---
+title: "AOP 代理"
+description: "Spring AOP 基于代理对象工作。调用方拿到的 Bean 如果命中切面，通常不是目标类本身，而是代理："
+---
+
 <script setup>
 import SpringIocLifecycleDemo from '../../../.vitepress/theme/components/SpringIocLifecycleDemo.vue'
 import SpringAopTransactionDemo from '../../../.vitepress/theme/components/SpringAopTransactionDemo.vue'

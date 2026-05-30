@@ -1,3 +1,8 @@
+---
+title: "分区表"
+description: "PostgreSQL 10+ 支持声明式分区（Declarative Partitioning），将大表按规则拆分为多个子表。分区对应用透明——SQL 查询不需要修改。"
+---
+
 # 分区表
 
 PostgreSQL 10+ 支持声明式分区（Declarative Partitioning），将大表按规则拆分为多个子表。分区对应用透明——SQL 查询不需要修改，优化器通过 Partition Pruning 自动排除不相关的分区。

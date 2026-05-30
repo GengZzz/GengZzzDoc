@@ -1,3 +1,8 @@
+---
+title: "Prompt 基础技巧"
+description: "Prompt Engineering（提示词工程）是与大语言模型高效沟通的核心技能。一条精心设计的 Prompt 能让模型输出准确、结构化、可用的结果，而一条模糊的 Prompt 则可能得到答非所问的回复。"
+---
+
 # Prompt 基础技巧
 
 Prompt Engineering（提示词工程）是与大语言模型高效沟通的核心技能。一条精心设计的 Prompt 能让模型输出准确、结构化、可用的结果，而一条模糊的 Prompt 则可能得到答非所问的回复。掌握 Prompt 基础技巧，是从"能用 AI"到"用好 AI"的关键一步。

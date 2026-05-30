@@ -1,3 +1,8 @@
+---
+title: "VACUUM 机制"
+description: "VACUUM 是 PostgreSQL 运维的核心。与 MySQL 不同，PostgreSQL 没有 Undo Log——旧版本的行直接留在表中，由 VACUUM 负责清理。理解 VACUUM 的工作原理和调优方法。"
+---
+
 # VACUUM 机制
 
 VACUUM 是 PostgreSQL 运维的核心。与 MySQL 不同，PostgreSQL 没有 Undo Log——旧版本的行直接留在表中，由 VACUUM 负责清理。理解 VACUUM 的工作原理和调优方法，是保证 PostgreSQL 长期稳定运行的关键。

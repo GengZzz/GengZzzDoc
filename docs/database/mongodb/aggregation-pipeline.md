@@ -1,3 +1,8 @@
+---
+title: "聚合管道"
+description: "聚合管道（Aggregation Pipeline）是 MongoDB 最强大的数据处理工具。它将文档通过多个阶段（Stage）逐级处理，类似 Unix 管道，每个阶段对输入文档进行变换后输出给下一个阶段。"
+---
+
 # 聚合管道
 
 聚合管道（Aggregation Pipeline）是 MongoDB 最强大的数据处理工具。它将文档通过多个阶段（Stage）逐级处理，类似 Unix 管道，每个阶段对输入文档进行变换后输出给下一个阶段。

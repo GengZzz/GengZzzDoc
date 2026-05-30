@@ -1,3 +1,8 @@
+---
+title: "扩展与 FFI"
+description: "PHP 的功能可以通过扩展（Extension）来增强。扩展可以用 C 编写（传统方式）或通过 FFI（Foreign Function Interface，PHP 7.4+）直接调用 C 代码。"
+---
+
 # 扩展与 FFI
 
 PHP 的功能可以通过扩展（Extension）来增强。扩展可以用 C 编写（传统方式）或通过 FFI（Foreign Function Interface，PHP 7.4+）直接调用 C 代码。

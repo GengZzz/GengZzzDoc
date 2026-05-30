@@ -1,3 +1,8 @@
+---
+title: "TypeScript"
+description: "用于记录类型设计、工程配置和日常使用经验。"
+---
+
 # TypeScript
 
 用于记录类型设计、工程配置和日常使用经验。

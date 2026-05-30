@@ -1,3 +1,8 @@
+---
+title: "元编程"
+description: "元编程是操作代码自身的能力——在运行时检查、修改或创建代码。JavaScript 的元编程能力主要来自 Symbol、Proxy/Reflect（已单独介绍）和一些内置的元属性。"
+---
+
 # 元编程
 
 元编程是操作代码自身的能力——在运行时检查、修改或创建代码。JavaScript 的元编程能力主要来自 `Symbol`、`Proxy`/`Reflect`（已单独介绍）和一些内置的元属性。

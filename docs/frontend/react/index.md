@@ -1,3 +1,8 @@
+---
+title: "React"
+description: "React 是一个用于构建用户界面的 JavaScript 库，由 Meta（Facebook）开发和维护。它采用声明式、组件化的编程模型，通过虚拟 DOM 高效更新视图。"
+---
+
 # React
 
 React 是一个用于构建用户界面的 JavaScript 库，由 Meta（Facebook）开发和维护。它采用声明式、组件化的编程模型，通过虚拟 DOM 高效更新视图。

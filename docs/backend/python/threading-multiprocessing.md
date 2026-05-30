@@ -1,3 +1,8 @@
+---
+title: "多线程与多进程"
+description: "Python 并发编程的核心挑战是 GIL（Global Interpreter Lock）。理解 GIL 的本质和限制，才能选择正确的并发方案。"
+---
+
 # 多线程与多进程
 
 Python 并发编程的核心挑战是 GIL（Global Interpreter Lock）。理解 GIL 的本质和限制，才能选择正确的并发方案。

@@ -1,3 +1,8 @@
+---
+title: "类与对象"
+description: "PHP 的面向对象系统从 PHP 5 开始成熟，PHP 7.4 引入类型化属性，PHP 8.0 引入构造器提升（Constructor Promotion），PHP 8.1 引入只读属性（readonly）。"
+---
+
 # 类与对象
 
 PHP 的面向对象系统从 PHP 5 开始成熟，PHP 7.4 引入类型化属性，PHP 8.0 引入构造器提升（Constructor Promotion），PHP 8.1 引入只读属性（readonly），使得类定义越来越简洁。

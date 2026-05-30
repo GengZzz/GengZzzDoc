@@ -1,3 +1,8 @@
+---
+title: "Web 框架"
+description: "Python Web 生态有三个主流框架：Flask（轻量微框架）、FastAPI（现代异步框架）、Django（全功能框架）。它们对应不同的 WSGI/ASGI 协议。"
+---
+
 # Web 框架
 
 Python Web 生态有三个主流框架：Flask（轻量微框架）、FastAPI（现代异步框架）、Django（全功能框架）。它们对应不同的 WSGI/ASGI 协议。

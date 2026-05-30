@@ -1,3 +1,8 @@
+---
+title: "IoC 与 DI"
+description: "IoC（Inversion of Control，控制反转）指对象的创建与依赖装配控制权从业务代码转移给容器。DI（Dependency Injection，依赖注入）是实现 IoC 最常见的方式。"
+---
+
 # IoC 与 DI
 
 IoC（Inversion of Control，控制反转）指对象的创建与依赖装配控制权从业务代码转移给容器。DI（Dependency Injection，依赖注入）是实现 IoC 最常见的方式。

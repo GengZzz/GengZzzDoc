@@ -1,3 +1,8 @@
+---
+title: "自定义元素（Custom Elements）"
+description: "Custom Elements 是 Web Components 的核心 API 之一，它允许开发者创建自定义的 HTML 标签，拥有自己的行为和封装。"
+---
+
 # 自定义元素（Custom Elements）
 
 Custom Elements 是 Web Components 的核心 API 之一，它允许开发者创建自定义的 HTML 标签，拥有自己的行为和封装。

@@ -1,3 +1,8 @@
+---
+title: "List 接口：ArrayList 与 LinkedList"
+description: "List 是最常用的集合类型，它保证元素按插入顺序排列，允许重复元素，支持通过索引访问。"
+---
+
 # List 接口：ArrayList 与 LinkedList
 
 List 是最常用的集合类型，它保证元素按插入顺序排列，允许重复元素，支持通过索引访问。

@@ -1,3 +1,8 @@
+---
+title: "查询计划器"
+description: "PostgreSQL 的查询优化器是基于成本的（Cost-Based Optimizer, CBO）。理解 EXPLAIN 的输出、成本估算模型和统计信息的作用，是诊断和优化查询性能的核心技能。"
+---
+
 # 查询计划器
 
 PostgreSQL 的查询优化器是基于成本的（Cost-Based Optimizer, CBO）。理解 EXPLAIN 的输出、成本估算模型和统计信息的作用，是诊断和优化查询性能的核心技能。

@@ -1,3 +1,8 @@
+---
+title: "聚合分析"
+description: "聚合（Aggregation）是 ES 作为分析引擎的核心能力。它类似于 SQL 中的 GROUP BY + 聚合函数，但功能远超传统数据库的 OLAP 能力。"
+---
+
 # 聚合分析
 
 聚合（Aggregation）是 ES 作为分析引擎的核心能力。它类似于 SQL 中的 GROUP BY + 聚合函数，但功能远超传统数据库的 OLAP 能力。

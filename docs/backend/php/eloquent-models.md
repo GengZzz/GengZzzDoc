@@ -1,3 +1,8 @@
+---
+title: "Eloquent 模型"
+description: "Eloquent 是 Laravel 的 ORM（对象关系映射），通过 ActiveRecord 模式将数据库表映射为 PHP 类。它简洁优雅，但也容易被误用导致性能问题。"
+---
+
 # Eloquent 模型
 
 Eloquent 是 Laravel 的 ORM（对象关系映射），通过 ActiveRecord 模式将数据库表映射为 PHP 类。它简洁优雅，但也容易被误用导致性能问题。

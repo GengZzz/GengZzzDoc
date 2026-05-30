@@ -1,3 +1,8 @@
+---
+title: "网络编程"
+description: "POSIX socket API 是 C 语言网络编程的基础。TCP 服务器模型、IO 多路复用（epoll）和非阻塞 IO 是构建高性能网络服务的核心技术。"
+---
+
 # 网络编程
 
 POSIX socket API 是 C 语言网络编程的基础。TCP 服务器模型、IO 多路复用（epoll）和非阻塞 IO 是构建高性能网络服务的核心技术。

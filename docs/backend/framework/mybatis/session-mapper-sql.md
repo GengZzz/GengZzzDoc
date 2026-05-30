@@ -1,3 +1,8 @@
+---
+title: "SqlSessionFactory、SqlSession 与线程安全"
+description: "SqlSessionFactory 构建成本高，但线程安全，通常整个应用一个即可。SqlSession 不是线程安全对象，它代表一次会话和一组数据库操作，不应该放进单例字段，也不应该跨线程复用。"
+---
+
 # SqlSessionFactory、SqlSession 与线程安全
 
 `SqlSessionFactory` 构建成本高，但线程安全，通常整个应用一个即可。`SqlSession` 不是线程安全对象，它代表一次会话和一组数据库操作，不应该放进单例字段，也不应该跨线程复用。

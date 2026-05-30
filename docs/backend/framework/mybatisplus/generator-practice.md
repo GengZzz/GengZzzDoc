@@ -1,3 +1,8 @@
+---
+title: "代码生成与日常实践"
+description: "MyBatis-Plus 代码生成器可以快速生成 Entity、Mapper、Service、Controller 等模板。它适合提高起步效率，但生成出来的代码不是架构设计本身。"
+---
+
 # 代码生成与日常实践
 
 MyBatis-Plus 代码生成器可以快速生成 Entity、Mapper、Service、Controller 等模板。它适合提高起步效率，但生成出来的代码不是架构设计本身。真正的质量来自边界、命名、查询设计、事务和测试。

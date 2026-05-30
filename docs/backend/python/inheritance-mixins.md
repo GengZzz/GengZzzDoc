@@ -1,3 +1,8 @@
+---
+title: "继承与 Mixin"
+description: "Python 的继承系统支持多重继承，通过 MRO（Method Resolution Order，C3 线性化算法）解决菱形继承问题。super() 调用遵循 MRO 链，而非简单的父类列表。"
+---
+
 # 继承与 Mixin
 
 Python 的继承系统支持多重继承，通过 MRO（Method Resolution Order，C3 线性化算法）解决菱形继承问题。super() 调用遵循 MRO 链，而非简单的父类列表。

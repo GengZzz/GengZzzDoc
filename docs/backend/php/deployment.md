@@ -1,3 +1,8 @@
+---
+title: "部署"
+description: "生产环境 PHP 应用的标准部署架构是 Nginx + PHP-FPM，配合 Docker 容器化和 Composer 依赖管理。"
+---
+
 # 部署
 
 生产环境 PHP 应用的标准部署架构是 Nginx + PHP-FPM，配合 Docker 容器化和 Composer 依赖管理。

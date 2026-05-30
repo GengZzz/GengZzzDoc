@@ -1,3 +1,8 @@
+---
+title: "ASP.NET Core"
+description: "ASP.NET Core 的中间件管道基于 RequestDelegate 委托链实现，理解管道的构建机制、Scoped 服务的陷阱、以及 Filters 的执行时序，是编写正确 Web 服务的基础。"
+---
+
 # ASP.NET Core
 
 ASP.NET Core 的中间件管道基于 `RequestDelegate` 委托链实现，理解管道的构建机制、Scoped 服务的陷阱、以及 Filters 的执行时序，是编写正确 Web 服务的基础。

@@ -1,3 +1,8 @@
+---
+title: "组合式 API"
+description: "组合式 API（Composition API）是 Vue 3 的核心特性，通过函数式的方式组织组件逻辑，解决了 Options API 在复杂组件中逻辑分散的问题。"
+---
+
 # 组合式 API
 
 组合式 API（Composition API）是 Vue 3 的核心特性，通过函数式的方式组织组件逻辑，解决了 Options API 在复杂组件中逻辑分散的问题。

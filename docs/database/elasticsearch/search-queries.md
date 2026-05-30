@@ -1,3 +1,8 @@
+---
+title: "搜索与查询"
+description: "Query DSL 是 ES 的核心查询语言。深入理解 Query DSL、评分机制和调试工具，是构建高质量搜索系统的基础。"
+---
+
 # 搜索与查询
 
 Query DSL 是 ES 的核心查询语言。深入理解 Query DSL、评分机制和调试工具，是构建高质量搜索系统的基础。

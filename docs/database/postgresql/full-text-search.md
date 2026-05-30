@@ -1,3 +1,8 @@
+---
+title: "全文搜索"
+description: "PostgreSQL 内建全文搜索（Full Text Search, FTS）引擎，使用 tsvector（文档向量）和 tsquery（查询向量）实现文本检索。对于中小型应用的搜索需求。"
+---
+
 # 全文搜索
 
 PostgreSQL 内建全文搜索（Full Text Search, FTS）引擎，使用 `tsvector`（文档向量）和 `tsquery`（查询向量）实现文本检索。对于中小型应用的搜索需求，它可以替代 Elasticsearch 这类外部搜索引擎。

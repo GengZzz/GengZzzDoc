@@ -1,3 +1,8 @@
+---
+title: "String 与 StringBuilder"
+description: "Java 中 String 对象一旦创建，其内容不可修改。任何看似\"修改\"的操作（拼接、替换、截取等）都会返回一个全新的 String 对象，原始对象不变。"
+---
+
 # String 与 StringBuilder
 
 ## String 不可变性

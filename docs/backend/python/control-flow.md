@@ -1,3 +1,8 @@
+---
+title: "控制流程"
+description: "Python 的控制流语句与其他语言类似，但在语法细节上有自己的特色：缩进替代花括号、for-else、match-case 等。"
+---
+
 # 控制流程
 
 Python 的控制流语句与其他语言类似，但在语法细节上有自己的特色：缩进替代花括号、for-else、match-case 等。

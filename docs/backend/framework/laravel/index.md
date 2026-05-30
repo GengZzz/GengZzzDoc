@@ -1,3 +1,8 @@
+---
+title: "Laravel"
+description: "Laravel 是 PHP 生态中偏工程化和全栈体验的 Web framework，适合构建后台管理、API 服务、任务队列、定时任务、文件上传、权限认证和中小型业务系统。"
+---
+
 # Laravel
 
 Laravel 是 PHP 生态中偏工程化和全栈体验的 Web framework，适合构建后台管理、API 服务、任务队列、定时任务、文件上传、权限认证和中小型业务系统。学习 Laravel 不应该只背 Artisan 命令，而要理解一次请求如何经过路由、服务容器、中间件、控制器、模型、队列和事件。

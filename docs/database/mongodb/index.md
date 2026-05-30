@@ -1,3 +1,8 @@
+---
+title: "MongoDB"
+description: "MongoDB 是面向文档的分布式数据库，以 BSON 格式存储数据，天然支持灵活的 Schema 和水平扩展。这套文档从文档模型设计到集群架构运维，覆盖 MongoDB 核心知识体系。"
+---
+
 # MongoDB
 
 MongoDB 是面向文档的分布式数据库，以 BSON 格式存储数据，天然支持灵活的 Schema 和水平扩展。这套文档从文档模型设计到集群架构运维，覆盖 MongoDB 核心知识体系，包含聚合管道、索引策略、副本集、分片集群、Change Streams 等开发与运维中的关键主题。

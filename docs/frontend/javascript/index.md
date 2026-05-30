@@ -1,3 +1,8 @@
+---
+title: "JavaScript"
+description: "JavaScript 是一门运行在浏览器和 Node.js 中的动态类型语言，也是前端开发的核心。这套文档从引擎原理到高级特性，覆盖 JavaScript 核心知识体系。"
+---
+
 # JavaScript
 
 JavaScript 是一门运行在浏览器和 Node.js 中的动态类型语言，也是前端开发的核心。这套文档从引擎原理到高级特性，覆盖 JavaScript 核心知识体系。

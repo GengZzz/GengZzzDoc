@@ -1,3 +1,8 @@
+---
+title: "PostgreSQL 简介与安装"
+description: "PostgreSQL 起源于 UC Berkeley 的 POSTGRES 项目（1986 年），1996 年正式更名为 PostgreSQL。它严格遵循 SQL 标准。"
+---
+
 # PostgreSQL 简介与安装
 
 PostgreSQL 起源于 UC Berkeley 的 POSTGRES 项目（1986 年），1996 年正式更名为 PostgreSQL。它严格遵循 SQL 标准，同时提供了大量扩展能力——自定义类型、运算符、索引方法、扩展插件，这些设计让 PostgreSQL 成为"可编程的数据库"。

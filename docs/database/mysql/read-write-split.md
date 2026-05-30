@@ -1,3 +1,8 @@
+---
+title: "MySQL 读写分离"
+description: "读写分离的核心思想非常直接：所有写操作（INSERT、UPDATE、DELETE）走主库，所有读操作（SELECT）走从库。"
+---
+
 # MySQL 读写分离
 
 ## 读写分离原理

@@ -1,3 +1,8 @@
+---
+title: "配置绑定"
+description: "Spring Boot 推荐使用 @ConfigurationProperties 绑定结构化配置，而不是在业务类里散落大量 @Value。"
+---
+
 # 配置绑定
 
 Spring Boot 推荐使用 `@ConfigurationProperties` 绑定结构化配置，而不是在业务类里散落大量 `@Value`。

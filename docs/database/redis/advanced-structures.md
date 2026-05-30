@@ -1,3 +1,8 @@
+---
+title: "高级数据结构"
+description: "Redis 除了 5 种基本类型外，还提供了 HyperLogLog、GEO、Stream 三种高级数据结构，各自解决特定的业务场景。"
+---
+
 # 高级数据结构
 
 Redis 除了 5 种基本类型外，还提供了 HyperLogLog、GEO、Stream 三种高级数据结构，各自解决特定的业务场景。

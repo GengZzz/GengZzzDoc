@@ -1,3 +1,8 @@
+---
+title: "Java 简介与环境搭建"
+description: "Java 是一门面向对象的编程语言，由 Sun 公司（现 Oracle）于 1995 年发布。它的核心理念是 \"一次编写，到处运行\"（Write Once, Run Anywhere），通过 JVM 实现跨平台执行。"
+---
+
 # Java 简介与环境搭建
 
 Java 是一门面向对象的编程语言，由 Sun 公司（现 Oracle）于 1995 年发布。它的核心理念是 **"一次编写，到处运行"**（Write Once, Run Anywhere），通过 JVM 实现跨平台执行。

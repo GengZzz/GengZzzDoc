@@ -1,3 +1,8 @@
+---
+title: "RDB 持久化"
+description: "RDB（Redis Database）持久化通过生成内存数据的快照（snapshot）保存到磁盘文件中。RDB 文件是一个紧凑的二进制文件，适合备份和灾难恢复，但在两次快照之间可能丢失数据。"
+---
+
 # RDB 持久化
 
 RDB（Redis Database）持久化通过生成内存数据的快照（snapshot）保存到磁盘文件中。RDB 文件是一个紧凑的二进制文件，适合备份和灾难恢复，但在两次快照之间可能丢失数据。

@@ -1,3 +1,8 @@
+---
+title: "副本集"
+description: "MongoDB 副本集（Replica Set）是一组维护相同数据集的 mongod 进程，提供数据冗余和高可用性。理解副本集的选举机制、Oplog 同步和读写关注配置，是生产部署的基础。"
+---
+
 # 副本集
 
 MongoDB 副本集（Replica Set）是一组维护相同数据集的 mongod 进程，提供数据冗余和高可用性。理解副本集的选举机制、Oplog 同步和读写关注配置，是生产部署的基础。

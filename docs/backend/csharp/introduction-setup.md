@@ -1,3 +1,8 @@
+---
+title: "C# 简介与环境搭建"
+description: "C# 诞生于 2000 年，由 Anders Hejlsberg（Delphi 和 TypeScript 之父）设计，是一门运行在 .NET 平台上的静态类型语言。"
+---
+
 # C# 简介与环境搭建
 
 C# 诞生于 2000 年，由 Anders Hejlsberg（Delphi 和 TypeScript 之父）设计，是一门运行在 .NET 平台上的静态类型语言。理解 C# 需要深入理解它所依赖的运行时环境——CLR 的内部架构。

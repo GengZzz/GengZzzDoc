@@ -1,3 +1,8 @@
+---
+title: "基础类型"
+description: "TypeScript 的原始类型与 JavaScript 一一对应，每个都有明确的类型注解。"
+---
+
 # 基础类型
 
 ## 原始类型

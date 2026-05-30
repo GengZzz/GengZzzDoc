@@ -1,3 +1,8 @@
+---
+title: "Pipeline 与 Lua"
+description: "Redis 是单线程处理命令的，每个命令都需要一次网络往返。Pipeline 和 Lua 脚本是提升 Redis 吞吐量和实现复杂原子操作的两大利器。"
+---
+
 # Pipeline 与 Lua
 
 Redis 是单线程处理命令的，每个命令都需要一次网络往返。Pipeline 和 Lua 脚本是提升 Redis 吞吐量和实现复杂原子操作的两大利器。

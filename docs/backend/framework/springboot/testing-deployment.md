@@ -1,3 +1,8 @@
+---
+title: "日志"
+description: "Spring Boot 默认使用 SLF4J + Logback。业务代码只依赖日志门面："
+---
+
 # 日志
 
 Spring Boot 默认使用 SLF4J + Logback。业务代码只依赖日志门面：

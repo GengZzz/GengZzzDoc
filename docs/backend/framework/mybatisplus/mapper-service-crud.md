@@ -1,3 +1,8 @@
+---
+title: "Mapper、Service 与通用 CRUD"
+description: "MyBatis-Plus 的 BaseMapper 会为实体自动注入常见 CRUD 方法。Service 层的 IService 和 ServiceImpl 又在 Mapper 基础上提供批量保存、链式查询等能力。"
+---
+
 <script setup>
 import MyBatisPlusCrudInjectorDemo from '../../../.vitepress/theme/components/MyBatisPlusCrudInjectorDemo.vue'
 </script>

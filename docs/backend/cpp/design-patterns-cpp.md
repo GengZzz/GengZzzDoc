@@ -1,3 +1,8 @@
+---
+title: "设计模式的 C++ 实现"
+description: "用 C++ 的语言特性（RAII、模板、std::function）实现经典设计模式，往往比传统 OOP 写法更简洁。"
+---
+
 # 设计模式的 C++ 实现
 
 用 C++ 的语言特性（RAII、模板、`std::function`）实现经典设计模式，往往比传统 OOP 写法更简洁。

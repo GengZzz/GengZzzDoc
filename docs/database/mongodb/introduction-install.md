@@ -1,3 +1,8 @@
+---
+title: "MongoDB 简介与安装"
+description: "MongoDB 是面向文档的分布式数据库，由 10gen（现 MongoDB Inc.）于 2009 年发布。它以 BSON（Binary JSON）格式存储数据，放弃传统关系模型的固定表结构，转而采用灵活的文档模型。"
+---
+
 # MongoDB 简介与安装
 
 MongoDB 是面向文档的分布式数据库，由 10gen（现 MongoDB Inc.）于 2009 年发布。它以 BSON（Binary JSON）格式存储数据，放弃传统关系模型的固定表结构，转而采用灵活的文档模型，天然支持半结构化数据和水平扩展。

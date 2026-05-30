@@ -1,3 +1,8 @@
+---
+title: "高级类型"
+description: "枚举、联合体、typedef 和 volatile 是 C 语言中常被忽略但非常有用的类型工具。"
+---
+
 # 高级类型
 
 枚举、联合体、typedef 和 volatile 是 C 语言中常被忽略但非常有用的类型工具。

@@ -1,3 +1,8 @@
+---
+title: "Laravel 架构"
+description: "Laravel 是 PHP 生态中最流行的全栈框架。理解其内部架构——从请求入口到响应返回——是掌握 Laravel 开发的关键。"
+---
+
 # Laravel 架构
 
 Laravel 是 PHP 生态中最流行的全栈框架。理解其内部架构——从请求入口到响应返回——是掌握 Laravel 开发的关键。

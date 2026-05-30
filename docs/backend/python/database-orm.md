@@ -1,3 +1,8 @@
+---
+title: "数据库与 ORM"
+description: "Python 的数据库生态以 SQLAlchemy 为核心。SQLAlchemy 提供了两种使用模式：Core（SQL 表达式语言）和 ORM（对象关系映射）。生产环境通常使用 ORM + Alembic 迁移。"
+---
+
 # 数据库与 ORM
 
 Python 的数据库生态以 SQLAlchemy 为核心。SQLAlchemy 提供了两种使用模式：Core（SQL 表达式语言）和 ORM（对象关系映射）。生产环境通常使用 ORM + Alembic 迁移。

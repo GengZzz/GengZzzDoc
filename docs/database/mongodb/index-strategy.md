@@ -1,3 +1,8 @@
+---
+title: "索引策略"
+description: "建索引容易，建对索引很难。MongoDB 索引策略的核心是 ESR 规则（Equality、Sort、Range），理解它能避免大部分索引设计失误。"
+---
+
 # 索引策略
 
 建索引容易，建对索引很难。MongoDB 索引策略的核心是 ESR 规则（Equality、Sort、Range），理解它能避免大部分索引设计失误。

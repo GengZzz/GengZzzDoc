@@ -1,3 +1,8 @@
+---
+title: "HTTP 与 Session"
+description: "PHP 天生为 Web 设计，HTTP 请求处理是其核心能力。理解 PHP 的请求处理流程、Session 机制和安全配置对于构建安全的 Web 应用至关重要。"
+---
+
 # HTTP 与 Session
 
 PHP 天生为 Web 设计，HTTP 请求处理是其核心能力。理解 PHP 的请求处理流程、Session 机制和安全配置对于构建安全的 Web 应用至关重要。

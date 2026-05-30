@@ -1,3 +1,8 @@
+---
+title: "自动配置原理"
+description: "Spring Boot 的自动配置不是“魔法”，而是启动时批量导入一组配置类，再通过条件注解决定是否生效。"
+---
+
 <script setup>
 import SpringBootAutoConfigDemo from '../../../.vitepress/theme/components/SpringBootAutoConfigDemo.vue'
 import SpringBootRequestOpsDemo from '../../../.vitepress/theme/components/SpringBootRequestOpsDemo.vue'

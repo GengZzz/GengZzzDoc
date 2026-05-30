@@ -1,3 +1,8 @@
+---
+title: "Change Streams"
+description: "Change Streams 是 MongoDB 3.6 引入的实时数据变更监听机制。它基于 Oplog，为应用提供了一种低延迟、可靠的方式来响应数据变更事件。"
+---
+
 # Change Streams
 
 Change Streams 是 MongoDB 3.6 引入的实时数据变更监听机制。它基于 Oplog，为应用提供了一种低延迟、可靠的方式来响应数据变更事件。

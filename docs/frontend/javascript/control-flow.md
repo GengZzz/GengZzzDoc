@@ -1,3 +1,8 @@
+---
+title: "控制流"
+description: "忘记写 break 会穿透到下一个 case，这是常见 Bug。ESLint 规则 no-fallthrough 可以检测。"
+---
+
 # 控制流
 
 ## 条件判断

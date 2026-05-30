@@ -1,3 +1,8 @@
+---
+title: "DQL 数据查询语言"
+description: "DQL（Data Query Language）以 SELECT 为核心，是从数据库中提取、分析和汇总数据的关键工具。一条复杂的 SELECT 语句可能涉及多表连接、子查询、分组聚合、窗口函数等高级特性。"
+---
+
 # DQL 数据查询语言
 
 DQL（Data Query Language）以 `SELECT` 为核心，是从数据库中提取、分析和汇总数据的关键工具。一条复杂的 SELECT 语句可能涉及多表连接、子查询、分组聚合、窗口函数等高级特性。理解 SELECT 的执行顺序和各子句的语义，是写出正确且高效查询的前提。

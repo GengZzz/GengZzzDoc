@@ -1,3 +1,8 @@
+---
+title: "请求生命周期与中间件"
+description: "一次 Laravel 请求从 public/index.php 进入，经过应用启动、HTTP Kernel、中间件管道、路由匹配、控制器执行、响应返回和终止中间件。难点不在于背流程，而是知道每一层适合放什么逻辑。"
+---
+
 <script setup>
 import LaravelRequestLifecycleDemo from '../../../.vitepress/theme/components/LaravelRequestLifecycleDemo.vue'
 </script>

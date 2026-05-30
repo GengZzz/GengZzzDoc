@@ -1,3 +1,8 @@
+---
+title: "ResultType 与 ResultMap"
+description: "resultType 适合列名与属性名简单对应的场景："
+---
+
 # ResultType 与 ResultMap
 
 `resultType` 适合列名与属性名简单对应的场景：

@@ -1,3 +1,8 @@
+---
+title: "模型、查询与事务"
+description: "ThinkPHP 可以直接使用 Db 查询构造器，也可以使用模型。查询构造器适合简单 SQL 和统计，模型适合表达表、字段转换、关联和业务查询范围。日常关键是控制查询边界，避免控制器直接拼复杂 SQL。"
+---
+
 <script setup>
 import ThinkPhpOrmQueryDemo from '../../../.vitepress/theme/components/ThinkPhpOrmQueryDemo.vue'
 </script>

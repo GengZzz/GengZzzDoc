@@ -1,3 +1,8 @@
+---
+title: "Buffer Pool 深度解析"
+description: "Buffer Pool 是 InnoDB 最核心的内存组件，它将磁盘上的数据页和索引页缓存到内存中，避免每次查询都进行磁盘 IO。对于一个 OLTP 数据库来说。"
+---
+
 # Buffer Pool 深度解析
 
 ## Buffer Pool 的作用

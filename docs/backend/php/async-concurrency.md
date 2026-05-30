@@ -1,3 +1,8 @@
+---
+title: "异步与并发"
+description: "PHP 传统上是同步阻塞模型：每个请求由一个独立的 PHP-FPM Worker 处理，Worker 在 I/O 操作（数据库查询、HTTP 请求）期间阻塞等待。"
+---
+
 # 异步与并发
 
 PHP 传统上是同步阻塞模型：每个请求由一个独立的 PHP-FPM Worker 处理，Worker 在 I/O 操作（数据库查询、HTTP 请求）期间阻塞等待。现代 PHP 通过 Fibers、Swoole 扩展和应用服务器（RoadRunner）提供了异步编程能力。

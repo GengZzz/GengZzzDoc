@@ -1,3 +1,8 @@
+---
+title: "错误处理"
+description: "Python 的异常处理机制采用 EAFP（Easier to Ask Forgiveness than Permission）哲学——先尝试操作，出错再处理，而非先检查条件（LBYL）。"
+---
+
 # 错误处理
 
 Python 的异常处理机制采用 EAFP（Easier to Ask Forgiveness than Permission）哲学——先尝试操作，出错再处理，而非先检查条件（LBYL）。

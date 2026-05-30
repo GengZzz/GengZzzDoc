@@ -1,3 +1,8 @@
+---
+title: "C# 技术文档"
+description: "C# 是一门运行在 .NET 运行时之上的静态类型语言。日常开发里，它通常围绕 ASP.NET Core、EF Core、异步 IO、LINQ、依赖注入和运行时性能展开。"
+---
+
 # C# 技术文档
 
 C# 是一门运行在 .NET 运行时之上的静态类型语言。日常开发里，它通常围绕 ASP.NET Core、EF Core、异步 IO、LINQ、依赖注入和运行时性能展开。

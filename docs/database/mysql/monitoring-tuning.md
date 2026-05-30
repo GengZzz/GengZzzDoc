@@ -1,3 +1,8 @@
+---
+title: "MySQL 监控与调优"
+description: "QPS（Queries Per Second）和 TPS（Transactions Per Second）是最基本的吞吐量指标。"
+---
+
 # MySQL 监控与调优
 
 ## 关键性能指标

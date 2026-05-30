@@ -1,3 +1,8 @@
+---
+title: "TypeScript"
+description: "TypeScript 是 JavaScript 的超集，由微软开发和维护。它在 JavaScript 的基础上添加了静态类型系统、接口、泛型等特性，使开发者在编码阶段就能发现类型错误。"
+---
+
 # TypeScript
 
 TypeScript 是 JavaScript 的超集，由微软开发和维护。它在 JavaScript 的基础上添加了静态类型系统、接口、泛型等特性，使开发者在编码阶段就能发现类型错误，显著提升大型项目的可维护性和开发体验。TypeScript 代码最终会被编译为纯 JavaScript 运行。

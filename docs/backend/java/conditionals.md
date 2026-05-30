@@ -1,3 +1,8 @@
+---
+title: "条件语句"
+description: "if 根据条件决定执行哪段代码。条件必须是 boolean 类型，不能像 C/C++ 那样用整数。"
+---
+
 # 条件语句
 
 ## if / else if / else
