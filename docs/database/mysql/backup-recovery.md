@@ -286,6 +286,7 @@ systemctl start mysqld
 ```
 
 ::: danger 恢复前必须确认
+
 1. 恢复操作需要停止 MySQL 服务，必须提前通知业务方。
 2. `--copy-back` 前确保数据目录已清空，否则会报错。
 3. 恢复后第一件事是检查数据完整性，确认 binlog 位点信息，以便后续做 binlog 增量恢复。

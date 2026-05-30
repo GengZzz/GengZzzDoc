@@ -36,6 +36,7 @@ System.out.println(a.speak());  // 输出 "Woof!"，不是 "..."
 变量 `a` 的静态类型是 `Animal`，但实际指向一个 `Dog` 对象。调用 `a.speak()` 时，JVM 在运行时查找 `Dog` 类的实现并执行，这就是动态分派。
 
 ::: tip 编译时 vs 运行时
+
 - **编译时**：编译器根据引用类型检查方法签名是否合法。`a` 的类型是 `Animal`，所以编译器确认 `Animal` 上有 `speak()` 方法。
 - **运行时**：JVM 根据对象的实际类型（`Dog`）查找并调用对应的 `speak()` 方法。
 :::
@@ -138,6 +139,7 @@ if (animal instanceof Dog dog && dog.getBreed().equals("Husky")) {
 
 ::: tip Java 21 的模式匹配增强
 Java 21 进一步支持了 `switch` 表达式中的模式匹配：
+
 ```java
 String description = switch (animal) {
     case Dog d -> "A dog named " + d.getName();
@@ -146,6 +148,7 @@ String description = switch (animal) {
     default    -> "Some animal";
 };
 ```
+
 :::
 
 ## 多态的本质
@@ -153,6 +156,7 @@ String description = switch (animal) {
 多态的本质是：**父类或接口引用指向子类对象，调用方法时执行子类的具体实现**。
 
 关键要素：
+
 1. **继承或实现关系**：子类继承父类或实现接口。
 2. **方法重写**：子类提供了父类方法的特定实现。
 3. **向上转型**：通过父类引用持有子类对象。

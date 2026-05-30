@@ -1,0 +1,8 @@
+node_modules
+docs/.vitepress/cache
+docs/.vitepress/dist
+package-lock.json
+*.log
+
+# Markdown 文档由 markdownlint 负责，避免 prettier 重排破坏 VitePress 容器语法
+docs/**/*.md

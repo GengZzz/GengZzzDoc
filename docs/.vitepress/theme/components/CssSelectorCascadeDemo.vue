@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const scenarios = [
   {
@@ -10,60 +10,60 @@ const scenarios = [
     rules: [
       { selector: 'p', specificity: '0,0,1', color: '#e3f2fd' },
       { selector: '.text', specificity: '0,1,0', color: '#fff3e0' },
-      { selector: '#main', specificity: '1,0,0', color: '#e8f5e9' }
+      { selector: '#main', specificity: '1,0,0', color: '#e8f5e9' },
     ],
     winner: '#main (1,0,0)',
-    explanation: 'ID 选择器权重最高，覆盖类选择器和标签选择器。'
+    explanation: 'ID 选择器权重最高，覆盖类选择器和标签选择器。',
   },
   {
     title: '组合选择器 vs 单一选择器',
     rules: [
       { selector: '.nav a', specificity: '0,1,1', color: '#e3f2fd' },
       { selector: 'a.link', specificity: '0,1,1', color: '#fff3e0' },
-      { selector: '.link', specificity: '0,1,0', color: '#e8f5e9' }
+      { selector: '.link', specificity: '0,1,0', color: '#e8f5e9' },
     ],
     winner: '.nav a 和 a.link 并列 (0,1,1)',
-    explanation: '两个选择器权重相同，后声明的规则生效（源码顺序决定）。'
+    explanation: '两个选择器权重相同，后声明的规则生效（源码顺序决定）。',
   },
   {
     title: '伪类与伪元素',
     rules: [
       { selector: 'a:hover', specificity: '0,1,1', color: '#e3f2fd' },
       { selector: 'a::before', specificity: '0,0,2', color: '#fff3e0' },
-      { selector: 'a', specificity: '0,0,1', color: '#e8f5e9' }
+      { selector: 'a', specificity: '0,0,1', color: '#e8f5e9' },
     ],
     winner: 'a:hover (0,1,1)',
-    explanation: '伪类 (:hover) 算一个类权重，伪元素 (::before) 算一个标签权重。'
+    explanation: '伪类 (:hover) 算一个类权重，伪元素 (::before) 算一个标签权重。',
   },
   {
     title: '内联样式',
     rules: [
       { selector: '#header .title', specificity: '1,1,0', color: '#e3f2fd' },
       { selector: 'style="color:red"', specificity: '1,0,0,0', color: '#fce4ec' },
-      { selector: '.title', specificity: '0,1,0', color: '#e8f5e9' }
+      { selector: '.title', specificity: '0,1,0', color: '#e8f5e9' },
     ],
     winner: '内联样式 (1,0,0,0)',
-    explanation: '内联样式的权重高于任何选择器，但它低于 !important。'
+    explanation: '内联样式的权重高于任何选择器，但它低于 !important。',
   },
   {
     title: '!important 规则',
     rules: [
       { selector: '#btn { color: blue !important }', specificity: '∞', color: '#fce4ec' },
       { selector: '.btn { color: green }', specificity: '0,1,0', color: '#e8f5e9' },
-      { selector: 'button { color: red }', specificity: '0,0,1', color: '#e3f2fd' }
+      { selector: 'button { color: red }', specificity: '0,0,1', color: '#e3f2fd' },
     ],
     winner: '!important 规则',
-    explanation: '!important 可以无视权重强制生效，但应尽量避免使用。'
-  }
-]
+    explanation: '!important 可以无视权重强制生效，但应尽量避免使用。',
+  },
+];
 
-const current = computed(() => scenarios[step.value])
+const current = computed(() => scenarios[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 function prev() {
-  step.value = (step.value - 1 + totalSteps) % totalSteps
+  step.value = (step.value - 1 + totalSteps) % totalSteps;
 }
 </script>
 
@@ -78,7 +78,17 @@ function prev() {
         v-for="(rule, i) in current.rules"
         :key="i"
         class="rule-card"
-        :style="{ borderLeftColor: rule.color === '#fce4ec' ? '#e53935' : rule.color === '#fff3e0' ? '#fb8c00' : rule.color === '#e8f5e9' ? '#43a047' : '#1e88e5', background: rule.color }"
+        :style="{
+          borderLeftColor:
+            rule.color === '#fce4ec'
+              ? '#e53935'
+              : rule.color === '#fff3e0'
+                ? '#fb8c00'
+                : rule.color === '#e8f5e9'
+                  ? '#43a047'
+                  : '#1e88e5',
+          background: rule.color,
+        }"
       >
         <code class="selector">{{ rule.selector }}</code>
         <span class="specificity">权重: {{ rule.specificity }}</span>

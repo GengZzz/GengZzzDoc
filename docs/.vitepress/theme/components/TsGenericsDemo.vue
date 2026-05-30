@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const selectedConstraint = ref<string | null>(null)
+const selectedConstraint = ref<string | null>(null);
 
 const constraints = [
   {
@@ -9,51 +9,51 @@ const constraints = [
     generic: 'T extends string',
     input: 'hello',
     result: 'T = "hello"',
-    accepted: true
+    accepted: true,
   },
   {
     id: 'extends-object',
     generic: 'T extends { length: number }',
     input: 'string[]',
     result: 'T = string[]',
-    accepted: true
+    accepted: true,
   },
   {
     id: 'extends-object-reject',
     generic: 'T extends { length: number }',
     input: 'number',
     result: '错误：number 没有 length 属性',
-    accepted: false
+    accepted: false,
   },
   {
     id: 'keyof',
     generic: 'K keyof T',
     input: 'T = { name: string, age: number }',
     result: 'K = "name" | "age"',
-    accepted: true
+    accepted: true,
   },
   {
     id: 'extends-record',
     generic: 'T extends Record<string, unknown>',
     input: '{ id: 1, title: "doc" }',
     result: 'T = { id: number, title: string }',
-    accepted: true
-  }
-]
+    accepted: true,
+  },
+];
 
 const activeConstraint = computed(() => {
-  return constraints.find(c => c.id === selectedConstraint.value) || null
-})
+  return constraints.find((c) => c.id === selectedConstraint.value) || null;
+});
 
 const inferenceSteps = computed(() => {
-  if (!activeConstraint.value) return []
-  const c = activeConstraint.value
+  if (!activeConstraint.value) return [];
+  const c = activeConstraint.value;
   return [
     { label: '泛型约束', value: c.generic },
     { label: '传入类型', value: c.input },
-    { label: c.accepted ? '类型推导' : '类型检查', value: c.result }
-  ]
-})
+    { label: c.accepted ? '类型推导' : '类型检查', value: c.result },
+  ];
+});
 </script>
 
 <template>

@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 const stages = computed(() => {
-  const s = step.value
+  const s = step.value;
   return {
     source: s >= 0,
     compiler: s >= 1,
     typeCheck: s >= 2,
     emit: s >= 3,
-    output: s >= 4
-  }
-})
+    output: s >= 4,
+  };
+});
 
 const description = computed(() => {
   const descs = [
@@ -21,10 +21,10 @@ const description = computed(() => {
     'TypeScript 编译器（tsc）读取 .ts 源文件',
     '编译器进行类型检查，发现类型错误则报错',
     '类型检查通过后，擦除类型注解，生成 .js 文件',
-    '最终输出可在浏览器或 Node.js 中运行的 JavaScript'
-  ]
-  return descs[step.value]
-})
+    '最终输出可在浏览器或 Node.js 中运行的 JavaScript',
+  ];
+  return descs[step.value];
+});
 
 const codeSnippet = computed(() => {
   const snippets = [
@@ -32,34 +32,49 @@ const codeSnippet = computed(() => {
     `// tsc 读取 source.ts\n// 解析 AST，提取类型信息`,
     `// 类型检查\n// name: string ✓\n// 返回值: string ✓`,
     `// 擦除类型，生成 source.js\nfunction greet(name) {\n  return "Hello, " + name;\n}`,
-    `// node source.js\n// > "Hello, World"`
-  ]
-  return snippets[step.value]
-})
+    `// node source.js\n// > "Hello, World"`,
+  ];
+  return snippets[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="ts-type-system-demo">
     <div class="pipeline">
-      <div
-        v-for="(active, key) in stages"
-        :key="key"
-        class="stage"
-        :class="{ active }"
-      >
+      <div v-for="(active, key) in stages" :key="key" class="stage" :class="{ active }">
         <div class="stage-icon">
-          {{ key === 'source' ? 'TS' : key === 'compiler' ? 'tsc' : key === 'typeCheck' ? '✓' : key === 'emit' ? 'JS' : '▶' }}
+          {{
+            key === 'source'
+              ? 'TS'
+              : key === 'compiler'
+                ? 'tsc'
+                : key === 'typeCheck'
+                  ? '✓'
+                  : key === 'emit'
+                    ? 'JS'
+                    : '▶'
+          }}
         </div>
         <div class="stage-label">
-          {{ key === 'source' ? '源码' : key === 'compiler' ? '编译器' : key === 'typeCheck' ? '类型检查' : key === 'emit' ? '输出' : '运行' }}
+          {{
+            key === 'source'
+              ? '源码'
+              : key === 'compiler'
+                ? '编译器'
+                : key === 'typeCheck'
+                  ? '类型检查'
+                  : key === 'emit'
+                    ? '输出'
+                    : '运行'
+          }}
         </div>
         <div v-if="active" class="arrow">→</div>
       </div>

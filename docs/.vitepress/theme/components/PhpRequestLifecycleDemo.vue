@@ -1,39 +1,42 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 const steps = [
   {
     title: 'Nginx 接收请求',
     icon: '🌐',
-    detail: '客户端发送 HTTP 请求到 Nginx，Nginx 根据 location ~ \\.php$ 将请求通过 FastCGI 协议转发给 PHP-FPM',
+    detail:
+      '客户端发送 HTTP 请求到 Nginx，Nginx 根据 location ~ \\.php$ 将请求通过 FastCGI 协议转发给 PHP-FPM',
     nodes: [
       { name: 'Client', role: '发送 HTTP GET /api/users', active: true },
       { name: 'Nginx', role: '解析请求 → 匹配 location 规则', active: true },
-      { name: 'PHP-FPM', role: '等待 FastCGI 请求', active: false }
-    ]
+      { name: 'PHP-FPM', role: '等待 FastCGI 请求', active: false },
+    ],
   },
   {
     title: 'PHP-FPM Worker 启动',
     icon: '⚙️',
-    detail: 'PHP-FPM master 进程将请求分配给空闲 worker，worker 加载 php.ini 配置并检查 OPcache 缓存',
+    detail:
+      'PHP-FPM master 进程将请求分配给空闲 worker，worker 加载 php.ini 配置并检查 OPcache 缓存',
     nodes: [
       { name: 'PHP-FPM Master', role: '分配请求给空闲 Worker', active: true },
       { name: 'Worker', role: '加载 php.ini + 检查 OPcache', active: true },
-      { name: 'OPcache', role: '返回缓存的 Opcodes', active: true }
-    ]
+      { name: 'OPcache', role: '返回缓存的 Opcodes', active: true },
+    ],
   },
   {
     title: 'Laravel 入口',
     icon: '📂',
-    detail: '请求进入 public/index.php，Composer autoload 加载依赖，创建 Application 容器实例，注册核心服务提供者',
+    detail:
+      '请求进入 public/index.php，Composer autoload 加载依赖，创建 Application 容器实例，注册核心服务提供者',
     nodes: [
       { name: 'index.php', role: '引导文件入口', active: true },
       { name: 'Autoload', role: 'PSR-4 自动加载', active: true },
-      { name: 'Application', role: '服务容器实例化', active: true }
-    ]
+      { name: 'Application', role: '服务容器实例化', active: true },
+    ],
   },
   {
     title: '中间件管道',
@@ -43,8 +46,8 @@ const steps = [
       { name: 'HandleCors', role: '跨域检查', active: true },
       { name: 'Auth', role: '身份认证', active: true },
       { name: 'Throttle', role: '请求限流', active: true },
-      { name: 'Controller', role: '业务处理', active: true }
-    ]
+      { name: 'Controller', role: '业务处理', active: true },
+    ],
   },
   {
     title: '路由匹配与控制器',
@@ -53,8 +56,8 @@ const steps = [
     nodes: [
       { name: 'Router', role: 'GET /api/users → UserController@index', active: true },
       { name: 'Controller', role: '调用业务逻辑', active: true },
-      { name: 'Eloquent', role: '查询数据库 N+1?', active: true }
-    ]
+      { name: 'Eloquent', role: '查询数据库 N+1?', active: true },
+    ],
   },
   {
     title: '响应返回',
@@ -63,41 +66,37 @@ const steps = [
     nodes: [
       { name: 'Controller', role: '返回 JsonResponse', active: true },
       { name: 'Middleware', role: '洋葱外层：添加 Header', active: true },
-      { name: 'Nginx', role: '发送响应给客户端', active: true }
-    ]
+      { name: 'Nginx', role: '发送响应给客户端', active: true },
+    ],
   },
   {
     title: 'Worker 回收',
     icon: '♻️',
-    detail: '请求处理完毕，PHP-FPM Worker 清理状态并回到空闲池，等待下一个请求。可复用进程，避免频繁创建销毁',
+    detail:
+      '请求处理完毕，PHP-FPM Worker 清理状态并回到空闲池，等待下一个请求。可复用进程，避免频繁创建销毁',
     nodes: [
       { name: 'Worker', role: '清理变量、关闭连接', active: true },
       { name: 'Pool', role: '回到空闲队列', active: true },
-      { name: 'Master', role: '监控 Worker 状态', active: false }
-    ]
-  }
-]
+      { name: 'Master', role: '监控 Worker 状态', active: false },
+    ],
+  },
+];
 
-const current = computed(() => steps[step.value])
+const current = computed(() => steps[step.value]);
 
 function next() {
-  if (step.value < totalSteps - 1) step.value++
+  if (step.value < totalSteps - 1) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="lifecycle-demo">
     <div class="step-indicator">
-      <span
-        v-for="i in totalSteps"
-        :key="i"
-        class="dot"
-        :class="{ active: step === i - 1 }"
-      />
+      <span v-for="i in totalSteps" :key="i" class="dot" :class="{ active: step === i - 1 }" />
     </div>
 
     <div class="step-header">
@@ -120,7 +119,12 @@ function reset() {
     </div>
 
     <div class="flow-bar">
-      <span v-for="i in totalSteps" :key="i" class="flow-segment" :class="{ filled: step >= i - 1 }">
+      <span
+        v-for="i in totalSteps"
+        :key="i"
+        class="flow-segment"
+        :class="{ filled: step >= i - 1 }"
+      >
         {{ i }}
       </span>
     </div>

@@ -1,48 +1,42 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
 interface Ptr {
-  name: string
-  type: 'unique' | 'shared' | 'weak'
-  value: string | null
-  count?: number
+  name: string;
+  type: 'unique' | 'shared' | 'weak';
+  value: string | null;
+  count?: number;
 }
 
 const pointers = computed<Ptr[]>(() => {
-  if (step.value === 0) return []
-  if (step.value === 1) return [
-    { name: 'p1', type: 'unique', value: '42' }
-  ]
-  if (step.value === 2) return [
-    { name: 'p1', type: 'unique', value: null },
-    { name: 'p2', type: 'unique', value: '42' }
-  ]
-  if (step.value === 3) return [
-    { name: 's1', type: 'shared', value: '100', count: 1 }
-  ]
-  if (step.value === 4) return [
-    { name: 's1', type: 'shared', value: '100', count: 2 },
-    { name: 's2', type: 'shared', value: '100', count: 2 }
-  ]
-  if (step.value === 5) return [
-    { name: 's2', type: 'shared', value: '100', count: 1 }
-  ]
-  if (step.value === 6) return [
-    { name: 's2', type: 'shared', value: null, count: 0 }
-  ]
-  return []
-})
+  if (step.value === 0) return [];
+  if (step.value === 1) return [{ name: 'p1', type: 'unique', value: '42' }];
+  if (step.value === 2)
+    return [
+      { name: 'p1', type: 'unique', value: null },
+      { name: 'p2', type: 'unique', value: '42' },
+    ];
+  if (step.value === 3) return [{ name: 's1', type: 'shared', value: '100', count: 1 }];
+  if (step.value === 4)
+    return [
+      { name: 's1', type: 'shared', value: '100', count: 2 },
+      { name: 's2', type: 'shared', value: '100', count: 2 },
+    ];
+  if (step.value === 5) return [{ name: 's2', type: 'shared', value: '100', count: 1 }];
+  if (step.value === 6) return [{ name: 's2', type: 'shared', value: null, count: 0 }];
+  return [];
+});
 
 const code = computed(() => {
   const lines = [
@@ -52,10 +46,10 @@ const code = computed(() => {
     'shared_ptr s2 = s1;  // 引用计数=2',
     '// s1 销毁，引用计数=1，对象仍在',
     '// s2 销毁，引用计数=0，对象释放',
-    '// weak_ptr 不增加引用计数，打破循环引用'
-  ]
-  return step.value > 0 ? lines[step.value - 1] : ''
-})
+    '// weak_ptr 不增加引用计数，打破循环引用',
+  ];
+  return step.value > 0 ? lines[step.value - 1] : '';
+});
 
 const status = computed(() => {
   const msgs = [
@@ -66,18 +60,18 @@ const status = computed(() => {
     's2 = s1，两个指针共享同一对象，引用计数=2',
     's1 销毁，引用计数减为 1，对象仍然存活',
     's2 销毁，引用计数减为 0，对象被释放',
-    'weak_ptr 只观察对象，不增加引用计数，适合打破 shared_ptr 循环引用'
-  ]
-  return msgs[step.value]
-})
+    'weak_ptr 只观察对象，不增加引用计数，适合打破 shared_ptr 循环引用',
+  ];
+  return msgs[step.value];
+});
 
 const cyclicRefs = computed(() => {
-  if (step.value < 7) return null
+  if (step.value < 7) return null;
   return {
     aToB: 'shared_ptr<B>',
-    bToA: 'weak_ptr<A>'
-  }
-})
+    bToA: 'weak_ptr<A>',
+  };
+});
 </script>
 
 <template>
@@ -96,14 +90,14 @@ const cyclicRefs = computed(() => {
       >
         <div class="ptr-name">{{ ptr.name }}</div>
         <div class="ptr-type">
-          {{ ptr.type === 'unique' ? 'unique_ptr' : ptr.type === 'shared' ? 'shared_ptr' : 'weak_ptr' }}
+          {{
+            ptr.type === 'unique' ? 'unique_ptr' : ptr.type === 'shared' ? 'shared_ptr' : 'weak_ptr'
+          }}
         </div>
         <div class="ptr-value">
           {{ ptr.value !== null ? `*${ptr.name} = ${ptr.value}` : 'nullptr' }}
         </div>
-        <div v-if="ptr.count !== undefined" class="ptr-count">
-          引用计数: {{ ptr.count }}
-        </div>
+        <div v-if="ptr.count !== undefined" class="ptr-count">引用计数: {{ ptr.count }}</div>
       </div>
     </div>
 

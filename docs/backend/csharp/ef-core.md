@@ -388,6 +388,7 @@ dotnet ef migrations remove
 
 ::: warning Migration 冲突处理
 多人同时创建 Migration 会产生冲突。解决方案：
+
 1. 团队约定：一人负责创建 Migration，其他人拉取后执行
 2. 使用 `migrations bundle` 在 CI/CD 中自动应用
 3. 冲突时删除本地 Migration，重新基于最新代码生成

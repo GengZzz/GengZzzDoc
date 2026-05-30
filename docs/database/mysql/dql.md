@@ -160,6 +160,7 @@ WHERE p.id = 1001;
 SELECT u.username, o.amount
 FROM users u, orders o;   -- 没有 WHERE 条件关联
 ```
+
 :::
 
 ### NATURAL JOIN（自然连接）
@@ -271,6 +272,7 @@ WHERE NOT EXISTS (
 ```
 
 ::: tip EXISTS vs IN 的选择原则
+
 - 子查询结果集小 → `IN` 可读性更好
 - 子查询结果集大 → `EXISTS` 性能通常更优
 - 主表行数少、子查询表行数多 → 差异不大
@@ -636,6 +638,7 @@ ORDER BY d.dt;
 
 ::: warning 递归 CTE 安全措施
 MySQL 8.0 对递归 CTE 有以下保护机制：
+
 - `cte_max_recursion_depth` 变量限制最大递归深度（默认 1000）
 - 超过限制时报错并终止查询
 - 建议在递归查询中显式添加深度限制条件（`WHERE depth < N`），防止数据结构异常时的无限递归

@@ -1,25 +1,60 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 const stages = computed(() => [
-  { name: 'push main', detail: '触发 workflow', active: step.value >= 1, status: step.value >= 1 ? 'done' : 'wait' },
-  { name: 'build job', detail: 'checkout / setup-node / npm ci', active: step.value >= 2, status: step.value >= 4 ? 'done' : step.value >= 2 ? 'run' : 'wait' },
-  { name: 'cache', detail: '复用 npm 缓存', active: step.value >= 3, status: step.value >= 3 ? 'done' : 'wait' },
-  { name: 'artifact', detail: '上传 dist 产物', active: step.value >= 4, status: step.value >= 4 ? 'done' : 'wait' },
-  { name: 'deploy job', detail: 'needs: build 后执行', active: step.value >= 5, status: step.value >= 6 ? 'done' : step.value >= 5 ? 'run' : 'wait' },
-  { name: 'environment', detail: 'github-pages 环境记录 URL', active: step.value >= 6, status: step.value >= 6 ? 'done' : 'wait' },
-  { name: 'concurrency', detail: '同组发布排队', active: step.value >= 7, status: step.value >= 7 ? 'done' : 'wait' }
-])
+  {
+    name: 'push main',
+    detail: '触发 workflow',
+    active: step.value >= 1,
+    status: step.value >= 1 ? 'done' : 'wait',
+  },
+  {
+    name: 'build job',
+    detail: 'checkout / setup-node / npm ci',
+    active: step.value >= 2,
+    status: step.value >= 4 ? 'done' : step.value >= 2 ? 'run' : 'wait',
+  },
+  {
+    name: 'cache',
+    detail: '复用 npm 缓存',
+    active: step.value >= 3,
+    status: step.value >= 3 ? 'done' : 'wait',
+  },
+  {
+    name: 'artifact',
+    detail: '上传 dist 产物',
+    active: step.value >= 4,
+    status: step.value >= 4 ? 'done' : 'wait',
+  },
+  {
+    name: 'deploy job',
+    detail: 'needs: build 后执行',
+    active: step.value >= 5,
+    status: step.value >= 6 ? 'done' : step.value >= 5 ? 'run' : 'wait',
+  },
+  {
+    name: 'environment',
+    detail: 'github-pages 环境记录 URL',
+    active: step.value >= 6,
+    status: step.value >= 6 ? 'done' : 'wait',
+  },
+  {
+    name: 'concurrency',
+    detail: '同组发布排队',
+    active: step.value >= 7,
+    status: step.value >= 7 ? 'done' : 'wait',
+  },
+]);
 
 const visibleJobs = computed(() => {
-  const jobs = []
-  if (step.value >= 2) jobs.push({ name: 'build', deps: '无', output: 'docs/.vitepress/dist' })
-  if (step.value >= 5) jobs.push({ name: 'deploy', deps: 'needs: build', output: 'Pages URL' })
-  return jobs
-})
+  const jobs = [];
+  if (step.value >= 2) jobs.push({ name: 'build', deps: '无', output: 'docs/.vitepress/dist' });
+  if (step.value >= 5) jobs.push({ name: 'deploy', deps: 'needs: build', output: 'Pages URL' });
+  return jobs;
+});
 
 const status = computed(() => {
   const list = [
@@ -30,17 +65,17 @@ const status = computed(() => {
     'npm run docs:build 生成静态文件，再通过 upload-pages-artifact 上传 dist',
     'deploy job 通过 needs: build 等待构建成功，失败时不会发布旧产物',
     'deploy-pages 写入 github-pages 环境，并把最终 page_url 暴露到环境面板',
-    'concurrency: pages 让同一发布组串行执行，避免多个部署互相覆盖'
-  ]
-  return list[step.value]
-})
+    'concurrency: pages 让同一发布组串行执行，避免多个部署互相覆盖',
+  ];
+  return list[step.value];
+});
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 

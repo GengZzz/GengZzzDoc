@@ -1,50 +1,92 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 interface PathInfo {
-  name: string
-  cost: string
-  rows: string
-  desc: string
-  selected: boolean
+  name: string;
+  cost: string;
+  rows: string;
+  desc: string;
+  selected: boolean;
 }
 
 const paths = computed((): PathInfo[] => {
-  if (step.value < 2) return []
+  if (step.value < 2) return [];
   if (step.value === 2) {
     return [
-      { name: 'Seq Scan', cost: '1920.00', rows: '50000', desc: '扫描全部 50000 行，过滤 user_id=42', selected: false },
-      { name: 'Index Scan (idx_user_id)', cost: '163.50', rows: '150', desc: '通过 B-Tree 定位 user_id=42 的 150 行', selected: false },
-      { name: 'Index Scan (idx_created_at)', cost: '4580.00', rows: '50000', desc: 'created_at 索引无法过滤 user_id=42', selected: false },
-    ]
+      {
+        name: 'Seq Scan',
+        cost: '1920.00',
+        rows: '50000',
+        desc: '扫描全部 50000 行，过滤 user_id=42',
+        selected: false,
+      },
+      {
+        name: 'Index Scan (idx_user_id)',
+        cost: '163.50',
+        rows: '150',
+        desc: '通过 B-Tree 定位 user_id=42 的 150 行',
+        selected: false,
+      },
+      {
+        name: 'Index Scan (idx_created_at)',
+        cost: '4580.00',
+        rows: '50000',
+        desc: 'created_at 索引无法过滤 user_id=42',
+        selected: false,
+      },
+    ];
   }
   return [
-    { name: 'Seq Scan', cost: '1920.00', rows: '50000', desc: '扫描全部 50000 行', selected: false },
-    { name: 'Index Scan (idx_user_id)', cost: '163.50', rows: '150', desc: '通过 B-Tree 定位 user_id=42 的 150 行', selected: true },
-    { name: 'Index Scan (idx_created_at)', cost: '4580.00', rows: '50000', desc: 'created_at 索引无法过滤', selected: false },
-  ]
-})
+    {
+      name: 'Seq Scan',
+      cost: '1920.00',
+      rows: '50000',
+      desc: '扫描全部 50000 行',
+      selected: false,
+    },
+    {
+      name: 'Index Scan (idx_user_id)',
+      cost: '163.50',
+      rows: '150',
+      desc: '通过 B-Tree 定位 user_id=42 的 150 行',
+      selected: true,
+    },
+    {
+      name: 'Index Scan (idx_created_at)',
+      cost: '4580.00',
+      rows: '50000',
+      desc: 'created_at 索引无法过滤',
+      selected: false,
+    },
+  ];
+});
 
 const planTree = computed(() => {
-  if (step.value < 3) return []
+  if (step.value < 3) return [];
   return [
     { depth: 0, node: 'Limit', cost: '0.29..0.32', rows: '10', actual: '10' },
     { depth: 1, node: 'Sort', cost: '163.50..163.88', rows: '150', actual: '150' },
-    { depth: 2, node: '  -> Index Scan using idx_user_id on orders', cost: '4.42..163.50', rows: '150', actual: '148' },
-  ]
-})
+    {
+      depth: 2,
+      node: '  -> Index Scan using idx_user_id on orders',
+      cost: '4.42..163.50',
+      rows: '150',
+      actual: '148',
+    },
+  ];
+});
 
 const estimationCompare = computed(() => {
-  if (step.value < 4) return null
+  if (step.value < 4) return null;
   return [
     { node: 'Index Scan', estimated: 150, actual: 148, ratio: '0.99x' },
     { node: 'Sort', estimated: 150, actual: 150, ratio: '1.00x' },
     { node: 'Limit (10)', estimated: 10, actual: 10, ratio: '1.00x' },
-  ]
-})
+  ];
+});
 
 const statusText = computed(() => {
   const texts = [
@@ -53,16 +95,16 @@ const statusText = computed(() => {
     '优化器评估 3 条执行路径的成本',
     '选择成本最低的路径：Index Scan on idx_user_id（成本 163.50）',
     '执行计划验证：估算行数与实际行数偏差很小，计划有效',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -71,10 +113,12 @@ function reset() {
     <!-- Step 0: SQL Input -->
     <div v-if="step >= 0" class="sql-box">
       <div class="sql-label">SQL 查询</div>
-      <pre class="sql-text">SELECT * FROM orders
+      <pre class="sql-text">
+SELECT * FROM orders
 WHERE user_id = 42
 ORDER BY created_at
-LIMIT 10;</pre>
+LIMIT 10;</pre
+      >
     </div>
 
     <!-- Step 1: Statistics -->
@@ -211,7 +255,10 @@ LIMIT 10;</pre>
   margin-bottom: 12px;
 }
 
-.stats-title, .paths-title, .plan-title, .compare-title {
+.stats-title,
+.paths-title,
+.plan-title,
+.compare-title {
   font-size: 13px;
   font-weight: 600;
   color: var(--vp-c-text-1);

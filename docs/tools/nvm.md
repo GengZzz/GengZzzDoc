@@ -25,11 +25,13 @@ nvm --version
 
 ::: tip nvm 安装失败？
 如果提示 `nvm: command not found`，检查 shell 配置文件（`~/.bashrc`、`~/.zshrc`）中是否添加了 nvm 初始化代码。安装脚本通常会自动添加：
+
 ```bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 ```
+
 :::
 
 ### Windows

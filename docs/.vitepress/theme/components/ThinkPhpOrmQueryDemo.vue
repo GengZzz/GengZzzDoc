@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const mode = ref<'db' | 'model' | 'transaction'>('model')
+const mode = ref<'db' | 'model' | 'transaction'>('model');
 
 const cards = computed(() => {
   if (mode.value === 'db') {
-    return ['Db::name("order")', 'where + order', 'paginate', 'array result']
+    return ['Db::name("order")', 'where + order', 'paginate', 'array result'];
   }
   if (mode.value === 'transaction') {
-    return ['Db::transaction', 'create order', 'write log', 'commit / rollback']
+    return ['Db::transaction', 'create order', 'write log', 'commit / rollback'];
   }
-  return ['Order Model', 'scopePaid', 'with user', 'model collection']
-})
+  return ['Order Model', 'scopePaid', 'with user', 'model collection'];
+});
 </script>
 
 <template>
@@ -19,7 +19,9 @@ const cards = computed(() => {
     <div class="switcher">
       <button :class="{ active: mode === 'db' }" @click="mode = 'db'">Db 查询</button>
       <button :class="{ active: mode === 'model' }" @click="mode = 'model'">模型查询</button>
-      <button :class="{ active: mode === 'transaction' }" @click="mode = 'transaction'">事务写入</button>
+      <button :class="{ active: mode === 'transaction' }" @click="mode = 'transaction'">
+        事务写入
+      </button>
     </div>
     <div class="chain">
       <template v-for="(card, index) in cards" :key="card">

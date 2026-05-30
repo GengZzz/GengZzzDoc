@@ -111,6 +111,7 @@ myisamchk --recover /var/lib/mysql/mydb/articles.MYI
 ```
 
 压缩表特点：
+
 - 压缩比通常为 50%-80%
 - **只读**，不能执行 INSERT/UPDATE/DELETE
 - 压缩后仍然可以正常查询
@@ -130,6 +131,7 @@ REPAIR TABLE myisam_log;
 
 ::: danger MyISAM 崩溃风险
 MyISAM 在崩溃后可能导致：
+
 1. 表损坏（需要 REPAIR TABLE）
 2. 未写入的数据丢失
 3. 索引损坏
@@ -218,6 +220,7 @@ CREATE TABLE tmp_sorted (
 ```
 
 ::: warning Memory 引擎注意事项
+
 - 数据库重启后数据全部丢失
 - 写操作使用表级锁，并发写入性能差
 - 如果表大小超过 `max_heap_table_size`，会转为 MyISAM 临时表

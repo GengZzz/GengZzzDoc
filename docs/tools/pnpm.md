@@ -118,6 +118,7 @@ import _ from 'lodash'  // Error: lodash is not declared
 
 ::: tip 为什么严格模式是好事？
 npm/yarn 使用扁平化 `node_modules`，允许代码访问未声明的依赖（幽灵依赖）。这会导致：
+
 - 依赖行为不确定（不同版本可能被提升到不同层级）
 - 构建结果不可复现
 - pnpm 严格模式消除了这类隐患

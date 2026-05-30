@@ -86,6 +86,7 @@ public class SyncBlockDemo {
 ```
 
 ::: tip 选择合适的锁对象
+
 - 同步实例方法：锁是 `this`，所有 `synchronized` 方法共享同一把锁
 - 同步静态方法：锁是 `ClassName.class`
 - 同步块：锁由你指定，可以缩小锁范围，提高并发性能
@@ -117,10 +118,12 @@ public class VolatileDemo {
 ```
 
 `volatile` 适用的场景：
+
 - 状态标志（如上面的 `running`）
 - 一次性写入的不可变引用（如双重检查锁定中的单例）
 
 `volatile` **不适用** 的场景：
+
 - 复合操作（如 `count++`）—— 需要用 `synchronized` 或 `AtomicInteger`
 
 ::: tip volatile vs synchronized
@@ -234,6 +237,7 @@ public class DeadlockDemo {
 ```
 
 避免死锁的方法：
+
 - **固定加锁顺序**：所有线程按相同顺序获取锁
 - **使用 tryLock 带超时**：超时后释放已持有的锁
 - **避免嵌套锁**：持有一个锁时尽量不要申请另一个锁

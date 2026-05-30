@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const eager = ref(false)
+const eager = ref(false);
 
 const queries = computed(() => {
   if (eager.value) {
-    return [
-      'select * from orders limit 5',
-      'select id,name from users where id in (1,2,3)',
-    ]
+    return ['select * from orders limit 5', 'select id,name from users where id in (1,2,3)'];
   }
   return [
     'select * from orders limit 5',
@@ -17,8 +14,8 @@ const queries = computed(() => {
     'select * from users where id = 3',
     'select * from users where id = 1',
     'select * from users where id = 2',
-  ]
-})
+  ];
+});
 </script>
 
 <template>
@@ -45,7 +42,11 @@ const queries = computed(() => {
     </div>
 
     <p class="summary">
-      {{ eager ? '预加载把关联查询合并成一次 in 查询，列表页 SQL 数量稳定。' : '懒加载在循环中访问关系，SQL 数量会随着订单行数增长。' }}
+      {{
+        eager
+          ? '预加载把关联查询合并成一次 in 查询，列表页 SQL 数量稳定。'
+          : '懒加载在循环中访问关系，SQL 数量会随着订单行数增长。'
+      }}
     </p>
   </div>
 </template>
@@ -112,7 +113,9 @@ const queries = computed(() => {
   color: #a16207;
   text-align: center;
   font-weight: 700;
-  transition: background 0.25s ease, color 0.25s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .arrow.eager {

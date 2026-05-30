@@ -1,92 +1,88 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 
 interface MethodInfo {
-  name: string
-  body: string
-  active: boolean
+  name: string;
+  body: string;
+  active: boolean;
 }
 
 const currentAnimal = computed(() => {
-  if (step.value <= 3) return 'dog'
-  return 'cat'
-})
+  if (step.value <= 3) return 'dog';
+  return 'cat';
+});
 
-const referenceName = 'Animal animal'
+const referenceName = 'Animal animal';
 
 const objects = computed(() => {
-  if (step.value < 3) return []
+  if (step.value < 3) return [];
   if (currentAnimal.value === 'dog') {
-    return [{ type: 'Dog', name: 'Buddy', highlight: step.value === 3 }]
+    return [{ type: 'Dog', name: 'Buddy', highlight: step.value === 3 }];
   }
   if (step.value === 4) {
     return [
       { type: 'Dog', name: 'Buddy', highlight: false },
       { type: 'Cat', name: 'Whiskers', highlight: true },
-    ]
+    ];
   }
   if (step.value === 5) {
     return [
       { type: 'Dog', name: 'Buddy', highlight: false },
       { type: 'Cat', name: 'Whiskers', highlight: true },
-    ]
+    ];
   }
-  return []
-})
+  return [];
+});
 
 const dogMethods = computed<MethodInfo[]>(() => {
-  const active = step.value === 3 || step.value === 5 && currentAnimal.value === 'dog'
+  const active = step.value === 3 || (step.value === 5 && currentAnimal.value === 'dog');
   return [
     { name: 'speak()', body: 'print "Woof!"', active: active && currentAnimal.value === 'dog' },
-  ]
-})
+  ];
+});
 
 const catMethods = computed<MethodInfo[]>(() => {
-  const active = (step.value === 4 || step.value === 5) && currentAnimal.value === 'cat'
-  return [
-    { name: 'speak()', body: 'print "Meow!"', active },
-  ]
-})
+  const active = (step.value === 4 || step.value === 5) && currentAnimal.value === 'cat';
+  return [{ name: 'speak()', body: 'print "Meow!"', active }];
+});
 
 const snippet = computed(() => {
-  if (step.value === 1) return 'Animal animal = new Dog("Buddy");'
-  if (step.value === 2 || step.value === 3) return 'animal.speak();'
-  if (step.value === 4) return 'animal = new Cat("Whiskers");'
-  if (step.value === 5) return 'animal.speak();'
-  return ''
-})
+  if (step.value === 1) return 'Animal animal = new Dog("Buddy");';
+  if (step.value === 2 || step.value === 3) return 'animal.speak();';
+  if (step.value === 4) return 'animal = new Cat("Whiskers");';
+  if (step.value === 5) return 'animal.speak();';
+  return '';
+});
 
 const explanation = computed(() => {
-  if (step.value === 1) return '父类引用指向子类对象'
-  if (step.value === 2) return '调用 speak() 方法'
-  if (step.value === 3) return '运行时确定：实际调用的是 Dog.speak()'
-  if (step.value === 4) return '同一引用变量，重新指向 Cat 对象'
-  if (step.value === 5) return '同一个变量，不同的行为'
-  return ''
-})
+  if (step.value === 1) return '父类引用指向子类对象';
+  if (step.value === 2) return '调用 speak() 方法';
+  if (step.value === 3) return '运行时确定：实际调用的是 Dog.speak()';
+  if (step.value === 4) return '同一引用变量，重新指向 Cat 对象';
+  if (step.value === 5) return '同一个变量，不同的行为';
+  return '';
+});
 
 const dispatchTarget = computed(() => {
-  if (step.value === 3) return 'dog'
-  if (step.value === 5) return currentAnimal.value
-  return null
-})
+  if (step.value === 3) return 'dog';
+  if (step.value === 5) return currentAnimal.value;
+  return null;
+});
 
 function next() {
-  step.value = (step.value + 1) % 6
+  step.value = (step.value + 1) % 6;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="poly-demo">
-    <div v-if="step === 0" class="empty-state">
-      点击"下一步"观察多态调用过程
-    </div>
+    <div v-if="step === 0" class="empty-state">点击"下一步"观察多态调用过程</div>
     <template v-else>
       <div class="code-snippet">
         <code>{{ snippet }}</code>
@@ -114,7 +110,7 @@ function reset() {
           >
             <div class="obj-title">{{ obj.type }}: {{ obj.name }}</div>
             <div
-              v-for="m in (obj.type === 'Dog' ? dogMethods : catMethods)"
+              v-for="m in obj.type === 'Dog' ? dogMethods : catMethods"
               :key="m.name"
               class="method"
               :class="{ dispatched: dispatchTarget === obj.type.toLowerCase() && m.active }"
@@ -235,7 +231,9 @@ h4 {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   margin-top: 8px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .obj-card.active {

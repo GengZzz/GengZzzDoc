@@ -233,6 +233,7 @@ interface OpenClawConfig {
 | 体积 | 轻量 | 庞大 | 中等 |
 
 ::: tip 选型建议
+
 - 快速搭建 Agent 应用 → OpenClaw
 - 需要复杂的链式调用和 RAG → LangChain
 - 需要完全自主的 Agent → AutoGPT / CrewAI

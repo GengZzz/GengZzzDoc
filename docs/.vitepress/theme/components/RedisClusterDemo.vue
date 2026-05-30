@@ -1,93 +1,95 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
 interface Node {
-  id: string
-  name: string
-  color: string
-  slots: [number, number][]
+  id: string;
+  name: string;
+  color: string;
+  slots: [number, number][];
 }
 
 const nodes: Node[] = [
   { id: 'A', name: 'Master A', color: '#8b5cf6', slots: [[0, 5460]] },
   { id: 'B', name: 'Master B', color: '#f59e0b', slots: [[5461, 10922]] },
-  { id: 'C', name: 'Master C', color: '#10b981', slots: [[10923, 16383]] }
-]
+  { id: 'C', name: 'Master C', color: '#10b981', slots: [[10923, 16383]] },
+];
 
 const sampleKeys = [
   { key: 'user:1001', slot: 0 },
   { key: 'order:20240115', slot: 0 },
   { key: 'session:abc123', slot: 0 },
   { key: 'product:5001', slot: 0 },
-  { key: 'cache:config', slot: 0 }
-]
+  { key: 'cache:config', slot: 0 },
+];
 
 // Calculate CRC16 and slot for demo keys
 function crc16(s: string): number {
-  let crc = 0
+  let crc = 0;
   for (let i = 0; i < s.length; i++) {
-    crc ^= s.charCodeAt(i) << 8
+    crc ^= s.charCodeAt(i) << 8;
     for (let j = 0; j < 8; j++) {
       if (crc & 0x8000) {
-        crc = (crc << 1) ^ 0x1021
+        crc = (crc << 1) ^ 0x1021;
       } else {
-        crc = crc << 1
+        crc = crc << 1;
       }
-      crc &= 0xFFFF
+      crc &= 0xffff;
     }
   }
-  return crc
+  return crc;
 }
 
 function getSlot(key: string): number {
   // Handle hash tags
-  let hashKey = key
-  const start = key.indexOf('{')
+  let hashKey = key;
+  const start = key.indexOf('{');
   if (start !== -1) {
-    const end = key.indexOf('}', start)
+    const end = key.indexOf('}', start);
     if (end !== -1 && end > start + 1) {
-      hashKey = key.substring(start + 1, end)
+      hashKey = key.substring(start + 1, end);
     }
   }
-  return crc16(hashKey) % 16384
+  return crc16(hashKey) % 16384;
 }
 
 // Initialize sample key slots
-sampleKeys.forEach(k => { k.slot = getSlot(k.key) })
+sampleKeys.forEach((k) => {
+  k.slot = getSlot(k.key);
+});
 
-const selectedKeyIndex = ref<number | null>(null)
-const showMigration = ref(false)
+const selectedKeyIndex = ref<number | null>(null);
+const showMigration = ref(false);
 
 const selectedSlot = computed(() => {
-  if (selectedKeyIndex.value === null) return null
-  return sampleKeys[selectedKeyIndex.value].slot
-})
+  if (selectedKeyIndex.value === null) return null;
+  return sampleKeys[selectedKeyIndex.value].slot;
+});
 
 const targetNode = computed(() => {
-  if (selectedSlot.value === null) return null
-  return nodes.find(n =>
-    n.slots.some(([start, end]) => selectedSlot.value! >= start && selectedSlot.value! <= end)
-  ) || null
-})
+  if (selectedSlot.value === null) return null;
+  return (
+    nodes.find((n) =>
+      n.slots.some(([start, end]) => selectedSlot.value! >= start && selectedSlot.value! <= end),
+    ) || null
+  );
+});
 
 function selectKey(index: number) {
   if (showMigration.value) {
-    showMigration.value = false
+    showMigration.value = false;
   }
-  selectedKeyIndex.value = selectedKeyIndex.value === index ? null : index
+  selectedKeyIndex.value = selectedKeyIndex.value === index ? null : index;
 }
 
 function toggleMigration() {
-  showMigration.value = !showMigration.value
+  showMigration.value = !showMigration.value;
   if (showMigration.value) {
-    selectedKeyIndex.value = 1 // order key
+    selectedKeyIndex.value = 1; // order key
   }
 }
 
 function getNodeForSlot(slot: number): Node | null {
-  return nodes.find(n =>
-    n.slots.some(([start, end]) => slot >= start && slot <= end)
-  ) || null
+  return nodes.find((n) => n.slots.some(([start, end]) => slot >= start && slot <= end)) || null;
 }
 </script>
 
@@ -106,7 +108,7 @@ function getNodeForSlot(slot: number): Node | null {
         class="slot-segment"
         :style="{
           flex: node.slots.reduce((sum, [s, e]) => sum + (e - s + 1), 0),
-          background: node.color
+          background: node.color,
         }"
       >
         <span class="slot-label">{{ node.id }}: {{ node.slots[0][0] }}-{{ node.slots[0][1] }}</span>
@@ -172,7 +174,7 @@ function getNodeForSlot(slot: number): Node | null {
         <div class="migration-step">
           <h4>槽位 5461-5470 从 Master B 迁移到 Master A</h4>
           <div class="migration-flow">
-            <div class="migrate-node" style="border-color: #f59e0b;">
+            <div class="migrate-node" style="border-color: #f59e0b">
               <strong>Master B</strong>
               <small>MIGRATING 5461-5470</small>
             </div>
@@ -180,7 +182,7 @@ function getNodeForSlot(slot: number): Node | null {
               <span>MIGRATE key by key</span>
               <span class="arrow-icon">→</span>
             </div>
-            <div class="migrate-node" style="border-color: #8b5cf6;">
+            <div class="migrate-node" style="border-color: #8b5cf6">
               <strong>Master A</strong>
               <small>IMPORTING 5461-5470</small>
             </div>

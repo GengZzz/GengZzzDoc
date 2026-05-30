@@ -1,30 +1,37 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-type PosType = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'
-const selected = ref<PosType>('relative')
+type PosType = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
+const selected = ref<PosType>('relative');
 
-const posTop = ref(20)
-const posLeft = ref(30)
+const posTop = ref(20);
+const posLeft = ref(30);
 
 const descriptions: Record<PosType, string> = {
-  static: 'static（默认定位）：元素按正常文档流排列，top/left/right/bottom 和 z-index 均无效。绝大多数元素不需要设置定位。',
-  relative: 'relative（相对定位）：元素仍在文档流中占据原始空间，但可以通过 top/left 偏移。偏移不影响其他元素位置。常用作 absolute 子元素的定位参考。',
-  absolute: 'absolute（绝对定位）：元素脱离文档流，不占据空间。相对于最近的 position 非 static 祖先元素定位。如果没有这样的祖先，相对于初始包含块（通常是 <html>）。',
-  fixed: 'fixed（固定定位）：元素脱离文档流，相对于视口（viewport）定位。滚动页面时位置不变。常用于固定导航栏、回到顶部按钮。',
-  sticky: 'sticky（粘性定位）：元素在滚动到指定阈值前表现为 relative，到达阈值后表现为 fixed。必须指定 top/left/right/bottom 中至少一个值。常用于表头固定。'
-}
+  static:
+    'static（默认定位）：元素按正常文档流排列，top/left/right/bottom 和 z-index 均无效。绝大多数元素不需要设置定位。',
+  relative:
+    'relative（相对定位）：元素仍在文档流中占据原始空间，但可以通过 top/left 偏移。偏移不影响其他元素位置。常用作 absolute 子元素的定位参考。',
+  absolute:
+    'absolute（绝对定位）：元素脱离文档流，不占据空间。相对于最近的 position 非 static 祖先元素定位。如果没有这样的祖先，相对于初始包含块（通常是 <html>）。',
+  fixed:
+    'fixed（固定定位）：元素脱离文档流，相对于视口（viewport）定位。滚动页面时位置不变。常用于固定导航栏、回到顶部按钮。',
+  sticky:
+    'sticky（粘性定位）：元素在滚动到指定阈值前表现为 relative，到达阈值后表现为 fixed。必须指定 top/left/right/bottom 中至少一个值。常用于表头固定。',
+};
 </script>
 
 <template>
   <div class="pos-demo">
     <div class="tabs">
       <button
-        v-for="pos in (['static', 'relative', 'absolute', 'fixed', 'sticky'] as PosType[])"
+        v-for="pos in ['static', 'relative', 'absolute', 'fixed', 'sticky'] as PosType[]"
         :key="pos"
         :class="{ active: selected === pos }"
         @click="selected = pos"
-      >{{ pos }}</button>
+      >
+        {{ pos }}
+      </button>
     </div>
 
     <div class="viewport">
@@ -44,12 +51,18 @@ const descriptions: Record<PosType, string> = {
     </div>
 
     <div class="controls" v-if="selected !== 'static'">
-      <label>top: <input type="range" min="-30" max="100" v-model.number="posTop" /><span>{{ posTop }}px</span></label>
-      <label>left: <input type="range" min="-30" max="200" v-model.number="posLeft" /><span>{{ posLeft }}px</span></label>
+      <label
+        >top: <input type="range" min="-30" max="100" v-model.number="posTop" /><span
+          >{{ posTop }}px</span
+        ></label
+      >
+      <label
+        >left: <input type="range" min="-30" max="200" v-model.number="posLeft" /><span
+          >{{ posLeft }}px</span
+        ></label
+      >
     </div>
-    <div class="controls disabled-hint" v-else>
-      static 定位下 top/left 无效
-    </div>
+    <div class="controls disabled-hint" v-else>static 定位下 top/left 无效</div>
 
     <div class="status-bar">{{ descriptions[selected] }}</div>
   </div>
@@ -149,7 +162,7 @@ const descriptions: Record<PosType, string> = {
   left: auto;
   z-index: 100;
   background: rgba(20, 184, 166, 0.25);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .target-box.sticky {
@@ -201,7 +214,9 @@ const descriptions: Record<PosType, string> = {
   font-family: var(--vp-font-family-mono);
 }
 
-.controls input[type="range"] { width: 120px; }
+.controls input[type='range'] {
+  width: 120px;
+}
 
 .controls span {
   font-size: 12px;
@@ -225,7 +240,12 @@ const descriptions: Record<PosType, string> = {
 }
 
 @media (max-width: 560px) {
-  .viewport { height: 160px; }
-  .controls { flex-direction: column; gap: 8px; }
+  .viewport {
+    height: 160px;
+  }
+  .controls {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 </style>

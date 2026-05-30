@@ -1,154 +1,181 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const selectedNode = ref<number | null>(null)
-const scenario = ref<'normal' | 'election' | 'rebalance' | 'split'>('normal')
+const selectedNode = ref<number | null>(null);
+const scenario = ref<'normal' | 'election' | 'rebalance' | 'split'>('normal');
 
 interface ShardInfo {
-  name: string
-  type: 'primary' | 'replica'
-  index: string
+  name: string;
+  type: 'primary' | 'replica';
+  index: string;
 }
 
 interface NodeInfo {
-  id: number
-  name: string
-  role: string
-  shards: ShardInfo[]
+  id: number;
+  name: string;
+  role: string;
+  shards: ShardInfo[];
 }
 
 const nodes = computed<NodeInfo[]>(() => {
   if (scenario.value === 'normal') {
     return [
       {
-        id: 1, name: 'node-1', role: 'Master-eligible / Data',
+        id: 1,
+        name: 'node-1',
+        role: 'Master-eligible / Data',
         shards: [
           { name: 'P1', type: 'primary', index: 'orders' },
           { name: 'R2', type: 'replica', index: 'orders' },
-          { name: 'P3', type: 'primary', index: 'orders' }
-        ]
+          { name: 'P3', type: 'primary', index: 'orders' },
+        ],
       },
       {
-        id: 2, name: 'node-2', role: 'Master-eligible / Data',
+        id: 2,
+        name: 'node-2',
+        role: 'Master-eligible / Data',
         shards: [
           { name: 'P2', type: 'primary', index: 'orders' },
           { name: 'R1', type: 'replica', index: 'orders' },
-          { name: 'R3', type: 'replica', index: 'orders' }
-        ]
+          { name: 'R3', type: 'replica', index: 'orders' },
+        ],
       },
       {
-        id: 3, name: 'node-3', role: 'Master-eligible / Data',
+        id: 3,
+        name: 'node-3',
+        role: 'Master-eligible / Data',
         shards: [
           { name: 'R1', type: 'replica', index: 'products' },
-          { name: 'P1', type: 'primary', index: 'products' }
-        ]
-      }
-    ]
+          { name: 'P1', type: 'primary', index: 'products' },
+        ],
+      },
+    ];
   }
   if (scenario.value === 'election') {
     return [
       {
-        id: 1, name: 'node-1', role: 'Master (已当选)',
-        shards: [
-          { name: 'P1', type: 'primary', index: 'orders' }
-        ]
+        id: 1,
+        name: 'node-1',
+        role: 'Master (已当选)',
+        shards: [{ name: 'P1', type: 'primary', index: 'orders' }],
       },
       {
-        id: 2, name: 'node-2', role: 'Master-eligible / Data',
+        id: 2,
+        name: 'node-2',
+        role: 'Master-eligible / Data',
         shards: [
           { name: 'P2', type: 'primary', index: 'orders' },
-          { name: 'R1', type: 'replica', index: 'orders' }
-        ]
+          { name: 'R1', type: 'replica', index: 'orders' },
+        ],
       },
       {
-        id: 3, name: 'node-3', role: 'Master-eligible / Data',
+        id: 3,
+        name: 'node-3',
+        role: 'Master-eligible / Data',
         shards: [
           { name: 'R2', type: 'replica', index: 'orders' },
-          { name: 'P3', type: 'primary', index: 'orders' }
-        ]
-      }
-    ]
+          { name: 'P3', type: 'primary', index: 'orders' },
+        ],
+      },
+    ];
   }
   if (scenario.value === 'rebalance') {
     return [
       {
-        id: 1, name: 'node-1', role: 'Data (Hot)',
+        id: 1,
+        name: 'node-1',
+        role: 'Data (Hot)',
         shards: [
           { name: 'P1', type: 'primary', index: 'logs' },
           { name: 'P2', type: 'primary', index: 'logs' },
-          { name: 'R3', type: 'replica', index: 'logs' }
-        ]
+          { name: 'R3', type: 'replica', index: 'logs' },
+        ],
       },
       {
-        id: 2, name: 'node-2', role: 'Data (Hot)',
+        id: 2,
+        name: 'node-2',
+        role: 'Data (Hot)',
         shards: [
           { name: 'P3', type: 'primary', index: 'logs' },
           { name: 'R1', type: 'replica', index: 'logs' },
-          { name: 'R2', type: 'replica', index: 'logs' }
-        ]
+          { name: 'R2', type: 'replica', index: 'logs' },
+        ],
       },
       {
-        id: 3, name: 'node-3', role: 'Data (Warm)',
+        id: 3,
+        name: 'node-3',
+        role: 'Data (Warm)',
         shards: [
           { name: 'P1_old', type: 'primary', index: 'logs-2025' },
-          { name: 'P2_old', type: 'primary', index: 'logs-2025' }
-        ]
-      }
-    ]
+          { name: 'P2_old', type: 'primary', index: 'logs-2025' },
+        ],
+      },
+    ];
   }
   // Split brain
   return [
     {
-      id: 1, name: 'node-1', role: 'Master (脑裂-主)',
+      id: 1,
+      name: 'node-1',
+      role: 'Master (脑裂-主)',
       shards: [
         { name: 'P1', type: 'primary', index: 'orders' },
-        { name: 'P2', type: 'primary', index: 'orders' }
-      ]
+        { name: 'P2', type: 'primary', index: 'orders' },
+      ],
     },
     {
-      id: 2, name: 'node-2', role: 'Master (脑裂-从)',
+      id: 2,
+      name: 'node-2',
+      role: 'Master (脑裂-从)',
       shards: [
         { name: 'R1', type: 'replica', index: 'orders' },
-        { name: 'R2', type: 'replica', index: 'orders' }
-      ]
+        { name: 'R2', type: 'replica', index: 'orders' },
+      ],
     },
     {
-      id: 3, name: 'node-3', role: 'Master (脑裂-从)',
+      id: 3,
+      name: 'node-3',
+      role: 'Master (脑裂-从)',
       shards: [
         { name: 'P3', type: 'primary', index: 'orders' },
-        { name: 'R3', type: 'replica', index: 'orders' }
-      ]
-    }
-  ]
-})
+        { name: 'R3', type: 'replica', index: 'orders' },
+      ],
+    },
+  ];
+});
 
 const scenarioDescriptions: Record<string, string> = {
   normal: '3 节点集群，分片均匀分布，node-1 为 Master',
   election: 'Master 选举过程：需要 quorum（多数派）票数',
   rebalance: '新节点加入后，分片自动再平衡',
-  split: '网络分区导致脑裂：两个 Master 各自管理部分数据'
-}
+  split: '网络分区导致脑裂：两个 Master 各自管理部分数据',
+};
 
 function selectNode(id: number) {
-  selectedNode.value = selectedNode.value === id ? null : id
+  selectedNode.value = selectedNode.value === id ? null : id;
 }
 
 const selectedNodeInfo = computed(() => {
-  if (selectedNode.value === null) return null
-  return nodes.value.find(n => n.id === selectedNode.value)
-})
+  if (selectedNode.value === null) return null;
+  return nodes.value.find((n) => n.id === selectedNode.value);
+});
 </script>
 
 <template>
   <div class="cluster-demo">
     <div class="scenario-tabs">
       <button
-        v-for="s in (['normal', 'election', 'rebalance', 'split'] as const)"
+        v-for="s in ['normal', 'election', 'rebalance', 'split'] as const"
         :key="s"
         :class="{ active: scenario === s }"
-        @click="scenario = s; selectedNode = null"
+        @click="
+          scenario = s;
+          selectedNode = null;
+        "
       >
-        {{ { normal: '集群架构', election: 'Master 选举', rebalance: 'Rebalance', split: '脑裂' }[s] }}
+        {{
+          { normal: '集群架构', election: 'Master 选举', rebalance: 'Rebalance', split: '脑裂' }[s]
+        }}
       </button>
     </div>
 
@@ -163,7 +190,7 @@ const selectedNodeInfo = computed(() => {
         :class="{
           selected: selectedNode === node.id,
           master: node.role.includes('Master'),
-          split: scenario === 'split'
+          split: scenario === 'split',
         }"
         @click="selectNode(node.id)"
       >
@@ -175,12 +202,7 @@ const selectedNodeInfo = computed(() => {
         </div>
         <div class="node-role">{{ node.role }}</div>
         <div class="shard-list">
-          <div
-            v-for="(shard, si) in node.shards"
-            :key="si"
-            class="shard-chip"
-            :class="shard.type"
-          >
+          <div v-for="(shard, si) in node.shards" :key="si" class="shard-chip" :class="shard.type">
             {{ shard.name }}
             <small>{{ shard.index }}</small>
           </div>
@@ -206,28 +228,42 @@ const selectedNodeInfo = computed(() => {
       </div>
       <div class="detail-row">
         <span class="detail-label">Primary：</span>
-        <span>{{ selectedNodeInfo.shards.filter(s => s.type === 'primary').length }}</span>
+        <span>{{ selectedNodeInfo.shards.filter((s) => s.type === 'primary').length }}</span>
       </div>
       <div class="detail-row">
         <span class="detail-label">Replica：</span>
-        <span>{{ selectedNodeInfo.shards.filter(s => s.type === 'replica').length }}</span>
+        <span>{{ selectedNodeInfo.shards.filter((s) => s.type === 'replica').length }}</span>
       </div>
     </div>
 
     <!-- Election Steps -->
     <div v-if="scenario === 'election'" class="election-steps">
-      <div class="election-step"><span class="badge">1</span> 节点启动，发现种子节点（discovery.seed_hosts）</div>
+      <div class="election-step">
+        <span class="badge">1</span> 节点启动，发现种子节点（discovery.seed_hosts）
+      </div>
       <div class="election-step"><span class="badge">2</span> 节点互相 Ping，交换信息</div>
-      <div class="election-step"><span class="badge">3</span> 投票选举 Master（Zen2 基于 Term，类似 Raft）</div>
-      <div class="election-step"><span class="badge">4</span> 得到 quorum = (3/2)+1 = 2 票的节点当选</div>
-      <div class="election-step"><span class="badge">5</span> Master 广播 Cluster State，其他节点加入</div>
+      <div class="election-step">
+        <span class="badge">3</span> 投票选举 Master（Zen2 基于 Term，类似 Raft）
+      </div>
+      <div class="election-step">
+        <span class="badge">4</span> 得到 quorum = (3/2)+1 = 2 票的节点当选
+      </div>
+      <div class="election-step">
+        <span class="badge">5</span> Master 广播 Cluster State，其他节点加入
+      </div>
     </div>
 
     <!-- Split Brain Warning -->
     <div v-if="scenario === 'split'" class="split-warning">
       <strong>脑裂风险</strong>
-      <p>Node1 与其他节点断开后，自行选举为 Master。Node2 和 Node3 继续认为 Node2 是 Master。两个 Master 各自接受写入，导致数据不一致。</p>
-      <p><strong>防护措施：</strong>使用 3 个专用 Master 节点 + Zen2 协议（quorum 机制自动防止脑裂）。</p>
+      <p>
+        Node1 与其他节点断开后，自行选举为 Master。Node2 和 Node3 继续认为 Node2 是 Master。两个
+        Master 各自接受写入，导致数据不一致。
+      </p>
+      <p>
+        <strong>防护措施：</strong>使用 3 个专用 Master 节点 + Zen2 协议（quorum
+        机制自动防止脑裂）。
+      </p>
     </div>
   </div>
 </template>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-type Strategy = 'vertical-db' | 'vertical-table' | 'horizontal-db' | 'horizontal-table'
+type Strategy = 'vertical-db' | 'vertical-table' | 'horizontal-db' | 'horizontal-table';
 
-const selected = ref<Strategy>('vertical-db')
+const selected = ref<Strategy>('vertical-db');
 
 interface StrategyInfo {
-  name: string
-  desc: string
-  detail: string
+  name: string;
+  desc: string;
+  detail: string;
 }
 
 const strategies: Record<Strategy, StrategyInfo> = {
@@ -32,12 +32,12 @@ const strategies: Record<Strategy, StrategyInfo> = {
     desc: '将大表按行拆分成多张子表',
     detail: '单表数据量过大时拆分，如 t_order → t_order_0, t_order_1, t_order_2',
   },
-}
+};
 
-const current = computed(() => strategies[selected.value])
+const current = computed(() => strategies[selected.value]);
 
 function select(s: Strategy) {
-  selected.value = s
+  selected.value = s;
 }
 </script>
 
@@ -175,7 +175,9 @@ function select(s: Strategy) {
   color: var(--vp-c-text-1);
   cursor: pointer;
   font-size: 12px;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .tab-btn.active {
@@ -245,10 +247,18 @@ function select(s: Strategy) {
   color: var(--vp-c-text-2);
 }
 
-.user-db { border-color: #22c55e; }
-.order-db { border-color: #f59e0b; }
-.product-db { border-color: #8b5cf6; }
-.shard-db { border-color: #3b82f6; }
+.user-db {
+  border-color: #22c55e;
+}
+.order-db {
+  border-color: #f59e0b;
+}
+.product-db {
+  border-color: #8b5cf6;
+}
+.shard-db {
+  border-color: #3b82f6;
+}
 
 /* Vertical table styles */
 .vtable-row {
@@ -258,7 +268,9 @@ function select(s: Strategy) {
   gap: 8px;
 }
 
-.orig-table, .split-table, .sub-table {
+.orig-table,
+.split-table,
+.sub-table {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   overflow: hidden;
@@ -283,8 +295,12 @@ function select(s: Strategy) {
   color: var(--vp-c-text-2);
 }
 
-.main-table { border-color: #f59e0b; }
-.ext-table { border-color: #8b5cf6; }
+.main-table {
+  border-color: #f59e0b;
+}
+.ext-table {
+  border-color: #8b5cf6;
+}
 
 .fk-link {
   font-size: 12px;

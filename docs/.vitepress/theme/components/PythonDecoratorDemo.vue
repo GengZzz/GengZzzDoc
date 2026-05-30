@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 const steps = [
   {
@@ -11,7 +11,7 @@ const steps = [
     desc: '一个简单的加法函数，没有任何装饰。',
     layers: ['add(a, b)'],
     callFlow: [],
-    meta: { __name__: 'add', __doc__: null }
+    meta: { __name__: 'add', __doc__: null },
   },
   {
     title: '定义装饰器',
@@ -19,7 +19,7 @@ const steps = [
     desc: 'timer 装饰器：包装函数，记录执行时间。',
     layers: ['add(a, b)', 'timer'],
     callFlow: [],
-    meta: { __name__: 'add', __doc__: null }
+    meta: { __name__: 'add', __doc__: null },
   },
   {
     title: '@timer 应用到 add',
@@ -27,7 +27,7 @@ const steps = [
     desc: 'add 现在指向 timer 返回的 wrapper 函数。原始 add 被闭包捕获。',
     layers: ['wrapper → 原始 add', 'timer 包装完成'],
     callFlow: [],
-    meta: { __name__: 'add', __doc__: null, __wrapped__: 'add (原函数)' }
+    meta: { __name__: 'add', __doc__: null, __wrapped__: 'add (原函数)' },
   },
   {
     title: '@log 双层装饰',
@@ -35,7 +35,7 @@ const steps = [
     desc: '双层包装：add → log的wrapper → timer的wrapper → 原始add。调用时从外到内。',
     layers: ['log 的 wrapper', 'timer 的 wrapper', '原始 add'],
     callFlow: [],
-    meta: { __name__: 'add', __doc__: null, __wrapped__: 'timer wrapper' }
+    meta: { __name__: 'add', __doc__: null, __wrapped__: 'timer wrapper' },
   },
   {
     title: '调用 add(1, 2)',
@@ -47,20 +47,20 @@ const steps = [
       { step: 'timer wrapper', action: 'start = perf_counter()', color: '#f59e0b' },
       { step: '原始 add', action: 'return 1 + 2 = 3', color: '#22c55e' },
       { step: 'timer wrapper', action: '打印 "耗时: 0.0000s"', color: '#f59e0b' },
-      { step: '返回', action: '3', color: '#8b5cf6' }
+      { step: '返回', action: '3', color: '#8b5cf6' },
     ],
-    meta: { __name__: 'add', __doc__: null, __wrapped__: 'add (原函数)' }
-  }
-]
+    meta: { __name__: 'add', __doc__: null, __wrapped__: 'add (原函数)' },
+  },
+];
 
-const currentStep = computed(() => steps[step.value])
+const currentStep = computed(() => steps[step.value]);
 
 function next() {
-  if (step.value < totalSteps - 1) step.value++
+  if (step.value < totalSteps - 1) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -83,8 +83,12 @@ function reset() {
 
     <div class="layer-panel">
       <div class="panel-title">包装层级</div>
-      <div class="layer" v-for="(layer, i) in currentStep.layers" :key="i"
-           :style="{ marginLeft: (currentStep.layers.length - 1 - i) * 16 + 'px' }">
+      <div
+        class="layer"
+        v-for="(layer, i) in currentStep.layers"
+        :key="i"
+        :style="{ marginLeft: (currentStep.layers.length - 1 - i) * 16 + 'px' }"
+      >
         <span class="layer-icon">{{ i === 0 ? '→' : '↓' }}</span>
         {{ layer }}
       </div>
@@ -137,8 +141,13 @@ function reset() {
   transition: background 0.3s;
 }
 
-.dot.active { background: var(--vp-c-brand-1); transform: scale(1.2); }
-.dot.done { background: #22c55e; }
+.dot.active {
+  background: var(--vp-c-brand-1);
+  transform: scale(1.2);
+}
+.dot.done {
+  background: #22c55e;
+}
 
 .step-title {
   font-size: 14px;
@@ -158,7 +167,10 @@ function reset() {
   margin-bottom: 10px;
 }
 
-.code-block code { white-space: pre; color: var(--vp-c-text-1); }
+.code-block code {
+  white-space: pre;
+  color: var(--vp-c-text-1);
+}
 
 .desc {
   font-size: 13px;
@@ -176,7 +188,9 @@ function reset() {
   letter-spacing: 0.5px;
 }
 
-.layer-panel, .call-flow, .meta-panel {
+.layer-panel,
+.call-flow,
+.meta-panel {
   padding: 10px;
   border-radius: 6px;
   background: var(--vp-c-bg);
@@ -194,7 +208,9 @@ function reset() {
   gap: 6px;
 }
 
-.layer-icon { color: var(--vp-c-brand-1); }
+.layer-icon {
+  color: var(--vp-c-brand-1);
+}
 
 .flow-step {
   display: flex;
@@ -216,9 +232,19 @@ function reset() {
   flex-shrink: 0;
 }
 
-.flow-name { color: var(--vp-c-text-1); font-weight: 500; min-width: 90px; }
-.flow-arrow { color: var(--vp-c-text-2); }
-.flow-action { color: var(--vp-c-text-2); font-family: monospace; font-size: 12px; }
+.flow-name {
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  min-width: 90px;
+}
+.flow-arrow {
+  color: var(--vp-c-text-2);
+}
+.flow-action {
+  color: var(--vp-c-text-2);
+  font-family: monospace;
+  font-size: 12px;
+}
 
 .meta-row {
   display: flex;
@@ -255,6 +281,11 @@ button {
   transition: border-color 0.2s;
 }
 
-button:hover:not(:disabled) { border-color: var(--vp-c-brand-1); }
-button:disabled { opacity: 0.5; cursor: default; }
+button:hover:not(:disabled) {
+  border-color: var(--vp-c-brand-1);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>

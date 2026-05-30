@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const hp = ref(100)
-const log = ref('对象创建：GameRole hero("Ada")')
+const hp = ref(100);
+const log = ref('对象创建：GameRole hero("Ada")');
 
 function attack() {
-  hp.value = Math.max(0, hp.value - 20)
-  log.value = '调用成员函数：hero.takeDamage(20)'
+  hp.value = Math.max(0, hp.value - 20);
+  log.value = '调用成员函数：hero.takeDamage(20)';
 }
 
 function reset() {
-  hp.value = 100
-  log.value = '构造函数重新初始化对象状态'
+  hp.value = 100;
+  log.value = '构造函数重新初始化对象状态';
 }
 </script>
 
@@ -20,7 +20,9 @@ function reset() {
     <div class="object-card">
       <div class="object-title">对象 hero</div>
       <div class="field"><span>name</span><strong>Ada</strong></div>
-      <div class="field"><span>hp</span><strong>{{ hp }}</strong></div>
+      <div class="field">
+        <span>hp</span><strong>{{ hp }}</strong>
+      </div>
       <div class="hp-bar"><i :style="{ width: hp + '%' }"></i></div>
     </div>
     <p>{{ log }}</p>

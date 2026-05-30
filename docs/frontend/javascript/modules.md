@@ -51,11 +51,13 @@ export * from './utils.js';  // 不导出 default
 ```
 
 ::: tip import.meta
+
 ```javascript
 import.meta.url;       // 当前模块的 URL
 import.meta.env;       // Vite 环境变量
 import.meta.hot;       // Vite HMR API
 ```
+
 :::
 
 ## CommonJS
@@ -112,6 +114,7 @@ console.log(a.done);  // false（a.js 还没执行完）
 | 条件导入 | `import()` 动态导入 | `require()` 可在任何位置 |
 
 ::: warning ESM 与 CJS 互操作
+
 - ESM 可以导入 CJS：`import pkg from './pkg.cjs'`（仅默认导入）
 - CJS 导入 ESM：`await import('./module.mjs')`（必须用动态导入）
 - `.mjs` 强制 ESM，`.cjs` 强制 CJS
@@ -132,6 +135,7 @@ import { used } from './utils.js';
 ```
 
 ::: tip 确保 Tree Shaking 生效
+
 - 使用 `export`/`import`，避免 `export default` 对象
 - 在 `package.json` 中设置 `"sideEffects": false`
 - 避免在模块顶层产生副作用的代码

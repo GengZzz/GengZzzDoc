@@ -202,11 +202,13 @@ db.users.drop()
 
 ::: tip 清理大量数据
 如果需要删除集合中 80% 以上的数据，`deleteMany` 效率极低（逐条删除）。更好的做法是：将要保留的数据复制到新集合，然后 drop 旧集合，再重命名：
+
 ```javascript
 db.users.aggregate([{ $match: { status: "active" } }, { $out: "users_new" }])
 db.users.drop()
 db.users_new.renameCollection("users")
 ```
+
 :::
 
 ## 批量写入操作

@@ -308,6 +308,7 @@ public class Circle {
 ```
 
 ::: tip final 字段的使用场景
+
 - 常量：`public static final double PI = 3.14159;`
 - 不可变对象的字段：对象一旦创建，状态不可变，线程安全。
 - 缓存值：计算一次后不再改变。
@@ -356,6 +357,7 @@ public class Employee {
 ```
 
 在这个示例中：
+
 - `id` 是 `final` 字段，在实例初始化块中赋值，之后不可修改
 - `nextId` 是静态字段，类加载后持续存在，每次创建对象时自增
 - 两个构造器通过 `this(...)` 复用，避免重复代码

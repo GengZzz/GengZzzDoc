@@ -235,6 +235,7 @@ SELECT * FROM users WHERE id = 1;
 ```
 
 ::: tip 快照读 vs 当前读
+
 - **快照读（Snapshot Read）**：普通的 SELECT 语句，读取 ReadView 对应的版本
 - **当前读（Current Read）**：`SELECT ... FOR UPDATE`、`SELECT ... LOCK IN SHARE MODE`、`INSERT`、`UPDATE`、`DELETE`，读取最新已提交的版本
 
@@ -246,6 +247,7 @@ SELECT * FROM users WHERE id = 1;
 SELECT * FROM users WHERE id = 1 FOR UPDATE;
 UPDATE users SET name = 'Carol' WHERE id = 1;
 ```
+
 :::
 
 ## Purge 机制
@@ -390,6 +392,7 @@ SHOW VARIABLES LIKE 'innodb_max_undo_log_size';
 
 ::: danger 长事务的生产事故
 常见的 undo log 膨胀场景：
+
 1. 应用连接池泄漏（连接未归还）
 2. 自动提交被关闭（`autocommit=0`）且忘记手动提交
 3. 大事务（批量 UPDATE 百万行数据）

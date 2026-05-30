@@ -32,6 +32,7 @@ ES 支持丰富的字段类型，选择正确的类型决定了数据如何被�
 
 ::: tip text + keyword 双字段
 一个字段同时需要全文搜索和精确匹配时，使用 Multi-Field：
+
 ```json
 {
   "name": {
@@ -46,6 +47,7 @@ ES 支持丰富的字段类型，选择正确的类型决定了数据如何被�
   }
 }
 ```
+
 这样 `name` 可以做全文搜索，`name.keyword` 可以做聚合和排序。
 :::
 
@@ -197,11 +199,13 @@ Analyzer 是文本处理的核心，决定了文本如何被切分为 Term。一
 ### 三个阶段
 
 **Character Filter（字符过滤器）**：在分词之前对原始文本做预处理。例如：
+
 - `html_strip`：去除 HTML 标签
 - `mapping`：字符映射（如将 `&` 替换为 `and`）
 - `pattern_replace`：正则替换
 
 **Tokenizer（分词器）**：将文本切分为 Token。这是最关键的一步：
+
 - `standard`：按空格和标点切分，去除标点
 - `ik_max_word`：IK 中文细粒度分词
 - `ik_smart`：IK 中文粗粒度分词
@@ -209,6 +213,7 @@ Analyzer 是文本处理的核心，决定了文本如何被切分为 Term。一
 - `keyword`：不切分，整个文本作为一个 Token
 
 **Token Filter（词元过滤器）**：对 Token 做后续处理：
+
 - `lowercase`：转小写
 - `stop`：去除停用词（如 `the`、`is`、`的`）
 - `synonym`：同义词替换
@@ -269,6 +274,7 @@ PUT /my-index
 
 ::: tip 测试 Analyzer
 创建 Analyzer 后，使用 `_analyze` API 验证分词效果：
+
 ```bash
 POST /my-index/_analyze
 {
@@ -276,6 +282,7 @@ POST /my-index/_analyze
   "text": "番茄是一种蔬菜"
 }
 ```
+
 :::
 
 ## IK 中文分词

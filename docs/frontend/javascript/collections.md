@@ -53,6 +53,7 @@ element = null;  // GC 可回收
 ```
 
 ::: tip WeakMap 应用
+
 - 给对象附加私有数据
 - 缓存计算结果（对象被回收时自动清除缓存）
 - DOM 节点关联数据（节点移除时自动清理）
@@ -111,6 +112,7 @@ view.getFloat64(8);         // 从偏移 8 读取
 ```
 
 ::: warning TypedArray 注意事项
+
 - 固定长度，创建后不可增删元素
 - 默认值为 0（非 undefined）
 - `Array.isArray(new Uint8Array())` 返回 `false`

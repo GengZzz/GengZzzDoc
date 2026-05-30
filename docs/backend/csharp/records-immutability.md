@@ -93,9 +93,11 @@ Console.WriteLine(original.Items.Count);  // 2！原始也被修改了
 ```
 
 **解决方案**：使用不可变集合或深拷贝：
+
 ```csharp
 public record Order(string Id, ImmutableList<string> Items);
 ```
+
 :::
 
 ## record struct（C# 10+）

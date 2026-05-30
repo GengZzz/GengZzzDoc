@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const currentStep = ref(0)
+const currentStep = ref(0);
 
 const scenarios = [
   {
@@ -55,13 +55,19 @@ const scenarios = [
     sessionB: '清空',
     secondLevel: 'UserMapper namespace 被刷新',
     result: '同 namespace 下 insert/update/delete 默认 flushCache，避免读到旧数据。',
-    cacheKey: ['UserMapper.updateStatus', '0/2147483647', 'update user set status = ?', '42,0', 'dev'],
+    cacheKey: [
+      'UserMapper.updateStatus',
+      '0/2147483647',
+      'update user set status = ?',
+      '42,0',
+      'dev',
+    ],
     hit: 'flush',
   },
-]
+];
 
-const totalSteps = scenarios.length
-const current = computed(() => scenarios[currentStep.value])
+const totalSteps = scenarios.length;
+const current = computed(() => scenarios[currentStep.value]);
 
 const statusText = computed(() => {
   const labels: Record<string, string> = {
@@ -71,16 +77,16 @@ const statusText = computed(() => {
     miss: '不同 SqlSession 的一级缓存互不共享',
     second: '二级缓存以 namespace 为边界，提交后才对其他会话可见',
     flush: '写操作刷新缓存，下一次读取需要重新查询',
-  }
-  return labels[current.value.hit]
-})
+  };
+  return labels[current.value.hit];
+});
 
 function next() {
-  currentStep.value = (currentStep.value + 1) % totalSteps
+  currentStep.value = (currentStep.value + 1) % totalSteps;
 }
 
 function reset() {
-  currentStep.value = 0
+  currentStep.value = 0;
 }
 </script>
 
@@ -104,17 +110,29 @@ function reset() {
       </div>
 
       <div class="sessions">
-        <div class="cache-box" :class="{ active: ['jdbc', 'local', 'second', 'flush'].includes(current.hit) }">
+        <div
+          class="cache-box"
+          :class="{ active: ['jdbc', 'local', 'second', 'flush'].includes(current.hit) }"
+        >
           <span>SqlSession A 一级缓存</span>
           <strong>{{ current.sessionA }}</strong>
         </div>
-        <div class="cache-box" :class="{ active: ['miss', 'second', 'flush'].includes(current.hit) }">
+        <div
+          class="cache-box"
+          :class="{ active: ['miss', 'second', 'flush'].includes(current.hit) }"
+        >
           <span>SqlSession B 一级缓存</span>
           <strong>{{ current.sessionB }}</strong>
         </div>
       </div>
 
-      <div class="second-level" :class="{ active: ['second', 'flush'].includes(current.hit), flush: current.hit === 'flush' }">
+      <div
+        class="second-level"
+        :class="{
+          active: ['second', 'flush'].includes(current.hit),
+          flush: current.hit === 'flush',
+        }"
+      >
         <span>二级缓存 namespace 边界</span>
         <strong>{{ current.secondLevel }}</strong>
       </div>
@@ -123,11 +141,7 @@ function reset() {
     <div class="key-panel">
       <div class="key-title">CacheKey 组成</div>
       <div class="key-parts">
-        <span
-          v-for="(part, index) in current.cacheKey"
-          :key="`${part}-${index}`"
-          class="key-part"
-        >
+        <span v-for="(part, index) in current.cacheKey" :key="`${part}-${index}`" class="key-part">
           {{ part }}
         </span>
       </div>
@@ -187,7 +201,10 @@ function reset() {
   border-radius: 6px;
   background: var(--vp-c-bg);
   min-height: 96px;
-  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .query-card {

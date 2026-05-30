@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const active = ref(false)
-const selectedCurve = ref('ease')
-const duration = ref(0.5)
+const active = ref(false);
+const selectedCurve = ref('ease');
+const duration = ref(0.5);
 
 const curves: Record<string, string> = {
   linear: 'linear',
@@ -11,8 +11,8 @@ const curves: Record<string, string> = {
   'ease-in': 'ease-in',
   'ease-out': 'ease-out',
   'ease-in-out': 'ease-in-out',
-  'cubic-bezier(0.68,-0.55,0.265,1.55)': '弹性'
-}
+  'cubic-bezier(0.68,-0.55,0.265,1.55)': '弹性',
+};
 
 const descriptions: Record<string, string> = {
   linear: '线性匀速：每秒速度恒定，适合加载进度条等需要匀速运动的场景。',
@@ -20,17 +20,18 @@ const descriptions: Record<string, string> = {
   'ease-in': 'ease-in：缓慢开始，逐渐加速。适合元素离开视图（如收起、淡出）。',
   'ease-out': 'ease-out：快速开始，逐渐减速。适合元素进入视图（如弹出、滑入），感觉更灵敏。',
   'ease-in-out': 'ease-in-out：开始和结束都慢，中间快。适合来回往返的动画。',
-  'cubic-bezier(0.68,-0.55,0.265,1.55)': 'cubic-bezier 自定义弹性曲线：值可以超出 0-1 范围，产生回弹/过冲效果。'
-}
+  'cubic-bezier(0.68,-0.55,0.265,1.55)':
+    'cubic-bezier 自定义弹性曲线：值可以超出 0-1 范围，产生回弹/过冲效果。',
+};
 
 function toggle() {
-  active.value = !active.value
+  active.value = !active.value;
 }
 
 function reset() {
-  active.value = false
-  selectedCurve.value = 'ease'
-  duration.value = 0.5
+  active.value = false;
+  selectedCurve.value = 'ease';
+  duration.value = 0.5;
 }
 </script>
 
@@ -42,11 +43,21 @@ function reset() {
         :key="curve"
         :class="{ active: selectedCurve === curve }"
         @click="selectedCurve = curve"
-      >{{ curves[curve] }}</button>
+      >
+        {{ curves[curve] }}
+      </button>
     </div>
 
     <div class="duration-control">
-      <label>持续时间：<input type="range" min="0.1" max="3" step="0.1" v-model.number="duration" /><span>{{ duration }}s</span></label>
+      <label
+        >持续时间：<input
+          type="range"
+          min="0.1"
+          max="3"
+          step="0.1"
+          v-model.number="duration"
+        /><span>{{ duration }}s</span></label
+      >
     </div>
 
     <div class="preview">
@@ -54,7 +65,7 @@ function reset() {
         class="box"
         :class="{ active }"
         :style="{
-          transition: `transform ${duration}s ${selectedCurve}, background-color ${duration}s ${selectedCurve}, border-radius ${duration}s ${selectedCurve}`
+          transition: `transform ${duration}s ${selectedCurve}, background-color ${duration}s ${selectedCurve}, border-radius ${duration}s ${selectedCurve}`,
         }"
         @click="toggle"
       >
@@ -119,7 +130,7 @@ function reset() {
   color: var(--vp-c-text-2);
 }
 
-.duration-control input[type="range"] {
+.duration-control input[type='range'] {
   width: 160px;
 }
 

@@ -24,6 +24,7 @@ const div = <div className="container">内容</div>
 ```
 
 ::: tip JSX 规则
+
 - 只能返回一个根元素（可用 `<>...</>` Fragment 包裹）
 - 标签必须闭合（`<img />`、`<br />`）
 - 属性用 camelCase：`onClick`、`onChange`、`className`

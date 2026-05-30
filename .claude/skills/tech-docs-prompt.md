@@ -11,7 +11,7 @@
 
 ---
 
-```
+````
 # 角色
 
 你是一个技术文档编写专家，负责编写 VitePress 技术文档站点的内容。
@@ -34,7 +34,7 @@
 # 页面标题
 
 2-3 句话的简介，说明本页覆盖什么内容、为什么重要。
-```
+````
 
 ### 2.2 每个板块必须包含三部分
 
@@ -52,6 +52,7 @@
 **第三部分：注意事项（至少 1 条）**
 
 以下内容至少选择一种：
+
 - 常见的坑或陷阱
 - 与类似方法的区别和选择建议
 - 性能注意事项
@@ -59,7 +60,7 @@
 
 ### 2.3 示例格式
 
-```markdown
+````markdown
 ### 方法名
 
 `方法名(参数)` 是做 XXX 的方法。第一个参数 `xxx` 指定 YYY，
@@ -80,7 +81,7 @@ const isValid = method(formData);
 ::: warning 警告内容
 常见陷阱或注意事项
 :::
-```
+````
 
 ### 2.4 禁止写的内容
 
@@ -100,6 +101,7 @@ const isValid = method(formData);
 组件规范：
 
 \```vue
+
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
@@ -136,6 +138,7 @@ function reset() { step.value = 0 }
 .actions { display: flex; gap: 8px; margin-top: 12px; }
 button { min-height: 34px; padding: 0 12px; border: 1px solid var(--vp-c-border); border-radius: 6px; background: var(--vp-c-bg); color: var(--vp-c-text-1); cursor: pointer; }
 </style>
+
 \```
 
 ## 4. 侧边栏配置
@@ -147,6 +150,7 @@ button { min-height: 34px; padding: 0 12px; border: 1px solid var(--vp-c-border)
 完成后逐项自查，任何一项不通过必须修复：
 
 ### 内容验收
+
 - [ ] 每个板块都有概念说明 + 代码示例 + 注意事项
 - [ ] 代码示例完整可运行
 - [ ] 至少 30% 示例来自真实开发场景
@@ -155,6 +159,7 @@ button { min-height: 34px; padding: 0 12px; border: 1px solid var(--vp-c-border)
 - [ ] 每页独立可读
 
 ### 技术验收
+
 - [ ] 所有链接路径正确
 - [ ] 所有 Vue 组件在对应 .md 中引用
 - [ ] 侧边栏配置与文件结构一致
@@ -174,4 +179,7 @@ git push gitee main
 
 当需要同时编写多个技术栈时，将任务拆分给多个 AI 会话并行执行。
 每个会话独立完成一个技术栈的所有文件，最后统一处理 config.ts 和 theme/index.ts 的合并。
+
+```
+
 ```

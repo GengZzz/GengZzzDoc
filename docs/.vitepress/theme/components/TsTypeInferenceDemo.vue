@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 interface NarrowingCase {
-  code: string
-  originalType: string
-  guard: string
-  narrowedType: string
-  description: string
+  code: string;
+  originalType: string;
+  guard: string;
+  narrowedType: string;
+  description: string;
 }
 
 const cases: NarrowingCase[] = [
@@ -18,50 +18,50 @@ const cases: NarrowingCase[] = [
     originalType: 'string | string[]',
     guard: 'typeof x === "string"',
     narrowedType: 'x: string',
-    description: 'typeof 守卫将联合类型收窄为 string'
+    description: 'typeof 守卫将联合类型收窄为 string',
   },
   {
     code: 'function process(val: Date | string) {\n  if (val instanceof Date) {\n    console.log(val.getFullYear())\n  }\n}',
     originalType: 'Date | string',
     guard: 'val instanceof Date',
     narrowedType: 'val: Date',
-    description: 'instanceof 守卫将类型收窄为 Date'
+    description: 'instanceof 守卫将类型收窄为 Date',
   },
   {
     code: 'type Fish = { swim: () => void }\ntype Bird = { fly: () => void }\nfunction move(animal: Fish | Bird) {\n  if ("swim" in animal) {\n    animal.swim()\n  }\n}',
     originalType: 'Fish | Bird',
     guard: '"swim" in animal',
     narrowedType: 'animal: Fish',
-    description: 'in 操作符守卫收窄为 Fish'
+    description: 'in 操作符守卫收窄为 Fish',
   },
   {
     code: 'type Circle = { kind: "circle", r: number }\ntype Rect = { kind: "rect", w: number, h: number }\nfunction area(s: Circle | Rect) {\n  switch (s.kind) {\n    case "circle": return Math.PI * s.r ** 2\n    case "rect": return s.w * s.h\n  }\n}',
     originalType: 'Circle | Rect',
     guard: 'switch (s.kind)',
     narrowedType: '每个分支自动收窄',
-    description: '判别联合类型通过 switch 自动收窄'
+    description: '判别联合类型通过 switch 自动收窄',
   },
   {
     code: 'function assertNever(x: never): never {\n  throw new Error("Unexpected")\n}\nfunction handle(s: Circle | Rect) {\n  switch (s.kind) {\n    case "circle": break\n    case "rect": break\n    default: assertNever(s)\n  }\n}',
     originalType: 'Circle | Rect',
     guard: 'default: assertNever(s)',
     narrowedType: '穷尽检查',
-    description: 'never 类型实现穷尽检查，新增类型时编译报错'
-  }
-]
+    description: 'never 类型实现穷尽检查，新增类型时编译报错',
+  },
+];
 
-const currentCase = computed(() => cases[step.value])
+const currentCase = computed(() => cases[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function prev() {
-  step.value = (step.value - 1 + totalSteps) % totalSteps
+  step.value = (step.value - 1 + totalSteps) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -76,7 +76,17 @@ function reset() {
         :class="{ active: step === i }"
         @click="step = i"
       >
-        {{ i === 0 ? 'typeof' : i === 1 ? 'instanceof' : i === 2 ? 'in' : i === 3 ? '判别联合' : '穷尽检查' }}
+        {{
+          i === 0
+            ? 'typeof'
+            : i === 1
+              ? 'instanceof'
+              : i === 2
+                ? 'in'
+                : i === 3
+                  ? '判别联合'
+                  : '穷尽检查'
+        }}
       </button>
     </div>
     <div class="narrowing-flow">

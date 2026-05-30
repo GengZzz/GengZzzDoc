@@ -298,6 +298,7 @@ public class ParallelStream {
 ```
 
 ::: warning 并行流的注意事项
+
 - 并行流使用公共的 `ForkJoinPool`，不要在并行流中执行阻塞操作（如 I/O）。
 - 数据量较小时并行开销可能大于收益。
 - 有状态的操作（如 `sorted`、`distinct`）在并行流中需要额外的同步。

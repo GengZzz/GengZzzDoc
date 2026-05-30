@@ -96,9 +96,11 @@ POST _aliases
 
 ::: tip 别名过滤器
 别名可以带过滤条件，实现数据隔离：
+
 ```json
 { "add": { "index": "orders", "alias": "orders-shanghai", "filter": { "term": { "region": "shanghai" } } } }
 ```
+
 查询 `orders-shanghai` 时自动带上 `region=shanghai` 过滤。
 :::
 
@@ -159,6 +161,7 @@ PUT _ilm/policy/logs_policy
 | Delete | 90 天后 | 删除索引 | 清理过期数据 |
 
 ::: tip ILM + Rollover 的完整流程
+
 1. 创建索引模板，指定 `index.lifecycle.name` 和 `index.lifecycle.rollover_alias`
 2. 创建第一个索引（如 `logs-000001`）并关联别名 `logs`
 3. 写入数据到 `logs` 别名

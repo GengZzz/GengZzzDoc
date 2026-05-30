@@ -50,6 +50,7 @@ SDS 的内存布局：
 
 ::: tip 空间预分配策略
 当 SDS 需要扩容时：
+
 - 修改后 `len` < 1MB：`alloc = len * 2`（翻倍预分配）
 - 修改后 `len` >= 1MB：`alloc = len + 1MB`（固定追加 1MB）
 

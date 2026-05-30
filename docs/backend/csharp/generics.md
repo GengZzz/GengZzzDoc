@@ -102,6 +102,7 @@ List<MyStruct> ──→ 特化代码（每个 struct 都有一份）
 ```
 
 这意味着：
+
 - `List<string>`、`List<object>`、`List<Dog>` 共享同一份机器码，节省内存
 - `List<int>`、`List<double>`、`List<MyStruct>` 各有一份，值类型泛型太多会增加内存
 
@@ -156,6 +157,7 @@ public interface IComparer<in T>  // in T：只能作为参数
 ```
 
 ::: warning 协变逆变的限制
+
 - 只能用于接口和委托，不能用于类和结构体
 - 只能用于引用类型（`IEnumerable<int>` 不协变，因为 int 是值类型）
 - 只影响引用转换，不创建新集合

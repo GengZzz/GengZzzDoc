@@ -135,6 +135,7 @@ redis-server /path/to/sentinel.conf --sentinel
 ```
 
 ::: warning Sentinel 部署要求
+
 - 至少 3 个 Sentinel 实例，分布在不同的物理机器上。
 - Sentinel 数量应该是奇数（3、5、7），避免选举平票。
 - quorum 通常设为 `(N/2) + 1`，N 为 Sentinel 数量。
@@ -173,6 +174,7 @@ slave = sentinel.slave_for('mymaster', password='password')
 ```
 
 客户端的工作流程：
+
 1. 连接任意 Sentinel 实例，通过 `SENTINEL get-master-addr-by-name mymaster` 获取当前主节点地址。
 2. 连接主节点进行读写。
 3. 订阅 `+switch-master` 频道，在故障转移时获取新主节点地址。

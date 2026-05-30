@@ -80,6 +80,7 @@ public class ComparisonDemo {
 ```
 
 ::: tip == 与 equals()
+
 - 对基本类型，`==` 比较值。
 - 对引用类型，`==` 比较是否为同一个对象（地址），`equals()` 比较内容是否相同（前提是类正确重写了 `equals()`）。
 - 字符串比较永远使用 `equals()`，不要用 `==`。

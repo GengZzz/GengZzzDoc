@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const values = ref([12, 25, 37, 49, 58])
-const active = ref(0)
-const showBoundary = ref(false)
+const values = ref([12, 25, 37, 49, 58]);
+const active = ref(0);
+const showBoundary = ref(false);
 
 function highlightIndex(index: number) {
-  active.value = index
+  active.value = index;
 }
 
-const maxIndex = values.value.length - 1
+const maxIndex = values.value.length - 1;
 </script>
 
 <template>
   <div class="array-demo">
     <div class="index-labels">
-      <span v-for="(v, i) in values" :key="i" class="label" :class="{ error: i > maxIndex && showBoundary }">{{ i }}</span>
+      <span
+        v-for="(v, i) in values"
+        :key="i"
+        class="label"
+        :class="{ error: i > maxIndex && showBoundary }"
+        >{{ i }}</span
+      >
     </div>
     <div class="array-row">
       <button

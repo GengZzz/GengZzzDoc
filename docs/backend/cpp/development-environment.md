@@ -89,13 +89,13 @@ flowchart TD
 pacman -S mingw-w64-ucrt-x86_64-gcc
 ```
 
-6. 把 MSYS2 的 UCRT64 `bin` 目录加入系统 PATH，例如：
+1. 把 MSYS2 的 UCRT64 `bin` 目录加入系统 PATH，例如：
 
 ```text
 C:\msys64\ucrt64\bin
 ```
 
-7. 重新打开终端，检查编译器是否可用：
+1. 重新打开终端，检查编译器是否可用：
 
 ```bash
 g++ --version

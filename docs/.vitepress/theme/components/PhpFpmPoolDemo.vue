@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const workers = computed(() => {
   const list = [
@@ -10,24 +10,24 @@ const workers = computed(() => {
     { id: 2, state: 'idle', mem: 52 },
     { id: 3, state: 'idle', mem: 50 },
     { id: 4, state: 'idle', mem: 49 },
-    { id: 5, state: 'idle', mem: 55 }
-  ]
-  if (step.value >= 1) list[0].state = 'busy'
-  if (step.value >= 2) list[1].state = 'busy'
-  if (step.value >= 3) list[2].state = 'busy'
-  if (step.value >= 4) list[3].state = 'busy'
-  if (step.value >= 5) list[4].state = 'busy'
-  if (step.value >= 6) list[0].state = 'recycle'
-  return list
-})
+    { id: 5, state: 'idle', mem: 55 },
+  ];
+  if (step.value >= 1) list[0].state = 'busy';
+  if (step.value >= 2) list[1].state = 'busy';
+  if (step.value >= 3) list[2].state = 'busy';
+  if (step.value >= 4) list[3].state = 'busy';
+  if (step.value >= 5) list[4].state = 'busy';
+  if (step.value >= 6) list[0].state = 'recycle';
+  return list;
+});
 
 const queue = computed(() => {
-  if (step.value < 5) return 0
-  if (step.value === 5) return 3
-  return 1
-})
+  if (step.value < 5) return 0;
+  if (step.value === 5) return 3;
+  return 1;
+});
 
-const memory = computed(() => workers.value.reduce((sum, worker) => sum + worker.mem, 0))
+const memory = computed(() => workers.value.reduce((sum, worker) => sum + worker.mem, 0));
 
 const status = computed(() => {
   const list = [
@@ -37,17 +37,17 @@ const status = computed(() => {
     '空闲 worker 逐步减少，min/max spare_servers 开始影响扩缩容',
     '接近 pm.max_children 时，需要关注单进程内存和总内存预算',
     '所有 worker 忙碌后，新请求只能排队，Nginx 等太久就可能出现 502/504',
-    '达到 pm.max_requests 后 worker 回收重启，用来缓解长生命周期内存泄漏'
-  ]
-  return list[step.value]
-})
+    '达到 pm.max_requests 后 worker 回收重启，用来缓解长生命周期内存泄漏',
+  ];
+  return list[step.value];
+});
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -56,8 +56,12 @@ function reset() {
     <div class="summary">
       <div><strong>pm</strong><span>dynamic</span></div>
       <div><strong>max_children</strong><span>5</span></div>
-      <div><strong>queue</strong><span>{{ queue }}</span></div>
-      <div><strong>memory</strong><span>{{ memory }} MB</span></div>
+      <div>
+        <strong>queue</strong><span>{{ queue }}</span>
+      </div>
+      <div>
+        <strong>memory</strong><span>{{ memory }} MB</span>
+      </div>
     </div>
     <div class="workers">
       <div v-for="worker in workers" :key="worker.id" class="worker" :class="worker.state">

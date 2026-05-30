@@ -1,23 +1,53 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 const states = [
-  { ptr: 'NULL', old: false, next: false, freed: false, desc: '初始状态：指针 arr 为 NULL，没有堆块。' },
-  { ptr: '0x6000', old: true, next: false, freed: false, desc: 'malloc 分配 5 个 int，arr 指向旧堆块。' },
-  { ptr: '0x6000', old: true, next: true, freed: false, desc: 'realloc 需要扩容，可能先申请更大的新块。' },
-  { ptr: '0x9000', old: false, next: true, freed: true, desc: 'realloc 成功后拷贝旧数据，释放旧块，返回新地址。' },
-  { ptr: '0x9000 (dangling)', old: false, next: false, freed: true, desc: 'free 后内存归还分配器，但指针变量仍保存旧地址，必须置为 NULL。' }
-]
+  {
+    ptr: 'NULL',
+    old: false,
+    next: false,
+    freed: false,
+    desc: '初始状态：指针 arr 为 NULL，没有堆块。',
+  },
+  {
+    ptr: '0x6000',
+    old: true,
+    next: false,
+    freed: false,
+    desc: 'malloc 分配 5 个 int，arr 指向旧堆块。',
+  },
+  {
+    ptr: '0x6000',
+    old: true,
+    next: true,
+    freed: false,
+    desc: 'realloc 需要扩容，可能先申请更大的新块。',
+  },
+  {
+    ptr: '0x9000',
+    old: false,
+    next: true,
+    freed: true,
+    desc: 'realloc 成功后拷贝旧数据，释放旧块，返回新地址。',
+  },
+  {
+    ptr: '0x9000 (dangling)',
+    old: false,
+    next: false,
+    freed: true,
+    desc: 'free 后内存归还分配器，但指针变量仍保存旧地址，必须置为 NULL。',
+  },
+];
 
-const current = computed(() => states[step.value])
+const current = computed(() => states[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % states.length
+  step.value = (step.value + 1) % states.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -32,7 +62,7 @@ function reset() {
       <section>
         <h4>栈上指针</h4>
         <div class="ptr" :class="{ danger: current.ptr.includes('dangling') }">
-          arr<br><span>{{ current.ptr }}</span>
+          arr<br /><span>{{ current.ptr }}</span>
         </div>
       </section>
 
@@ -40,10 +70,10 @@ function reset() {
         <h4>堆 Heap</h4>
         <div class="blocks">
           <div class="block" :class="{ active: current.old, freed: current.freed && !current.old }">
-            旧块 5 * int<br><span>0x6000</span>
+            旧块 5 * int<br /><span>0x6000</span>
           </div>
           <div class="block next" :class="{ active: current.next }">
-            新块 10 * int<br><span>0x9000</span>
+            新块 10 * int<br /><span>0x9000</span>
           </div>
         </div>
       </section>
@@ -125,17 +155,17 @@ h4 {
 }
 
 .block {
-  opacity: .35;
+  opacity: 0.35;
 }
 
 .block.active {
   opacity: 1;
   border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, .14);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.14);
 }
 
 .block.freed {
-  opacity: .45;
+  opacity: 0.45;
   border-color: #ef4444;
   color: #dc2626;
   border-style: dashed;
@@ -168,6 +198,8 @@ button {
 
 @media (max-width: 720px) {
   .layout,
-  .blocks { grid-template-columns: 1fr; }
+  .blocks {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

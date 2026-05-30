@@ -1,44 +1,44 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const index = ref(0)
+const index = ref(0);
 const cases = [
   {
     call: 'obj.greet()',
     rule: '隐式绑定',
     target: 'obj',
-    reason: '调用点左侧有 obj，this 指向这个调用者。'
+    reason: '调用点左侧有 obj，this 指向这个调用者。',
   },
   {
     call: 'const fn = obj.greet; fn()',
     rule: '默认绑定',
     target: 'undefined / window',
-    reason: '函数被赋值后丢失调用者，调用点只剩 fn()。'
+    reason: '函数被赋值后丢失调用者，调用点只剩 fn()。',
   },
   {
     call: 'greet.call(obj)',
     rule: '显式绑定',
     target: 'obj',
-    reason: 'call/apply/bind 直接指定 this。'
+    reason: 'call/apply/bind 直接指定 this。',
   },
   {
     call: 'new Person()',
     rule: 'new 绑定',
     target: '新实例',
-    reason: 'new 创建对象，并让构造函数中的 this 指向它。'
+    reason: 'new 创建对象，并让构造函数中的 this 指向它。',
   },
   {
     call: '() => this.name',
     rule: '词法绑定',
     target: '外层 this',
-    reason: '箭头函数没有自己的 this，从定义位置捕获外层 this。'
-  }
-]
+    reason: '箭头函数没有自己的 this，从定义位置捕获外层 this。',
+  },
+];
 
-const current = computed(() => cases[index.value])
+const current = computed(() => cases[index.value]);
 
 function next() {
-  index.value = (index.value + 1) % cases.length
+  index.value = (index.value + 1) % cases.length;
 }
 </script>
 
@@ -134,6 +134,8 @@ button {
 }
 
 @media (max-width: 720px) {
-  .cards { grid-template-columns: 1fr; }
+  .cards {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

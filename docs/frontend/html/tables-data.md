@@ -158,6 +158,7 @@ col.total   { background: #fef3c7; font-weight: bold; }
 ```
 
 ::: warning 合并单元格的陷阱
+
 - `colspan` 和 `rowspan` 会影响后续行/列的单元格对齐
 - 手工维护合并表格很复杂，建议使用工具生成或可视化验证
 - 合并后的表格对屏幕阅读器的体验会下降，尽量避免复杂的合并
@@ -193,6 +194,7 @@ col.total   { background: #fef3c7; font-weight: bold; }
 ```
 
 `scope` 值：
+
 - `col`：该 `<th>` 是其所在列的标题
 - `row`：该 `<th>` 是其所在行的标题
 - `colgroup`：跨列标题组
@@ -335,6 +337,7 @@ table {
 ```
 
 ::: tip 表格使用原则
+
 - 只用于展示二维数据，不用来做布局
 - 始终包含 `<caption>` 和 `scope` 属性
 - 简单的键值对用 `<dl>` 而非 `<table>`

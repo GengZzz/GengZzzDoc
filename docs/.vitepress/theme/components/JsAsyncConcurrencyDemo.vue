@@ -1,29 +1,65 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const tasks = ['A', 'B', 'C', 'D', 'E']
+const step = ref(0);
+const tasks = ['A', 'B', 'C', 'D', 'E'];
 const states = [
-  { pointer: 0, runner1: '', runner2: '', done: [] as string[], desc: '等待队列中有 5 个任务，两个 runner 都空闲。' },
-  { pointer: 2, runner1: 'A', runner2: 'B', done: [] as string[], desc: '两个 runner 同时领取任务 A、B，nextIndex 指向 C。' },
-  { pointer: 3, runner1: 'C', runner2: 'B', done: ['A'], desc: 'A 完成后进入结果区，Runner 1 继续领取 C。' },
-  { pointer: 4, runner1: 'C', runner2: 'D', done: ['A', 'B'], desc: 'B 完成，Runner 2 继续领取 D，并发数仍然不超过 2。' },
-  { pointer: 5, runner1: 'E', runner2: 'D', done: ['A', 'B', 'C'], desc: 'C 完成后领取最后一个任务 E，等待队列已经耗尽。' },
-  { pointer: 5, runner1: '', runner2: '', done: ['A', 'B', 'C', 'D', 'E'], desc: '所有任务完成，结果仍按原始任务顺序汇总。' }
-]
+  {
+    pointer: 0,
+    runner1: '',
+    runner2: '',
+    done: [] as string[],
+    desc: '等待队列中有 5 个任务，两个 runner 都空闲。',
+  },
+  {
+    pointer: 2,
+    runner1: 'A',
+    runner2: 'B',
+    done: [] as string[],
+    desc: '两个 runner 同时领取任务 A、B，nextIndex 指向 C。',
+  },
+  {
+    pointer: 3,
+    runner1: 'C',
+    runner2: 'B',
+    done: ['A'],
+    desc: 'A 完成后进入结果区，Runner 1 继续领取 C。',
+  },
+  {
+    pointer: 4,
+    runner1: 'C',
+    runner2: 'D',
+    done: ['A', 'B'],
+    desc: 'B 完成，Runner 2 继续领取 D，并发数仍然不超过 2。',
+  },
+  {
+    pointer: 5,
+    runner1: 'E',
+    runner2: 'D',
+    done: ['A', 'B', 'C'],
+    desc: 'C 完成后领取最后一个任务 E，等待队列已经耗尽。',
+  },
+  {
+    pointer: 5,
+    runner1: '',
+    runner2: '',
+    done: ['A', 'B', 'C', 'D', 'E'],
+    desc: '所有任务完成，结果仍按原始任务顺序汇总。',
+  },
+];
 
-const current = computed(() => states[step.value])
+const current = computed(() => states[step.value]);
 const waiting = computed(() => {
-  const active = [current.value.runner1, current.value.runner2].filter(Boolean)
-  return tasks.filter(task => !active.includes(task) && !current.value.done.includes(task))
-})
+  const active = [current.value.runner1, current.value.runner2].filter(Boolean);
+  return tasks.filter((task) => !active.includes(task) && !current.value.done.includes(task));
+});
 
 function next() {
-  step.value = (step.value + 1) % states.length
+  step.value = (step.value + 1) % states.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -35,11 +71,16 @@ function reset() {
     </div>
 
     <div class="queue">
-      <div v-for="task in tasks" :key="task" class="task" :class="{
-        done: current.done.includes(task),
-        running: task === current.runner1 || task === current.runner2,
-        waiting: waiting.includes(task)
-      }">
+      <div
+        v-for="task in tasks"
+        :key="task"
+        class="task"
+        :class="{
+          done: current.done.includes(task),
+          running: task === current.runner1 || task === current.runner2,
+          waiting: waiting.includes(task),
+        }"
+      >
         {{ task }}
       </div>
     </div>
@@ -112,13 +153,13 @@ function reset() {
 .task.running {
   border-color: #f59e0b;
   color: #d97706;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, .15);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
 .task.done {
   border-color: #10b981;
   color: #059669;
-  background: rgba(16, 185, 129, .1);
+  background: rgba(16, 185, 129, 0.1);
 }
 
 .runners {
@@ -169,7 +210,7 @@ h4 {
   height: 34px;
   place-items: center;
   border-radius: 6px;
-  background: rgba(16, 185, 129, .14);
+  background: rgba(16, 185, 129, 0.14);
   color: #059669;
   font-weight: 700;
 }
@@ -206,6 +247,8 @@ button {
 
 @media (max-width: 720px) {
   .queue,
-  .runners { grid-template-columns: 1fr; }
+  .runners {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

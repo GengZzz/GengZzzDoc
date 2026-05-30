@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import DefaultTheme from 'vitepress/theme'
-import SiteNavigator from './components/SiteNavigator.vue'
+import DefaultTheme from 'vitepress/theme';
+import SiteNavigator from './components/SiteNavigator.vue';
 
-const { Layout } = DefaultTheme
+const { Layout } = DefaultTheme;
 </script>
 
 <template>

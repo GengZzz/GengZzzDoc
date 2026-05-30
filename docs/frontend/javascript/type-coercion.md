@@ -150,11 +150,13 @@ undefined == false   // false
 
 ::: danger 避免使用 ==
 `==` 的规则复杂且反直觉，日常开发中**始终使用 `===`**。只有在需要同时检查 `null` 和 `undefined` 时可以使用 `== null`：
+
 ```javascript
 if (value == null) {
   // 等价于 value === null || value === undefined
 }
 ```
+
 :::
 
 ## 加法与比较运算符

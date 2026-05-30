@@ -100,6 +100,7 @@ Maven 从仓库中下载依赖：
     </mirror>
 </mirrors>
 ```
+
 :::
 
 ## 标准项目结构
@@ -315,6 +316,7 @@ class CalculatorTest {
     void testAdd() { /* ... */ }
 }
 ```
+
 :::
 
 ## 日志：SLF4J + Logback

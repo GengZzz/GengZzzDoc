@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const selected = ref<'stack' | 'heap'>('stack')
+const step = ref(0);
+const selected = ref<'stack' | 'heap'>('stack');
 
 const stackFrames = computed(() => {
-  if (step.value === 0) return []
-  if (step.value === 1) return ['main() ✓']
-  if (step.value === 2) return ['main()', 'createUser()']
-  if (step.value === 3) return ['main()', 'createUser()', 'age = 18']
-  return []
-})
+  if (step.value === 0) return [];
+  if (step.value === 1) return ['main() ✓'];
+  if (step.value === 2) return ['main()', 'createUser()'];
+  if (step.value === 3) return ['main()', 'createUser()', 'age = 18'];
+  return [];
+});
 
 const heapBlocks = computed(() => {
-  if (step.value < 3) return []
-  if (step.value === 3) return [{ addr: '0x100', data: 'User{name:"Ada",age:18}' }]
-  return [{ addr: '0x100', data: '已释放(悬空风险!)' }]
-})
+  if (step.value < 3) return [];
+  if (step.value === 3) return [{ addr: '0x100', data: 'User{name:"Ada",age:18}' }];
+  return [{ addr: '0x100', data: '已释放(悬空风险!)' }];
+});
 
 function next() {
-  step.value = (step.value + 1) % 5
+  step.value = (step.value + 1) % 5;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 

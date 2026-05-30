@@ -285,6 +285,7 @@ EXPLAIN SELECT * FROM users WHERE name LIKE 'Ali%';
 ```
 
 ::: tip key_len 的计算规则
+
 | 数据类型 | key_len |
 |---------|---------|
 | CHAR(N) utf8mb4 | N * 4 |
@@ -483,6 +484,7 @@ LIMIT 10;
 ```
 
 ::: tip EXPLAIN vs EXPLAIN ANALYZE
+
 - `EXPLAIN` 只是分析，不实际执行查询，显示的是**估算值**
 - `EXPLAIN ANALYZE` 实际执行查询，显示的是**真实值**（包括实际行数、循环次数、执行时间）
 - 使用 `EXPLAIN ANALYZE` 时要小心，对于慢查询可能会真的执行很久

@@ -1,28 +1,52 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 
 const stages = [
-  { title: 'public/index.php', tag: '入口', note: '加载 Composer autoload，创建应用实例，把请求交给 HTTP Kernel。' },
+  {
+    title: 'public/index.php',
+    tag: '入口',
+    note: '加载 Composer autoload，创建应用实例，把请求交给 HTTP Kernel。',
+  },
   { title: 'Bootstrap', tag: '启动', note: '加载配置、环境、异常处理和服务提供者，准备容器能力。' },
-  { title: 'Global Middleware', tag: '全局', note: '处理 CORS、代理、维护模式、字符串清理等跨请求能力。' },
-  { title: 'Route Match', tag: '路由', note: '根据 method、path、domain、prefix 定位路由和控制器。' },
-  { title: 'Route Middleware', tag: '路由组', note: '执行认证、授权、限流、租户、签名校验等规则。' },
-  { title: 'Controller / Action', tag: '业务入口', note: '接收已校验输入，调用应用服务，返回 Resource 或 Response。' },
-  { title: 'Response', tag: '回程', note: '中间件回程可追加 header、日志和响应包装，最终发送给客户端。' },
+  {
+    title: 'Global Middleware',
+    tag: '全局',
+    note: '处理 CORS、代理、维护模式、字符串清理等跨请求能力。',
+  },
+  {
+    title: 'Route Match',
+    tag: '路由',
+    note: '根据 method、path、domain、prefix 定位路由和控制器。',
+  },
+  {
+    title: 'Route Middleware',
+    tag: '路由组',
+    note: '执行认证、授权、限流、租户、签名校验等规则。',
+  },
+  {
+    title: 'Controller / Action',
+    tag: '业务入口',
+    note: '接收已校验输入，调用应用服务，返回 Resource 或 Response。',
+  },
+  {
+    title: 'Response',
+    tag: '回程',
+    note: '中间件回程可追加 header、日志和响应包装，最终发送给客户端。',
+  },
   { title: 'Terminate', tag: '收尾', note: '响应发送后执行轻量收尾逻辑，重任务应进入队列。' },
-]
+];
 
-const active = computed(() => stages[step.value])
-const progress = computed(() => `${(step.value / (stages.length - 1)) * 100}%`)
+const active = computed(() => stages[step.value]);
+const progress = computed(() => `${(step.value / (stages.length - 1)) * 100}%`);
 
 function next() {
-  step.value = (step.value + 1) % stages.length
+  step.value = (step.value + 1) % stages.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -91,7 +115,10 @@ function reset() {
   border-radius: 6px;
   background: var(--vp-c-bg);
   color: var(--vp-c-text-2);
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .stage-card.active {

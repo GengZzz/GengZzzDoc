@@ -51,6 +51,7 @@ WITH log_insert AS MATERIALIZED (
 )
 SELECT * FROM report_data;
 ```
+
 :::
 
 ### 可写 CTE

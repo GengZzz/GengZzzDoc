@@ -188,6 +188,7 @@ primary_conninfo = 'host=standby1-host port=5432 user=replicator'
 ```
 
 ::: tip 级联复制的用途
+
 - 减轻 Primary 的复制压力
 - 跨机房部署（Primary → 同机房 Standby → 跨机房 Standby）
 - 备份用（从 Standby 做 pg_basebackup，不影响 Primary）

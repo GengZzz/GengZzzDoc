@@ -22,6 +22,7 @@ System.out.println(list.indexOf("Java"));    // 0（第一次出现的位置）
 ```
 
 List 的三个核心特征：
+
 - **有序**：元素按照添加顺序排列。
 - **可重复**：同一个元素可以出现多次。
 - **索引访问**：通过整数下标获取、设置元素，下标从 0 开始。
@@ -112,6 +113,7 @@ public class ArrayListTraversal {
 ```java
 fruits.removeIf(f -> f.startsWith("B"));
 ```
+
 ::::
 
 ### 初始容量与扩容机制
@@ -149,6 +151,7 @@ public class ArrayListCapacity {
 // 预计存储 1000 个元素
 List<String> list = new ArrayList<>(1000);
 ```
+
 ::::
 
 ## LinkedList

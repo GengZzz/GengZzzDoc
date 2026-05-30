@@ -1,23 +1,27 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const cells = [10, 20, 30, 40, 50]
+const step = ref(0);
+const cells = [10, 20, 30, 40, 50];
 const states = [
-  { index: 0, expr: 'int *p = arr;', desc: '数组名 arr 在表达式中退化为 &arr[0]，p 指向第 0 个 int。' },
+  {
+    index: 0,
+    expr: 'int *p = arr;',
+    desc: '数组名 arr 在表达式中退化为 &arr[0]，p 指向第 0 个 int。',
+  },
   { index: 1, expr: 'p + 1', desc: 'p + 1 不是地址加 1 字节，而是前进 sizeof(int) 个字节。' },
   { index: 3, expr: '*(p + 3)', desc: 'p + 3 指向 arr[3]，解引用后得到 40。' },
-  { index: 5, expr: '&arr[5]', desc: '末尾后一位指针可以用于比较边界，但不能解引用。' }
-]
+  { index: 5, expr: '&arr[5]', desc: '末尾后一位指针可以用于比较边界，但不能解引用。' },
+];
 
-const current = computed(() => states[step.value])
+const current = computed(() => states[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % states.length
+  step.value = (step.value + 1) % states.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -114,7 +118,7 @@ function reset() {
 
 .cell.active {
   border-color: #f59e0b;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, .15);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
 .sentinel {
@@ -152,6 +156,8 @@ button {
 }
 
 @media (max-width: 760px) {
-  .memory-row { grid-template-columns: repeat(2, 1fr); }
+  .memory-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

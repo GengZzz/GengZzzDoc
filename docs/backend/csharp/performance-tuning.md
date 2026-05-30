@@ -54,6 +54,7 @@ BenchmarkRunner.Run<StringBenchmarks>();
 ```
 
 典型输出：
+
 ```
 |        Method |     Mean |   Error |  StdDev | Ratio | Allocated |
 |-------------- |---------:|--------:|--------:|------:|----------:|
@@ -63,6 +64,7 @@ BenchmarkRunner.Run<StringBenchmarks>();
 ```
 
 ::: tip BenchmarkDotNet 最佳实践
+
 1. 使用 `[MemoryDiagnoser]` 追踪分配
 2. 使用 `[Params]` 测试不同输入大小
 3. 使用 `[Benchmark(Baseline = true)]` 标记基准方法
@@ -130,6 +132,7 @@ finally
 ```
 
 ::: warning ArrayPool 的注意事项
+
 - 归还的数组内容不会被清零，注意信息泄露
 - `Return` 的 `clearArray` 参数控制是否清零（安全敏感场景设为 true）
 - 租用的数组可能比请求的大，不要假设长度
@@ -235,6 +238,7 @@ public static float SumVectorized(float[] array)
 ```
 
 ::: tip SIMD 的适用条件
+
 - 数据是连续的数组
 - 操作是独立的（每个元素的操作不依赖其他元素）
 - 数据量足够大（SIMD 启动有开销）
@@ -262,6 +266,7 @@ Span<Range> ranges = stackalloc Range[commaCount + 1];
 ```
 
 ::: warning Stackalloc 的限制
+
 - 只适合小数据量（默认栈大小 1 MB）
 - 大量 stackalloc 会导致栈溢出（StackOverflowException）
 - 不能在 async 方法中使用（栈帧可能在 await 后改变）

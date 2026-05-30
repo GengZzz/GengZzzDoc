@@ -1,46 +1,44 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const padding = ref(20)
-const border = ref(5)
-const margin = ref(20)
-const boxSizing = ref<'content-box' | 'border-box'>('content-box')
+const padding = ref(20);
+const border = ref(5);
+const margin = ref(20);
+const boxSizing = ref<'content-box' | 'border-box'>('content-box');
 
-const contentW = 200
+const contentW = 200;
 
 const totalWidth = computed(() => {
   if (boxSizing.value === 'content-box') {
-    return contentW + padding.value * 2 + border.value * 2
+    return contentW + padding.value * 2 + border.value * 2;
   }
-  return contentW
-})
+  return contentW;
+});
 
 const contentDisplay = computed(() => {
   if (boxSizing.value === 'content-box') {
-    return contentW
+    return contentW;
   }
-  return contentW - padding.value * 2 - border.value * 2
-})
+  return contentW - padding.value * 2 - border.value * 2;
+});
 
 const description = computed(() => {
   if (boxSizing.value === 'content-box') {
-    return `content-box（标准盒模型）：width = ${contentW}px 只定义内容区。总宽度 = ${contentW} + ${padding.value * 2}（padding） + ${border.value * 2}（border） = ${totalWidth.value}px。width 变大，元素也变大。`
+    return `content-box（标准盒模型）：width = ${contentW}px 只定义内容区。总宽度 = ${contentW} + ${padding.value * 2}（padding） + ${border.value * 2}（border） = ${totalWidth.value}px。width 变大，元素也变大。`;
   }
-  return `border-box（IE 盒模型）：width = ${contentW}px 包含 padding + border。内容区实际 = ${contentW} - ${padding.value * 2}（padding） - ${border.value * 2}（border） = ${contentDisplay.value}px。width 不变，元素大小固定。`
-})
+  return `border-box（IE 盒模型）：width = ${contentW}px 包含 padding + border。内容区实际 = ${contentW} - ${padding.value * 2}（padding） - ${border.value * 2}（border） = ${contentDisplay.value}px。width 不变，元素大小固定。`;
+});
 </script>
 
 <template>
   <div class="box-model-demo">
     <div class="sizing-toggle">
-      <button
-        :class="{ active: boxSizing === 'content-box' }"
-        @click="boxSizing = 'content-box'"
-      >content-box</button>
-      <button
-        :class="{ active: boxSizing === 'border-box' }"
-        @click="boxSizing = 'border-box'"
-      >border-box</button>
+      <button :class="{ active: boxSizing === 'content-box' }" @click="boxSizing = 'content-box'">
+        content-box
+      </button>
+      <button :class="{ active: boxSizing === 'border-box' }" @click="boxSizing = 'border-box'">
+        border-box
+      </button>
     </div>
 
     <div class="layers">
@@ -50,23 +48,35 @@ const description = computed(() => {
           <span class="label">border</span>
           <div class="layer padding-layer">
             <span class="label">padding</span>
-            <div class="layer content-layer">
-              {{ contentDisplay }}px
-            </div>
+            <div class="layer content-layer">{{ contentDisplay }}px</div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="controls">
-      <label>padding: <input type="range" min="0" max="50" v-model.number="padding" /><span>{{ padding }}px</span></label>
-      <label>border: <input type="range" min="0" max="20" v-model.number="border" /><span>{{ border }}px</span></label>
-      <label>margin: <input type="range" min="0" max="50" v-model.number="margin" /><span>{{ margin }}px</span></label>
+      <label
+        >padding: <input type="range" min="0" max="50" v-model.number="padding" /><span
+          >{{ padding }}px</span
+        ></label
+      >
+      <label
+        >border: <input type="range" min="0" max="20" v-model.number="border" /><span
+          >{{ border }}px</span
+        ></label
+      >
+      <label
+        >margin: <input type="range" min="0" max="50" v-model.number="margin" /><span
+          >{{ margin }}px</span
+        ></label
+      >
     </div>
 
     <div class="info-bar">
       <span>width: {{ contentW }}px</span>
-      <span>总宽度: <strong>{{ totalWidth }}px</strong></span>
+      <span
+        >总宽度: <strong>{{ totalWidth }}px</strong></span
+      >
     </div>
 
     <div class="status-bar">{{ description }}</div>
@@ -155,9 +165,15 @@ const description = computed(() => {
   opacity: 0.7;
 }
 
-.margin-layer > .label { color: #92400e; }
-.border-layer > .label { color: #5b21b6; }
-.padding-layer > .label { color: #065f46; }
+.margin-layer > .label {
+  color: #92400e;
+}
+.border-layer > .label {
+  color: #5b21b6;
+}
+.padding-layer > .label {
+  color: #065f46;
+}
 
 .controls {
   display: flex;
@@ -175,7 +191,9 @@ const description = computed(() => {
   font-family: var(--vp-font-family-mono);
 }
 
-.controls input[type="range"] { width: 100px; }
+.controls input[type='range'] {
+  width: 100px;
+}
 
 .controls span {
   font-size: 12px;
@@ -195,7 +213,9 @@ const description = computed(() => {
   margin-bottom: 10px;
 }
 
-.info-bar strong { color: #ef4444; }
+.info-bar strong {
+  color: #ef4444;
+}
 
 .status-bar {
   padding: 8px 12px;
@@ -207,6 +227,9 @@ const description = computed(() => {
 }
 
 @media (max-width: 560px) {
-  .controls { flex-direction: column; gap: 8px; }
+  .controls {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 </style>

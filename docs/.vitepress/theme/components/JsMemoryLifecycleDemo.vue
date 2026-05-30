@@ -1,24 +1,32 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 const states = [
   { refs: ['user'], removed: false, desc: '变量 user 指向堆对象，对象可达。' },
   { refs: ['user', 'listener'], removed: false, desc: '事件监听器闭包也引用对象，引用路径增加。' },
-  { refs: ['user', 'listener', 'timer'], removed: false, desc: '定时器引用回调，回调继续引用对象。' },
-  { refs: ['listener', 'timer'], removed: true, desc: '把 user 设为 null 后，对象仍可从监听器和定时器到达。' },
-  { refs: [], removed: true, desc: '清理监听器和定时器后，对象不可达，等待 GC 回收。' }
-]
+  {
+    refs: ['user', 'listener', 'timer'],
+    removed: false,
+    desc: '定时器引用回调，回调继续引用对象。',
+  },
+  {
+    refs: ['listener', 'timer'],
+    removed: true,
+    desc: '把 user 设为 null 后，对象仍可从监听器和定时器到达。',
+  },
+  { refs: [], removed: true, desc: '清理监听器和定时器后，对象不可达，等待 GC 回收。' },
+];
 
-const current = computed(() => states[step.value])
-const reachable = computed(() => current.value.refs.length > 0)
+const current = computed(() => states[step.value]);
+const reachable = computed(() => current.value.refs.length > 0);
 
 function next() {
-  step.value = (step.value + 1) % states.length
+  step.value = (step.value + 1) % states.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -27,9 +35,16 @@ function reset() {
     <div class="memory-grid">
       <section>
         <h4>引用路径</h4>
-        <div class="ref" :class="{ active: current.refs.includes('user'), removed: current.removed }">user 变量</div>
+        <div
+          class="ref"
+          :class="{ active: current.refs.includes('user'), removed: current.removed }"
+        >
+          user 变量
+        </div>
         <div class="ref" :class="{ active: current.refs.includes('listener') }">click listener</div>
-        <div class="ref" :class="{ active: current.refs.includes('timer') }">setInterval callback</div>
+        <div class="ref" :class="{ active: current.refs.includes('timer') }">
+          setInterval callback
+        </div>
       </section>
 
       <section>
@@ -100,12 +115,12 @@ h4 {
   border-style: solid;
   border-color: #38bdf8;
   color: #0284c7;
-  background: rgba(56, 189, 248, .08);
+  background: rgba(56, 189, 248, 0.08);
 }
 
 .ref.removed {
   text-decoration: line-through;
-  opacity: .45;
+  opacity: 0.45;
 }
 
 .object {
@@ -125,7 +140,7 @@ h4 {
 
 .object.unreachable {
   border-color: #10b981;
-  background: rgba(16, 185, 129, .08);
+  background: rgba(16, 185, 129, 0.08);
 }
 
 .object.unreachable strong {
@@ -143,7 +158,7 @@ h4 {
 .decision.collect {
   border-color: #10b981;
   color: #059669;
-  background: rgba(16, 185, 129, .08);
+  background: rgba(16, 185, 129, 0.08);
 }
 
 .status {
@@ -171,6 +186,8 @@ button {
 }
 
 @media (max-width: 720px) {
-  .memory-grid { grid-template-columns: 1fr; }
+  .memory-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

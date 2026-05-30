@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
 interface TxStep {
-  title: string
-  detail: string
+  title: string;
+  detail: string;
 }
 
-const step = ref(0)
-const mode = ref<'commit' | 'rollback' | 'self'>('commit')
+const step = ref(0);
+const mode = ref<'commit' | 'rollback' | 'self'>('commit');
 
 const normalSteps: TxStep[] = [
   { title: '调用代理对象', detail: 'Controller 或其他 Bean 调用的是 Spring 暴露的代理' },
-  { title: '进入 TransactionInterceptor', detail: '读取 @Transactional 的传播行为、隔离级别、回滚规则' },
+  {
+    title: '进入 TransactionInterceptor',
+    detail: '读取 @Transactional 的传播行为、隔离级别、回滚规则',
+  },
   { title: '开启或加入事务', detail: 'TransactionManager 获取连接并绑定到当前线程' },
   { title: '调用目标方法', detail: '执行业务代码、Repository、SQL 或 ORM 操作' },
   { title: '提交事务', detail: '目标方法正常返回，拦截器提交事务并释放资源' },
-]
+];
 
 const rollbackSteps: TxStep[] = [
   { title: '调用代理对象', detail: '调用先经过代理，事务增强有机会生效' },
@@ -23,7 +26,7 @@ const rollbackSteps: TxStep[] = [
   { title: '开启或加入事务', detail: '数据库连接参与当前事务上下文' },
   { title: '目标方法抛异常', detail: 'RuntimeException 或匹配 rollbackFor 的异常向外抛出' },
   { title: '回滚事务', detail: '拦截器执行 rollback，撤销未提交数据' },
-]
+];
 
 const selfSteps: TxStep[] = [
   { title: '调用普通方法', detail: '外部只调用了未标注事务的 outer()' },
@@ -31,33 +34,33 @@ const selfSteps: TxStep[] = [
   { title: '跳过拦截器', detail: 'TransactionInterceptor 没有被触发' },
   { title: '@Transactional 未生效', detail: 'inner() 上的事务配置不会开启新事务' },
   { title: '重构调用边界', detail: '把 inner() 放到另一个 Bean，或通过代理 Bean 调用' },
-]
+];
 
 const steps = computed(() => {
-  if (mode.value === 'rollback') return rollbackSteps
-  if (mode.value === 'self') return selfSteps
-  return normalSteps
-})
+  if (mode.value === 'rollback') return rollbackSteps;
+  if (mode.value === 'self') return selfSteps;
+  return normalSteps;
+});
 
-const current = computed(() => steps.value[step.value])
+const current = computed(() => steps.value[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % steps.value.length
+  step.value = (step.value + 1) % steps.value.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
 function setMode(nextMode: 'commit' | 'rollback' | 'self') {
-  mode.value = nextMode
-  step.value = 0
+  mode.value = nextMode;
+  step.value = 0;
 }
 
 function stateFor(index: number) {
-  if (index < step.value) return 'done'
-  if (index === step.value) return 'active'
-  return 'pending'
+  if (index < step.value) return 'done';
+  if (index === step.value) return 'active';
+  return 'pending';
 }
 </script>
 
@@ -69,7 +72,11 @@ function stateFor(index: number) {
         <button type="button" :class="{ selected: mode === 'commit' }" @click="setMode('commit')">
           commit
         </button>
-        <button type="button" :class="{ selected: mode === 'rollback' }" @click="setMode('rollback')">
+        <button
+          type="button"
+          :class="{ selected: mode === 'rollback' }"
+          @click="setMode('rollback')"
+        >
           rollback
         </button>
         <button type="button" :class="{ selected: mode === 'self' }" @click="setMode('self')">
@@ -105,7 +112,13 @@ function stateFor(index: number) {
         <span>目标方法</span>
         <small>orderService.pay()</small>
       </div>
-      <div class="database" :class="{ committed: mode === 'commit' && step === 4, rolled: mode === 'rollback' && step === 4 }">
+      <div
+        class="database"
+        :class="{
+          committed: mode === 'commit' && step === 4,
+          rolled: mode === 'rollback' && step === 4,
+        }"
+      >
         <span>Database</span>
         <small>{{ mode === 'rollback' && step === 4 ? 'rollback' : 'transaction context' }}</small>
       </div>
@@ -115,7 +128,9 @@ function stateFor(index: number) {
       <div class="class-box">
         <span class="method" :class="{ active: step === 0 }">outer()</span>
         <span class="self-arrow" :class="{ active: step >= 1 }">this.inner()</span>
-        <span class="method transactional" :class="{ active: step >= 3 }">@Transactional inner()</span>
+        <span class="method transactional" :class="{ active: step >= 3 }"
+          >@Transactional inner()</span
+        >
       </div>
       <div class="bypass" :class="{ active: step >= 2 }">
         <strong>没有经过代理</strong>
@@ -192,7 +207,10 @@ function stateFor(index: number) {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
 .pipe-node.active {

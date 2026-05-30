@@ -81,9 +81,11 @@ poetry run python main.py
 
 ::: warning 警告
 poetry 默认将虚拟环境存储在全局目录（`~/.cache/pypoetry/virtualenvs`）。如果希望虚拟环境在项目目录下，运行：
+
 ```bash
 poetry config virtualenvs.in-project true
 ```
+
 :::
 
 ## IDE 配置

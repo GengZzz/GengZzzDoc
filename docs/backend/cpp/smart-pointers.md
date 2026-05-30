@@ -75,11 +75,13 @@ shared_ptr<int> b = a;  // a 和 b 共享同一个控制块
 
 ::: warning 警告
 不要用裸指针创建多个 `shared_ptr`，它们各自拥有独立的控制块，会导致重复释放：
+
 ```cpp
 int* raw = new int(42);
 shared_ptr<int> s1(raw);
 shared_ptr<int> s2(raw); // 危险！两个独立的控制块
 ```
+
 :::
 
 ## weak_ptr：打破循环引用

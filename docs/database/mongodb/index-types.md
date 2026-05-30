@@ -96,6 +96,7 @@ db.articles.find(
 ```
 
 ::: warning 文本索引限制
+
 - 每个集合只能有一个文本索引
 - 文本索引不支持前缀匹配和正则
 - 中文分词效果有限（按字符分词，非语义分词）
@@ -161,6 +162,7 @@ db.verification_codes.createIndex({ createdAt: 1 }, { expireAfterSeconds: 300 })
 ```
 
 ::: warning TTL 索引注意事项
+
 - TTL 索引只能是单字段索引
 - 索引字段必须是 Date 类型
 - MongoDB 的 TTL 后台线程每 60 秒运行一次，不保证精确到秒级删除

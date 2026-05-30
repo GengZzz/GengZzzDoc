@@ -87,6 +87,7 @@ foreach (var handler in logger.GetInvocationList())
     }
 }
 ```
+
 :::
 
 ## 事件
@@ -149,6 +150,7 @@ public class OrderNotifier : IDisposable
     private void OnOrderCreated(object sender, OrderEventArgs e) { }
 }
 ```
+
 :::
 
 ## Lambda 表达式

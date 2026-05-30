@@ -251,6 +251,7 @@ extractHeadings(md);
 ```
 
 ::: tip 性能注意事项
+
 - 避免在循环中反复创建正则对象，提取为常量
 - 警惕回溯爆炸：嵌套量词如 `(a+)+b` 匹配长字符串可能超时
 - 简单字符串操作（`includes`、`startsWith`、`indexOf`）比正则更快

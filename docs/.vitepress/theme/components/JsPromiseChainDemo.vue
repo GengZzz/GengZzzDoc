@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const stages = computed(() => {
-  const s = step.value
+  const s = step.value;
   return [
     { label: 'new Promise', active: s >= 1, desc: '创建 Promise 对象' },
     { label: 'executor 同步执行', active: s >= 1, desc: 'executor 函数立即执行' },
     { label: 'resolve(value)', active: s >= 2, desc: '调用 resolve，状态变为 fulfilled' },
     { label: 'then(onFulfilled)', active: s >= 3, desc: '注册 onFulfilled 回调' },
     { label: '回调入微任务队列', active: s >= 4, desc: 'onFulfilled 进入微任务队列等待执行' },
-    { label: '执行回调返回值', active: s >= 5, desc: '微任务阶段执行，返回值传递给下一个 then' }
-  ]
-})
+    { label: '执行回调返回值', active: s >= 5, desc: '微任务阶段执行，返回值传递给下一个 then' },
+  ];
+});
 
 const chainDisplay = computed(() => {
-  const s = step.value
+  const s = step.value;
   return {
     pending: s === 0,
     executor: s >= 1,
     resolved: s >= 2,
     thenRegistered: s >= 3,
     callbackQueued: s >= 4,
-    callbackExecuted: s >= 5
-  }
-})
+    callbackExecuted: s >= 5,
+  };
+});
 
 const description = computed(() => {
   const descs = [
@@ -35,29 +35,24 @@ const description = computed(() => {
     'resolve 被调用，Promise 状态变为 fulfilled，保存 value',
     'then 注册 onFulfilled 回调',
     '回调进入微任务队列，等待同步代码和微任务清空',
-    '微任务阶段执行回调，返回值作为下一个 then 的输入'
-  ]
-  return descs[step.value]
-})
+    '微任务阶段执行回调，返回值作为下一个 then 的输入',
+  ];
+  return descs[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="promise-demo">
     <div class="pipeline">
-      <div
-        v-for="(stage, i) in stages"
-        :key="i"
-        class="stage"
-        :class="{ active: stage.active }"
-      >
+      <div v-for="(stage, i) in stages" :key="i" class="stage" :class="{ active: stage.active }">
         <div class="stage-num">{{ i + 1 }}</div>
         <div class="stage-content">
           <div class="stage-label">{{ stage.label }}</div>
@@ -201,9 +196,15 @@ p.then(value => {     // ← 回调注册
   color: #10b981;
 }
 
-.state.fulfilled { color: #10b981; }
-.state.rejected { color: #ef4444; }
-.state.dimmed { opacity: 0.25; }
+.state.fulfilled {
+  color: #10b981;
+}
+.state.rejected {
+  color: #ef4444;
+}
+.state.dimmed {
+  opacity: 0.25;
+}
 
 .state-arrow {
   color: var(--vp-c-text-3);
@@ -248,7 +249,11 @@ button {
 }
 
 @media (max-width: 560px) {
-  .pipeline { flex-direction: column; }
-  .arrow { transform: rotate(90deg); }
+  .pipeline {
+    flex-direction: column;
+  }
+  .arrow {
+    transform: rotate(90deg);
+  }
 }
 </style>

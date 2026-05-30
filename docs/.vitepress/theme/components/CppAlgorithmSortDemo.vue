@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const original = [5, 2, 8, 1, 4]
-const step = ref(0)
+const original = [5, 2, 8, 1, 4];
+const step = ref(0);
 
 const states = [
   [5, 2, 8, 1, 4],
   [2, 5, 8, 1, 4],
   [2, 5, 1, 8, 4],
   [2, 1, 5, 8, 4],
-  [1, 2, 4, 5, 8]
-]
+  [1, 2, 4, 5, 8],
+];
 
-const values = computed(() => states[step.value])
+const values = computed(() => states[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % states.length
+  step.value = (step.value + 1) % states.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 

@@ -208,6 +208,7 @@ db.createUser({
 | `root` | 超级管理员（所有权限） |
 
 ::: warning 最小权限原则
+
 - 应用账户只授予 `readWrite` 到业务数据库
 - 不要给应用账户 `root` 或 `clusterAdmin`
 - 运维操作使用独立的运维账户
@@ -291,6 +292,7 @@ db.adminCommand({
 ```
 
 ::: tip 安全检查清单
+
 1. 开启认证（`security.authorization: enabled`）
 2. 绑定内网 IP（`net.bindIp` 不要设为 `0.0.0.0`）
 3. 启用 TLS 传输加密

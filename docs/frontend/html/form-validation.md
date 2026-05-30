@@ -35,6 +35,7 @@
 ```
 
 ::: tip minlength 与 required 的区别
+
 - `required`：字段不能为空
 - `minlength="2"`：字段可以为空，但如果有值则至少 2 个字符
 - 两者可以组合使用
@@ -75,6 +76,7 @@
 ```
 
 ::: warning pattern 的注意事项
+
 - `pattern` 默认匹配整个值（隐式 `^...$`）
 - 如果值为空且没有 `required`，不会触发验证
 - `pattern` 仅对 `text`、`search`、`url`、`tel`、`email`、`password` 类型有效
@@ -104,6 +106,7 @@
 ```
 
 ::: tip inputmode vs type
+
 - `type="email"` 会触发邮箱格式验证
 - `inputmode="email"` 只改变键盘布局，不触发验证
 - 当你需要自定义键盘但不想用浏览器的验证时，用 `inputmode`

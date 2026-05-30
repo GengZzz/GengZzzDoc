@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const maxStep = 8
+const step = ref(0);
+const maxStep = 8;
 
 const steps = [
   { label: '字节流', desc: '浏览器从服务器接收 HTTP 响应的原始字节流' },
@@ -12,14 +12,14 @@ const steps = [
   { label: 'CSSOM 树', desc: 'CSS 文件被解析为 CSSOM 树' },
   { label: '渲染树', desc: 'DOM + CSSOM 合并为 Render Tree (跳过 display:none)' },
   { label: '布局', desc: '计算每个节点的几何位置 (x, y, width, height)' },
-  { label: '绘制', desc: '将像素填充到多个图层，由 GPU 合成到屏幕' }
-]
+  { label: '绘制', desc: '将像素填充到多个图层，由 GPU 合成到屏幕' },
+];
 
-const currentStep = computed(() => step.value)
-const stepInfo = computed(() => steps[step.value] || steps[0])
+const currentStep = computed(() => step.value);
+const stepInfo = computed(() => steps[step.value] || steps[0]);
 
 const tokens = computed(() => {
-  if (step.value < 3) return []
+  if (step.value < 3) return [];
   return [
     { type: 'StartTag', value: '<html>' },
     { type: 'StartTag', value: '<body>' },
@@ -27,55 +27,56 @@ const tokens = computed(() => {
     { type: 'Text', value: '"Hello"' },
     { type: 'EndTag', value: '</h1>' },
     { type: 'EndTag', value: '</body>' },
-    { type: 'EndTag', value: '</html>' }
-  ]
-})
+    { type: 'EndTag', value: '</html>' },
+  ];
+});
 
 const domNodes = computed(() => {
-  if (step.value < 4) return []
+  if (step.value < 4) return [];
   return [
-    { label: 'html', children: [
-      { label: 'body', children: [
-        { label: 'h1', children: [{ label: 'Hello', leaf: true }] }
-      ]}
-    ]}
-  ]
-})
+    {
+      label: 'html',
+      children: [
+        { label: 'body', children: [{ label: 'h1', children: [{ label: 'Hello', leaf: true }] }] },
+      ],
+    },
+  ];
+});
 
 const cssomNodes = computed(() => {
-  if (step.value < 5) return []
+  if (step.value < 5) return [];
   return [
     { label: 'body', rule: 'margin: 0' },
-    { label: 'h1', rule: 'font-size: 24px; color: #1f2937' }
-  ]
-})
+    { label: 'h1', rule: 'font-size: 24px; color: #1f2937' },
+  ];
+});
 
 const renderTreeNodes = computed(() => {
-  if (step.value < 6) return []
+  if (step.value < 6) return [];
   return [
     { label: 'body', box: '0,0 800×600' },
-    { label: 'h1', box: '0,0 800×32' }
-  ]
-})
+    { label: 'h1', box: '0,0 800×32' },
+  ];
+});
 
 const layoutBoxes = computed(() => {
-  if (step.value < 7) return []
+  if (step.value < 7) return [];
   return [
     { label: 'body', x: 0, y: 0, w: 800, h: 600 },
-    { label: 'h1', x: 0, y: 0, w: 800, h: 32 }
-  ]
-})
+    { label: 'h1', x: 0, y: 0, w: 800, h: 32 },
+  ];
+});
 
 function next() {
-  if (step.value < maxStep) step.value++
+  if (step.value < maxStep) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
-const bytesRaw = '3C 68 74 6D 6C 3E 3C 62 6F 64 79 3E 3C 68 31 3E 48 65 6C 6C 6F 3C 2F 68 31 3E'
-const decodedStr = '<html><body><h1>Hello</h1></body></html>'
+const bytesRaw = '3C 68 74 6D 6C 3E 3C 62 6F 64 79 3E 3C 68 31 3E 48 65 6C 6C 6F 3C 2F 68 31 3E';
+const decodedStr = '<html><body><h1>Hello</h1></body></html>';
 </script>
 
 <template>
@@ -205,10 +206,10 @@ const decodedStr = '<html><body><h1>Hello</h1></body></html>'
             :key="box.label"
             class="layout-box"
             :style="{
-              left: (box.x / 800 * 100) + '%',
-              top: (box.y / 600 * 100) + '%',
-              width: (box.w / 800 * 100) + '%',
-              height: box.label === 'h1' ? '32px' : '100%'
+              left: (box.x / 800) * 100 + '%',
+              top: (box.y / 600) * 100 + '%',
+              width: (box.w / 800) * 100 + '%',
+              height: box.label === 'h1' ? '32px' : '100%',
             }"
           >
             <span>{{ box.label }} ({{ box.w }}x{{ box.h }})</span>
@@ -312,7 +313,10 @@ const decodedStr = '<html><body><h1>Hello</h1></body></html>'
   gap: 12px;
 }
 
-.bytes-box, .decode-from, .str-box, .token-list {
+.bytes-box,
+.decode-from,
+.str-box,
+.token-list {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -330,7 +334,8 @@ const decodedStr = '<html><body><h1>Hello</h1></body></html>'
   border-radius: 2px;
 }
 
-.arrow-down, .decode-arrow {
+.arrow-down,
+.decode-arrow {
   text-align: center;
   padding: 6px;
   color: var(--vp-c-text-2);
@@ -352,9 +357,18 @@ const decodedStr = '<html><body><h1>Hello</h1></body></html>'
   font-size: 11px;
 }
 
-.token.start { background: #3b82f6; color: #fff; }
-.token.end { background: #ef4444; color: #fff; }
-.token.text { background: #f59e0b; color: #000; }
+.token.start {
+  background: #3b82f6;
+  color: #fff;
+}
+.token.end {
+  background: #ef4444;
+  color: #fff;
+}
+.token.text {
+  background: #f59e0b;
+  color: #000;
+}
 
 .tree {
   padding: 8px;
@@ -375,19 +389,33 @@ const decodedStr = '<html><body><h1>Hello</h1></body></html>'
   margin: 4px 0;
 }
 
-.dom-node { background: #dbeafe; color: #1d4ed8; }
-.cssom-node { background: #fce7f3; color: #be185d; }
-.render-node { background: #d1fae5; color: #065f46; }
-.leaf-node { background: #fef3c7; color: #92400e; }
+.dom-node {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.cssom-node {
+  background: #fce7f3;
+  color: #be185d;
+}
+.render-node {
+  background: #d1fae5;
+  color: #065f46;
+}
+.leaf-node {
+  background: #fef3c7;
+  color: #92400e;
+}
 
-.cssom-item, .render-item {
+.cssom-item,
+.render-item {
   display: flex;
   align-items: center;
   gap: 8px;
   margin: 4px 0;
 }
 
-.cssom-rule, .render-box {
+.cssom-rule,
+.render-box {
   font-size: 11px;
   font-family: monospace;
   color: var(--vp-c-text-2);
@@ -444,8 +472,14 @@ const decodedStr = '<html><body><h1>Hello</h1></body></html>'
   text-align: center;
 }
 
-.layer-bg { background: #e0e7ff; color: #3730a3; }
-.layer-text { background: #fce7f3; color: #9d174d; }
+.layer-bg {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+.layer-text {
+  background: #fce7f3;
+  color: #9d174d;
+}
 .layer-composite {
   background: #d1fae5;
   color: #065f46;

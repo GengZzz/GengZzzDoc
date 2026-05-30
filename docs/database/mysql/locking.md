@@ -120,6 +120,7 @@ SELECT * FROM users WHERE id = 10 FOR UPDATE;
 
 ::: tip Next-Key Lock 的退化
 InnoDB 对 Next-Key Lock 有自动优化机制：
+
 - 如果查询条件使用**唯一索引**且命中**单条记录**，Next-Key Lock 退化为 Record Lock（不需要锁间隙）
 - 如果查询条件命中**范围查询**，仍然使用 Next-Key Lock
 
@@ -132,6 +133,7 @@ SELECT * FROM users WHERE id = 10 FOR UPDATE;
 SELECT * FROM users WHERE name = 'Alice' FOR UPDATE;
 -- Next-Key Lock: 锁定 name='Alice' 的记录及其前后间隙
 ```
+
 :::
 
 ## 插入意向锁 (Insert Intention Lock)
@@ -152,6 +154,7 @@ INSERT INTO users (id, name) VALUES (7, 'Test');
 ```
 
 ::: tip 插入意向锁与其他锁的关系
+
 - 插入意向锁之间**不冲突**（不同事务可以在同一间隙的不同位置插入）
 - 插入意向锁与间隙锁**冲突**（间隙锁阻止所有插入）
 - 插入意向锁是导致死锁的常见原因之一

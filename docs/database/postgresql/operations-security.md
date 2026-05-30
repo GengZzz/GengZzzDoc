@@ -99,6 +99,7 @@ systemctl start postgresql
 ```
 
 ::: tip PITR 恢复目标
+
 - `recovery_target_time`：恢复到指定时间
 - `recovery_target_lsn`：恢复到指定 WAL 位置
 - `recovery_target_name`：恢复到命名恢复点（`pg_create_restore_point()` 创建）
@@ -131,6 +132,7 @@ SELECT usename, client_addr, auth_method FROM pg_stat_activity;
 ```
 
 ::: warning 生产环境安全
+
 - 禁止 `trust` 认证（本地连接也不推荐）
 - 使用 `scram-sha-256` 代替 `md5`
 - 限制允许的 IP 范围（`host all all 10.0.0.0/8 scram-sha-256`）
@@ -278,6 +280,7 @@ ORDER BY age(datfrozenxid) DESC;
 ```
 
 ::: tip 监控工具推荐
+
 - **pgwatch2**：开箱即用的 PostgreSQL 监控，基于 Grafana
 - **Prometheus + postgres_exporter**：云原生监控方案
 - **pgBadger**：日志分析工具，生成 HTML 报告

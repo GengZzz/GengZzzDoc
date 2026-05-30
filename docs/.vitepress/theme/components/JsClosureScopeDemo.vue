@@ -1,49 +1,49 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 const steps = [
   {
     title: '准备阶段',
     desc: '全局作用域里只有 createCounter 函数声明，还没有 count。',
     stack: ['global'],
-    active: 'global'
+    active: 'global',
   },
   {
     title: '调用 createCounter',
     desc: '函数入栈，创建词法环境，局部变量 count 初始化为 0。',
     stack: ['global', 'createCounter()'],
-    active: 'outer'
+    active: 'outer',
   },
   {
     title: '创建 increment',
     desc: 'increment 函数在 createCounter 内部创建，因此记录了 Outer Lexical Env 的引用。',
     stack: ['global', 'createCounter()'],
-    active: 'function'
+    active: 'function',
   },
   {
     title: '返回函数',
     desc: 'createCounter 出栈，但返回的 increment 仍然被 counter 变量引用。',
     stack: ['global'],
-    active: 'closure'
+    active: 'closure',
   },
   {
     title: '再次调用',
     desc: 'counter() 入栈，通过闭包引用找到 count，把 0 更新为 1。',
     stack: ['global', 'counter()'],
-    active: 'count'
-  }
-]
+    active: 'count',
+  },
+];
 
-const current = computed(() => steps[step.value])
-const countValue = computed(() => (step.value === 4 ? 1 : 0))
+const current = computed(() => steps[step.value]);
+const countValue = computed(() => (step.value === 4 ? 1 : 0));
 
 function next() {
-  step.value = (step.value + 1) % steps.length
+  step.value = (step.value + 1) % steps.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -71,7 +71,10 @@ function reset() {
         <div class="connector" :class="{ active: step >= 2 }">
           <span>[[Environment]]</span>
         </div>
-        <div class="env outer" :class="{ active: ['outer', 'closure', 'count'].includes(current.active) }">
+        <div
+          class="env outer"
+          :class="{ active: ['outer', 'closure', 'count'].includes(current.active) }"
+        >
           Outer Lexical Env
           <span :class="{ changed: current.active === 'count' }">count = {{ countValue }}</span>
         </div>
@@ -79,11 +82,16 @@ function reset() {
 
       <section class="panel">
         <h4>函数对象</h4>
-        <div class="fn" :class="{ active: ['function', 'closure', 'count'].includes(current.active) }">
+        <div
+          class="fn"
+          :class="{ active: ['function', 'closure', 'count'].includes(current.active) }"
+        >
           increment()
           <span>读取并更新 count</span>
         </div>
-        <div class="note" :class="{ active: current.active === 'closure' }">函数返回后，环境没有被释放</div>
+        <div class="note" :class="{ active: current.active === 'closure' }">
+          函数返回后，环境没有被释放
+        </div>
       </section>
     </div>
 
@@ -180,7 +188,7 @@ h4 {
 .active {
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, .14);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
 }
 
 .outer .changed {
@@ -241,6 +249,8 @@ button {
 }
 
 @media (max-width: 720px) {
-  .demo-grid { grid-template-columns: 1fr; }
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

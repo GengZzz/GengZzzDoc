@@ -238,6 +238,7 @@ Thread.sleep(ONE_DAY_MS);
 4. **移动方法**（Move Method）：把方法移到更合适的类中。
 
 安全重构的步骤：
+
 1. 确认当前代码有测试覆盖（或先写测试）
 2. 做一个小改动
 3. 运行测试确认行为不变
@@ -375,6 +376,7 @@ public class ReportService {
 ```
 
 重构效果：
+
 - 数据库连接逻辑只存在于 `DatabaseService` 中
 - 格式化逻辑只存在于 `ReportFormatter` 中
 - `ReportService` 只负责组合查询和格式化

@@ -195,10 +195,12 @@ CREATE TABLE orders_00 (
 ```
 
 优点：
+
 - 实现简单，新数据自然写入最新的分片
 - 范围查询效率高（如查询最近一个月的订单）
 
 缺点：
+
 - 数据分布可能不均匀（热点集中在最新分片）
 - 单个分片可能成为写入瓶颈
 
@@ -224,10 +226,12 @@ function getShardTable(orderId) {
 ```
 
 优点：
+
 - 数据分布均匀
 - 写入压力分散到多个分片
 
 缺点：
+
 - 范围查询需要访问所有分片
 - 扩容时需要迁移大量数据
 
@@ -418,6 +422,7 @@ total_sum = sum_0 + sum_1 + sum_2 + sum_3
 total_count = count_0 + count_1 + count_2 + count_3
 avg = total_sum / total_count
 ```
+
 :::
 
 ## 分布式 ID 方案
@@ -638,6 +643,7 @@ rules:
 YouTube 开源的数据库分片方案，基于 Proxy + Kubernetes。
 
 特点：
+
 - 支持自动分片和在线扩缩容
 - 连接池和查询合并
 - 与 Kubernetes 深度集成

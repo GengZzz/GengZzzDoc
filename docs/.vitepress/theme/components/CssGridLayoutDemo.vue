@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const templateColumns = ref('1fr 2fr 1fr')
-const templateRows = ref('auto')
-const gap = ref('12')
-const gridAreas = ref(false)
+const templateColumns = ref('1fr 2fr 1fr');
+const templateRows = ref('auto');
+const gap = ref('12');
+const gridAreas = ref(false);
 
 const colCount = computed(() => {
-  return templateColumns.value.trim().split(/\s+/).length
-})
+  return templateColumns.value.trim().split(/\s+/).length;
+});
 
 const containerStyle = computed(() => {
   const style: Record<string, string> = {
@@ -19,16 +19,16 @@ const containerStyle = computed(() => {
     border: '2px dashed #43a047',
     borderRadius: '8px',
     background: '#f1f8e9',
-    minHeight: '180px'
-  }
+    minHeight: '180px',
+  };
   if (templateRows.value !== 'auto') {
-    style.gridTemplateRows = templateRows.value
+    style.gridTemplateRows = templateRows.value;
   }
   if (gridAreas.value) {
-    style.gridTemplateAreas = '"header header header" "sidebar main main" "footer footer footer"'
+    style.gridTemplateAreas = '"header header header" "sidebar main main" "footer footer footer"';
   }
-  return style
-})
+  return style;
+});
 
 const gridItems = computed(() => {
   if (gridAreas.value) {
@@ -36,41 +36,41 @@ const gridItems = computed(() => {
       { label: 'Header', area: 'header', bg: '#e3f2fd', h: '50px' },
       { label: 'Sidebar', area: 'sidebar', bg: '#fff3e0', h: '120px' },
       { label: 'Main', area: 'main', bg: '#e8f5e9', h: '120px' },
-      { label: 'Footer', area: 'footer', bg: '#fce4ec', h: '50px' }
-    ]
+      { label: 'Footer', area: 'footer', bg: '#fce4ec', h: '50px' },
+    ];
   }
-  const colors = ['#e3f2fd', '#fff3e0', '#e8f5e9', '#fce4ec', '#f3e5f5', '#e0f7fa']
+  const colors = ['#e3f2fd', '#fff3e0', '#e8f5e9', '#fce4ec', '#f3e5f5', '#e0f7fa'];
   return Array.from({ length: colCount.value * 2 }, (_, i) => ({
     label: String(i + 1),
     area: '',
     bg: colors[i % colors.length],
-    h: '60px'
-  }))
-})
+    h: '60px',
+  }));
+});
 
 const presets = [
   { label: '三等分', cols: '1fr 1fr 1fr' },
   { label: '侧边栏+主内容', cols: '250px 1fr' },
   { label: '圣杯布局', cols: '200px 1fr 200px' },
   { label: 'auto-fill', cols: 'repeat(auto-fill, minmax(120px, 1fr))' },
-  { label: 'auto-fit', cols: 'repeat(auto-fit, minmax(120px, 1fr))' }
-]
+  { label: 'auto-fit', cols: 'repeat(auto-fit, minmax(120px, 1fr))' },
+];
 
 const codeSnippet = computed(() => {
   let code = `.grid-container {
   display: grid;
   grid-template-columns: ${templateColumns.value};
-  gap: ${gap.value}px;`
+  gap: ${gap.value}px;`;
   if (gridAreas.value) {
     code += `
   grid-template-areas:
     "header header header"
     "sidebar main main"
-    "footer footer footer";`
+    "footer footer footer";`;
   }
-  code += '\n}'
-  return code
-})
+  code += '\n}';
+  return code;
+});
 </script>
 
 <template>
@@ -85,7 +85,9 @@ const codeSnippet = computed(() => {
           :key="p.label"
           :class="{ selected: templateColumns === p.cols }"
           @click="templateColumns = p.cols"
-        >{{ p.label }}</button>
+        >
+          {{ p.label }}
+        </button>
       </div>
       <input v-model="templateColumns" class="col-input" placeholder="如: 1fr 2fr 1fr" />
     </div>
@@ -113,7 +115,7 @@ const codeSnippet = computed(() => {
           borderRadius: '6px',
           fontWeight: 'bold',
           fontSize: '14px',
-          border: '1px solid rgba(0,0,0,0.1)'
+          border: '1px solid rgba(0,0,0,0.1)',
         }"
       >
         {{ item.label }}
@@ -177,7 +179,7 @@ const codeSnippet = computed(() => {
   font-size: 14px;
   flex-wrap: wrap;
 }
-.controls-row input[type="range"] {
+.controls-row input[type='range'] {
   vertical-align: middle;
 }
 .code-output {

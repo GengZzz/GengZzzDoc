@@ -1,23 +1,53 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 const states = [
-  { input: '', used: 0, secret: '42', ret: '0x401180', desc: 'buf[8]、secret、返回地址在同一个栈帧附近。' },
-  { input: 'HELLO', used: 5, secret: '42', ret: '0x401180', desc: '输入 5 个字符加 \\0，仍然落在 buf 边界内。' },
-  { input: 'AAAAAAAA', used: 8, secret: '42', ret: '0x401180', desc: '8 个字符已经填满 buf，再写终止符就会越界。' },
-  { input: 'AAAAAAAABBBB', used: 12, secret: 'BBBB', ret: '0x401180', desc: '继续写入会覆盖相邻变量 secret。' },
-  { input: 'AAAAAAAABBBBBBBBCCCC', used: 20, secret: 'BBBB', ret: 'CCCCCCCC', desc: '更长输入可能覆盖保存的返回地址，形成严重漏洞。' }
-]
+  {
+    input: '',
+    used: 0,
+    secret: '42',
+    ret: '0x401180',
+    desc: 'buf[8]、secret、返回地址在同一个栈帧附近。',
+  },
+  {
+    input: 'HELLO',
+    used: 5,
+    secret: '42',
+    ret: '0x401180',
+    desc: '输入 5 个字符加 \\0，仍然落在 buf 边界内。',
+  },
+  {
+    input: 'AAAAAAAA',
+    used: 8,
+    secret: '42',
+    ret: '0x401180',
+    desc: '8 个字符已经填满 buf，再写终止符就会越界。',
+  },
+  {
+    input: 'AAAAAAAABBBB',
+    used: 12,
+    secret: 'BBBB',
+    ret: '0x401180',
+    desc: '继续写入会覆盖相邻变量 secret。',
+  },
+  {
+    input: 'AAAAAAAABBBBBBBBCCCC',
+    used: 20,
+    secret: 'BBBB',
+    ret: 'CCCCCCCC',
+    desc: '更长输入可能覆盖保存的返回地址，形成严重漏洞。',
+  },
+];
 
-const current = computed(() => states[step.value])
+const current = computed(() => states[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % states.length
+  step.value = (step.value + 1) % states.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -75,7 +105,7 @@ function reset() {
 
 .frame {
   display: grid;
-  grid-template-columns: 1.2fr .9fr .9fr 1.2fr;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr 1.2fr;
   gap: 8px;
   padding: 12px;
   border: 1px solid var(--vp-c-divider);
@@ -108,7 +138,7 @@ function reset() {
 .corrupted {
   border-color: #ef4444;
   color: #dc2626;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, .12);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
 }
 
 .desc {
@@ -136,6 +166,8 @@ button {
 }
 
 @media (max-width: 760px) {
-  .frame { grid-template-columns: 1fr; }
+  .frame {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

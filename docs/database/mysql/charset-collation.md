@@ -23,6 +23,7 @@
 **MySQL 的 `utf8`**：每个字符最多只用 3 个字节，实际上是 **UTF-8MB3**，无法表示 4 字节的 Unicode 字符。
 
 这意味着 MySQL 的 `utf8` 字符集**无法存储以下字符**：
+
 - Emoji 表情（如 😀🎉💯）
 - 部分生僻汉字（如 𠀀 𠮷）
 - 一些数学符号和特殊符号
@@ -55,6 +56,7 @@ INSERT INTO test_utf8mb4 VALUES (1, 'Hello 😀');
 ```sql
 CREATE DATABASE mydb DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
+
 :::
 
 ---
@@ -312,6 +314,7 @@ ALTER TABLE old_table MODIFY content VARCHAR(100) CHARACTER SET utf8mb4;
 ```
 
 ::: danger 修复乱码的注意事项
+
 1. **先备份数据**：修改字符集可能造成数据丢失
 2. **确认数据实际编码**：如果数据本身就是乱码存储的，修改字符集声明不会修复数据
 3. **CONVERT vs MODIFY**：

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const stepLabels = [
   '请求到达协调节点',
@@ -10,43 +10,43 @@ const stepLabels = [
   '写入 Buffer + Translog',
   'Refresh 生成 Segment',
   'Flush 持久化',
-  '同步到 Replica Shard'
-]
+  '同步到 Replica Shard',
+];
 
 const shards = computed(() => {
-  if (step.value < 6) return { primary: true, replicas: false }
-  return { primary: true, replicas: true }
-})
+  if (step.value < 6) return { primary: true, replicas: false };
+  return { primary: true, replicas: true };
+});
 
 const bufferState = computed(() => {
-  if (step.value < 3) return 'empty'
-  if (step.value === 3) return 'writing'
-  if (step.value >= 4) return 'refreshed'
-  return 'empty'
-})
+  if (step.value < 3) return 'empty';
+  if (step.value === 3) return 'writing';
+  if (step.value >= 4) return 'refreshed';
+  return 'empty';
+});
 
 const translogState = computed(() => {
-  if (step.value < 3) return 'empty'
-  if (step.value < 5) return 'active'
-  return 'flushed'
-})
+  if (step.value < 3) return 'empty';
+  if (step.value < 5) return 'active';
+  return 'flushed';
+});
 
 const segmentState = computed(() => {
-  if (step.value < 4) return 'none'
-  if (step.value === 4) return 'new'
-  return 'merged'
-})
+  if (step.value < 4) return 'none';
+  if (step.value === 4) return 'new';
+  return 'merged';
+});
 
 function next() {
-  if (step.value < totalSteps) step.value++
+  if (step.value < totalSteps) step.value++;
 }
 
 function prev() {
-  if (step.value > 0) step.value--
+  if (step.value > 0) step.value--;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -58,7 +58,9 @@ function reset() {
         :key="i"
         class="step-dot"
         :class="{ active: step === i, done: step > i }"
-      >{{ i + 1 }}</div>
+      >
+        {{ i + 1 }}
+      </div>
     </div>
     <div class="step-label">{{ stepLabels[step] || '开始' }}</div>
 
@@ -130,10 +132,7 @@ function reset() {
       <!-- Segments -->
       <div class="state-card">
         <h4>Segments</h4>
-        <div
-          class="state-content"
-          :class="{ active: segmentState !== 'none' }"
-        >
+        <div class="state-content" :class="{ active: segmentState !== 'none' }">
           <template v-if="segmentState === 'none'">尚无 Segment</template>
           <template v-else-if="segmentState === 'new'">
             <div class="seg seg-new">Segment_0 (新)</div>
@@ -155,7 +154,9 @@ function reset() {
         <div class="shard replica" :class="{ synced: shards.replicas }">R1</div>
         <div class="shard replica" :class="{ synced: shards.replicas }">R2</div>
       </div>
-      <div class="hint" v-if="shards.replicas">Primary Shard 将请求转发给所有 Replica，全部确认后返回客户端</div>
+      <div class="hint" v-if="shards.replicas">
+        Primary Shard 将请求转发给所有 Replica，全部确认后返回客户端
+      </div>
     </div>
 
     <!-- Status -->
@@ -255,9 +256,15 @@ function reset() {
   color: var(--vp-c-brand-1);
 }
 
-.node.client .node-icon { color: #8b5cf6; }
-.node.coord .node-icon { color: #f59e0b; }
-.node.primary .node-icon { color: #ef4444; }
+.node.client .node-icon {
+  color: #8b5cf6;
+}
+.node.coord .node-icon {
+  color: #f59e0b;
+}
+.node.primary .node-icon {
+  color: #ef4444;
+}
 
 .node-name {
   font-size: 12px;

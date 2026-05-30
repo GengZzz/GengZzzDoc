@@ -25,6 +25,7 @@ String item = safeList.get(0); // 无需强转
 ```
 
 泛型的核心价值：
+
 - **类型安全**：编译器在编译阶段就能捕获类型错误。
 - **消除强制转换**：取出元素时无需手动转换。
 - **代码复用**：一套逻辑可以处理多种类型。
@@ -152,6 +153,7 @@ Box<String> box = new Box<>("hello");
 // 更早版本需要写两遍
 Box<String> box = new Box<String>("hello");
 ```
+
 ::::
 
 ## 泛型接口
@@ -257,6 +259,7 @@ List<? extends Number> list = new ArrayList<Integer>();
 // list.add(3.14);  // 编译错误
 Number n = list.get(0); // 可以读取
 ```
+
 ::::
 
 ### 下界通配符 `? super T`

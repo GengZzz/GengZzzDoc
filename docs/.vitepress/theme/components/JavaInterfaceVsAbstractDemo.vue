@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-type Tab = 'abstract' | 'interface'
+type Tab = 'abstract' | 'interface';
 
-const selected = ref<Tab>('abstract')
+const selected = ref<Tab>('abstract');
 
-const tabs: Record<Tab, {
-  title: string
-  color: string
-  allows: string[]
-  inheritance: string
-  scenario: string
-  code: string
-}> = {
+const tabs: Record<
+  Tab,
+  {
+    title: string;
+    color: string;
+    allows: string[];
+    inheritance: string;
+    scenario: string;
+    code: string;
+  }
+> = {
   abstract: {
     title: '抽象类 Abstract Class',
     color: '#8b5cf6',
@@ -22,11 +25,11 @@ const tabs: Record<Tab, {
       '静态字段 (static fields)',
       '具体方法 (concrete methods)',
       '抽象方法 (abstract methods)',
-      'static 方法'
+      'static 方法',
     ],
     inheritance: '单继承 (extends)',
     scenario: '有共同状态和行为的类族，如 AbstractList',
-    code: 'abstract class Shape {\n  protected String color;\n  abstract double area();\n  void setColor(String c) { this.color = c; }\n}'
+    code: 'abstract class Shape {\n  protected String color;\n  abstract double area();\n  void setColor(String c) { this.color = c; }\n}',
   },
   interface: {
     title: '接口 Interface',
@@ -36,55 +39,55 @@ const tabs: Record<Tab, {
       '抽象方法 (abstract methods)',
       'default 方法 (Java 8+)',
       'static 方法 (Java 8+)',
-      'private 方法 (Java 9+)'
+      'private 方法 (Java 9+)',
     ],
     inheritance: '多实现 (implements)',
     scenario: '定义行为契约，如 Comparable, Serializable',
-    code: 'interface Drawable {\n  void draw();\n  default void clear() {\n    System.out.println("cleared");\n  }\n}'
-  }
-}
+    code: 'interface Drawable {\n  void draw();\n  default void clear() {\n    System.out.println("cleared");\n  }\n}',
+  },
+};
 
 const tableRows = [
   {
     label: '字段',
     abstract: '实例字段、静态字段',
     interface: '仅 public static final 常量',
-    diff: true
+    diff: true,
   },
   {
     label: '构造器',
     abstract: '可以有构造器',
     interface: '不能有构造器',
-    diff: true
+    diff: true,
   },
   {
     label: '方法实现',
     abstract: '可以有具体方法和抽象方法',
     interface: '默认全部抽象 (Java 8 前)',
-    diff: true
+    diff: true,
   },
   {
     label: '继承关系',
     abstract: '单继承 extends',
     interface: '多实现 implements',
-    diff: true
+    diff: true,
   },
   {
     label: '默认方法',
     abstract: '所有方法天然可有实现',
     interface: 'default 方法 (Java 8+)',
-    diff: true
+    diff: true,
   },
   {
     label: '使用场景',
     abstract: '有共同状态和行为的类族',
     interface: '定义行为契约',
-    diff: false
-  }
-]
+    diff: false,
+  },
+];
 
 function select(tab: Tab) {
-  selected.value = tab
+  selected.value = tab;
 }
 </script>
 

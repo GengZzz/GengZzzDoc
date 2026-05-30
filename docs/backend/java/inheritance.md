@@ -217,6 +217,7 @@ public class Student {
 ```
 
 ::: tip equals() 的正确姿势
+
 1. 先用 `==` 判断是否是同一个对象引用——直接返回 `true`。
 2. 检查 `null` 和类型——类型不同或传入 `null` 返回 `false`。
 3. 强制转换后逐字段比较。

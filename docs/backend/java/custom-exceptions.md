@@ -122,6 +122,7 @@ public class Demo {
 ```
 
 ::: tip 选择 checked 还是 unchecked
+
 - **checked**：调用者有可能并且应该处理的情况。例如 `UserNotFoundException`，调用者可以显示"用户不存在"的提示。
 - **unchecked**：不应该发生的情况，或者调用者无法合理处理的情况。例如 `InsufficientBalanceException`，可能意味着前置校验逻辑有漏洞。
 :::
@@ -313,6 +314,7 @@ public int findIndex(int[] arr, int target) {
 
 ::: warning 异常不是流程控制工具
 用异常做流程控制有三个严重问题：
+
 1. **性能差**：创建异常对象需要填充堆栈信息，代价远高于条件判断。
 2. **语义混淆**：异常意味着"出了问题"，用它做正常逻辑会让维护者困惑。
 3. **难以调试**：在开启异常断点的调试器中，正常的业务流程会反复触发断点。

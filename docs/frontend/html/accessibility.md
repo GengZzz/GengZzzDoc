@@ -187,6 +187,7 @@ WCAG（Web Content Accessibility Guidelines）是 W3C 制定的无障碍标准�
 ```
 
 ::: tip 三者的区别
+
 - `aria-label`：元素的可访问名称（替代 visible text）
 - `aria-labelledby`：引用其他元素的文本作为名称
 - `aria-describedby`：补充描述（不影响名称，只附加额外信息）
@@ -278,6 +279,7 @@ modal.addEventListener('keydown', (e) => {
 ```
 
 ::: tip 焦点管理规则
+
 1. 模态框打开时，焦点移入模态框
 2. 模态框内，焦点不能逃逸到模态框外（trap focus）
 3. 模态框关闭时，焦点回到触发元素
@@ -317,6 +319,7 @@ Chrome DevTools 内置 Lighthouse，可以自动检测常见的无障碍问题�
 4. 点击 Analyze page load
 
 Lighthouse 会检测：
+
 - 缺失的 `alt` 属性
 - 缺失的表单标签
 - 低对比度文本

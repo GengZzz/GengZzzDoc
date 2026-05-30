@@ -27,6 +27,7 @@ var largeList = new List<int>(10000);
 ```
 
 扩容策略细节：
+
 - 默认倍增因子为 **2x**
 - 最大容量为 `Array.MaxArrayLength`（约 2GB）
 - 扩容时分配新数组 + `Array.Copy` 复制旧数据 + GC 回收旧数组
@@ -43,9 +44,11 @@ list.BinarySearch(10);    // O(log n)，前提是已排序
 
 ::: tip 性能提示
 如果已知元素数量，构造时传入 capacity 避免多次扩容复制：
+
 ```csharp
 var list = new List<int>(expectedCount);
 ```
+
 如果需要频繁在头部插入，考虑 `LinkedList<T>`。如果需要查找，考虑 `Dictionary` 或 `HashSet`。
 :::
 
@@ -72,6 +75,7 @@ var list = new List<int>(expectedCount);
 ```
 
 优势：
+
 - 减少了一次指针间接寻址（Node → Entry 变为直接 Entry）
 - 数据连续存储，缓存友好
 - 内存占用更小（无链表节点分配）
@@ -122,6 +126,7 @@ Dictionary 的扩容也是倍增策略，且扩容时需要重新计算所有键
 ```csharp
 var dict = new Dictionary<string, int>(expectedCount);
 ```
+
 :::
 
 ## HashSet\<T\>
@@ -240,6 +245,7 @@ await stream.ReadAsync(heapBuffer);
 
 ::: tip Span\<T\> 的限制
 `Span<T>` 是 `ref struct`，只能存在于栈上：
+
 - 不能作为类的字段
 - 不能用于 async 方法
 - 不能装箱（不能赋值给 object 或接口）

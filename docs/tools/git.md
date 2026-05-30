@@ -174,6 +174,7 @@ git rebase -i HEAD~3     # 修改最近 3 个提交
 ```
 
 ::: tip merge vs rebase
+
 - `merge`：保留分支历史，产生合并提交
 - `rebase`：线性历史，更整洁，但改变了提交时间线
 - **规则**：只对本地分支 rebase，已经 push 到远程的分支不要 rebase
@@ -237,6 +238,7 @@ git fetch --all
 ```
 
 ::: tip pull vs fetch
+
 - `git pull` = `git fetch` + `git merge`
 - `git fetch` 只下载远程更新到本地远程跟踪分支，不会自动合并
 - 推荐先 `git fetch`，再 `git log origin/main` 查看变化，手动合并

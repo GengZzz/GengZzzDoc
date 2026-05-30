@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
 interface Stage {
-  title: string
-  detail: string
+  title: string;
+  detail: string;
 }
 
-const step = ref(0)
+const step = ref(0);
 
 const stages: Stage[] = [
   { title: '扫描配置类 / 组件', detail: '@Configuration、@ComponentScan、@Service 被解析' },
@@ -16,23 +16,23 @@ const stages: Stage[] = [
   { title: '初始化', detail: '执行 Aware、BeanPostProcessor、@PostConstruct、init 方法' },
   { title: '单例池', detail: '完整 Bean 放入 singletonObjects，后续可复用' },
   { title: '获取 Bean', detail: '业务代码从容器拿到可用对象，可能是代理对象' },
-]
+];
 
-const currentStage = computed(() => stages[step.value])
-const progress = computed(() => `${(step.value / (stages.length - 1)) * 100}%`)
+const currentStage = computed(() => stages[step.value]);
+const progress = computed(() => `${(step.value / (stages.length - 1)) * 100}%`);
 
 function next() {
-  step.value = (step.value + 1) % stages.length
+  step.value = (step.value + 1) % stages.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
 function stateFor(index: number) {
-  if (index < step.value) return 'done'
-  if (index === step.value) return 'active'
-  return 'pending'
+  if (index < step.value) return 'done';
+  if (index === step.value) return 'active';
+  return 'pending';
 }
 </script>
 
@@ -232,7 +232,9 @@ function stateFor(index: number) {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .source-area.active,

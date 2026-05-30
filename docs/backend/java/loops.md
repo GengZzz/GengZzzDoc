@@ -160,6 +160,7 @@ public class NestedLoopDemo {
 ```
 
 输出：
+
 ```
 * * * * *
 * * * * *
@@ -184,6 +185,7 @@ public class MultiplicationTable {
 ```
 
 输出（前几行）：
+
 ```
 1×1=1
 1×2=2   2×2=4
@@ -216,6 +218,7 @@ public class TriangleDemo {
 ```
 
 输出：
+
 ```
      *
     ***
@@ -271,6 +274,7 @@ public class InfiniteLoopDemo {
 ```
 
 输出：
+
 ```
 for(;;) 循环了 5 次后退出
 和首次超过 100 时, n=15, sum=105

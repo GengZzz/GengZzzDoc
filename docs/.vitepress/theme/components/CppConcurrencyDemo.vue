@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
 const status = computed(() => {
@@ -18,10 +18,10 @@ const status = computed(() => {
     '数据竞争：两个线程同时 counter++，结果可能不正确',
     '加 mutex 保护临界区：正确结果，但有锁开销',
     '使用 atomic<int>：无锁原子操作，既正确又高效',
-    '死锁场景与解决方案'
-  ]
-  return msgs[step.value]
-})
+    '死锁场景与解决方案',
+  ];
+  return msgs[step.value];
+});
 
 const code = computed(() => {
   const lines = [
@@ -29,41 +29,45 @@ const code = computed(() => {
     'counter++;  // 非原子操作：读-改-写三步可能交叉执行',
     'lock_guard<mutex> lock(m); counter++;  // 串行化访问',
     'atomic<int> counter{0}; counter.fetch_add(1);  // 原子操作',
-    'lock_guard<mutex> l1(m1, adopt_lock); lock_guard<mutex> l2(m2, adopt_lock);'
-  ]
-  return step.value > 0 ? lines[step.value] : ''
-})
+    'lock_guard<mutex> l1(m1, adopt_lock); lock_guard<mutex> l2(m2, adopt_lock);',
+  ];
+  return step.value > 0 ? lines[step.value] : '';
+});
 
 interface ThreadState {
-  id: string
-  action: string
-  result: string | null
+  id: string;
+  action: string;
+  result: string | null;
 }
 
 const threads = computed<ThreadState[]>(() => {
-  if (step.value === 0) return []
-  if (step.value === 1) return [
-    { id: 'T1', action: 'counter++ (读=0, 改=1, 写=1)', result: null },
-    { id: 'T2', action: 'counter++ (读=0, 改=1, 写=1)', result: null }
-  ]
-  if (step.value === 2) return [
-    { id: 'T1', action: 'lock(m); counter++', result: '1' },
-    { id: 'T2', action: '等待锁... lock(m); counter++', result: '2' }
-  ]
-  if (step.value === 3) return [
-    { id: 'T1', action: 'fetch_add(1) 原子操作', result: '1' },
-    { id: 'T2', action: 'fetch_add(1) 原子操作', result: '2' }
-  ]
-  if (step.value === 4) return [
-    { id: 'T1', action: '持有 m1，等待 m2...', result: '阻塞' },
-    { id: 'T2', action: '持有 m2，等待 m1...', result: '阻塞' }
-  ]
-  return []
-})
+  if (step.value === 0) return [];
+  if (step.value === 1)
+    return [
+      { id: 'T1', action: 'counter++ (读=0, 改=1, 写=1)', result: null },
+      { id: 'T2', action: 'counter++ (读=0, 改=1, 写=1)', result: null },
+    ];
+  if (step.value === 2)
+    return [
+      { id: 'T1', action: 'lock(m); counter++', result: '1' },
+      { id: 'T2', action: '等待锁... lock(m); counter++', result: '2' },
+    ];
+  if (step.value === 3)
+    return [
+      { id: 'T1', action: 'fetch_add(1) 原子操作', result: '1' },
+      { id: 'T2', action: 'fetch_add(1) 原子操作', result: '2' },
+    ];
+  if (step.value === 4)
+    return [
+      { id: 'T1', action: '持有 m1，等待 m2...', result: '阻塞' },
+      { id: 'T2', action: '持有 m2，等待 m1...', result: '阻塞' },
+    ];
+  return [];
+});
 
 const deadlockFixed = computed(() => {
-  return step.value === 4
-})
+  return step.value === 4;
+});
 </script>
 
 <template>
@@ -74,17 +78,10 @@ const deadlockFixed = computed(() => {
 
     <div class="threads">
       <div v-if="threads.length === 0" class="empty">尚未启动任何线程</div>
-      <div
-        v-for="t in threads"
-        :key="t.id"
-        class="thread-card"
-        :class="{ deadlock: step === 4 }"
-      >
+      <div v-for="t in threads" :key="t.id" class="thread-card" :class="{ deadlock: step === 4 }">
         <div class="thread-id">{{ t.id }}</div>
         <div class="thread-action">{{ t.action }}</div>
-        <div v-if="t.result" class="thread-result">
-          counter = {{ t.result }}
-        </div>
+        <div v-if="t.result" class="thread-result">counter = {{ t.result }}</div>
       </div>
     </div>
 
@@ -166,8 +163,13 @@ const deadlockFixed = computed(() => {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .thread-id {

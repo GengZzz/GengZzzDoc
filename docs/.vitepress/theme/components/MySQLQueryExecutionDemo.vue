@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const stages = [
   { icon: '💻', label: '客户端', title: '客户端发送 SQL' },
@@ -10,7 +10,7 @@ const stages = [
   { icon: '📖', label: '分析器', title: '分析器解析 SQL 为 AST' },
   { icon: '⚙️', label: '优化器', title: '优化器选择最优执行方案' },
   { icon: '🚀', label: '执行器', title: '执行器调用引擎接口获取数据' },
-]
+];
 
 const statusText = computed(() => {
   const texts = [
@@ -20,25 +20,25 @@ const statusText = computed(() => {
     '分析器进行词法分析、语法分析、语义分析，生成 AST',
     '优化器选择索引、确定执行计划',
     '执行器调用存储引擎 API，返回结果集给客户端',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 const detailText = computed(() => {
-  if (step.value === 1) return 'SELECT name, age FROM users WHERE age > 20 ORDER BY age'
-  if (step.value === 2) return '连接器 → 权限验证 → 查询缓存(MySQL 8.0 已移除)'
-  if (step.value === 3) return '词法分析 → 语法分析 → 语义分析 → 生成抽象语法树(AST)'
-  if (step.value === 4) return '选择索引 → 确定 JOIN 顺序 → 估算成本 → 生成执行计划'
-  if (step.value === 5) return '调用存储引擎 API → 调用 handler 接口 → 逐行返回结果集'
-  return ''
-})
+  if (step.value === 1) return 'SELECT name, age FROM users WHERE age > 20 ORDER BY age';
+  if (step.value === 2) return '连接器 → 权限验证 → 查询缓存(MySQL 8.0 已移除)';
+  if (step.value === 3) return '词法分析 → 语法分析 → 语义分析 → 生成抽象语法树(AST)';
+  if (step.value === 4) return '选择索引 → 确定 JOIN 顺序 → 估算成本 → 生成执行计划';
+  if (step.value === 5) return '调用存储引擎 API → 调用 handler 接口 → 逐行返回结果集';
+  return '';
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -119,7 +119,9 @@ function reset() {
   background: var(--vp-c-bg);
   min-width: 72px;
   position: relative;
-  transition: border-color 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
 }
 
 .stage:not(:last-child) {
@@ -172,8 +174,14 @@ function reset() {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .detail-title {

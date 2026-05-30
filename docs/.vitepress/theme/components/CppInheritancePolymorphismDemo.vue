@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const selectedClass = ref<'Animal' | 'Dog' | 'Cat'>('Animal')
+const selectedClass = ref<'Animal' | 'Dog' | 'Cat'>('Animal');
 const classes = {
   Animal: {
     name: 'Animal',
     color: '#6b7280',
     members: ['name: string', 'eat(): void', 'speak(): void'],
-    speakText: '动物发出声音'
+    speakText: '动物发出声音',
   },
   Dog: {
     name: 'Dog',
     color: '#3b82f6',
     members: ['(继承) name: string', '(继承) eat(): void', 'bark(): void', 'speak(): 汪汪'],
-    speakText: '汪汪'
+    speakText: '汪汪',
   },
   Cat: {
     name: 'Cat',
     color: '#10b981',
     members: ['(继承) name: string', '(继承) eat(): void', 'meow(): void', 'speak(): 喵喵'],
-    speakText: '喵喵'
-  }
-}
+    speakText: '喵喵',
+  },
+};
 
 function selectClass(name: 'Animal' | 'Dog' | 'Cat') {
-  selectedClass.value = name
+  selectedClass.value = name;
 }
 </script>
 
@@ -72,8 +72,10 @@ function selectClass(name: 'Animal' | 'Dog' | 'Cat') {
         <li v-for="member in classes[selectedClass].members" :key="member">{{ member }}</li>
       </ul>
       <div class="demo-call">
-        <code>shape.speak()</code> → 
-        <strong :style="{ color: classes[selectedClass].color }">{{ classes[selectedClass].speakText }}</strong>
+        <code>shape.speak()</code> →
+        <strong :style="{ color: classes[selectedClass].color }">{{
+          classes[selectedClass].speakText
+        }}</strong>
       </div>
       <p class="hint">
         <span v-if="selectedClass === 'Animal'">基类定义虚函数，子类override重写实现</span>

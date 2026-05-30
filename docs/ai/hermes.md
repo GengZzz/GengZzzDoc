@@ -202,6 +202,7 @@ print(response.choices[0].message.content)
 | 本地部署 | 方便 | 方便 | 方便 | 方便 |
 
 ::: tip 选型建议
+
 - 英文场景 + 角色扮演/创意写作 → Hermes 3
 - 中文场景 → Qwen 2.5 或 DeepSeek
 - 纯代码任务 → CodeLlama 或 DeepSeek-Coder

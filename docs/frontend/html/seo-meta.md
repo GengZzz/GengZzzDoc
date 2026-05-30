@@ -66,6 +66,7 @@ Open Graph 协议定义了网页在社交媒体（Facebook、微信、Telegram �
 ```
 
 ::: tip og:image 规范
+
 - 推荐尺寸：1200x630 像素（1.91:1 比例）
 - 最小尺寸：600x315 像素
 - 格式：PNG、JPG
@@ -227,6 +228,7 @@ JSON-LD 是 Google 推荐的结构化数据格式，帮助搜索引擎理解页�
 ```
 
 ::: tip canonical 使用场景
+
 - URL 带有查询参数（`?utm_source=xxx`）
 - 同时有 `www` 和非 `www` 版本
 - HTTP 和 HTTPS 都可访问
@@ -261,6 +263,7 @@ JSON-LD 是 Google 推荐的结构化数据格式，帮助搜索引擎理解页�
 
 ::: warning noindex 的使用
 `noindex` 会让搜索引擎完全移除该页面的索引。适用于：
+
 - 登录页面、管理后台
 - 搜索结果页（站内搜索）
 - 感谢页面、确认页面
@@ -282,6 +285,7 @@ JSON-LD 是 Google 推荐的结构化数据格式，帮助搜索引擎理解页�
 ```
 
 ::: tip hreflang 注意事项
+
 - 每个语言版本都需要包含所有版本的 `hreflang` 标签
 - `x-default` 表示默认/回退页面
 - hreflang 只是信号，搜索引擎可能不完全遵循

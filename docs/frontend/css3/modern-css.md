@@ -408,6 +408,7 @@ footer p {
 ## 注意事项
 
 1. **渐进增强**：现代 CSS 特性应作为增强使用。核心功能必须不依赖这些特性，使用 `@supports` 检测支持性。
+
    ```css
    @supports (animation-timeline: scroll()) {
      /* 滚动驱动动画 */

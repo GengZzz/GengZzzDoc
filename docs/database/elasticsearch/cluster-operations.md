@@ -49,6 +49,7 @@ PUT _cluster/settings
 ```
 
 ::: tip 滚动升级版本兼容性
+
 - 小版本升级（如 8.12 → 8.13）：支持滚动重启。
 - 大版本升级（如 7.x → 8.x）：需要先查阅官方兼容性矩阵。7.17+ 可以直接滚动升级到 8.x。
 - 跨多个大版本（如 6.x → 8.x）：必须先升级到 7.x 最新版本。
@@ -123,10 +124,12 @@ indices.recovery.max_bytes_per_sec: "40mb"
 
 ::: tip Rebalance 对性能的影响
 Rebalance 会消耗网络带宽和磁盘 I/O。在业务高峰期，可以通过调低 `max_bytes_per_sec` 和 `cluster_concurrent_rebalance` 减少影响。必要时可以临时禁用 Rebalance：
+
 ```json
 PUT _cluster/settings
 { "persistent": { "cluster.routing.allocation.cluster_concurrent_rebalance": 0 } }
 ```
+
 :::
 
 ## Hot-Warm-Cold 架构
@@ -256,6 +259,7 @@ POST _snapshot/my_backup/snapshot_20260115/_restore
 ```
 
 ::: tip 备份策略建议
+
 1. 每日执行增量 Snapshot。
 2. Snapshot 仓库使用远程存储（如 S3），避免与 ES 数据在同一磁盘。
 3. 定期验证恢复流程（每月执行一次恢复测试）。

@@ -44,6 +44,7 @@ list-compress-depth 0
 ```
 
 `list-max-listpack-size` 可以设为负数表示更精细的控制：
+
 - `-1`: 每个节点最多 4KB
 - `-2`: 每个节点最多 8KB（默认）
 - `-3`: 每个节点最多 16KB

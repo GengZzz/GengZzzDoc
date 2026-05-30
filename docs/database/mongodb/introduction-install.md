@@ -194,6 +194,7 @@ operationProfiling:
 ```
 
 ::: warning 生产环境检查清单
+
 1. 开启认证（`security.authorization: enabled`）
 2. 不要绑定到 `0.0.0.0`，使用内网 IP
 3. 合理设置 `wiredTigerCacheSizeGB`（通常为可用内存的 50%-60%）

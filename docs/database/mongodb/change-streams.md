@@ -322,6 +322,7 @@ for await (const change of changeStream) {
 ```
 
 ::: warning Change Streams 注意事项
+
 1. 需要副本集或分片集群（单节点不支持 Change Streams）
 2. Oplog 被覆盖后，Resume Token 失效，需要重新初始化
 3. `delete` 事件不包含 `fullDocument`

@@ -45,6 +45,7 @@ function Counter() {
 
 ::: tip 不可变更新
 React 通过比较引用来判断是否需要重新渲染。更新对象/数组时必须创建新值，不能直接修改：
+
 ```js
 // 错误
 state.name = 'new'  // 不会触发重新渲染
@@ -52,6 +53,7 @@ state.name = 'new'  // 不会触发重新渲染
 // 正确
 setState({ ...state, name: 'new' })
 ```
+
 :::
 
 ## useEffect
@@ -177,6 +179,7 @@ const MemoItem = React.memo(function Item({ item, onClick }) {
 ```
 
 ::: tip 何时使用 useMemo / useCallback
+
 - `useMemo`：计算代价很高的派生数据
 - `useCallback`：传递给 `React.memo` 子组件的回调函数
 - 不要过度优化，简单计算不需要 memo

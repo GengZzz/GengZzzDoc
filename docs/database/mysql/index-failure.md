@@ -44,6 +44,7 @@ WHERE create_time >= '2024-01-01' AND create_time < '2024-02-01';
 ```
 
 ::: danger LEFT() / SUBSTRING() 同样失效
+
 ```sql
 -- 失效
 SELECT * FROM users WHERE LEFT(phone, 3) = '138';
@@ -52,6 +53,7 @@ SELECT * FROM users WHERE LEFT(phone, 3) = '138';
 ALTER TABLE users ADD INDEX idx_phone_prefix (phone(3));
 SELECT * FROM users WHERE phone LIKE '138%';  -- 这个能用索引
 ```
+
 :::
 
 ---
@@ -105,11 +107,13 @@ SELECT * FROM orders WHERE status = 1;                  -- status 是 ENUM，通
 ```
 
 ::: warning 数字字符串字段的陷阱
+
 ```sql
 -- 如果 phone 定义为 VARCHAR，查询时必须传字符串
 -- 如果 code 定义为 VARCHAR，查询时必须传字符串
 -- 团队规范：所有字符串类型的查询参数，应用层强制转为字符串
 ```
+
 :::
 
 ---
@@ -163,6 +167,7 @@ ALTER TABLE order_log CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_c
 ```sql
 CREATE DATABASE mydb DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
+
 :::
 
 ---
@@ -202,12 +207,14 @@ SELECT * FROM users WHERE name LIKE '张%';  -- 能用索引
 ```
 
 ::: tip 覆盖索引 + LIKE 前缀通配符的特殊情况
+
 ```sql
 -- 即使 LIKE '%abc' 无法用索引过滤，但如果索引可以覆盖查询列
 -- MySQL 可能选择扫描整个索引（比扫描全表数据更快）
 SELECT id, name FROM users WHERE name LIKE '%张%';
 -- Extra: Using index（扫描索引而非表数据，虽然还是全索引扫描）
 ```
+
 :::
 
 ---
@@ -239,6 +246,7 @@ SELECT * FROM users WHERE age = 25 AND name != '张三';
 ```
 
 ::: tip 用 UNION 替代 OR 是常见优化手段
+
 ```sql
 -- 慢：OR 条件
 SELECT * FROM orders WHERE user_id = 1 OR status = 2;
@@ -249,6 +257,7 @@ SELECT * FROM orders WHERE user_id = 1
 UNION ALL
 SELECT * FROM orders WHERE status = 2 AND user_id != 1;
 ```
+
 :::
 
 ---
@@ -331,6 +340,7 @@ SELECT * FROM users WHERE email IS NOT NULL;
 **原因**：优化器根据 NULL 值的比例决定是否使用索引。如果 IS NOT NULL 匹配的数据量很大（如 95%），走索引再回表反而比全表扫描慢。
 
 ::: tip IS NOT NULL 的优化建议
+
 1. 尽量设置 NOT NULL 约束 + DEFAULT 值，避免 NULL 值
 2. 如果业务允许，将 IS NOT NULL 改为范围查询或其他更高效的条件
 3. 使用 COALESCE 或 IFNULL 提供默认值
@@ -413,6 +423,7 @@ SELECT * FROM orders WHERE discount > 10 OR discount < -10;
 ## 11. 数据量太小优化器选择全表扫描
 
 当表的数据量很小时（如几百行），即使有索引，优化器也可能选择全表扫描，因为：
+
 - 全表扫描只需要顺序读取少量数据页
 - 走索引需要先读索引页再回表，反而更慢
 

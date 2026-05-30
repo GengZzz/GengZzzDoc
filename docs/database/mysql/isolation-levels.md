@@ -179,6 +179,7 @@ SELECT * FROM orders WHERE amount > 100 AND amount < 200 FOR UPDATE;
 
 ::: tip InnoDB 对幻读的处理
 InnoDB 在 RR 级别下通过两种机制解决幻读：
+
 1. **MVCC**：快照读通过 ReadView 避免看到新插入的行
 2. **间隙锁**：当前读通过间隙锁阻止其他事务在范围内插入新行
 
@@ -286,6 +287,7 @@ MySQL InnoDB 的默认 RR 级别已经通过 MVCC + 间隙锁很好地解决了�
 
 ::: tip 特殊需求使用 RC
 以下场景可以考虑使用 RC：
+
 - **高并发写入场景**：RC 不使用间隙锁，减少锁冲突，提高吞吐量
 - **Binlog 使用 ROW 格式时**：RC + ROW 格式的 binlog 可以保证主从一致性
 - **从 Oracle 迁移的项目**：保持一致的默认行为，减少应用改造

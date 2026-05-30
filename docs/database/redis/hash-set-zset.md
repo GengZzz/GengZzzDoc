@@ -52,6 +52,7 @@ rehash 过程中，查找操作会同时查 ht[0] 和 ht[1]：
 ```
 
 ::: tip Rehash 的触发条件
+
 - **扩容**：负载因子 = `used / size >= 1`，且没有在执行 BGSAVE/BGREWRITEAOF（此时阈值为 5，避免 fork 过程中频繁 rehash）。
 - **缩容**：负载因子 < 0.1（10%）。
 :::
@@ -156,6 +157,7 @@ typedef struct zskiplistNode {
 ```
 
 ::: tip skiplist 为什么不用红黑树？
+
 1. skiplist 实现更简单，代码量少。
 2. skiplist 的范围查询更自然（沿着第 1 层链表遍历），红黑树需要中序遍历。
 3. skiplist 通过调整 p 值可以灵活平衡查询性能和内存消耗。

@@ -33,6 +33,7 @@ WHERE d.deptype = 'e';
 ```ini
 shared_preload_libraries = 'pg_stat_statements,pg_trgm'
 ```
+
 :::
 
 ## PostGIS 空间查询

@@ -58,6 +58,7 @@ console.log(db1 === db2); // true
 ```
 
 ::: tip 应用场景
+
 - 全局状态管理（如 Redux Store）
 - 数据库连接池
 - 日志记录器
@@ -151,6 +152,7 @@ unsub(); // 取消订阅
 ```
 
 ::: tip 与发布-订阅的区别
+
 - 观察者模式：Subject 直接通知 Observer，耦合度较高
 - 发布-订阅模式：通过事件中心（Event Channel）解耦，发布者不知道订阅者的存在
 - DOM 事件、Node.js EventEmitter 都是发布-订阅的变体

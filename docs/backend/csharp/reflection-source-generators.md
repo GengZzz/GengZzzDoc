@@ -128,6 +128,7 @@ Console.WriteLine(add(3, 4));  // 7
 ```
 
 ::: warning Emit 的限制
+
 - Native AOT 不支持 `System.Reflection.Emit`
 - 需要完全信任环境
 - 调试困难（生成的 IL 很难追踪）
@@ -216,6 +217,7 @@ namespace MyApp
 | Source Generator | ~1 ns | ~1 ns | 是 |
 
 ::: tip 选择建议
+
 - **直接代码**：首选，性能最佳
 - **Source Generator**：编译时生成代码，运行时零开销
 - **表达式树**：需要动态构建逻辑时

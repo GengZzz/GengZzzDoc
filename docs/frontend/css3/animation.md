@@ -302,6 +302,7 @@ element.addEventListener('animationcancel', (e) => {
 
 1. **性能**：`transform` 和 `opacity` 的动画性能最好（GPU 合成），避免动画化 `width`、`height`、`margin`、`top/left` 等会触发重排的属性。
 2. **减少动画**：尊重用户偏好，使用 `prefers-reduced-motion` 媒体查询为敏感用户减少动画。
+
    ```css
    @media (prefers-reduced-motion: reduce) {
      *, *::before, *::after {
@@ -311,5 +312,6 @@ element.addEventListener('animationcancel', (e) => {
      }
    }
    ```
+
 3. **animation 与 transition 的选择**：单次状态变化用 transition，需要循环、多步骤或自动触发的用 animation。
 4. **will-change 提示**：对即将动画化的元素使用 `will-change: transform` 可以提前创建合成层，但不要滥用（会导致额外的内存开销）。

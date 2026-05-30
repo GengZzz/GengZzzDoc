@@ -72,6 +72,7 @@ SELECT * FROM users WHERE phone = '13800000000';
 ```
 
 **问题**：
+
 - 每个节点只存一个键值，树高度大
 - 磁盘 IO 次数 = 树高度，高度越大 IO 越多
 - 对 1000 万数据，AVL 树高度约 23（log₂(10000000)），需要 23 次磁盘 IO
@@ -231,6 +232,7 @@ InnoDB 监控对 B+ 树索引页的访问。如果发现某个页被频繁通过
 ```sql
 SET GLOBAL innodb_adaptive_hash_index = OFF;
 ```
+
 :::
 
 ---
@@ -295,6 +297,7 @@ ORDER BY relevance DESC;
 全文索引适合**模糊搜索文本内容**，不适合精确匹配。对于中文，需要安装 ngram 分词插件。在高并发场景下，专业的搜索引擎（Elasticsearch / OpenSearch）性能远超 MySQL 全文索引。
 
 MySQL 全文索引适用：
+
 - 数据量不大（百万级以内）
 - 搜索频率不高
 - 不想引入额外的搜索引擎组件

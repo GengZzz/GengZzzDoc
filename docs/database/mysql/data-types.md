@@ -50,6 +50,7 @@ column2 INT UNSIGNED;
 SET sql_mode = 'NO_UNSIGNED_SUBTRACTION';
 SELECT CAST(5 AS UNSIGNED) - CAST(10 AS UNSIGNED);  -- 不设置 sql_mode 则报错
 ```
+
 :::
 
 ::: warning 不要在整型上指定显示宽度
@@ -117,6 +118,7 @@ amount DECIMAL(10, 2);
 amount FLOAT;
 amount DOUBLE;
 ```
+
 :::
 
 ## 字符串类型
@@ -146,6 +148,7 @@ col VARCHAR(10);
 ```
 
 ::: tip CHAR 与 VARCHAR 的性能特点
+
 - CHAR 因为定长，不需要长度前缀，随机读写性能略好，且不会产生行碎片
 - VARCHAR 节省存储空间，但行数据变长可能导致行迁移（行扩展时原位置放不下）
 - 对于长度固定的数据（如手机号 11 位、身份证号 18 位、UUID 36 位），CHAR 和 VARCHAR 性能差异极小，现代 MySQL 优化器处理得很好

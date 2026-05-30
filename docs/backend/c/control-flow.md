@@ -35,6 +35,7 @@ if (a)
     else  // 这个 else 属于 if(b)，不是 if(a)!
         do_other();
 ```
+
 :::
 
 ### 三元运算符
@@ -95,6 +96,7 @@ switch (x) {
 
 ::: tip 有意的 fall-through
 如果确实需要 fall-through（比如多个 case 共享逻辑），用注释标记意图：
+
 ```c
 case 'a':
 case 'e':
@@ -102,6 +104,7 @@ case 'e':
     is_vowel = 1;
     break;
 ```
+
 C17 开启 `-Wimplicit-fallthrough` 警告可以捕获遗漏的 break。
 :::
 

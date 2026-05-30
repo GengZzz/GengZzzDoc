@@ -60,6 +60,7 @@ SELECT * FROM orders WHERE user_id = 1 AND status = 2 ORDER BY created_at;
 SELECT * FROM orders WHERE user_id = 1 AND status > 0 ORDER BY created_at;
 -- Extra: Using filesort（需要额外排序，因为 status 是范围查询，created_at 的有序性被打破）
 ```
+
 :::
 
 ---
@@ -92,12 +93,14 @@ FROM orders;
 | < 0.01 | 不适合 | 过滤效果差，优化器可能选择全表扫描 |
 
 ::: warning 性别字段不适合单独建索引
+
 ```sql
 -- status 只有 5 个值，选择性极低
 SELECT * FROM orders WHERE status = 1;
 -- 优化器可能认为全表扫描比走索引更快
 -- 因为索引查到后还需要回表，20% 的数据走索引还不如直接全表扫描
 ```
+
 :::
 
 ---
@@ -143,6 +146,7 @@ ALTER TABLE orders ADD INDEX idx_created_at (created_at);
 
 ::: tip 一个联合索引 vs 多个单列索引
 联合索引 `(user_id, status, created_at)` 一个索引可以覆盖多种查询：
+
 - `WHERE user_id = ?`
 - `WHERE user_id = ? AND status = ?`
 - `WHERE user_id = ? AND status = ? AND created_at > ?`
@@ -191,6 +195,7 @@ SELECT * FROM users ORDER BY email;
 ```
 
 ::: warning 前缀索引的取舍
+
 - **优点**：索引体积小，节省空间
 - **缺点**：不支持覆盖索引、不支持索引排序、增加回表概率
 - **建议**：如果列的前缀区分度已经足够高（> 0.95），前缀索引是好的选择
@@ -223,10 +228,12 @@ SELECT * FROM orders WHERE user_id = 1 ORDER BY created_at;
 ```
 
 filesort 的两种算法：
+
 1. **双路排序**：先读取排序字段和行指针，排序后再回表取数据（两次 IO）
 2. **单路排序**：一次性读取所有需要的列，在内存中排序（MySQL 4.1+ 默认）
 
 ::: tip 优化 ORDER BY
+
 1. 把 ORDER BY 列加入索引
 2. 确保 ORDER BY 列的方向与索引一致（`ORDER BY a ASC, b DESC` 需要索引 `(a, b DESC)`）
 3. 减少排序的数据量（加 LIMIT 或更严格的 WHERE 条件）
@@ -287,6 +294,7 @@ EXPLAIN SELECT * FROM users WHERE name > '李' OR age > 30;
 
 ::: warning Index Merge 不是银弹
 Index Merge 看起来解决了 OR 条件的索引使用问题，但实际性能往往不如联合索引：
+
 1. 需要读取多个索引
 2. 需要合并结果集
 3. 合并过程中需要额外的排序和去重
@@ -330,6 +338,7 @@ id | select_type | table | type  | key            | rows   | Extra
 ```
 
 问题诊断：
+
 1. `orders` 表没有用到索引（`type: ALL`，全表扫描 200 万行）
 2. `Using filesort`：需要额外排序
 3. `users` 表走主键，正常
@@ -389,6 +398,7 @@ ADD INDEX idx_covering (created_at, status, user_id, order_no, total_amount);
 | type | ALL | range |
 
 ::: tip 优化套路总结
+
 1. **先 EXPLAIN**：看 type、key、rows、Extra
 2. **分析查询模式**：哪些列在 WHERE、ORDER BY、GROUP BY 中
 3. **计算选择性**：区分度高的列优先

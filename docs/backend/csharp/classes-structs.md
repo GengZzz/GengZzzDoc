@@ -347,6 +347,7 @@ var p = new Person { Name = "Alice", Age = 25 };
 ```
 
 ::: tip init 与 required
+
 - `init`：可以不提供值（有默认值），但提供后不可修改
 - `required`（C# 11+）：必须在初始化时提供值，否则编译错误
 - 两者可组合使用：`required string Name { get; init; }`

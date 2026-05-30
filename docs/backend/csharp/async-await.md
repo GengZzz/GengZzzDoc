@@ -113,6 +113,7 @@ async void Button_Click(object sender, EventArgs e)
 
 ::: tip .NET Core / .NET 5+ 的 SynchronizationContext 变化
 ASP.NET Core **不再设置** `SynchronizationContext`。这意味着：
+
 - `ConfigureAwait(false)` 在 ASP.NET Core 中效果有限（本来就没有上下文需要捕获）
 - 但库代码仍然应该使用 `ConfigureAwait(false)` 以兼容所有调用者
 - Console 应用也没有 `SynchronizationContext`
@@ -151,6 +152,7 @@ await GetDataAsync()
 ```
 
 ::: warning 何时使用 ConfigureAwait(false)
+
 - **库代码**：应该用 `ConfigureAwait(false)`，因为库不知道调用者的上下文
 - **应用层代码**（如 ASP.NET Controller、WPF 事件处理）：通常不需要
 - **关键规则**：如果一个方法中有的 await 需要上下文，有的不需要，那么 `ConfigureAwait(false)` 之后的代码不能访问需要上下文的资源
@@ -203,6 +205,7 @@ public class AsyncCache<T> : IValueTaskSource<T>
 ```
 
 ::: warning ValueTask 使用注意事项
+
 - `ValueTask` 只能 **await 一次**，不能多次 await 或缓存后重复 await
 - 不要对 `ValueTask` 使用 `Task.WhenAll`（需要先用 `.AsTask()` 转换）
 - 适合「大多数时候同步完成」的场景
@@ -257,6 +260,7 @@ var result = Task.Run(() => GetDataAsync()).Result;
 // 方式 3：.NET Core / ASP.NET Core 中没有 SynchronizationContext
 // 所以 .Result 和 .GetAwaiter().GetResult() 是安全的（但仍不推荐）
 ```
+
 :::
 
 ## 异步异常处理

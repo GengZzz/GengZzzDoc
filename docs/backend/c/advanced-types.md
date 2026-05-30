@@ -59,6 +59,7 @@ const char *filemode_str(FileMode m) {
     }
 }
 ```
+
 编译器开启 `-Wswitch` 后，如果 switch 没有覆盖所有枚举值会发出警告。
 :::
 
@@ -166,6 +167,7 @@ IntPtr2 p3, p4;   // p3 是 int*，p4 是 int！（#define 是文本替换：int
 ```
 
 ::: tip typedef 的优势
+
 - 与指针、数组配合时行为正确
 - 有作用域（在块内定义的 typedef 只在块内有效）
 - 可以用于复杂的函数指针类型

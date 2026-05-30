@@ -1,57 +1,57 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-type TransformType = 'translate' | 'rotate' | 'scale' | 'skew' | 'combined'
-const selected = ref<TransformType>('translate')
+type TransformType = 'translate' | 'rotate' | 'scale' | 'skew' | 'combined';
+const selected = ref<TransformType>('translate');
 
-const translateX = ref(50)
-const translateY = ref(0)
-const rotateDeg = ref(45)
-const scaleX = ref(1.5)
-const scaleY = ref(1.5)
-const skewX = ref(20)
-const skewY = ref(0)
+const translateX = ref(50);
+const translateY = ref(0);
+const rotateDeg = ref(45);
+const scaleX = ref(1.5);
+const scaleY = ref(1.5);
+const skewX = ref(20);
+const skewY = ref(0);
 
 const style = computed(() => {
   switch (selected.value) {
     case 'translate':
-      return { transform: `translate(${translateX.value}px, ${translateY.value}px)` }
+      return { transform: `translate(${translateX.value}px, ${translateY.value}px)` };
     case 'rotate':
-      return { transform: `rotate(${rotateDeg.value}deg)` }
+      return { transform: `rotate(${rotateDeg.value}deg)` };
     case 'scale':
-      return { transform: `scale(${scaleX.value}, ${scaleY.value})` }
+      return { transform: `scale(${scaleX.value}, ${scaleY.value})` };
     case 'skew':
-      return { transform: `skew(${skewX.value}deg, ${skewY.value}deg)` }
+      return { transform: `skew(${skewX.value}deg, ${skewY.value}deg)` };
     case 'combined':
       return {
-        transform: `translate(${translateX.value}px, 0) rotate(${rotateDeg.value}deg) scale(${scaleX.value})`
-      }
+        transform: `translate(${translateX.value}px, 0) rotate(${rotateDeg.value}deg) scale(${scaleX.value})`,
+      };
   }
-})
+});
 
 const description = computed(() => {
   switch (selected.value) {
     case 'translate':
-      return `translate(${translateX.value}px, ${translateY.value}px)：元素从原始位置移动。百分比相对于自身尺寸计算，这是 translate(-50%,-50%) 能实现居中的原因。`
+      return `translate(${translateX.value}px, ${translateY.value}px)：元素从原始位置移动。百分比相对于自身尺寸计算，这是 translate(-50%,-50%) 能实现居中的原因。`;
     case 'rotate':
-      return `rotate(${rotateDeg.value}deg)：绕中心点旋转。正值顺时针，负值逆时针。常用于箭头展开/收起、加载旋转。`
+      return `rotate(${rotateDeg.value}deg)：绕中心点旋转。正值顺时针，负值逆时针。常用于箭头展开/收起、加载旋转。`;
     case 'scale':
-      return `scale(${scaleX.value}, ${scaleY.value})：缩放元素。1=原始大小，>1 放大，<1 缩小。不影响文档流，放大后可能覆盖相邻元素。`
+      return `scale(${scaleX.value}, ${scaleY.value})：缩放元素。1=原始大小，>1 放大，<1 缩小。不影响文档流，放大后可能覆盖相邻元素。`;
     case 'skew':
-      return `skew(${skewX.value}deg, ${skewY.value}deg)：沿 X/Y 轴倾斜。常用于倾斜横幅背景，内容反向倾斜可保持文字正立。`
+      return `skew(${skewX.value}deg, ${skewY.value}deg)：沿 X/Y 轴倾斜。常用于倾斜横幅背景，内容反向倾斜可保持文字正立。`;
     case 'combined':
-      return '组合变换：多个变换函数按顺序执行。顺序不同结果不同——先旋转再位移是沿旋转后的坐标轴移动。'
+      return '组合变换：多个变换函数按顺序执行。顺序不同结果不同——先旋转再位移是沿旋转后的坐标轴移动。';
   }
-})
+});
 
 function reset() {
-  translateX.value = 50
-  translateY.value = 0
-  rotateDeg.value = 45
-  scaleX.value = 1.5
-  scaleY.value = 1.5
-  skewX.value = 20
-  skewY.value = 0
+  translateX.value = 50;
+  translateY.value = 0;
+  rotateDeg.value = 45;
+  scaleX.value = 1.5;
+  scaleY.value = 1.5;
+  skewX.value = 20;
+  skewY.value = 0;
 }
 </script>
 
@@ -59,11 +59,13 @@ function reset() {
   <div class="transform-demo">
     <div class="tabs">
       <button
-        v-for="t in (['translate', 'rotate', 'scale', 'skew', 'combined'] as TransformType[])"
+        v-for="t in ['translate', 'rotate', 'scale', 'skew', 'combined'] as TransformType[]"
         :key="t"
         :class="{ active: selected === t }"
         @click="selected = t"
-      >{{ t }}</button>
+      >
+        {{ t }}
+      </button>
     </div>
 
     <div class="preview">
@@ -72,24 +74,64 @@ function reset() {
     </div>
 
     <div class="controls" v-if="selected === 'translate'">
-      <label>X: <input type="range" min="-100" max="100" v-model.number="translateX" /><span>{{ translateX }}px</span></label>
-      <label>Y: <input type="range" min="-100" max="100" v-model.number="translateY" /><span>{{ translateY }}px</span></label>
+      <label
+        >X: <input type="range" min="-100" max="100" v-model.number="translateX" /><span
+          >{{ translateX }}px</span
+        ></label
+      >
+      <label
+        >Y: <input type="range" min="-100" max="100" v-model.number="translateY" /><span
+          >{{ translateY }}px</span
+        ></label
+      >
     </div>
     <div class="controls" v-else-if="selected === 'rotate'">
-      <label>角度: <input type="range" min="-360" max="360" v-model.number="rotateDeg" /><span>{{ rotateDeg }}deg</span></label>
+      <label
+        >角度: <input type="range" min="-360" max="360" v-model.number="rotateDeg" /><span
+          >{{ rotateDeg }}deg</span
+        ></label
+      >
     </div>
     <div class="controls" v-else-if="selected === 'scale'">
-      <label>缩放X: <input type="range" min="0" max="3" step="0.1" v-model.number="scaleX" /><span>{{ scaleX }}</span></label>
-      <label>缩放Y: <input type="range" min="0" max="3" step="0.1" v-model.number="scaleY" /><span>{{ scaleY }}</span></label>
+      <label
+        >缩放X: <input type="range" min="0" max="3" step="0.1" v-model.number="scaleX" /><span>{{
+          scaleX
+        }}</span></label
+      >
+      <label
+        >缩放Y: <input type="range" min="0" max="3" step="0.1" v-model.number="scaleY" /><span>{{
+          scaleY
+        }}</span></label
+      >
     </div>
     <div class="controls" v-else-if="selected === 'skew'">
-      <label>倾斜X: <input type="range" min="-60" max="60" v-model.number="skewX" /><span>{{ skewX }}deg</span></label>
-      <label>倾斜Y: <input type="range" min="-60" max="60" v-model.number="skewY" /><span>{{ skewY }}deg</span></label>
+      <label
+        >倾斜X: <input type="range" min="-60" max="60" v-model.number="skewX" /><span
+          >{{ skewX }}deg</span
+        ></label
+      >
+      <label
+        >倾斜Y: <input type="range" min="-60" max="60" v-model.number="skewY" /><span
+          >{{ skewY }}deg</span
+        ></label
+      >
     </div>
     <div class="controls" v-else>
-      <label>X: <input type="range" min="-100" max="100" v-model.number="translateX" /><span>{{ translateX }}px</span></label>
-      <label>角度: <input type="range" min="-180" max="180" v-model.number="rotateDeg" /><span>{{ rotateDeg }}deg</span></label>
-      <label>缩放: <input type="range" min="0.2" max="2" step="0.1" v-model.number="scaleX" /><span>{{ scaleX }}</span></label>
+      <label
+        >X: <input type="range" min="-100" max="100" v-model.number="translateX" /><span
+          >{{ translateX }}px</span
+        ></label
+      >
+      <label
+        >角度: <input type="range" min="-180" max="180" v-model.number="rotateDeg" /><span
+          >{{ rotateDeg }}deg</span
+        ></label
+      >
+      <label
+        >缩放: <input type="range" min="0.2" max="2" step="0.1" v-model.number="scaleX" /><span>{{
+          scaleX
+        }}</span></label
+      >
     </div>
 
     <div class="status-bar">{{ description }}</div>
@@ -185,7 +227,7 @@ function reset() {
   color: var(--vp-c-text-2);
 }
 
-.controls input[type="range"] {
+.controls input[type='range'] {
   width: 120px;
 }
 
@@ -223,7 +265,11 @@ function reset() {
 }
 
 @media (max-width: 560px) {
-  .preview { height: 140px; }
-  .controls { flex-direction: column; }
+  .preview {
+    height: 140px;
+  }
+  .controls {
+    flex-direction: column;
+  }
 }
 </style>

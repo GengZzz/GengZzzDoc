@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 interface PipelineStage {
-  label: string
-  code: string
-  executed: boolean
+  label: string;
+  code: string;
+  executed: boolean;
 }
 
 const stages = computed<PipelineStage[]>(() => {
@@ -18,13 +18,13 @@ const stages = computed<PipelineStage[]>(() => {
     { label: 'foreach', code: 'foreach(var x in q)', executed: step.value >= 4 },
     { label: 'IQueryable', code: 'Expression<Func<>>', executed: step.value >= 5 },
     { label: 'ToSql', code: 'EF Core → SQL', executed: step.value >= 6 },
-  ]
-  return all
-})
+  ];
+  return all;
+});
 
-const sourceData = [1, 2, 3, 4, 5]
-const whereResult = computed(() => sourceData.filter(x => x > 2))
-const selectResult = computed(() => whereResult.value.map(x => x * x))
+const sourceData = [1, 2, 3, 4, 5];
+const whereResult = computed(() => sourceData.filter((x) => x > 2));
+const selectResult = computed(() => whereResult.value.map((x) => x * x));
 
 const statusText = computed(() => {
   const texts = [
@@ -36,16 +36,16 @@ const statusText = computed(() => {
     '步骤 5：切换到 IQueryable → 表达式树构建（Lambda 变为可分析的数据结构）',
     '步骤 6：ToListAsync() → EF Core 遍历表达式树 → 翻译为 SQL → 数据库执行',
     '步骤 7：IEnumerable（内存过滤 1000 行取 10 行）vs IQueryable（数据库只返回 10 行）',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -57,7 +57,7 @@ function reset() {
         v-for="(stage, i) in stages"
         :key="i"
         class="stage"
-        :class="{ active: stage.executed, current: (step === i + 1) || (step === 7 && i >= 4) }"
+        :class="{ active: stage.executed, current: step === i + 1 || (step === 7 && i >= 4) }"
       >
         <span class="stage-label">{{ stage.label }}</span>
         <code class="stage-code">{{ stage.code }}</code>
@@ -258,15 +258,35 @@ function reset() {
   opacity: 0.3;
 }
 
-.flow-item.highlighted { opacity: 1; }
-.flow-item.dimmed { opacity: 0.2; border-style: dashed; }
+.flow-item.highlighted {
+  opacity: 1;
+}
+.flow-item.dimmed {
+  opacity: 0.2;
+  border-style: dashed;
+}
 
-.where-item.highlighted { border-color: #3b82f6; color: #3b82f6; }
-.select-item.highlighted { border-color: #8b5cf6; color: #8b5cf6; }
-.select-item.yielded { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.08); }
+.where-item.highlighted {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+.select-item.highlighted {
+  border-color: #8b5cf6;
+  color: #8b5cf6;
+}
+.select-item.yielded {
+  border-color: #22c55e;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+}
 
-.expr-tree { margin-bottom: 12px; }
-.expr-tree h4 { margin: 0 0 8px; font-size: 14px; }
+.expr-tree {
+  margin-bottom: 12px;
+}
+.expr-tree h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
 
 .tree-box {
   padding: 10px;
@@ -282,7 +302,9 @@ function reset() {
   font-size: 12px;
 }
 
-.tree-structure { padding-left: 16px; }
+.tree-structure {
+  padding-left: 16px;
+}
 
 .tree-node {
   padding: 4px 8px;
@@ -293,11 +315,21 @@ function reset() {
   display: inline-block;
 }
 
-.tree-children { padding-left: 24px; }
-.tree-node.leaf { border-color: #22c55e; color: #22c55e; }
+.tree-children {
+  padding-left: 24px;
+}
+.tree-node.leaf {
+  border-color: #22c55e;
+  color: #22c55e;
+}
 
-.sql-output { margin-bottom: 12px; }
-.sql-output h4 { margin: 0 0 8px; font-size: 14px; }
+.sql-output {
+  margin-bottom: 12px;
+}
+.sql-output h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
 
 .sql-box {
   padding: 10px;
@@ -353,9 +385,18 @@ function reset() {
   font-size: 11px;
 }
 
-.compare-step.bad { border-color: #ef4444; color: #ef4444; }
-.compare-step.good { border-color: #22c55e; color: #22c55e; }
-.compare-arrow { color: var(--vp-c-text-2); font-size: 11px; }
+.compare-step.bad {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+.compare-step.good {
+  border-color: #22c55e;
+  color: #22c55e;
+}
+.compare-arrow {
+  color: var(--vp-c-text-2);
+  font-size: 11px;
+}
 
 .compare-cost {
   font-size: 11px;
@@ -364,8 +405,14 @@ function reset() {
   border-radius: 4px;
 }
 
-.compare-cost.bad { color: #ef4444; background: rgba(239, 68, 68, 0.05); }
-.compare-cost.good { color: #22c55e; background: rgba(34, 197, 94, 0.05); }
+.compare-cost.bad {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+}
+.compare-cost.good {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.05);
+}
 
 .status-bar {
   padding: 8px 12px;
@@ -392,8 +439,14 @@ button {
 }
 
 @media (max-width: 560px) {
-  .pipeline { flex-direction: column; }
-  .comparison { grid-template-columns: 1fr; }
-  .compare-flow { flex-direction: column; }
+  .pipeline {
+    flex-direction: column;
+  }
+  .comparison {
+    grid-template-columns: 1fr;
+  }
+  .compare-flow {
+    flex-direction: column;
+  }
 }
 </style>

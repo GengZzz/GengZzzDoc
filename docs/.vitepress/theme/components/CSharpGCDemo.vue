@@ -1,114 +1,146 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 interface GcObject {
-  id: string
-  label: string
-  size: number
-  alive: boolean
+  id: string;
+  label: string;
+  size: number;
+  alive: boolean;
 }
 
 interface Generation {
-  name: string
-  color: string
-  objects: GcObject[]
+  name: string;
+  color: string;
+  objects: GcObject[];
 }
 
-const gen0Color = '#22c55e'  // 绿色
-const gen1Color = '#f59e0b'  // 黄色
-const gen2Color = '#ef4444'  // 红色
-const lohColor = '#8b5cf6'   // 紫色
+const gen0Color = '#22c55e'; // 绿色
+const gen1Color = '#f59e0b'; // 黄色
+const gen2Color = '#ef4444'; // 红色
+const lohColor = '#8b5cf6'; // 紫色
 
 const generations = computed<Generation[]>(() => {
-  if (step.value === 0) return []
+  if (step.value === 0) return [];
 
   if (step.value === 1) {
     // 程序启动，对象在 Gen0 分配
     return [
-      { name: 'Gen0（256KB-4MB）', color: gen0Color, objects: [
-        { id: 'a', label: '临时变量', size: 16, alive: true },
-        { id: 'b', label: '查询结果', size: 32, alive: true },
-        { id: 'c', label: '中间对象', size: 24, alive: true },
-        { id: 'd', label: '字符串', size: 48, alive: true },
-        { id: 'e', label: '委托实例', size: 32, alive: true },
-        { id: 'f', label: '闭包对象', size: 40, alive: true },
-      ]},
+      {
+        name: 'Gen0（256KB-4MB）',
+        color: gen0Color,
+        objects: [
+          { id: 'a', label: '临时变量', size: 16, alive: true },
+          { id: 'b', label: '查询结果', size: 32, alive: true },
+          { id: 'c', label: '中间对象', size: 24, alive: true },
+          { id: 'd', label: '字符串', size: 48, alive: true },
+          { id: 'e', label: '委托实例', size: 32, alive: true },
+          { id: 'f', label: '闭包对象', size: 40, alive: true },
+        ],
+      },
       { name: 'Gen1', color: gen1Color, objects: [] },
       { id: 'g', name: 'Gen2', color: gen2Color, objects: [] } as any,
       { name: 'LOH（>85KB）', color: lohColor, objects: [] },
-    ]
+    ];
   }
 
   if (step.value === 2) {
     // Gen0 填满，大量对象创建
     return [
-      { name: 'Gen0（接近阈值）', color: gen0Color, objects: [
-        { id: 'a', label: '临时变量', size: 16, alive: false },
-        { id: 'b', label: '查询结果', size: 32, alive: true },
-        { id: 'c', label: '中间对象', size: 24, alive: false },
-        { id: 'd', label: '字符串', size: 48, alive: true },
-        { id: 'e', label: '委托实例', size: 32, alive: false },
-        { id: 'f', label: '闭包对象', size: 40, alive: true },
-        { id: 'g', label: '临时列表', size: 64, alive: false },
-        { id: 'h', label: '迭代器', size: 32, alive: false },
-      ]},
+      {
+        name: 'Gen0（接近阈值）',
+        color: gen0Color,
+        objects: [
+          { id: 'a', label: '临时变量', size: 16, alive: false },
+          { id: 'b', label: '查询结果', size: 32, alive: true },
+          { id: 'c', label: '中间对象', size: 24, alive: false },
+          { id: 'd', label: '字符串', size: 48, alive: true },
+          { id: 'e', label: '委托实例', size: 32, alive: false },
+          { id: 'f', label: '闭包对象', size: 40, alive: true },
+          { id: 'g', label: '临时列表', size: 64, alive: false },
+          { id: 'h', label: '迭代器', size: 32, alive: false },
+        ],
+      },
       { name: 'Gen1', color: gen1Color, objects: [] },
       { name: 'Gen2', color: gen2Color, objects: [] },
       { name: 'LOH（>85KB）', color: lohColor, objects: [] },
-    ]
+    ];
   }
 
   if (step.value === 3) {
     // Gen0 GC 触发，存活对象提升到 Gen1
     return [
-      { name: 'Gen0（已回收）', color: gen0Color, objects: [
-        { id: 'x1', label: '新对象1', size: 16, alive: true },
-        { id: 'x2', label: '新对象2', size: 24, alive: true },
-      ]},
-      { name: 'Gen1', color: gen1Color, objects: [
-        { id: 'b', label: '查询结果', size: 32, alive: true },
-        { id: 'd', label: '字符串', size: 48, alive: true },
-        { id: 'f', label: '闭包对象', size: 40, alive: true },
-      ]},
+      {
+        name: 'Gen0（已回收）',
+        color: gen0Color,
+        objects: [
+          { id: 'x1', label: '新对象1', size: 16, alive: true },
+          { id: 'x2', label: '新对象2', size: 24, alive: true },
+        ],
+      },
+      {
+        name: 'Gen1',
+        color: gen1Color,
+        objects: [
+          { id: 'b', label: '查询结果', size: 32, alive: true },
+          { id: 'd', label: '字符串', size: 48, alive: true },
+          { id: 'f', label: '闭包对象', size: 40, alive: true },
+        ],
+      },
       { name: 'Gen2', color: gen2Color, objects: [] },
       { name: 'LOH（>85KB）', color: lohColor, objects: [] },
-    ]
+    ];
   }
 
   if (step.value === 4) {
     // Gen1 积累后触发 GC，存活对象提升到 Gen2
     return [
-      { name: 'Gen0', color: gen0Color, objects: [
-        { id: 'y1', label: '新分配', size: 20, alive: true },
-      ]},
-      { name: 'Gen1（部分回收）', color: gen1Color, objects: [
-        { id: 'f', label: '闭包对象', size: 40, alive: false },
-      ]},
-      { name: 'Gen2', color: gen2Color, objects: [
-        { id: 'b', label: '查询结果', size: 32, alive: true },
-        { id: 'd', label: '字符串', size: 48, alive: true },
-      ]},
+      {
+        name: 'Gen0',
+        color: gen0Color,
+        objects: [{ id: 'y1', label: '新分配', size: 20, alive: true }],
+      },
+      {
+        name: 'Gen1（部分回收）',
+        color: gen1Color,
+        objects: [{ id: 'f', label: '闭包对象', size: 40, alive: false }],
+      },
+      {
+        name: 'Gen2',
+        color: gen2Color,
+        objects: [
+          { id: 'b', label: '查询结果', size: 32, alive: true },
+          { id: 'd', label: '字符串', size: 48, alive: true },
+        ],
+      },
       { name: 'LOH（>85KB）', color: lohColor, objects: [] },
-    ]
+    ];
   }
 
   if (step.value === 5) {
     // Background GC 展示
     return [
-      { name: 'Gen0（可继续分配）', color: gen0Color, objects: [
-        { id: 'y1', label: '新分配', size: 20, alive: true },
-        { id: 'y2', label: '并发中创建', size: 32, alive: true },
-      ]},
+      {
+        name: 'Gen0（可继续分配）',
+        color: gen0Color,
+        objects: [
+          { id: 'y1', label: '新分配', size: 20, alive: true },
+          { id: 'y2', label: '并发中创建', size: 32, alive: true },
+        ],
+      },
       { name: 'Gen1', color: gen1Color, objects: [] },
-      { name: 'Gen2（后台回收中...）', color: gen2Color, objects: [
-        { id: 'b', label: '查询结果', size: 32, alive: true },
-        { id: 'd', label: '字符串', size: 48, alive: true },
-      ]},
+      {
+        name: 'Gen2（后台回收中...）',
+        color: gen2Color,
+        objects: [
+          { id: 'b', label: '查询结果', size: 32, alive: true },
+          { id: 'd', label: '字符串', size: 48, alive: true },
+        ],
+      },
       { name: 'LOH（>85KB）', color: lohColor, objects: [] },
-    ]
+    ];
   }
 
   if (step.value === 6) {
@@ -116,20 +148,26 @@ const generations = computed<Generation[]>(() => {
     return [
       { name: 'Gen0', color: gen0Color, objects: [] },
       { name: 'Gen1', color: gen1Color, objects: [] },
-      { name: 'Gen2', color: gen2Color, objects: [
-        { id: 'b', label: '长期对象', size: 32, alive: true },
-      ]},
-      { name: 'LOH（碎片化）', color: lohColor, objects: [
-        { id: 'loh1', label: '128KB 数组', size: 128, alive: true },
-        { id: 'pin', label: 'Pinned', size: 64, alive: true },
-        { id: 'loh2', label: '200KB 数组', size: 200, alive: false },
-        { id: 'loh3', label: '256KB 缓冲', size: 256, alive: true },
-      ]},
-    ]
+      {
+        name: 'Gen2',
+        color: gen2Color,
+        objects: [{ id: 'b', label: '长期对象', size: 32, alive: true }],
+      },
+      {
+        name: 'LOH（碎片化）',
+        color: lohColor,
+        objects: [
+          { id: 'loh1', label: '128KB 数组', size: 128, alive: true },
+          { id: 'pin', label: 'Pinned', size: 64, alive: true },
+          { id: 'loh2', label: '200KB 数组', size: 200, alive: false },
+          { id: 'loh3', label: '256KB 缓冲', size: 256, alive: true },
+        ],
+      },
+    ];
   }
 
-  return []
-})
+  return [];
+});
 
 const statusText = computed(() => {
   const texts = [
@@ -140,16 +178,16 @@ const statusText = computed(() => {
     '步骤 4：Gen1 积累后触发 GC → 存活对象提升到 Gen2（Gen1 是 Gen0/Gen2 的缓冲区）',
     '步骤 5：Background GC 在后台回收 Gen2，不阻塞主线程，Gen0 仍可继续分配对象',
     '步骤 6：大对象（>85KB）直接进 LOH，LOH 随 Gen2 回收且默认不压缩 → Pinned 对象导致碎片',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -234,8 +272,13 @@ h4 {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .obj-label {

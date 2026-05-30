@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 interface Tuple {
-  id: number
-  name: string
-  age: number
-  xmin: number
-  xmax: number
-  dead: boolean
-  label?: string
+  id: number;
+  name: string;
+  age: number;
+  xmin: number;
+  xmax: number;
+  dead: boolean;
+  label?: string;
 }
 
 const tuples = computed((): Tuple[] => {
@@ -21,39 +21,87 @@ const tuples = computed((): Tuple[] => {
         { id: 1, name: 'Alice', age: 20, xmin: 100, xmax: 0, dead: false },
         { id: 2, name: 'Bob', age: 30, xmin: 100, xmax: 0, dead: false },
         { id: 3, name: 'Carol', age: 25, xmin: 100, xmax: 0, dead: false },
-      ]
+      ];
     case 1:
       return [
         { id: 1, name: 'Alice', age: 20, xmin: 100, xmax: 101, dead: false, label: '旧版本' },
-        { id: 1, name: 'Alice', age: 25, xmin: 101, xmax: 0, dead: false, label: '新版本（事务A更新）' },
+        {
+          id: 1,
+          name: 'Alice',
+          age: 25,
+          xmin: 101,
+          xmax: 0,
+          dead: false,
+          label: '新版本（事务A更新）',
+        },
         { id: 2, name: 'Bob', age: 30, xmin: 100, xmax: 0, dead: false },
         { id: 3, name: 'Carol', age: 25, xmin: 100, xmax: 0, dead: false },
-      ]
+      ];
     case 2:
       return [
-        { id: 1, name: 'Alice', age: 20, xmin: 100, xmax: 101, dead: false, label: '事务B看到此版本（事务A未提交）' },
-        { id: 1, name: 'Alice', age: 25, xmin: 101, xmax: 0, dead: false, label: '事务B看不到（事务A未提交）' },
+        {
+          id: 1,
+          name: 'Alice',
+          age: 20,
+          xmin: 100,
+          xmax: 101,
+          dead: false,
+          label: '事务B看到此版本（事务A未提交）',
+        },
+        {
+          id: 1,
+          name: 'Alice',
+          age: 25,
+          xmin: 101,
+          xmax: 0,
+          dead: false,
+          label: '事务B看不到（事务A未提交）',
+        },
         { id: 2, name: 'Bob', age: 30, xmin: 100, xmax: 0, dead: false },
         { id: 3, name: 'Carol', age: 25, xmin: 100, xmax: 0, dead: false },
-      ]
+      ];
     case 3:
       return [
-        { id: 1, name: 'Alice', age: 20, xmin: 100, xmax: 101, dead: false, label: '事务B仍看到此版本（可重复读）' },
-        { id: 1, name: 'Alice', age: 25, xmin: 101, xmax: 0, dead: false, label: '新事务看到此版本（事务A已提交）' },
+        {
+          id: 1,
+          name: 'Alice',
+          age: 20,
+          xmin: 100,
+          xmax: 101,
+          dead: false,
+          label: '事务B仍看到此版本（可重复读）',
+        },
+        {
+          id: 1,
+          name: 'Alice',
+          age: 25,
+          xmin: 101,
+          xmax: 0,
+          dead: false,
+          label: '新事务看到此版本（事务A已提交）',
+        },
         { id: 2, name: 'Bob', age: 30, xmin: 100, xmax: 0, dead: false },
         { id: 3, name: 'Carol', age: 25, xmin: 100, xmax: 0, dead: false },
-      ]
+      ];
     case 4:
       return [
-        { id: 1, name: 'Alice', age: 20, xmin: 100, xmax: 101, dead: true, label: 'Dead Tuple（VACUUM 清理）' },
+        {
+          id: 1,
+          name: 'Alice',
+          age: 20,
+          xmin: 100,
+          xmax: 101,
+          dead: true,
+          label: 'Dead Tuple（VACUUM 清理）',
+        },
         { id: 1, name: 'Alice', age: 25, xmin: 101, xmax: 0, dead: false, label: '当前版本' },
         { id: 2, name: 'Bob', age: 30, xmin: 100, xmax: 0, dead: false },
         { id: 3, name: 'Carol', age: 25, xmin: 100, xmax: 0, dead: false },
-      ]
+      ];
     default:
-      return []
+      return [];
   }
-})
+});
 
 const statusText = computed(() => {
   const texts = [
@@ -62,22 +110,22 @@ const statusText = computed(() => {
     '事务 B 开始（快照：xmin=100, xmax=102, xip=[101]）：看到旧行（事务A未提交）',
     '事务 A 提交后：事务 B 仍看到旧行（可重复读快照），新事务看到新行',
     'VACUUM 清理 Dead Tuple：旧行对任何活跃事务不再可见，空间可回收',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 const snapshotInfo = computed(() => {
-  if (step.value === 2) return { xmin: 100, xmax: 102, xip: [101] }
-  if (step.value === 3) return { xmin: 100, xmax: 102, xip: [] }
-  return null
-})
+  if (step.value === 2) return { xmin: 100, xmax: 102, xip: [101] };
+  if (step.value === 3) return { xmin: 100, xmax: 102, xip: [] };
+  return null;
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -99,8 +147,8 @@ function reset() {
         :class="{
           'dead-tuple': t.dead,
           'new-version': t.label?.includes('新版本') || t.label?.includes('当前版本'),
-          'visible': t.label?.includes('看到'),
-          'hidden': t.label?.includes('看不到'),
+          visible: t.label?.includes('看到'),
+          hidden: t.label?.includes('看不到'),
         }"
       >
         <div class="tuple-header">
@@ -167,7 +215,9 @@ function reset() {
   border-radius: 6px;
   background: var(--vp-c-bg);
   font-size: 13px;
-  transition: border-color 0.3s, opacity 0.3s;
+  transition:
+    border-color 0.3s,
+    opacity 0.3s;
 }
 
 .tuple-box.new-version {

@@ -247,6 +247,7 @@ validate({ name: '', age: -1 }, errors);
 
 ::: warning 安全警告
 `eval` 和 `new Function` 都可以执行任意代码，存在安全风险。日常开发中应避免使用：
+
 - 用 `JSON.parse()` 替代 `eval()` 解析 JSON
 - 用模板字符串 + 函数替代字符串拼接逻辑
 - 如果必须使用，确保输入经过严格校验

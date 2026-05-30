@@ -243,6 +243,7 @@ static bool LogAndReturnFalse(Exception ex)
     return false;  // 不处理，继续传播
 }
 ```
+
 :::
 
 ### 异常的性能开销
@@ -285,6 +286,7 @@ public class BusinessException : Exception
 ```
 
 ::: warning 异常设计原则
+
 - 异常类名以 `Exception` 结尾
 - 提供无参构造、带 message 构造、带 message+inner 构造
 - 标记 `[Serializable]` 并提供序列化构造函数
@@ -350,6 +352,7 @@ int Sum(int a, int b) => a + b;
 int Sum(int a, int b, int c) => a + b + c;
 int Sum(params int[] numbers) => numbers.Sum();  // 只有参数超过 3 个时才用
 ```
+
 :::
 
 ## 方法内联条件
@@ -400,6 +403,7 @@ IEnumerable<int> Fibonacci(int count)
 ```
 
 本地函数相比 lambda 的优势：
+
 - 不分配委托对象（除非捕获变量需要闭包）
 - 可以是迭代器（`yield return`）或异步方法
 - 可以访问外部方法的 `out` 变量和 `ref` 参数

@@ -270,6 +270,7 @@ SHOW VARIABLES LIKE 'eq_range_index_dive_limit';
 ```sql
 SET SESSION eq_range_index_dive_limit = 500;
 ```
+
 :::
 
 ## 直方图 (Histogram) — MySQL 8.0+
@@ -295,6 +296,7 @@ ANALYZE TABLE employees.salaries
 ```
 
 直方图有两类：
+
 - **Singleton**：每个值一个桶，适合离散值较少的列（如枚举）
 - **Equi-height**（等高直方图）：每个桶包含大致相同数量的行，适合连续值（如金额、时间戳）
 
@@ -308,6 +310,7 @@ WHERE salary BETWEEN 50000 AND 60000;
 ```
 
 ::: tip 直方图适用场景
+
 - 列没有索引但经常出现在 WHERE 条件中
 - 列值分布不均匀（如 90% 的数据集中在某几个值）
 - 不适合高频更新的列（需要频繁重建直方图）
@@ -441,4 +444,5 @@ WHERE s.salary > (SELECT AVG(salary) FROM salaries);
 EXPLAIN FORMAT=JSON
 SELECT * FROM employees WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd005');
 ```
+
 :::

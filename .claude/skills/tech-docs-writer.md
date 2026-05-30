@@ -7,6 +7,7 @@
 ## 触发方式
 
 用户说类似以下的话时激活本 Skill：
+
 - "写 XXX 的技术文档"
 - "完成 XXX 文档"
 - "编写 XXX 笔记"
@@ -58,7 +59,7 @@
 
 每个 .md 文件必须遵循以下结构：
 
-```markdown
+````markdown
 # 页面标题
 
 简介段落（2-3 句话说明本页覆盖什么内容，为什么重要）
@@ -71,6 +72,7 @@
 // 完整的代码示例
 // 关键行要有注释说明
 ```
+````
 
 补充说明段落（代码中无法表达的注意事项、坑点、最佳实践）
 
@@ -80,7 +82,8 @@
 ## 板块二标题
 
 ...
-```
+
+````
 
 ### 2.2 每个板块/方法的讲解要求
 
@@ -122,26 +125,28 @@
 - 插入：`splice(起始位置, 0, 新元素...)`
 - 替换：`splice(起始位置, 替换数量, 新元素...)`
 :::
-```
+````
 
 #### 错误示例：
 
 ```markdown
 ### splice
+
 `arr.splice(1, 2)` — 删除两个元素。
 `arr.splice(1, 0, 'x')` — 插入元素。
 ```
+
 （只有代码，没有讲解，不合格）
 
 ### 2.3 内容深度标准
 
-| 话题类型 | 深度要求 | 示例 |
-|---------|---------|------|
-| 基础语法 | 规则 + 常见陷阱 + 实际用途 | var/let/const 的作用域区别、暂时性死区 |
-| API 方法 | 参数 + 返回值 + 对比 + 实战代码 | map vs forEach、slice vs splice |
-| 核心机制 | 原理图 + 内部过程 + 手写简化版 | 事件循环、Promise 状态机、原型链查找 |
-| 设计模式 | 场景 + 代码 + 变体 + 取舍 | 观察者 vs 发布订阅、单例的各种实现 |
-| 性能相关 | 数据 + 基准 + 优化前后对比 | V8 隐藏类、防抖 vs 节流的时间线 |
+| 话题类型 | 深度要求                        | 示例                                   |
+| -------- | ------------------------------- | -------------------------------------- |
+| 基础语法 | 规则 + 常见陷阱 + 实际用途      | var/let/const 的作用域区别、暂时性死区 |
+| API 方法 | 参数 + 返回值 + 对比 + 实战代码 | map vs forEach、slice vs splice        |
+| 核心机制 | 原理图 + 内部过程 + 手写简化版  | 事件循环、Promise 状态机、原型链查找   |
+| 设计模式 | 场景 + 代码 + 变体 + 取舍       | 观察者 vs 发布订阅、单例的各种实现     |
+| 性能相关 | 数据 + 基准 + 优化前后对比      | V8 隐藏类、防抖 vs 节流的时间线        |
 
 ### 2.4 不要写的内容
 
@@ -170,30 +175,30 @@
 
 ```vue
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from "vue";
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 // 每一步的状态用 computed 计算
 const items = computed(() => {
-  if (step.value === 0) return []
-  if (step.value === 1) return ['第一步内容']
+  if (step.value === 0) return [];
+  if (step.value === 1) return ["第一步内容"];
   // ...
-  return []
-})
+  return [];
+});
 
 const description = computed(() => {
-  const descs = ['描述0', '描述1', /* ... */]
-  return descs[step.value]
-})
+  const descs = ["描述0", "描述1" /* ... */];
+  return descs[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -215,11 +220,38 @@ function reset() {
 
 <style scoped>
 /* 使用 VitePress CSS 变量 */
-.demo { padding: 16px; border: 1px solid var(--vp-c-border); border-radius: 8px; background: var(--vp-c-bg-soft); }
-.block { border: 1px solid var(--vp-c-border); border-radius: 6px; background: var(--vp-c-bg); }
-.status-bar { margin-top: 12px; padding: 8px 12px; border-radius: 6px; background: var(--vp-c-bg); font-size: 13px; }
-.actions { display: flex; gap: 8px; margin-top: 12px; }
-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--vp-c-border); border-radius: 6px; background: var(--vp-c-bg); color: var(--vp-c-text-1); cursor: pointer; }
+.demo {
+  padding: 16px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+}
+.block {
+  border: 1px solid var(--vp-c-border);
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+}
+.status-bar {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+  font-size: 13px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  cursor: pointer;
+}
 </style>
 ```
 
@@ -227,15 +259,15 @@ button { min-height: 34px; padding: 0 12px; border: 1px solid var(--vp-c-border)
 
 ```vue
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from "vue";
 
-const selected = ref('optionA')
+const selected = ref("optionA");
 
 const description = computed(() => {
-  if (selected.value === 'optionA') return '选项A的说明'
-  if (selected.value === 'optionB') return '选项B的说明'
-  return ''
-})
+  if (selected.value === "optionA") return "选项A的说明";
+  if (selected.value === "optionB") return "选项B的说明";
+  return "";
+});
 </script>
 
 <template>
@@ -247,7 +279,9 @@ const description = computed(() => {
         class="node"
         :class="{ active: selected === node }"
         @click="selected = node"
-      >{{ node }}</div>
+      >
+        {{ node }}
+      </div>
     </div>
     <div class="status-bar">{{ description }}</div>
   </div>
@@ -270,9 +304,9 @@ MySQLXxxDemo.vue       — MySQL
 在 `docs/.vitepress/theme/index.ts` 中：
 
 ```typescript
-import JsXxxDemo from './components/JsXxxDemo.vue'
+import JsXxxDemo from "./components/JsXxxDemo.vue";
 // ...
-app.component('JsXxxDemo', JsXxxDemo)
+app.component("JsXxxDemo", JsXxxDemo);
 ```
 
 在 .md 文件中直接使用：
@@ -321,12 +355,12 @@ git push gitee main
 
 ### 4.2 提交信息规范
 
-| 类型 | 场景 |
-|------|------|
-| `docs: 添加 XXX` | 新增文档 |
+| 类型             | 场景         |
+| ---------------- | ------------ |
+| `docs: 添加 XXX` | 新增文档     |
 | `docs: 完善 XXX` | 补充已有文档 |
 | `docs: 重构 XXX` | 重写文档结构 |
-| `fix: 修复 XXX` | 修复文档错误 |
+| `fix: 修复 XXX`  | 修复文档错误 |
 
 ---
 
@@ -336,30 +370,30 @@ git push gitee main
 
 ### 5.1 内容验收清单
 
-| 检查项 | 标准 | 不通过的示例 |
-|-------|------|------------|
-| **板块完整性** | 每个板块都有概念说明 + 代码示例 + 注意事项 | 只有代码没有文字讲解 |
-| **代码可运行** | 所有代码示例能直接复制运行（或标注了伪代码） | 用了未定义的变量 |
-| **实际场景** | 至少 30% 的示例来自真实开发场景 | 全是 `foo`/`bar`/`hello` |
-| **深度标准** | API 方法有参数+返回值+对比；机制有原理图+内部过程 | 只列了方法签名 |
-| **无废话** | 没有「本节总结」「让我们来看看」「学到了什么」 | 存在这些段落 |
-| **自含性** | 每页独立可读，不依赖前一页的知识 | 开头写「上一节我们...」 |
+| 检查项         | 标准                                              | 不通过的示例             |
+| -------------- | ------------------------------------------------- | ------------------------ |
+| **板块完整性** | 每个板块都有概念说明 + 代码示例 + 注意事项        | 只有代码没有文字讲解     |
+| **代码可运行** | 所有代码示例能直接复制运行（或标注了伪代码）      | 用了未定义的变量         |
+| **实际场景**   | 至少 30% 的示例来自真实开发场景                   | 全是 `foo`/`bar`/`hello` |
+| **深度标准**   | API 方法有参数+返回值+对比；机制有原理图+内部过程 | 只列了方法签名           |
+| **无废话**     | 没有「本节总结」「让我们来看看」「学到了什么」    | 存在这些段落             |
+| **自含性**     | 每页独立可读，不依赖前一页的知识                  | 开头写「上一节我们...」  |
 
 ### 5.2 构建验收清单
 
-| 检查项 | 命令 |
-|-------|------|
-| 构建无报错 | `npm run docs:build` 必须成功 |
-| 侧边栏链接 | 所有 link 路径对应的 .md 文件存在 |
-| 组件注册 | 每个 `<XxxDemo />` 在 theme/index.ts 中已注册 |
-| 组件文件 | 每个 import 的 .vue 文件存在 |
+| 检查项     | 命令                                          |
+| ---------- | --------------------------------------------- |
+| 构建无报错 | `npm run docs:build` 必须成功                 |
+| 侧边栏链接 | 所有 link 路径对应的 .md 文件存在             |
+| 组件注册   | 每个 `<XxxDemo />` 在 theme/index.ts 中已注册 |
+| 组件文件   | 每个 import 的 .vue 文件存在                  |
 
 ### 5.3 Git 验收清单
 
-| 检查项 | 标准 |
-|-------|------|
-| 提交信息 | 中文描述，包含页数和组件数 |
-| 推送成功 | origin 和 gitee 都推送成功 |
+| 检查项   | 标准                         |
+| -------- | ---------------------------- |
+| 提交信息 | 中文描述，包含页数和组件数   |
+| 推送成功 | origin 和 gitee 都推送成功   |
 | 文件完整 | 本次任务的所有新文件都已提交 |
 
 ---
@@ -390,6 +424,7 @@ docs/
 ### 7.1 触发条件
 
 用户说类似：
+
 - "同时写 XXX、YYY、ZZZ 的文档"
 - "用 agent teams 完成 XXX"
 - "并行编写多个技术文档"

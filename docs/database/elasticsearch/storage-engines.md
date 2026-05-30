@@ -72,6 +72,7 @@ Level 0:  [1][3][5][7][8][10][12][15][18][20][25][30][35][38][40]
 ```
 
 假设需要查找 doc_id = 18：
+
 - Level 2: 18 > 1, 18 < 10 → 跳到 Level 1
 - Level 1: 18 > 10, 18 < 25 → 跳到 Level 0
 - Level 0: 从 10 开始顺序查找 → 找到 18
@@ -152,6 +153,7 @@ Doc ID | price (Doc Values)
 
 ::: warning 谨慎禁用 `_source`
 禁用 `_source` 后无法使用 Update API、Reindex、高亮等功能。除非存储空间极其紧张，否则不要禁用。可以使用 `includes`/`excludes` 过滤不需要存储的字段来节省空间：
+
 ```json
 {
   "_source": {
@@ -160,6 +162,7 @@ Doc ID | price (Doc Values)
   }
 }
 ```
+
 :::
 
 ## Term Vector

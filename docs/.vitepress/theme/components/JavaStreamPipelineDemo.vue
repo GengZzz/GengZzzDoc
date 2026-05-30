@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
-const source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const filtered = source.filter(n => n % 2 === 0)
-const mapped = filtered.map(n => n * n)
-const collected = [...mapped]
+const source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const filtered = source.filter((n) => n % 2 === 0);
+const mapped = filtered.map((n) => n * n);
+const collected = [...mapped];
 
 const stages = computed(() => {
   const s: { label: string; code: string; data: number[]; visible: boolean }[] = [
@@ -35,9 +35,9 @@ const stages = computed(() => {
       data: collected,
       visible: step.value >= 4,
     },
-  ]
-  return s
-})
+  ];
+  return s;
+});
 
 const statusText = computed(() => {
   const texts = [
@@ -47,16 +47,16 @@ const statusText = computed(() => {
     '中间操作：转换每个元素',
     '终端操作：触发整个管道执行',
     '完整的 Stream 管道',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -71,7 +71,9 @@ function reset() {
               <span v-for="(val, vi) in stage.data" :key="vi" class="data-box">{{ val }}</span>
             </div>
             <div class="stage-label">
-              <template v-if="stage.code"><code>{{ stage.code }}</code></template>
+              <template v-if="stage.code"
+                ><code>{{ stage.code }}</code></template
+              >
               <template v-else>{{ stage.label }}</template>
             </div>
           </div>
@@ -110,8 +112,14 @@ function reset() {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .arrow {
@@ -129,7 +137,9 @@ function reset() {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   flex-shrink: 0;
 }
 

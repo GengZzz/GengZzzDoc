@@ -165,6 +165,7 @@ int main(void) {
 ```
 
 ::: tip 处理僵尸进程
+
 - 始终调用 `wait` / `waitpid` 回收子进程
 - 或者设置 `SIGCHLD` 处理函数，使用 `waitpid(-1, NULL, WNOHANG)` 非阻塞回收
 - 或者使用 `signal(SIGCHLD, SIG_IGN)` 让内核自动回收（Linux 特有）
@@ -289,6 +290,7 @@ int main(void) {
 ```
 
 ::: tip 管道的特性
+
 - 半双工：数据只能单向流动
 - 只能用于有亲缘关系的进程（父子、兄弟）
 - 管道大小通常 64KB（Linux），满了 `write` 会阻塞

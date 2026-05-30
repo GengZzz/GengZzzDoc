@@ -45,6 +45,7 @@ customElements.define('my-greeting', MyGreeting)
 ```
 
 ::: warning 自定义元素命名规则
+
 - 名称必须包含至少一个连字符（`-`），如 `my-component`、`user-card`
 - 不能以连字符开头或结尾
 - 不能包含大写字母
@@ -85,6 +86,7 @@ customElements.define('fancy-button', FancyButton, { extends: 'button' })
 ```
 
 ::: tip 自治 vs 内置扩展
+
 - **自治元素**：从零创建，继承 `HTMLElement`，使用自定义标签名
 - **内置扩展**：继承原生元素（如 `HTMLButtonElement`），使用 `is` 属性
 - 内置扩展继承了原生元素的所有行为（表单提交、键盘可访问性等）
@@ -280,6 +282,7 @@ onMounted(() => {
 
 ::: tip Vue 中使用 Custom Elements
 在 Vue 项目中，需要在 `vite.config.ts` 中配置 `compilerOptions.isCustomElement`，告诉 Vue 编译器将自定义标签作为原生元素处理：
+
 ```ts
 // vite.config.ts
 export default {
@@ -294,6 +297,7 @@ export default {
   ]
 }
 ```
+
 :::
 
 ### React 集成

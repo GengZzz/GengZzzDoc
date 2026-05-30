@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 interface Obj {
-  id: string
-  label: string
-  refs: string[]
+  id: string;
+  label: string;
+  refs: string[];
 }
 
 const objects: Obj[] = [
@@ -19,41 +19,41 @@ const objects: Obj[] = [
   { id: 'obj6', label: 'Obj6', refs: [] },
   { id: 'obj7', label: 'Obj7', refs: ['obj8'] },
   { id: 'obj8', label: 'Obj8', refs: [] },
-]
+];
 
 // GC Roots reference obj1 and obj5
-const gcRoots = ['obj1', 'obj5']
+const gcRoots = ['obj1', 'obj5'];
 // Reachable from roots: obj1 -> obj2,obj3,obj4; obj5 -> obj6 => obj7,obj8 unreachable
-const reachable = new Set(['obj1', 'obj2', 'obj3', 'obj4', 'obj5', 'obj6'])
-const unreachable = new Set(['obj7', 'obj8'])
+const reachable = new Set(['obj1', 'obj2', 'obj3', 'obj4', 'obj5', 'obj6']);
+const unreachable = new Set(['obj7', 'obj8']);
 
-type Status = 'default' | 'root' | 'reachable' | 'unreachable'
+type Status = 'default' | 'root' | 'reachable' | 'unreachable';
 
 function getStatus(objId: string): Status {
-  if (step.value <= 1) return 'default'
+  if (step.value <= 1) return 'default';
   if (step.value === 2) {
-    if (gcRoots.includes(objId)) return 'root'
-    return 'default'
+    if (gcRoots.includes(objId)) return 'root';
+    return 'default';
   }
   if (step.value === 3) {
-    if (gcRoots.includes(objId)) return 'root'
-    if (reachable.has(objId)) return 'reachable'
-    return 'default'
+    if (gcRoots.includes(objId)) return 'root';
+    if (reachable.has(objId)) return 'reachable';
+    return 'default';
   }
   if (step.value >= 4) {
-    if (gcRoots.includes(objId)) return 'root'
-    if (reachable.has(objId)) return 'reachable'
-    if (unreachable.has(objId)) return 'unreachable'
+    if (gcRoots.includes(objId)) return 'root';
+    if (reachable.has(objId)) return 'reachable';
+    if (unreachable.has(objId)) return 'unreachable';
   }
-  return 'default'
+  return 'default';
 }
 
 const visibleObjects = computed(() => {
-  if (step.value === 0) return []
+  if (step.value === 0) return [];
   // In compacted state (step 5), only show reachable objects
-  if (step.value === 5) return objects.filter(o => reachable.has(o.id))
-  return objects
-})
+  if (step.value === 5) return objects.filter((o) => reachable.has(o.id));
+  return objects;
+});
 
 const statusText = computed(() => {
   const texts = [
@@ -63,16 +63,16 @@ const statusText = computed(() => {
     '遍历可达对象，标记为存活',
     '清除阶段：回收不可达对象的内存',
     '压缩阶段：整理内存碎片 (部分 GC 算法)',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -89,16 +89,13 @@ function reset() {
       <h4>堆 Heap</h4>
       <div v-if="visibleObjects.length === 0" class="empty">等待对象分配...</div>
       <div class="obj-grid" :class="{ compacted: step === 5 }">
-        <div
-          v-for="obj in visibleObjects"
-          :key="obj.id"
-          class="obj-box"
-          :class="getStatus(obj.id)"
-        >
+        <div v-for="obj in visibleObjects" :key="obj.id" class="obj-box" :class="getStatus(obj.id)">
           {{ obj.label }}
           <div v-if="step >= 3" class="ref-info">
             <template v-for="ref in obj.refs" :key="ref">
-              <span v-if="visibleObjects.some(o => o.id === ref)" class="ref-tag">→ {{ ref }}</span>
+              <span v-if="visibleObjects.some((o) => o.id === ref)" class="ref-tag"
+                >→ {{ ref }}</span
+              >
             </template>
           </div>
         </div>
@@ -170,7 +167,10 @@ h4 {
   background: var(--vp-c-bg);
   font-size: 13px;
   font-weight: 600;
-  transition: border-color 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .obj-box.default {

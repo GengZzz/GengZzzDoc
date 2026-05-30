@@ -1,20 +1,32 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-type ContainerProp = 'justifyContent' | 'alignItems' | 'flexDirection' | 'flexWrap'
+type ContainerProp = 'justifyContent' | 'alignItems' | 'flexDirection' | 'flexWrap';
 
-const activeProp = ref<ContainerProp>('justifyContent')
-const justifyContent = ref('flex-start')
-const alignItems = ref('stretch')
-const flexDirection = ref('row')
-const flexWrap = ref('nowrap')
+const activeProp = ref<ContainerProp>('justifyContent');
+const justifyContent = ref('flex-start');
+const alignItems = ref('stretch');
+const flexDirection = ref('row');
+const flexWrap = ref('nowrap');
 
 const propOptions: Record<ContainerProp, { label: string; options: string[]; current: any }> = {
-  justifyContent: { label: 'justify-content', options: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'], current: justifyContent },
-  alignItems: { label: 'align-items', options: ['stretch', 'flex-start', 'flex-end', 'center', 'baseline'], current: alignItems },
-  flexDirection: { label: 'flex-direction', options: ['row', 'row-reverse', 'column', 'column-reverse'], current: flexDirection },
-  flexWrap: { label: 'flex-wrap', options: ['nowrap', 'wrap', 'wrap-reverse'], current: flexWrap }
-}
+  justifyContent: {
+    label: 'justify-content',
+    options: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'],
+    current: justifyContent,
+  },
+  alignItems: {
+    label: 'align-items',
+    options: ['stretch', 'flex-start', 'flex-end', 'center', 'baseline'],
+    current: alignItems,
+  },
+  flexDirection: {
+    label: 'flex-direction',
+    options: ['row', 'row-reverse', 'column', 'column-reverse'],
+    current: flexDirection,
+  },
+  flexWrap: { label: 'flex-wrap', options: ['nowrap', 'wrap', 'wrap-reverse'], current: flexWrap },
+};
 
 const containerStyle = computed(() => ({
   display: 'flex',
@@ -27,15 +39,15 @@ const containerStyle = computed(() => ({
   padding: '16px',
   border: '2px dashed #1a73e8',
   borderRadius: '8px',
-  background: '#f0f4ff'
-}))
+  background: '#f0f4ff',
+}));
 
 const items = [
   { label: 'A', flex: '0 0 60px', height: '50px', bg: '#e3f2fd' },
   { label: 'B', flex: '0 0 80px', height: '70px', bg: '#fff3e0' },
   { label: 'C', flex: '0 0 50px', height: '40px', bg: '#e8f5e9' },
-  { label: 'D', flex: '0 0 70px', height: '60px', bg: '#fce4ec' }
-]
+  { label: 'D', flex: '0 0 70px', height: '60px', bg: '#fce4ec' },
+];
 
 const codeSnippet = computed(() => {
   return `.container {
@@ -44,8 +56,8 @@ const codeSnippet = computed(() => {
   align-items: ${alignItems.value};
   flex-direction: ${flexDirection.value};
   flex-wrap: ${flexWrap.value};
-}`
-})
+}`;
+});
 </script>
 
 <template>
@@ -86,7 +98,7 @@ const codeSnippet = computed(() => {
           borderRadius: '6px',
           fontWeight: 'bold',
           fontSize: '16px',
-          border: '1px solid rgba(0,0,0,0.1)'
+          border: '1px solid rgba(0,0,0,0.1)',
         }"
       >
         {{ item.label }}

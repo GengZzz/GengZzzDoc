@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-type ClassName = 'Animal' | 'Dog' | 'Cat'
+type ClassName = 'Animal' | 'Dog' | 'Cat';
 
-const selected = ref<ClassName>('Animal')
+const selected = ref<ClassName>('Animal');
 
 interface ClassInfo {
-  name: string
-  color: string
-  description: string
-  fields: { name: string; inherited: boolean }[]
-  methods: { name: string; inherited: boolean; overridden: boolean }[]
-  speakText: string
+  name: string;
+  color: string;
+  description: string;
+  fields: { name: string; inherited: boolean }[];
+  methods: { name: string; inherited: boolean; overridden: boolean }[];
+  speakText: string;
 }
 
 const classes: Record<ClassName, ClassInfo> = {
@@ -21,14 +21,14 @@ const classes: Record<ClassName, ClassInfo> = {
     description: '基类，定义所有动物共有的属性和方法',
     fields: [
       { name: 'String name', inherited: false },
-      { name: 'int age', inherited: false }
+      { name: 'int age', inherited: false },
     ],
     methods: [
       { name: 'void speak()', inherited: false, overridden: false },
       { name: 'void eat()', inherited: false, overridden: false },
-      { name: 'String getName()', inherited: false, overridden: false }
+      { name: 'String getName()', inherited: false, overridden: false },
     ],
-    speakText: '动物发出声音'
+    speakText: '动物发出声音',
   },
   Dog: {
     name: 'Dog',
@@ -37,15 +37,15 @@ const classes: Record<ClassName, ClassInfo> = {
     fields: [
       { name: 'String name', inherited: true },
       { name: 'int age', inherited: true },
-      { name: 'String breed', inherited: false }
+      { name: 'String breed', inherited: false },
     ],
     methods: [
       { name: 'void speak()', inherited: false, overridden: true },
       { name: 'void eat()', inherited: true, overridden: false },
       { name: 'String getName()', inherited: true, overridden: false },
-      { name: 'void fetch()', inherited: false, overridden: false }
+      { name: 'void fetch()', inherited: false, overridden: false },
     ],
-    speakText: '汪汪!'
+    speakText: '汪汪!',
   },
   Cat: {
     name: 'Cat',
@@ -54,20 +54,20 @@ const classes: Record<ClassName, ClassInfo> = {
     fields: [
       { name: 'String name', inherited: true },
       { name: 'int age', inherited: true },
-      { name: 'boolean indoor', inherited: false }
+      { name: 'boolean indoor', inherited: false },
     ],
     methods: [
       { name: 'void speak()', inherited: false, overridden: true },
       { name: 'void eat()', inherited: true, overridden: false },
       { name: 'String getName()', inherited: true, overridden: false },
-      { name: 'void purr()', inherited: false, overridden: false }
+      { name: 'void purr()', inherited: false, overridden: false },
     ],
-    speakText: '喵~'
-  }
-}
+    speakText: '喵~',
+  },
+};
 
 function select(name: ClassName) {
-  selected.value = name
+  selected.value = name;
 }
 </script>
 
@@ -147,7 +147,9 @@ function select(name: ClassName) {
       </div>
       <div class="demo-call">
         <code>animal.speak()</code> &rarr;
-        <strong :style="{ color: classes[selected].color }">{{ classes[selected].speakText }}</strong>
+        <strong :style="{ color: classes[selected].color }">{{
+          classes[selected].speakText
+        }}</strong>
       </div>
     </div>
   </div>

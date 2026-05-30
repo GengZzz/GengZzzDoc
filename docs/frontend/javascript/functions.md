@@ -70,6 +70,7 @@ counter.getCount();  // 2
 ```
 
 ::: warning 闭包与循环的经典问题
+
 ```javascript
 // 问题：3 个回调共享同一个 i
 for (var i = 0; i < 3; i++) {
@@ -88,6 +89,7 @@ for (var i = 0; i < 3; i++) {
   })(i);
 }
 ```
+
 :::
 
 ### 闭包的实际应用

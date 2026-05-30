@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 interface Task {
-  name: string
-  label: string
-  duration: string
-  status: 'pending' | 'running' | 'waiting' | 'done'
-  color: string
+  name: string;
+  label: string;
+  duration: string;
+  status: 'pending' | 'running' | 'waiting' | 'done';
+  color: string;
 }
 
 const steps: { title: string; desc: string; tasks: Task[]; elapsed: string; note?: string }[] = [
@@ -17,91 +17,185 @@ const steps: { title: string; desc: string; tasks: Task[]; elapsed: string; note
     title: '事件循环启动',
     desc: 'asyncio.run(main()) 创建事件循环，task_a 开始执行。',
     tasks: [
-      { name: 'task_a', label: '下载网页 (2s)', duration: '2s', status: 'running', color: '#8b5cf6' },
-      { name: 'task_b', label: '查询数据库 (1s)', duration: '1s', status: 'pending', color: '#f59e0b' },
-      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'pending', color: '#22c55e' }
+      {
+        name: 'task_a',
+        label: '下载网页 (2s)',
+        duration: '2s',
+        status: 'running',
+        color: '#8b5cf6',
+      },
+      {
+        name: 'task_b',
+        label: '查询数据库 (1s)',
+        duration: '1s',
+        status: 'pending',
+        color: '#f59e0b',
+      },
+      {
+        name: 'task_c',
+        label: '计算 (0.5s)',
+        duration: '0.5s',
+        status: 'pending',
+        color: '#22c55e',
+      },
     ],
-    elapsed: '0s'
+    elapsed: '0s',
   },
   {
     title: 'task_a 遇到 await',
     desc: 'task_a 的网络请求发出，遇到 await 挂起。事件循环调度 task_b。',
     tasks: [
-      { name: 'task_a', label: '下载网页 (2s)', duration: '2s', status: 'waiting', color: '#8b5cf6' },
-      { name: 'task_b', label: '查询数据库 (1s)', duration: '1s', status: 'running', color: '#f59e0b' },
-      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'pending', color: '#22c55e' }
+      {
+        name: 'task_a',
+        label: '下载网页 (2s)',
+        duration: '2s',
+        status: 'waiting',
+        color: '#8b5cf6',
+      },
+      {
+        name: 'task_b',
+        label: '查询数据库 (1s)',
+        duration: '1s',
+        status: 'running',
+        color: '#f59e0b',
+      },
+      {
+        name: 'task_c',
+        label: '计算 (0.5s)',
+        duration: '0.5s',
+        status: 'pending',
+        color: '#22c55e',
+      },
     ],
-    elapsed: '~0s'
+    elapsed: '~0s',
   },
   {
     title: 'task_b 遇到 await',
     desc: 'task_b 的数据库查询发出，遇到 await 挂起。事件循环调度 task_c。',
     tasks: [
-      { name: 'task_a', label: '下载网页 (2s)', duration: '2s', status: 'waiting', color: '#8b5cf6' },
-      { name: 'task_b', label: '查询数据库 (1s)', duration: '1s', status: 'waiting', color: '#f59e0b' },
-      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'running', color: '#22c55e' }
+      {
+        name: 'task_a',
+        label: '下载网页 (2s)',
+        duration: '2s',
+        status: 'waiting',
+        color: '#8b5cf6',
+      },
+      {
+        name: 'task_b',
+        label: '查询数据库 (1s)',
+        duration: '1s',
+        status: 'waiting',
+        color: '#f59e0b',
+      },
+      {
+        name: 'task_c',
+        label: '计算 (0.5s)',
+        duration: '0.5s',
+        status: 'running',
+        color: '#22c55e',
+      },
     ],
-    elapsed: '~0s'
+    elapsed: '~0s',
   },
   {
     title: 'task_c 完成',
     desc: 'task_c 计算完成（0.5s），结果就绪。检查其他任务：task_b 的 DB 响应也到了。',
     tasks: [
-      { name: 'task_a', label: '下载网页 (2s)', duration: '2s', status: 'waiting', color: '#8b5cf6' },
-      { name: 'task_b', label: '查询数据库 (1s)', duration: '1s', status: 'running', color: '#f59e0b' },
-      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' }
+      {
+        name: 'task_a',
+        label: '下载网页 (2s)',
+        duration: '2s',
+        status: 'waiting',
+        color: '#8b5cf6',
+      },
+      {
+        name: 'task_b',
+        label: '查询数据库 (1s)',
+        duration: '1s',
+        status: 'running',
+        color: '#f59e0b',
+      },
+      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' },
     ],
-    elapsed: '0.5s'
+    elapsed: '0.5s',
   },
   {
     title: 'task_b 完成',
     desc: 'task_b 处理完数据库结果（1s）。等待 task_a 的网络响应。',
     tasks: [
-      { name: 'task_a', label: '下载网页 (2s)', duration: '2s', status: 'running', color: '#8b5cf6' },
-      { name: 'task_b', label: '查询数据库 (1s)', duration: '1s', status: 'done', color: '#f59e0b' },
-      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' }
+      {
+        name: 'task_a',
+        label: '下载网页 (2s)',
+        duration: '2s',
+        status: 'running',
+        color: '#8b5cf6',
+      },
+      {
+        name: 'task_b',
+        label: '查询数据库 (1s)',
+        duration: '1s',
+        status: 'done',
+        color: '#f59e0b',
+      },
+      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' },
     ],
-    elapsed: '1s'
+    elapsed: '1s',
   },
   {
     title: 'task_a 完成',
     desc: 'task_a 的网页下载完成（2s）。所有任务结束，总耗时 2s。',
     tasks: [
       { name: 'task_a', label: '下载网页 (2s)', duration: '2s', status: 'done', color: '#8b5cf6' },
-      { name: 'task_b', label: '查询数据库 (1s)', duration: '1s', status: 'done', color: '#f59e0b' },
-      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' }
+      {
+        name: 'task_b',
+        label: '查询数据库 (1s)',
+        duration: '1s',
+        status: 'done',
+        color: '#f59e0b',
+      },
+      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' },
     ],
-    elapsed: '2s'
+    elapsed: '2s',
   },
   {
     title: '并发 vs 顺序',
     desc: '并发执行总耗时 = max(2, 1, 0.5) = 2s。顺序执行总耗时 = 2 + 1 + 0.5 = 3.5s。',
     tasks: [
       { name: 'task_a', label: '下载网页 (2s)', duration: '2s', status: 'done', color: '#8b5cf6' },
-      { name: 'task_b', label: '查询数据库 (1s)', duration: '1s', status: 'done', color: '#f59e0b' },
-      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' }
+      {
+        name: 'task_b',
+        label: '查询数据库 (1s)',
+        duration: '1s',
+        status: 'done',
+        color: '#f59e0b',
+      },
+      { name: 'task_c', label: '计算 (0.5s)', duration: '0.5s', status: 'done', color: '#22c55e' },
     ],
     elapsed: '2s (并发) vs 3.5s (顺序)',
-    note: 'GIL 不影响异步 IO 密集型任务，因为 await 时释放 GIL。CPU 密集型需用 ProcessPoolExecutor。'
-  }
-]
+    note: 'GIL 不影响异步 IO 密集型任务，因为 await 时释放 GIL。CPU 密集型需用 ProcessPoolExecutor。',
+  },
+];
 
-const currentStep = computed(() => steps[step.value])
+const currentStep = computed(() => steps[step.value]);
 
 function next() {
-  if (step.value < totalSteps - 1) step.value++
+  if (step.value < totalSteps - 1) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
 function statusLabel(s: string) {
   switch (s) {
-    case 'running': return '运行中'
-    case 'waiting': return '等待 IO'
-    case 'done': return '完成'
-    default: return '待执行'
+    case 'running':
+      return '运行中';
+    case 'waiting':
+      return '等待 IO';
+    case 'done':
+      return '完成';
+    default:
+      return '待执行';
   }
 }
 </script>
@@ -121,13 +215,21 @@ function statusLabel(s: string) {
     <div class="desc">{{ currentStep.desc }}</div>
 
     <div class="task-list">
-      <div
-        v-for="task in currentStep.tasks"
-        :key="task.name"
-        class="task-row"
-        :class="task.status"
-      >
-        <div class="task-bar" :style="{ background: task.color, opacity: task.status === 'pending' ? 0.2 : task.status === 'waiting' ? 0.4 : task.status === 'done' ? 0.7 : 1 }">
+      <div v-for="task in currentStep.tasks" :key="task.name" class="task-row" :class="task.status">
+        <div
+          class="task-bar"
+          :style="{
+            background: task.color,
+            opacity:
+              task.status === 'pending'
+                ? 0.2
+                : task.status === 'waiting'
+                  ? 0.4
+                  : task.status === 'done'
+                    ? 0.7
+                    : 1,
+          }"
+        >
           <span class="task-label">{{ task.label }}</span>
         </div>
         <span class="task-status" :class="task.status">
@@ -174,8 +276,13 @@ function statusLabel(s: string) {
   transition: background 0.3s;
 }
 
-.dot.active { background: var(--vp-c-brand-1); transform: scale(1.2); }
-.dot.done { background: #22c55e; }
+.dot.active {
+  background: var(--vp-c-brand-1);
+  transform: scale(1.2);
+}
+.dot.done {
+  background: #22c55e;
+}
 
 .step-title {
   font-size: 14px;
@@ -219,7 +326,7 @@ function statusLabel(s: string) {
   color: white;
   font-size: 13px;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .task-status {
@@ -229,14 +336,28 @@ function statusLabel(s: string) {
   text-align: right;
 }
 
-.task-status.pending { color: var(--vp-c-text-2); }
-.task-status.running { color: var(--vp-c-brand-1); animation: pulse 1s infinite; }
-.task-status.waiting { color: #f59e0b; }
-.task-status.done { color: #22c55e; }
+.task-status.pending {
+  color: var(--vp-c-text-2);
+}
+.task-status.running {
+  color: var(--vp-c-brand-1);
+  animation: pulse 1s infinite;
+}
+.task-status.waiting {
+  color: #f59e0b;
+}
+.task-status.done {
+  color: #22c55e;
+}
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .elapsed-bar {
@@ -291,6 +412,11 @@ button {
   transition: border-color 0.2s;
 }
 
-button:hover:not(:disabled) { border-color: var(--vp-c-brand-1); }
-button:disabled { opacity: 0.5; cursor: default; }
+button:hover:not(:disabled) {
+  border-color: var(--vp-c-brand-1);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>

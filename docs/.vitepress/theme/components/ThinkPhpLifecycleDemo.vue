@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const current = ref(0)
+const current = ref(0);
 
 const stages = [
   { name: '入口文件', detail: 'public/index.php 接收请求' },
@@ -12,12 +12,12 @@ const stages = [
   { name: '模型/服务', detail: '查询、事务、业务流程' },
   { name: '响应返回', detail: 'JSON、模板、重定向' },
   { name: '中间件回程', detail: '日志、header、收尾' },
-]
+];
 
-const active = computed(() => stages[current.value])
+const active = computed(() => stages[current.value]);
 
 function next() {
-  current.value = (current.value + 1) % stages.length
+  current.value = (current.value + 1) % stages.length;
 }
 </script>
 
@@ -63,7 +63,10 @@ function next() {
   border-radius: 6px;
   background: var(--vp-c-bg);
   color: var(--vp-c-text-2);
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .node.active {

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
 interface ThreadState {
-  id: string
-  label: string
-  description: string
-  transitions: { target: string; label: string }[]
-  x: number
-  y: number
+  id: string;
+  label: string;
+  description: string;
+  transitions: { target: string; label: string }[];
+  x: number;
+  y: number;
 }
 
 const states: ThreadState[] = [
@@ -16,7 +16,8 @@ const states: ThreadState[] = [
     label: 'New',
     description: '线程已创建但尚未调用 start()',
     transitions: [{ target: 'Runnable', label: 'start()' }],
-    x: 50, y: 40,
+    x: 50,
+    y: 40,
   },
   {
     id: 'Runnable',
@@ -26,7 +27,8 @@ const states: ThreadState[] = [
       { target: 'Running', label: '被调度' },
       { target: 'Terminated', label: 'stop' },
     ],
-    x: 220, y: 40,
+    x: 220,
+    y: 40,
   },
   {
     id: 'Running',
@@ -39,46 +41,51 @@ const states: ThreadState[] = [
       { target: 'Timed_Waiting', label: 'sleep' },
       { target: 'Terminated', label: '执行完毕' },
     ],
-    x: 390, y: 40,
+    x: 390,
+    y: 40,
   },
   {
     id: 'Blocked',
     label: 'Blocked',
     description: '等待获取监视器锁 (synchronized)',
     transitions: [{ target: 'Runnable', label: '获得锁' }],
-    x: 390, y: 180,
+    x: 390,
+    y: 180,
   },
   {
     id: 'Waiting',
     label: 'Waiting',
     description: '等待其他线程通知 (wait/join)',
     transitions: [{ target: 'Runnable', label: 'notify/notifyAll' }],
-    x: 220, y: 180,
+    x: 220,
+    y: 180,
   },
   {
     id: 'Timed_Waiting',
     label: 'Timed_Waiting',
     description: '限时等待 (sleep/带超时的 join)',
     transitions: [{ target: 'Runnable', label: '超时/通知' }],
-    x: 50, y: 180,
+    x: 50,
+    y: 180,
   },
   {
     id: 'Terminated',
     label: 'Terminated',
     description: '线程执行完毕或异常终止',
     transitions: [],
-    x: 560, y: 40,
+    x: 560,
+    y: 40,
   },
-]
+];
 
-const selected = ref<string>('Running')
+const selected = ref<string>('Running');
 
 const currentState = computed(() => {
-  return states.find(s => s.id === selected.value) ?? states[2]
-})
+  return states.find((s) => s.id === selected.value) ?? states[2];
+});
 
 function select(id: string) {
-  selected.value = id
+  selected.value = id;
 }
 </script>
 
@@ -145,7 +152,10 @@ function select(id: string) {
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
   user-select: none;
   white-space: nowrap;
 }
@@ -182,13 +192,27 @@ function select(id: string) {
   color: var(--vp-c-text-1);
 }
 
-.state-badge.new { color: #8b5cf6; }
-.state-badge.runnable { color: #3b82f6; }
-.state-badge.running { color: #22c55e; }
-.state-badge.blocked { color: #f59e0b; }
-.state-badge.waiting { color: #ec4899; }
-.state-badge.timed_waiting { color: #06b6d4; }
-.state-badge.terminated { color: #ef4444; }
+.state-badge.new {
+  color: #8b5cf6;
+}
+.state-badge.runnable {
+  color: #3b82f6;
+}
+.state-badge.running {
+  color: #22c55e;
+}
+.state-badge.blocked {
+  color: #f59e0b;
+}
+.state-badge.waiting {
+  color: #ec4899;
+}
+.state-badge.timed_waiting {
+  color: #06b6d4;
+}
+.state-badge.terminated {
+  color: #ef4444;
+}
 
 .detail-desc {
   margin: 0 0 12px;

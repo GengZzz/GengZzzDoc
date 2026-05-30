@@ -1,48 +1,53 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 interface Bucket {
-  key: string
-  value: string
-  slot: number
-  state: 'new' | 'shared' | 'copied' | 'packed' | 'hash'
+  key: string;
+  value: string;
+  slot: number;
+  state: 'new' | 'shared' | 'copied' | 'packed' | 'hash';
 }
 
 const buckets = computed<Bucket[]>(() => {
-  if (step.value === 0) return []
-  if (step.value === 1) return [
-    { key: '0', value: 'apple', slot: 0, state: 'packed' },
-    { key: '1', value: 'banana', slot: 1, state: 'packed' },
-    { key: '2', value: 'cherry', slot: 2, state: 'packed' }
-  ]
-  if (step.value === 2) return [
-    { key: '0', value: 'apple', slot: 0, state: 'hash' },
-    { key: 'name', value: 'Alice', slot: 3, state: 'new' },
-    { key: '1', value: 'banana', slot: 1, state: 'hash' },
-    { key: 'role', value: 'admin', slot: 5, state: 'new' }
-  ]
-  if (step.value === 3) return [
-    { key: '$a', value: 'HashTable refcount=2', slot: 0, state: 'shared' },
-    { key: '$b', value: 'shares same table', slot: 0, state: 'shared' }
-  ]
-  if (step.value === 4) return [
-    { key: '$a[name]', value: 'Alice', slot: 3, state: 'shared' },
-    { key: '$b[name]', value: 'Bob', slot: 3, state: 'copied' }
-  ]
-  if (step.value === 5) return [
-    { key: '10', value: 'first', slot: 10, state: 'hash' },
-    { key: '20', value: 'second', slot: 20, state: 'hash' },
-    { key: '30', value: 'third', slot: 30, state: 'hash' }
-  ]
+  if (step.value === 0) return [];
+  if (step.value === 1)
+    return [
+      { key: '0', value: 'apple', slot: 0, state: 'packed' },
+      { key: '1', value: 'banana', slot: 1, state: 'packed' },
+      { key: '2', value: 'cherry', slot: 2, state: 'packed' },
+    ];
+  if (step.value === 2)
+    return [
+      { key: '0', value: 'apple', slot: 0, state: 'hash' },
+      { key: 'name', value: 'Alice', slot: 3, state: 'new' },
+      { key: '1', value: 'banana', slot: 1, state: 'hash' },
+      { key: 'role', value: 'admin', slot: 5, state: 'new' },
+    ];
+  if (step.value === 3)
+    return [
+      { key: '$a', value: 'HashTable refcount=2', slot: 0, state: 'shared' },
+      { key: '$b', value: 'shares same table', slot: 0, state: 'shared' },
+    ];
+  if (step.value === 4)
+    return [
+      { key: '$a[name]', value: 'Alice', slot: 3, state: 'shared' },
+      { key: '$b[name]', value: 'Bob', slot: 3, state: 'copied' },
+    ];
+  if (step.value === 5)
+    return [
+      { key: '10', value: 'first', slot: 10, state: 'hash' },
+      { key: '20', value: 'second', slot: 20, state: 'hash' },
+      { key: '30', value: 'third', slot: 30, state: 'hash' },
+    ];
   return [
     { key: '0', value: 'first', slot: 0, state: 'packed' },
     { key: '1', value: 'second', slot: 1, state: 'packed' },
-    { key: '2', value: 'third', slot: 2, state: 'packed' }
-  ]
-})
+    { key: '2', value: 'third', slot: 2, state: 'packed' },
+  ];
+});
 
 const status = computed(() => {
   const list = [
@@ -52,10 +57,10 @@ const status = computed(() => {
     '$b = $a 只增加 HashTable 引用计数，不立即复制所有元素',
     '修改 $b["name"] 时触发 Copy-on-Write，只有写入方复制一份结构',
     '稀疏数字键不是 list，很多 list 操作前需要 array_values() 重新索引',
-    'array_values() 让键重新连续，适合 JSON 数组输出和列表遍历'
-  ]
-  return list[step.value]
-})
+    'array_values() 让键重新连续，适合 JSON 数组输出和列表遍历',
+  ];
+  return list[step.value];
+});
 
 const code = computed(() => {
   const list = [
@@ -65,26 +70,33 @@ const code = computed(() => {
     '$b = $a; // COW: share first',
     "$b['name'] = 'Bob'; // copy on write",
     "$ids = [10 => 'first', 20 => 'second', 30 => 'third'];",
-    '$ids = array_values($ids);'
-  ]
-  return list[step.value]
-})
+    '$ids = array_values($ids);',
+  ];
+  return list[step.value];
+});
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps - 1)
+  step.value = Math.min(step.value + 1, totalSteps - 1);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="php-array-demo">
-    <div class="code-line"><code>{{ code }}</code></div>
+    <div class="code-line">
+      <code>{{ code }}</code>
+    </div>
     <div class="bucket-grid">
       <div v-if="buckets.length === 0" class="empty">尚未创建数组</div>
-      <div v-for="bucket in buckets" :key="bucket.key + bucket.value" class="bucket" :class="bucket.state">
+      <div
+        v-for="bucket in buckets"
+        :key="bucket.key + bucket.value"
+        class="bucket"
+        :class="bucket.state"
+      >
         <strong>{{ bucket.key }}</strong>
         <span>{{ bucket.value }}</span>
         <small>slot {{ bucket.slot }}</small>
@@ -158,11 +170,21 @@ function reset() {
   font-size: 12px;
 }
 
-.bucket.packed { border-color: #22c55e; }
-.bucket.hash { border-color: #3b82f6; }
-.bucket.shared { border-color: #f59e0b; }
-.bucket.copied { border-color: #ef4444; }
-.bucket.new { border-color: var(--vp-c-brand-1); }
+.bucket.packed {
+  border-color: #22c55e;
+}
+.bucket.hash {
+  border-color: #3b82f6;
+}
+.bucket.shared {
+  border-color: #f59e0b;
+}
+.bucket.copied {
+  border-color: #ef4444;
+}
+.bucket.new {
+  border-color: var(--vp-c-brand-1);
+}
 
 .empty {
   display: grid;
@@ -186,10 +208,18 @@ function reset() {
   background: var(--vp-c-bg);
 }
 
-.legend .packed { border-color: #22c55e; }
-.legend .hash { border-color: #3b82f6; }
-.legend .shared { border-color: #f59e0b; }
-.legend .copied { border-color: #ef4444; }
+.legend .packed {
+  border-color: #22c55e;
+}
+.legend .hash {
+  border-color: #3b82f6;
+}
+.legend .shared {
+  border-color: #f59e0b;
+}
+.legend .copied {
+  border-color: #ef4444;
+}
 
 .status-bar {
   padding: 8px 12px;

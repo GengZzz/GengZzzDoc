@@ -1,58 +1,58 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 4
+const step = ref(0);
+const totalSteps = 4;
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
-const elements = 5
+const elements = 5;
 
 interface VecState {
-  name: string
-  label: string
-  items: (string | null)[]
-  active: boolean
+  name: string;
+  label: string;
+  items: (string | null)[];
+  active: boolean;
 }
 
 const vectors = computed<VecState[]>(() => {
-  const data = Array.from({ length: elements }, (_, i) => `data${i}`)
-  if (step.value === 0) return []
+  const data = Array.from({ length: elements }, (_, i) => `data${i}`);
+  if (step.value === 0) return [];
   if (step.value === 1) {
     return [
       { name: 'v1', label: '原始', items: data, active: true },
-      { name: 'v2', label: '拷贝构造', items: [...data], active: true }
-    ]
+      { name: 'v2', label: '拷贝构造', items: [...data], active: true },
+    ];
   }
   if (step.value === 2) {
     return [
       { name: 'v1', label: '移动后', items: data.map(() => null), active: false },
       { name: 'v2', label: '拷贝构造', items: [...data], active: true },
-      { name: 'v3', label: '移动构造', items: [...data], active: true }
-    ]
+      { name: 'v3', label: '移动构造', items: [...data], active: true },
+    ];
   }
   if (step.value === 3) {
     return [
       { name: 'v1', label: '移动后', items: data.map(() => null), active: false },
       { name: 'v2', label: '拷贝构造', items: [...data], active: true },
-      { name: 'v3', label: '移动构造', items: [...data], active: true }
-    ]
+      { name: 'v3', label: '移动构造', items: [...data], active: true },
+    ];
   }
   if (step.value === 4) {
     return [
       { name: 'v1', label: '移动后', items: data.map(() => null), active: false },
       { name: 'v2', label: '拷贝构造 O(n)', items: [...data], active: true },
-      { name: 'v3', label: '移动构造 O(1)', items: [...data], active: true }
-    ]
+      { name: 'v3', label: '移动构造 O(1)', items: [...data], active: true },
+    ];
   }
-  return []
-})
+  return [];
+});
 
 const code = computed(() => {
   const lines = [
@@ -60,10 +60,10 @@ const code = computed(() => {
     'vector<string> v2 = v1;  // 拷贝构造：深拷贝所有元素',
     'vector<string> v3 = move(v1);  // 移动构造：指针转移，v1 变空',
     'forward<T>(arg)  // 引用折叠：T& → 左值，T&& → 右值',
-    '移动不是复制数据，而是转移资源句柄；性能差异来自这里'
-  ]
-  return step.value > 0 ? lines[step.value] : ''
-})
+    '移动不是复制数据，而是转移资源句柄；性能差异来自这里',
+  ];
+  return step.value > 0 ? lines[step.value] : '';
+});
 
 const status = computed(() => {
   const msgs = [
@@ -71,28 +71,28 @@ const status = computed(() => {
     '拷贝构造：为 v2 分配新内存，复制 v1 的全部元素（O(n)）',
     '移动构造：v3 窃取 v1 的内部指针，v1 变为空（O(1)）',
     '引用折叠规则：T& && → T&，T&& && → T&&，完美转发保持值类别',
-    '性能结论：对象越大、资源越重，移动越能避免不必要的深拷贝'
-  ]
-  return msgs[step.value]
-})
+    '性能结论：对象越大、资源越重，移动越能避免不必要的深拷贝',
+  ];
+  return msgs[step.value];
+});
 
 const performanceData = computed(() => {
-  if (step.value < 4) return null
+  if (step.value < 4) return null;
   return [
     { size: '1,000', copyTime: '0.12ms', moveTime: '<0.001ms' },
     { size: '100,000', copyTime: '8.5ms', moveTime: '<0.001ms' },
-    { size: '1,000,000', copyTime: '95ms', moveTime: '<0.001ms' }
-  ]
-})
+    { size: '1,000,000', copyTime: '95ms', moveTime: '<0.001ms' },
+  ];
+});
 
 const foldRules = computed(() => {
-  if (step.value < 4) return null
+  if (step.value < 4) return null;
   return [
     { input: 'T = int&, T&& →', result: 'int& (左值引用)', rule: '& && → &' },
     { input: 'T = int&&, T&& →', result: 'int&& (右值引用)', rule: '&& && → &&' },
-    { input: 'T = int, T&& →', result: 'int&& (右值引用)', rule: '无折叠' }
-  ]
-})
+    { input: 'T = int, T&& →', result: 'int&& (右值引用)', rule: '无折叠' },
+  ];
+});
 </script>
 
 <template>
@@ -130,13 +130,21 @@ const foldRules = computed(() => {
       <h4>引用折叠规则</h4>
       <table class="fold-table">
         <thead>
-          <tr><th>输入</th><th>结果</th><th>规则</th></tr>
+          <tr>
+            <th>输入</th>
+            <th>结果</th>
+            <th>规则</th>
+          </tr>
         </thead>
         <tbody>
           <tr v-for="r in foldRules" :key="r.input">
-            <td><code>{{ r.input }}</code></td>
+            <td>
+              <code>{{ r.input }}</code>
+            </td>
             <td>{{ r.result }}</td>
-            <td><code>{{ r.rule }}</code></td>
+            <td>
+              <code>{{ r.rule }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -146,7 +154,11 @@ const foldRules = computed(() => {
       <h4>性能对比</h4>
       <table class="perf-table">
         <thead>
-          <tr><th>元素数量</th><th>拷贝耗时</th><th>移动耗时</th></tr>
+          <tr>
+            <th>元素数量</th>
+            <th>拷贝耗时</th>
+            <th>移动耗时</th>
+          </tr>
         </thead>
         <tbody>
           <tr v-for="row in performanceData" :key="row.size">
@@ -283,8 +295,12 @@ const foldRules = computed(() => {
   text-align: center;
 }
 
-.slow { color: #ef4444; }
-.fast { color: #10b981; }
+.slow {
+  color: #ef4444;
+}
+.fast {
+  color: #10b981;
+}
 
 .status-bar {
   padding: 8px 12px;

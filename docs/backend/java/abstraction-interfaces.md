@@ -311,6 +311,7 @@ public non-sealed class Triangle implements Shape {
 
 ::: tip sealed 与 switch 模式匹配
 `sealed` 类与 Java 17+ 的 switch 模式匹配配合使用，编译器可以检查是否覆盖了所有情况：
+
 ```java
 String desc = switch (shape) {
     case Circle c    -> "Circle with radius";
@@ -319,6 +320,7 @@ String desc = switch (shape) {
     // 不需要 default —— sealed 保证穷举
 };
 ```
+
 :::
 
 ## 抽象类 vs 接口：如何选择

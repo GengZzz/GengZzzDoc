@@ -62,10 +62,12 @@ SET GLOBAL binlog_format = 'STATEMENT';
 ```
 
 优点：
+
 - 日志量小（一条 SQL 只记录一次）
 - 不管修改了多少行，日志体积固定
 
 缺点：
+
 - **不确定性问题**：某些函数在主从上可能产生不同结果
 
 ```sql
@@ -104,11 +106,13 @@ SET GLOBAL binlog_format = 'ROW';
 ```
 
 优点：
+
 - **最安全**：主从数据绝对一致
 - 不存在函数不确定性问题
 - 可以精确知道每行的变更内容
 
 缺点：
+
 - 日志量大（尤其是批量 UPDATE/DELETE）
 - 不能直接看到 SQL 语句
 
@@ -146,6 +150,7 @@ SHOW VARIABLES LIKE 'binlog_row_image';
 -- MINIMAL：只记录变更列的前像 + 后像，以及定位行所需的列（主键/唯一键）
 -- NOBLOB：不记录 BLOB 列
 ```
+
 :::
 
 ## Binlog 写入流程
@@ -208,12 +213,15 @@ SET GLOBAL sync_binlog = 100;
 ```
 
 ::: danger 两阶段提交 + sync_binlog 配置
+
 ```ini
 [mysqld]
 innodb_flush_log_at_trx_commit = 1
 sync_binlog = 1
 ```
+
 这是数据安全的最低要求。两者缺一不可：
+
 - 只设 `innodb_flush_log_at_trx_commit = 1`：redo log 安全，但 binlog 可能丢失 → 主从不一致
 - 只设 `sync_binlog = 1`：binlog 安全，但 redo log 可能丢失 → 数据丢失
 :::

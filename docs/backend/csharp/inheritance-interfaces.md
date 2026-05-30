@@ -39,6 +39,7 @@ IL_0002: callvirt instance void Animal::Speak()  // 通过 vtable 调用
 ```
 
 `callvirt` 指令会：
+
 1. 检查引用是否为 null（null 检查）
 2. 获取对象的 MethodTable
 3. 从 vtable 中按槽位索引获取方法地址
@@ -108,6 +109,7 @@ d.Show();  // "Derived"
 ```
 
 ::: warning new 与 override 的区别
+
 - `override`：修改 vtable 中的槽位，虚方法调用时派生类的实现会被调用
 - `new`：不修改 vtable，创建新方法。通过基类引用调用时仍然调用基类方法
 
@@ -231,6 +233,7 @@ public class C : IA, IB
     void IA.Method() => Console.WriteLine("IA 优先");
 }
 ```
+
 :::
 
 ### 显式接口实现
@@ -290,6 +293,7 @@ sealed 类的虚方法调用可能被 JIT 去虚拟化为直接调用，避免 v
 | 访问修饰符 | 支持 | 所有成员默认 public |
 
 ::: tip 选择原则
+
 - **抽象类**：有共享状态或实现逻辑，is-a 关系明确
 - **接口**：定义能力/契约，can-do 关系，需要多实现
 - .NET 8+ 趋势：更多使用接口 + 默认实现，减少抽象类的使用

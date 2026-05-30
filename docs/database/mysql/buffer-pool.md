@@ -92,6 +92,7 @@ SHOW ENGINE INNODB STATUS\G
 ```
 
 ::: tip 调整 old_blocks_pct
+
 - `innodb_old_blocks_pct = 5`：old 区很小，适合缓存较小、几乎不需要全表扫描的场景（热点数据量远小于 Buffer Pool）
 - `innodb_old_blocks_pct = 37`（默认）：通用场景
 - `innodb_old_blocks_pct = 95`：young 区很小，适合需要频繁全表扫描的分析型负载
@@ -140,6 +141,7 @@ Buffer pool hit rate 999 / 1000, young-making rate 5 / 1000
 
 ::: warning 命中率过低的排查
 如果 `Buffer pool hit rate` 持续低于 990/1000：
+
 1. 检查 `innodb_buffer_pool_size` 是否足够
 2. 检查是否有频繁的全表扫描（查看慢查询日志）
 3. 检查是否有大规模的批量操作（如大批量 UPDATE）
@@ -222,6 +224,7 @@ SET GLOBAL innodb_random_read_ahead = ON;
 ```
 
 ::: tip 预读的适用场景
+
 - **线性预读**：大范围顺序扫描（如全表扫描、范围查询），效果好
 - **随机预读**：适合热点数据集中在少数 extent 中的场景，但容易造成无效预读
 
@@ -290,6 +293,7 @@ WHERE VARIABLE_NAME LIKE '%innodb_buffer_pool_pages_dirty%'
 
 ::: warning 刷脏速率调优
 如果 `innodb_io_capacity` 设置过低，会导致：
+
 1. 脏页堆积，redo log 空间紧张
 2. 突发性的大量刷脏（checkpoint 抖动），导致 IO 突增
 3. 查询响应时间不稳定
@@ -319,6 +323,7 @@ FROM information_schema.INNODB_BUFFER_POOL_STATS;
 ```
 
 ::: tip 实例数设置原则
+
 - 每个实例至少 1GB
 - 实例数设为 2 的幂次（1, 2, 4, 8, 16）
 - `innodb_buffer_pool_size / innodb_buffer_pool_instances` >= 1GB

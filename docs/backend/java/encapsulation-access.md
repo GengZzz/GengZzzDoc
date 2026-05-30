@@ -71,6 +71,7 @@ public class AccessDemo {
 ```
 
 ::: tip 设计原则
+
 - 字段通常声明为 `private`，除非有充分理由暴露。
 - 对外提供的方法用 `public`。
 - 同包内的辅助类使用 *default*（不加修饰符）。

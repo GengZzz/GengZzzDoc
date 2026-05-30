@@ -120,10 +120,12 @@ public class Printer {
 
 ::: warning 注意
 返回类型不同不构成重载。以下代码编译错误：
+
 ```java
 int calc(int a) { return a; }
 double calc(int a) { return a * 1.0; }  // 编译错误：参数列表相同
 ```
+
 :::
 
 ## 可变参数
@@ -154,6 +156,7 @@ public class VarargsDemo {
 
 ::: tip
 一个方法最多只能有一个可变参数，且必须放在参数列表的最后。
+
 ```java
 // 合法
 public void log(String prefix, int... values) { }
@@ -161,6 +164,7 @@ public void log(String prefix, int... values) { }
 // 不合法
 public void log(int... values, String suffix) { }  // 编译错误
 ```
+
 :::
 
 ## 递归

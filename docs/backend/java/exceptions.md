@@ -53,6 +53,7 @@ public class TryCatchDemo {
 ```
 
 输出：
+
 ```
 try: 开始执行
 catch: 捕获到异常 - / by zero
@@ -61,6 +62,7 @@ finally: 总是执行
 ```
 
 ::: tip 执行顺序
+
 1. `try` 块中的代码执行到异常抛出点
 2. 异常类型匹配后，跳转到对应的 `catch` 块
 3. `finally` 块总是执行（即使 `try` 或 `catch` 中有 `return`）
@@ -213,6 +215,7 @@ public String readConfig(Path path) throws IOException {
 ```
 
 ::: tip 使用原则
+
 - **checked 异常**：调用者有可能并且应该从异常中恢复时使用。例如文件找不到时可以使用默认配置。
 - **unchecked 异常**：通常是编程 bug，应该在测试阶段发现并修复。例如空指针说明代码缺少非空检查。
 - 不要对所有异常都 catch 后打印了事，这会掩盖真正的问题。

@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 
 interface HeapBlock {
-  addr: string
-  data: string
-  gc?: boolean
+  addr: string;
+  data: string;
+  gc?: boolean;
 }
 
 const stackFrames = computed(() => {
-  if (step.value === 0) return []
-  if (step.value === 1) return ['main()']
-  if (step.value === 2) return ['main()', 'Person person']
-  if (step.value === 3) return ['main()', 'Person person → 0x1000']
-  if (step.value === 4) return ['main()', 'Person person → 0x1000', 'sayHello()']
-  if (step.value === 5) return ['main()', 'person = null']
-  return []
-})
+  if (step.value === 0) return [];
+  if (step.value === 1) return ['main()'];
+  if (step.value === 2) return ['main()', 'Person person'];
+  if (step.value === 3) return ['main()', 'Person person → 0x1000'];
+  if (step.value === 4) return ['main()', 'Person person → 0x1000', 'sayHello()'];
+  if (step.value === 5) return ['main()', 'person = null'];
+  return [];
+});
 
 const heapBlocks = computed<HeapBlock[]>(() => {
-  if (step.value < 3) return []
-  if (step.value <= 4) return [{ addr: '0x1000', data: 'Person{name:"Alice",age:25}' }]
-  return [{ addr: '0x1000', data: 'Person{name:"Alice",age:25}', gc: true }]
-})
+  if (step.value < 3) return [];
+  if (step.value <= 4) return [{ addr: '0x1000', data: 'Person{name:"Alice",age:25}' }];
+  return [{ addr: '0x1000', data: 'Person{name:"Alice",age:25}', gc: true }];
+});
 
 const statusMessages = [
   '点击"下一步"开始观察对象创建过程',
@@ -32,14 +32,14 @@ const statusMessages = [
   'new 在堆上创建对象，栈上的引用指向堆中实例',
   '调用 sayHello() 方法，新的栈帧入栈',
   '方法返回栈帧弹出，person = null 后堆对象变为不可达，等待 GC 回收',
-]
+];
 
 function next() {
-  step.value = (step.value + 1) % 6
+  step.value = (step.value + 1) % 6;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 

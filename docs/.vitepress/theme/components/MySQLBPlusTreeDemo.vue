@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const statusText = computed(() => {
   const texts = [
@@ -12,31 +12,31 @@ const statusText = computed(() => {
     '叶子节点形成双向链表，支持范围查询',
     '查找 key=25: 根节点定位 → 叶子节点',
     '范围查询: 沿链表顺序扫描 [10-29] → [30-49]',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 const leaves = [
   { range: '1-9', min: 1, max: 9 },
   { range: '10-29', min: 10, max: 29 },
   { range: '30-49', min: 30, max: 49 },
   { range: '50-99', min: 50, max: 99 },
-]
+];
 
 const highlightPath = computed(() => {
-  if (step.value === 4) return [1] // key 25 falls in [10-29]
-  if (step.value === 5) return [1, 2] // range 15-35 spans [10-29] and [30-49]
-  return [] as number[]
-})
+  if (step.value === 4) return [1]; // key 25 falls in [10-29]
+  if (step.value === 5) return [1, 2]; // range 15-35 spans [10-29] and [30-49]
+  return [] as number[];
+});
 
-const rootHighlighted = computed(() => step.value === 4 || step.value === 5)
+const rootHighlighted = computed(() => step.value === 4 || step.value === 5);
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -65,7 +65,10 @@ function reset() {
           v-for="(leaf, idx) in leaves"
           :key="idx"
           class="node leaf-node"
-          :class="{ highlighted: highlightPath.includes(idx), 'leaf-highlight-range': step === 5 && highlightPath.includes(idx) }"
+          :class="{
+            highlighted: highlightPath.includes(idx),
+            'leaf-highlight-range': step === 5 && highlightPath.includes(idx),
+          }"
         >
           <span class="key">{{ leaf.range }}</span>
         </div>
@@ -123,7 +126,9 @@ function reset() {
   border-radius: 6px;
   background: var(--vp-c-bg);
   overflow: hidden;
-  transition: border-color 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
 }
 
 .root-node {

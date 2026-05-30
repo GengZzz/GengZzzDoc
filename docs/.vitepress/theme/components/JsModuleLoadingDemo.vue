@@ -1,33 +1,33 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const mode = ref<'esm' | 'cjs'>('esm')
-const step = ref(0)
+const mode = ref<'esm' | 'cjs'>('esm');
+const step = ref(0);
 
 const esmSteps = [
   ['解析 import/export', '先不执行代码，只收集依赖关系。'],
   ['实例化模块记录', '为导入导出建立 live binding。'],
   ['按依赖顺序执行', '执行模块顶层代码并填充值。'],
-  ['导入方读取绑定', '读取的是同一个绑定的最新值。']
-]
+  ['导入方读取绑定', '读取的是同一个绑定的最新值。'],
+];
 
 const cjsSteps = [
   ['遇到 require()', '运行到这一行才开始加载目标模块。'],
   ['执行目标文件', '模块顶层代码立即执行。'],
   ['填充 module.exports', '导出的是 exports 对象。'],
-  ['缓存并返回', '下次 require 直接返回缓存对象。']
-]
+  ['缓存并返回', '下次 require 直接返回缓存对象。'],
+];
 
-const currentSteps = computed(() => (mode.value === 'esm' ? esmSteps : cjsSteps))
-const current = computed(() => currentSteps.value[step.value])
+const currentSteps = computed(() => (mode.value === 'esm' ? esmSteps : cjsSteps));
+const current = computed(() => currentSteps.value[step.value]);
 
 function setMode(nextMode: 'esm' | 'cjs') {
-  mode.value = nextMode
-  step.value = 0
+  mode.value = nextMode;
+  step.value = 0;
 }
 
 function next() {
-  step.value = (step.value + 1) % currentSteps.value.length
+  step.value = (step.value + 1) % currentSteps.value.length;
 }
 </script>
 
@@ -35,7 +35,9 @@ function next() {
   <div class="module-demo">
     <div class="switcher">
       <button :class="{ active: mode === 'esm' }" type="button" @click="setMode('esm')">ESM</button>
-      <button :class="{ active: mode === 'cjs' }" type="button" @click="setMode('cjs')">CommonJS</button>
+      <button :class="{ active: mode === 'cjs' }" type="button" @click="setMode('cjs')">
+        CommonJS
+      </button>
     </div>
 
     <div class="pipeline" :class="mode">
@@ -128,7 +130,7 @@ button.active {
 .stage.active {
   border-color: #f59e0b;
   color: #d97706;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, .14);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14);
 }
 
 .explain {
@@ -145,6 +147,8 @@ button.active {
 }
 
 @media (max-width: 720px) {
-  .pipeline { grid-template-columns: 1fr; }
+  .pipeline {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

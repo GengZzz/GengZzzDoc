@@ -1,36 +1,38 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
-const mode = ref<'async' | 'sync'>('async')
-const showFailover = ref(false)
+const mode = ref<'async' | 'sync'>('async');
+const showFailover = ref(false);
 
 const primaryStatus = computed(() => {
-  if (step.value === 0) return '空闲'
-  if (step.value === 1) return '生成 WAL 记录'
-  if (step.value === 2) return mode.value === 'sync' ? '等待 Standby 确认...' : '已提交（异步发送 WAL）'
-  if (step.value === 3) return 'WAL 发送中'
-  if (step.value === 4) return showFailover.value ? '（已宕机）' : '正常运行'
-  return '正常运行'
-})
+  if (step.value === 0) return '空闲';
+  if (step.value === 1) return '生成 WAL 记录';
+  if (step.value === 2)
+    return mode.value === 'sync' ? '等待 Standby 确认...' : '已提交（异步发送 WAL）';
+  if (step.value === 3) return 'WAL 发送中';
+  if (step.value === 4) return showFailover.value ? '（已宕机）' : '正常运行';
+  return '正常运行';
+});
 
 const standby1Status = computed(() => {
-  if (step.value <= 1) return '等待接收 WAL'
-  if (step.value === 2) return mode.value === 'sync' ? '接收 WAL，刷入磁盘，回复确认' : '接收 WAL 中'
-  if (step.value === 3) return '重放 WAL 完成'
-  if (step.value === 4 && showFailover.value) return '已提升为新 Primary'
-  return '正常同步'
-})
+  if (step.value <= 1) return '等待接收 WAL';
+  if (step.value === 2)
+    return mode.value === 'sync' ? '接收 WAL，刷入磁盘，回复确认' : '接收 WAL 中';
+  if (step.value === 3) return '重放 WAL 完成';
+  if (step.value === 4 && showFailover.value) return '已提升为新 Primary';
+  return '正常同步';
+});
 
 const standby2Status = computed(() => {
-  if (step.value <= 1) return '等待接收 WAL'
-  if (step.value === 2) return mode.value === 'sync' ? '等待中（非同步 standby）' : '接收 WAL 中'
-  if (step.value === 3) return '重放 WAL 中'
-  if (step.value === 4 && showFailover.value) return '切换到新 Primary'
-  return '正常同步'
-})
+  if (step.value <= 1) return '等待接收 WAL';
+  if (step.value === 2) return mode.value === 'sync' ? '等待中（非同步 standby）' : '接收 WAL 中';
+  if (step.value === 3) return '重放 WAL 中';
+  if (step.value === 4 && showFailover.value) return '切换到新 Primary';
+  return '正常同步';
+});
 
 const statusText = computed(() => {
   const texts = [
@@ -41,37 +43,37 @@ const statusText = computed(() => {
       : '异步模式：Primary 提交后立即返回，异步发送 WAL 到 Standby',
     'WAL 在 Standby 上重放，数据保持同步',
     '模拟故障转移：Standby 1 提升为新 Primary',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 const walProgress = computed(() => {
-  if (step.value === 0) return 0
-  if (step.value === 1) return 30
-  if (step.value === 2) return mode.value === 'sync' ? 60 : 80
-  if (step.value === 3) return 100
-  if (step.value === 4) return 100
-  return 0
-})
+  if (step.value === 0) return 0;
+  if (step.value === 1) return 30;
+  if (step.value === 2) return mode.value === 'sync' ? 60 : 80;
+  if (step.value === 3) return 100;
+  if (step.value === 4) return 100;
+  return 0;
+});
 
 function handlePrimaryClick() {
   if (step.value < 4) {
-    step.value = Math.min(step.value + 1, totalSteps - 1)
+    step.value = Math.min(step.value + 1, totalSteps - 1);
   }
 }
 
 function handleFailover() {
-  showFailover.value = true
+  showFailover.value = true;
 }
 
 function toggleMode() {
-  mode.value = mode.value === 'async' ? 'sync' : 'async'
+  mode.value = mode.value === 'async' ? 'sync' : 'async';
 }
 
 function reset() {
-  step.value = 0
-  showFailover.value = false
-  mode.value = 'async'
+  step.value = 0;
+  showFailover.value = false;
+  mode.value = 'async';
 }
 </script>
 
@@ -123,15 +125,14 @@ function reset() {
           :class="{ active: step >= 2, promoted: step === 4 && showFailover }"
         >
           <div class="node-icon">S1</div>
-          <div class="node-role">{{ step === 4 && showFailover ? 'New Primary' : 'Standby 1' }}</div>
+          <div class="node-role">
+            {{ step === 4 && showFailover ? 'New Primary' : 'Standby 1' }}
+          </div>
           <div class="node-status">{{ standby1Status }}</div>
           <div v-if="mode === 'sync' && step >= 2 && step < 4" class="sync-badge">同步</div>
         </div>
 
-        <div
-          class="node standby-node"
-          :class="{ active: step >= 2 }"
-        >
+        <div class="node standby-node" :class="{ active: step >= 2 }">
           <div class="node-icon">S2</div>
           <div class="node-role">Standby 2</div>
           <div class="node-status">{{ standby2Status }}</div>
@@ -151,9 +152,7 @@ function reset() {
 
     <!-- Failover Button -->
     <div v-if="step >= 3 && !showFailover" class="failover-section">
-      <button type="button" class="failover-btn" @click="handleFailover">
-        模拟故障转移
-      </button>
+      <button type="button" class="failover-btn" @click="handleFailover">模拟故障转移</button>
     </div>
 
     <div class="status-bar">{{ statusText }}</div>
@@ -300,7 +299,8 @@ function reset() {
   transition: width 0.5s ease;
 }
 
-.sync-badge, .async-badge {
+.sync-badge,
+.async-badge {
   position: absolute;
   top: -6px;
   right: -6px;

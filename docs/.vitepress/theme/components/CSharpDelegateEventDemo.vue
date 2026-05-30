@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 interface Subscriber {
-  name: string
-  state: string
-  kind: 'mail' | 'log' | 'cache'
+  name: string;
+  state: string;
+  kind: 'mail' | 'log' | 'cache';
 }
 
 const subscribers = computed(() => {
-  const list: Subscriber[] = []
-  if (step.value >= 2) list.push({ name: 'SendEmail', state: '订阅中', kind: 'mail' })
-  if (step.value >= 3) list.push({ name: 'WriteAuditLog', state: '订阅中', kind: 'log' })
-  if (step.value >= 4) list.push({ name: 'RefreshCache', state: '订阅中', kind: 'cache' })
-  if (step.value >= 6) return list.filter((item) => item.name !== 'RefreshCache')
-  return list
-})
+  const list: Subscriber[] = [];
+  if (step.value >= 2) list.push({ name: 'SendEmail', state: '订阅中', kind: 'mail' });
+  if (step.value >= 3) list.push({ name: 'WriteAuditLog', state: '订阅中', kind: 'log' });
+  if (step.value >= 4) list.push({ name: 'RefreshCache', state: '订阅中', kind: 'cache' });
+  if (step.value >= 6) return list.filter((item) => item.name !== 'RefreshCache');
+  return list;
+});
 
 const invocation = computed(() => {
-  if (step.value < 5) return []
-  return ['OrderCreated?.Invoke(sender, args)', ...subscribers.value.map((item) => item.name)]
-})
+  if (step.value < 5) return [];
+  return ['OrderCreated?.Invoke(sender, args)', ...subscribers.value.map((item) => item.name)];
+});
 
 const status = computed(() => {
   const list = [
@@ -32,17 +32,17 @@ const status = computed(() => {
     '审计模块继续订阅；多播委托链按订阅顺序保存处理器',
     '缓存模块也订阅，同一个业务事件可以触发多个后续动作',
     '订单创建完成，发布者复制委托到局部变量后 Invoke，处理器按链路依次执行',
-    '缓存模块 -= 取消订阅，长生命周期发布者不再持有该订阅者引用，降低泄漏风险'
-  ]
-  return list[step.value]
-})
+    '缓存模块 -= 取消订阅，长生命周期发布者不再持有该订阅者引用，降低泄漏风险',
+  ];
+  return list[step.value];
+});
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -79,7 +79,9 @@ function reset() {
     </div>
 
     <div class="code-line">
-      <code v-if="step === 1">public event EventHandler&lt;OrderCreatedEventArgs&gt; OrderCreated;</code>
+      <code v-if="step === 1"
+        >public event EventHandler&lt;OrderCreatedEventArgs&gt; OrderCreated;</code
+      >
       <code v-else-if="step === 2">service.OrderCreated += SendEmail;</code>
       <code v-else-if="step === 3">service.OrderCreated += WriteAuditLog;</code>
       <code v-else-if="step === 4">service.OrderCreated += RefreshCache;</code>
@@ -152,9 +154,15 @@ h4 {
   transition: all 0.25s ease;
 }
 
-.handler.mail { border-color: #3b82f6; }
-.handler.log { border-color: #22c55e; }
-.handler.cache { border-color: #f59e0b; }
+.handler.mail {
+  border-color: #3b82f6;
+}
+.handler.log {
+  border-color: #22c55e;
+}
+.handler.cache {
+  border-color: #f59e0b;
+}
 
 .handler strong,
 .handler span {

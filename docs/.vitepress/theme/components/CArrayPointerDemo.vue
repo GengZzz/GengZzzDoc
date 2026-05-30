@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 const descriptions = [
   'int arr[5] = {1, 2, 3, 4, 5} — 5 个 int 在连续内存中',
   '数组名 arr 衰退为指向首元素的指针 *(arr+i) 等价于 arr[i]',
   '指针运算 p++ — 指针按 sizeof(int) = 4 字节步长移动',
   'sizeof(arr) = 20（整个数组大小）vs sizeof(p) = 8（指针大小）',
-  '二维数组 int mat[3][4] — 行优先存储，12 个元素连续排列'
-]
+  '二维数组 int mat[3][4] — 行优先存储，12 个元素连续排列',
+];
 
 const codeLines = [
   ['int arr[5] = {1, 2, 3, 4, 5};'],
   ['int *p = arr;', 'arr[2] == *(arr + 2)  // 都是 3'],
   ['int *p = arr;', 'p++;  // p 现在指向 arr[1]', '*p == 2'],
   ['int *p = arr;', 'sizeof(arr)  // 20', 'sizeof(p)    // 8 (64位系统)'],
-  ['int mat[3][4] = {', '  {1,2,3,4}, {5,6,7,8}, {9,10,11,12}', '};']
-]
+  ['int mat[3][4] = {', '  {1,2,3,4}, {5,6,7,8}, {9,10,11,12}', '};'],
+];
 
 const memoryState = computed(() => {
   switch (step.value) {
@@ -29,11 +29,11 @@ const memoryState = computed(() => {
           { index: 1, value: 2, addr: '0x14' },
           { index: 2, value: 3, addr: '0x18' },
           { index: 3, value: 4, addr: '0x1c' },
-          { index: 4, value: 5, addr: '0x20' }
+          { index: 4, value: 5, addr: '0x20' },
         ],
         pointer: null as null | { label: string; target: number; addr: string },
-        highlight: null as null | number
-      }
+        highlight: null as null | number,
+      };
     case 1:
       return {
         cells: [
@@ -41,11 +41,11 @@ const memoryState = computed(() => {
           { index: 1, value: 2, addr: '0x14' },
           { index: 2, value: 3, addr: '0x18' },
           { index: 3, value: 4, addr: '0x1c' },
-          { index: 4, value: 5, addr: '0x20' }
+          { index: 4, value: 5, addr: '0x20' },
         ],
         pointer: { label: 'arr (p)', target: 0, addr: '0x10' },
-        highlight: 2
-      }
+        highlight: 2,
+      };
     case 2:
       return {
         cells: [
@@ -53,11 +53,11 @@ const memoryState = computed(() => {
           { index: 1, value: 2, addr: '0x14' },
           { index: 2, value: 3, addr: '0x18' },
           { index: 3, value: 4, addr: '0x1c' },
-          { index: 4, value: 5, addr: '0x20' }
+          { index: 4, value: 5, addr: '0x20' },
         ],
         pointer: { label: 'p (p++)', target: 1, addr: '0x14' },
-        highlight: null as null
-      }
+        highlight: null as null,
+      };
     case 3:
       return {
         cells: [
@@ -65,12 +65,12 @@ const memoryState = computed(() => {
           { index: 1, value: 2, addr: '0x14' },
           { index: 2, value: 3, addr: '0x18' },
           { index: 3, value: 4, addr: '0x1c' },
-          { index: 4, value: 5, addr: '0x20' }
+          { index: 4, value: 5, addr: '0x20' },
         ],
         pointer: null as null | { label: string; target: number; addr: string },
         highlight: null as null,
-        sizes: { arr: 20, p: 8 }
-      }
+        sizes: { arr: 20, p: 8 },
+      };
     case 4:
       return {
         cells: [
@@ -85,37 +85,31 @@ const memoryState = computed(() => {
           { index: 8, value: 9, addr: '0x30', row: 2 },
           { index: 9, value: 10, addr: '0x34', row: 2 },
           { index: 10, value: 11, addr: '0x38', row: 2 },
-          { index: 11, value: 12, addr: '0x3c', row: 2 }
+          { index: 11, value: 12, addr: '0x3c', row: 2 },
         ],
         pointer: null as null,
         highlight: null as null,
-        matrix: true
-      }
+        matrix: true,
+      };
     default:
-      return { cells: [], pointer: null, highlight: null }
+      return { cells: [], pointer: null, highlight: null };
   }
-})
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="array-demo">
-    <div class="step-indicator">
-      步骤 {{ step + 1 }} / {{ totalSteps }}
-    </div>
+    <div class="step-indicator">步骤 {{ step + 1 }} / {{ totalSteps }}</div>
     <div class="code-panel">
-      <div
-        v-for="(line, i) in codeLines[step]"
-        :key="i"
-        class="code-line"
-      >{{ line }}</div>
+      <div v-for="(line, i) in codeLines[step]" :key="i" class="code-line">{{ line }}</div>
     </div>
     <p class="desc">{{ descriptions[step] }}</p>
     <div class="memory-view">
@@ -145,13 +139,11 @@ function reset() {
       </div>
       <div v-if="step === 4" class="matrix-view">
         <div v-for="row in 3" :key="row" class="matrix-row">
-          <div
-            v-for="col in 4"
-            :key="col"
-            class="cell"
-          >
-            <span class="cell-index">[{{ row-1 }}][{{ col-1 }}]</span>
-            <span class="cell-value">{{ memoryState.cells[(row-1)*4+(col-1)]?.value }}</span>
+          <div v-for="col in 4" :key="col" class="cell">
+            <span class="cell-index">[{{ row - 1 }}][{{ col - 1 }}]</span>
+            <span class="cell-value">{{
+              memoryState.cells[(row - 1) * 4 + (col - 1)]?.value
+            }}</span>
           </div>
         </div>
         <div class="row-labels">
@@ -160,10 +152,7 @@ function reset() {
           <span>Row 2</span>
         </div>
       </div>
-      <div
-        v-if="memoryState.pointer"
-        class="pointer-indicator"
-      >
+      <div v-if="memoryState.pointer" class="pointer-indicator">
         {{ memoryState.pointer.label }} → [{{ memoryState.pointer.target }}]
       </div>
     </div>

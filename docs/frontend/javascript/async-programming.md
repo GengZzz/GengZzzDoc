@@ -57,6 +57,7 @@ fetchUser(id)
 ```
 
 ::: tip then 的返回值规则
+
 - 返回值 → 包装为 `Promise.resolve(值)`
 - 返回 Promise → 直接使用该 Promise
 - 抛出异常 → 包装为 `Promise.reject(错误)`
@@ -203,6 +204,7 @@ async function mapWithConcurrency(items, fn, concurrency = 3) {
 ```
 
 ::: warning async/await 常见陷阱
+
 1. **串行执行**：在循环中 await 每个请求，应改用 `Promise.all`
 2. **忘记 await**：`fetchData()` 返回 Promise 而非值
 3. **错误吞没**：async 函数返回的 Promise 未被 catch

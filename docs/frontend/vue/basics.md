@@ -69,6 +69,7 @@ const count = ref(0)
 | `v-for` | — | 列表渲染 |
 
 ::: tip v-if vs v-show
+
 - `v-if`：真正的条件渲染，条件为假时不渲染 DOM 元素
 - `v-show`：始终渲染，仅切换 CSS `display` 属性
 - 频繁切换用 `v-show`，条件很少改变用 `v-if`
@@ -125,6 +126,7 @@ function updateName() {
 ```
 
 ::: tip ref vs reactive
+
 | 对比 | ref | reactive |
 |------|-----|----------|
 | 适用类型 | 任意类型 | 仅对象/数组 |
@@ -237,6 +239,7 @@ watchEffect(async () => {
 ```
 
 ::: tip watch vs watchEffect
+
 | 对比 | watch | watchEffect |
 |------|-------|-------------|
 | 依赖追踪 | 显式指定 | 自动追踪 |

@@ -22,15 +22,15 @@ all: $(TARGET)
 
 # 链接
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+ $(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 # 编译（模式规则）
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+ $(CC) $(CFLAGS) -c $< -o $@
 
 # 创建 obj 目录
 $(OBJDIR):
-	mkdir -p $(OBJDIR)
+ mkdir -p $(OBJDIR)
 
 # 自动依赖生成
 DEPS = $(OBJS:.o=.d)
@@ -38,7 +38,7 @@ CFLAGS += -MMD -MP
 -include $(DEPS)
 
 clean:
-	rm -rf $(OBJDIR) $(TARGET)
+ rm -rf $(OBJDIR) $(TARGET)
 
 .PHONY: all clean
 ```
@@ -56,6 +56,7 @@ gcc -MMD -MP -c main.c -o main.o
 ```
 
 ::: tip Makefile 中的自动变量
+
 - `$@`：目标文件名
 - `$<`：第一个依赖文件名
 - `$^`：所有依赖文件名
@@ -106,6 +107,7 @@ sudo ldconfig
 ```
 
 ::: tip 静态库 vs 动态库
+
 - 静态库：可执行文件独立，不依赖外部库文件，但体积大
 - 动态库：多个程序共享，更新库不需要重新编译程序，但需要管理依赖
 - 生产环境通常优先使用动态库
@@ -194,6 +196,7 @@ gprof ./program gmon.out
 ```
 
 输出包含：
+
 - Flat profile：每个函数的调用次数和耗时
 - Call graph：函数调用关系和时间分配
 

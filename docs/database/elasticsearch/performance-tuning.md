@@ -93,6 +93,7 @@ DELETE /_pit
 PIT 的优势：不需要指定索引名，保证时间点一致性，配合 Search After 实现无限深度分页。
 
 ::: tip 方案选择
+
 | 场景 | 推荐方案 |
 |------|---------|
 | 用户翻页（前几页） | `from + size` |
@@ -133,6 +134,7 @@ GET /orders/_search?routing=user_123
 
 ::: warning Routing 的风险
 如果 Routing 值分布不均（某些用户订单量极大），会导致热点 Shard。解决办法：
+
 1. 对超大用户单独创建索引。
 2. 在 Routing 值中添加随机前缀分散热点。
 :::
@@ -176,6 +178,7 @@ ES 内置多级缓存，合理利用可以显著提升查询性能。
 ```
 
 Request Cache 的特点：
+
 - 基于完整的请求 JSON 做缓存 key。
 - Segment 级别的缓存（Segment 变更后自动失效）。
 - 只对 `size=0`（纯聚合）的请求默认开启。
@@ -193,6 +196,7 @@ Filter 查询 → Lucene 缓存 Bitset → 复用
 缓存 text 字段的 Fielddata（用于排序和聚合）。默认不开启 text 字段的 Fielddata（因为消耗大量堆内存）。
 
 ::: tip 缓存最佳实践
+
 1. 使用 Filter Context 代替 Query Context（Filter 可缓存 Bitset）。
 2. 聚合查询设置 `size: 0`（触发 Request Cache）。
 3. 避免使用脚本排序（Script Sort），它无法利用任何缓存。

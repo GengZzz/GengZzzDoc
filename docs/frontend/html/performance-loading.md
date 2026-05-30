@@ -62,6 +62,7 @@ body { margin: 0; font-family: sans-serif; }
 ```
 
 ::: tip 关键 CSS 策略
+
 1. 识别首屏渲染所需的最小 CSS
 2. 内联到 `<style>` 中
 3. 剩余 CSS 用 `preload` 异步加载
@@ -151,6 +152,7 @@ Render Tree: html > body > div  (p 被排除，因为 display:none)
 ```
 
 ::: tip preload 的注意事项
+
 - `crossorigin` 对字体是必需的，即使同源
 - `as` 属性必须正确，否则浏览器可能重复下载
 - preload 的资源应该在关键渲染路径中用到

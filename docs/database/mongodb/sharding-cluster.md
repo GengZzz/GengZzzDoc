@@ -254,6 +254,7 @@ sh.addTagRange("myapp.users", { region: "america" }, { region: "americb" }, "ame
 ```
 
 ::: tip Zone Sharding 的应用场景
+
 - 多地域部署：用户数据就近存储，降低读写延迟
 - 数据合规：特定地区的数据必须存储在特定区域
 - 冷热分离：历史数据迁移到低成本存储 Shard

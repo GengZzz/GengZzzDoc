@@ -211,6 +211,7 @@ public class ProductService {
 
 ::: tip 一致性读取策略
 对于对一致性要求极高的操作（如支付后立即查询订单状态），可以：
+
 1. 强制从 MySQL 读取。
 2. 在 ES 写入成功后返回（`refresh=wait_for`）。
 3. 在应用层标记"写入中"状态，引导用户稍后查看。

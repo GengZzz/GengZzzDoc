@@ -79,6 +79,7 @@ blocked_clients:2                  # 被阻塞命令阻塞的客户端数
 
 ::: tip 连接池配置
 每个 Redis 客户端连接约占用 10-20KB 内存。1000 个连接约 10-20MB。如果连接数持续增长，检查：
+
 1. 客户端连接池是否正确配置（maxTotal、maxIdle）。
 2. 是否有连接泄漏（获取连接后没有归还）。
 3. `maxclients` 配置是否合理（默认 10000）。
@@ -99,6 +100,7 @@ repl_backlog_histlen:123456
 ```
 
 **关键指标：**
+
 - `lag`：从节点落后主节点的秒数。`lag > 10` 需要关注。
 - `slave_repl_offset` 与 `master_repl_offset` 的差距：差距持续增大说明从节点跟不上。
 
@@ -153,6 +155,7 @@ SLOWLOG RESET
 ```
 
 ::: tip 常见慢查询原因
+
 1. **KEYS \***：遍历所有 key，数据量大时极慢。
 2. **HGETALL**：大 Hash 的全量获取。
 3. **LRANGE 0 -1**：大 List 的全量获取。

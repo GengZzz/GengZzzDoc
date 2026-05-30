@@ -35,11 +35,13 @@ System.Object
 | 异常过滤器（when） | ~1,000 ns（不抛出时） |
 
 异常的开销主要来自：
+
 1. 收集堆栈跟踪信息（需要遍历调用栈）
 2. 创建异常对象
 3. 展开调用栈（Stack Unwinding）
 
 ::: warning 不要用异常做控制流
+
 ```csharp
 // ❌ 用异常做控制流：慢 10000 倍
 try
@@ -61,6 +63,7 @@ else
     // 处理无效输入
 }
 ```
+
 :::
 
 ## 异常过滤器 when
@@ -200,6 +203,7 @@ capturedException?.Throw();
 ```
 
 ::: tip throw; vs ExceptionDispatchInfo
+
 - `throw;`：在同一个调用栈中重新抛出，保留原始堆栈
 - `ExceptionDispatchInfo.Throw()`：跨线程/跨上下文保留堆栈
 - `throw ex;`：**重置堆栈**，丢失原始抛出位置（几乎总是错误的做法）
@@ -255,6 +259,7 @@ public class ValidationException : BusinessException
 ```
 
 ::: warning 异常设计原则
+
 - 异常类名以 `Exception` 结尾
 - 提供无参构造、带 message 构造、带 message+inner 构造
 - 标记 `[Serializable]` 并提供序列化构造函数

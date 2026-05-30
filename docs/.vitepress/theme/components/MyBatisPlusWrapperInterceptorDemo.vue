@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const page = ref(true)
-const tenant = ref(true)
-const logicDelete = ref(true)
+const page = ref(true);
+const tenant = ref(true);
+const logicDelete = ref(true);
 
 const sql = computed(() => {
-  const where = ['status = ?']
-  if (tenant.value) where.unshift('tenant_id = ?')
-  if (logicDelete.value) where.push('deleted = 0')
-  const suffix = page.value ? ' limit ?, ?' : ''
-  return `select id,nickname,status from sys_user where ${where.join(' and ')} order by created_at desc${suffix}`
-})
+  const where = ['status = ?'];
+  if (tenant.value) where.unshift('tenant_id = ?');
+  if (logicDelete.value) where.push('deleted = 0');
+  const suffix = page.value ? ' limit ?, ?' : '';
+  return `select id,nickname,status from sys_user where ${where.join(' and ')} order by created_at desc${suffix}`;
+});
 </script>
 
 <template>

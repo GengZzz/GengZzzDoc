@@ -148,6 +148,7 @@ WHERE NOT EXISTS (
     SELECT 1 FROM employees e2 WHERE e2.manager_id = e1.id
 );
 ```
+
 :::
 
 ### BETWEEN
@@ -338,6 +339,7 @@ SELECT u.username FROM users u;
 生产环境的 SQL 书写应遵循以下规范，以确保可读性、可维护性和安全性：
 
 **关键字大写：**
+
 ```sql
 -- 推荐
 SELECT username, email FROM users WHERE age > 25 ORDER BY created_at DESC;
@@ -347,6 +349,7 @@ select username, email from users where age > 25 order by created_at desc;
 ```
 
 **缩进与换行：**
+
 ```sql
 SELECT
     u.id,
@@ -381,4 +384,5 @@ query = "SELECT * FROM users WHERE username = '" + userInput + "'"
 query = "SELECT * FROM users WHERE username = ?"
 params = [userInput]
 ```
+
 :::

@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 7
+const step = ref(0);
+const totalSteps = 7;
 
 const accounts = computed(() => {
-  const a = { id: 'A', balance: 1000, locked: false }
-  const b = { id: 'B', balance: 300, locked: false }
-  if (step.value >= 2) a.locked = true
-  if (step.value >= 3) a.balance = 900
-  if (step.value >= 4) b.locked = true
-  if (step.value >= 5) b.balance = 400
+  const a = { id: 'A', balance: 1000, locked: false };
+  const b = { id: 'B', balance: 300, locked: false };
+  if (step.value >= 2) a.locked = true;
+  if (step.value >= 3) a.balance = 900;
+  if (step.value >= 4) b.locked = true;
+  if (step.value >= 5) b.balance = 400;
   if (step.value >= 6) {
-    a.locked = false
-    b.locked = false
+    a.locked = false;
+    b.locked = false;
   }
-  return [a, b]
-})
+  return [a, b];
+});
 
 const log = computed(() => {
-  const list = []
-  if (step.value >= 1) list.push('beginTransaction()')
-  if (step.value >= 2) list.push('UPDATE A ... WHERE balance >= 100')
-  if (step.value >= 3) list.push('rowCount() === 1, A 扣款成功')
-  if (step.value >= 4) list.push('UPDATE B SET balance = balance + 100')
-  if (step.value >= 5) list.push('两条写入都成功，准备提交')
-  if (step.value >= 6) list.push('commit(), 锁释放')
-  if (step.value >= 7) list.push('异常路径：任一步失败都 rollBack()')
-  return list
-})
+  const list = [];
+  if (step.value >= 1) list.push('beginTransaction()');
+  if (step.value >= 2) list.push('UPDATE A ... WHERE balance >= 100');
+  if (step.value >= 3) list.push('rowCount() === 1, A 扣款成功');
+  if (step.value >= 4) list.push('UPDATE B SET balance = balance + 100');
+  if (step.value >= 5) list.push('两条写入都成功，准备提交');
+  if (step.value >= 6) list.push('commit(), 锁释放');
+  if (step.value >= 7) list.push('异常路径：任一步失败都 rollBack()');
+  return list;
+});
 
 const status = computed(() => {
   const list = [
@@ -39,24 +39,29 @@ const status = computed(() => {
     '再给 B 账户加款，两个写操作仍处在同一事务中',
     '业务写入全部完成，此时还没有真正对外提交',
     'commit 后数据生效并释放锁；其他请求才能看到最终结果',
-    '异常路径要进入 catch，rollBack 后不要继续发送邮件或调用外部接口'
-  ]
-  return list[step.value]
-})
+    '异常路径要进入 catch，rollBack 后不要继续发送邮件或调用外部接口',
+  ];
+  return list[step.value];
+});
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="pdo-demo">
     <div class="accounts">
-      <div v-for="account in accounts" :key="account.id" class="account" :class="{ locked: account.locked }">
+      <div
+        v-for="account in accounts"
+        :key="account.id"
+        class="account"
+        :class="{ locked: account.locked }"
+      >
         <strong>Account {{ account.id }}</strong>
         <span>balance: {{ account.balance }}</span>
         <small>{{ account.locked ? 'row locked' : 'unlocked' }}</small>

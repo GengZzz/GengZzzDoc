@@ -37,6 +37,7 @@ CLR 将托管堆分为三代（Generation），对象根据存活时间被分配
 | Gen2 | 托管堆的剩余部分 | 回收最不频繁，暂停时间最长 |
 
 GC 触发的条件：
+
 1. Gen0 预算耗尽（最常见）
 2. 显式调用 `GC.Collect()`
 3. 系统内存不足
@@ -354,6 +355,7 @@ dotnet-gcdump collect --process-id <PID> --output gc.gcdump
 ```
 
 ::: warning 内存泄漏排查流程
+
 1. 用 `dotnet-dump collect` 获取 dump
 2. `dumpheap -stat` 查看哪些类型占用最多内存
 3. 对可疑类型执行 `dumpheap -type` 获取实例地址
@@ -373,6 +375,7 @@ dotnet-gcdump collect --process-id <PID> --output gc.gcdump
 | GC.Collect() 显式调用 | 不推荐，让 GC 自行管理 |
 
 ::: tip 减少 GC 压力的原则
+
 1. 避免在热路径中分配临时对象（缓存、池化）
 2. 使用 `Span<T>`、`stackalloc` 减少堆分配
 3. 使用 `ArrayPool<T>` 复用大数组

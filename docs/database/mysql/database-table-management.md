@@ -232,6 +232,7 @@ DROP TEMPORARY TABLE IF EXISTS temp_user_stats;
 ```
 
 ::: tip 临时表特性
+
 - 临时表只对创建它的会话可见，不同会话可以创建同名临时表
 - 临时表与普通表同名时，临时表优先（会屏蔽同名普通表）
 - 临时表不支持外键、全文索引和分区
@@ -256,6 +257,7 @@ INSERT INTO orders_backup SELECT * FROM orders;
 ```
 
 ::: tip LIKE 方式的特点
+
 - 复制完整的表结构，包括所有索引、列定义
 - **不复制**外键约束、AUTO_INCREMENT 值、分区数据
 - 不复制数据，需手动 INSERT ... SELECT
@@ -274,6 +276,7 @@ SELECT * FROM orders WHERE YEAR(created_at) = 2024;
 
 ::: warning CREATE TABLE ... SELECT 的坑
 这种方式创建的表**会丢失**以下内容：
+
 - 主键定义（如果没有在 SELECT 中明确包含）
 - 索引（除了一些特殊情况）
 - AUTO_INCREMENT 属性

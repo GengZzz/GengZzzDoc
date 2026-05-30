@@ -87,6 +87,7 @@ document.querySelector('.container').addEventListener('click', (e) => {
 ```
 
 ::: tip 事件委托优势
+
 - 减少事件处理器数量（内存优化）
 - 自动支持动态添加的元素
 - 避免频繁绑定/解绑
@@ -156,6 +157,7 @@ window.addEventListener('storage', (e) => {
 ```
 
 ::: warning Storage 限制
+
 - 同源策略限制
 - 大小限制约 5MB
 - 只能存字符串（需 JSON 序列化）

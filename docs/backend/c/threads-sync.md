@@ -123,6 +123,7 @@ pthread_mutex_lock(&lock_a);  // 等待线程 1 释放 lock_a
 ```
 
 ::: tip 避免死锁
+
 - 所有线程以**相同顺序**获取锁
 - 使用 `pthread_mutex_timedlock` 设置超时
 - 尽量减少锁的持有时间
@@ -351,6 +352,7 @@ void spin_unlock(atomic_flag *flag) {
 ```
 
 ::: tip 原子操作 vs 互斥锁
+
 - 原子操作：无锁，性能好，适合简单操作（计数器、标志位）
 - 互斥锁：适合保护复杂的数据结构（链表、树）
 - 原子操作不能保护多步操作（如"检查再修改"）

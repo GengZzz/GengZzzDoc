@@ -67,6 +67,7 @@ min_examined_row_limit = 1000
 ```
 
 ::: tip 生产环境建议
+
 - `long_query_time` 设置为 1 秒（大多数业务场景下超过 1 秒的查询都需要关注）
 - 开启 `log_queries_not_using_indexes` 可以发现遗漏的索引问题
 - 配合 `min_examined_row_limit` 过滤掉扫描行数少的查询，减少日志量
@@ -239,6 +240,7 @@ SELECT u.id, u.name, o.order_no, o.amount FROM users u JOIN orders o ON u.id = o
 **第三部分：优化建议**
 
 ::: tip pt-query-digest vs mysqldumpslow
+
 - pt-query-digest 的分析报告更详细，包含 95 分位数、标准差等统计指标
 - 可以按多种维度排序（Query_time、Lock_time、Rows_examined 等）
 - 支持多种数据源（慢查询日志、processlist、binlog）
@@ -477,6 +479,7 @@ Using temporary 和 Using filesort 消失了！
 3. 确保 `users.id` 作为主键被 JOIN 使用
 
 ::: tip 慢查询优化的一般流程
+
 1. 开启慢查询日志，定位问题 SQL
 2. 使用 pt-query-digest 分析，找出频率高或耗时长的查询
 3. 对问题 SQL 执行 EXPLAIN，分析执行计划

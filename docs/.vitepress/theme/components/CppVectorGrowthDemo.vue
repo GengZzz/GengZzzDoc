@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const size = ref(3)
-const capacity = computed(() => (size.value <= 4 ? 4 : 8))
+const size = ref(3);
+const capacity = computed(() => (size.value <= 4 ? 4 : 8));
 
 function push() {
-  if (size.value < 8) size.value += 1
+  if (size.value < 8) size.value += 1;
 }
 
 function reset() {
-  size.value = 3
+  size.value = 3;
 }
 </script>
 

@@ -122,10 +122,12 @@ START SLAVE;
 ```
 
 优点：
+
 - 性能好，主库不被从库拖慢
 - 实现简单
 
 缺点：
+
 - **可能丢数据**：如果主库崩溃且 binlog 未发送到从库，数据丢失
 
 ### 半同步复制 (Semi-Synchronous Replication)
@@ -370,6 +372,7 @@ SELECT * FROM performance_schema.replication_applier_status_by_worker\G
 ```
 
 ::: tip 并行复制效果
+
 - MySQL 5.5-5.6 单线程回放：延迟可能达到小时级
 - MySQL 5.7 LOGICAL_CLOCK 并行：延迟降低到分钟级
 - MySQL 8.0 enhanced MTS：延迟降低到秒级

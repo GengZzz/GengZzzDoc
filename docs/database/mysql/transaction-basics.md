@@ -294,6 +294,7 @@ SET SESSION max_execution_time = 30000; -- 毫秒
 ```
 
 ::: danger 生产环境建议
+
 - 事务内只做必要的数据库操作，不要在事务中执行 RPC 调用、HTTP 请求等外部操作
 - 控制事务粒度，尽量做到"短平快"
 - 定期检查 `INNODB_TRX` 表，发现并处理长事务

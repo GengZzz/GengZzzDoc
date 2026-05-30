@@ -87,6 +87,7 @@ FULLRESYNC <replid> <offset>
 ### replid
 
 每个 Redis 实例有两个 replid：
+
 - `replid`：第一个主节点的复制 ID，从未变过。
 - `replid2`：上一个主节点的复制 ID（用于切换后部分重连）。
 
@@ -140,6 +141,7 @@ repl-backlog-size 64mb
 ```
 
 ::: tip 无盘复制优势
+
 - 减少磁盘 I/O（不用写 + 读 RDB 文件）。
 - SSD 环境下尤其明显。
 - 缺点：如果传输过程中断，需要重新 fork。

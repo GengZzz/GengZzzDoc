@@ -38,6 +38,7 @@ public class Main {
 ```
 
 上述代码做了两件事：
+
 1. `new Person()` —— 在堆上创建一个 `Person` 实例
 2. `alice` —— 一个引用变量，保存该实例的地址（类似指针）
 
@@ -111,6 +112,7 @@ p.introduce();  // 运行时抛出 NullPointerException
 - **堆（Heap）**：存储所有对象实例。所有线程共享同一个堆。
 
 当执行 `Person p = new Person("Alice", 25)` 时：
+
 1. 栈上分配局部变量 `p`
 2. 堆上分配 `Person` 对象的空间，包含 `name` 和 `age` 字段
 3. `p` 保存堆上对象的地址

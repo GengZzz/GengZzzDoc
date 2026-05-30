@@ -52,6 +52,7 @@ public class StringPool {
 ```
 
 ::: tip 记忆要点
+
 - 字面量赋值 → 走字符串池，`==` 比较为 `true`
 - `new String(...)` → 堆上新对象，`==` 比较为 `false`
 - 要比较内容始终用 `equals()`
@@ -201,6 +202,7 @@ public class StringBuilderDemo {
 ```
 
 ::: tip String vs StringBuilder
+
 - 内容不需修改 → `String`
 - 需要频繁拼接/修改 → `StringBuilder`
 - 多线程共享可变字符串 → `StringBuffer`（同步，较慢）

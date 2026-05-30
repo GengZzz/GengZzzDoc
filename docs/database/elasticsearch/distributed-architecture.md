@@ -78,6 +78,7 @@ discovery.zen.minimum_master_nodes: 2  # 7.x 之前必须手动设置
 
 ::: tip 7.x+ 的改进
 Zen2 使用基于 Term 的选举机制，类似 Raft，从协议层面解决了脑裂问题。但仍然建议：
+
 1. 部署 3 个专用 Master 节点。
 2. Master 节点不存储数据（只做集群管理）。
 3. 不要让 Master 节点承担过重的 Coordinating 角色。
@@ -109,6 +110,7 @@ Cluster State 变更流程：
 
 ::: warning Cluster State 过大
 Cluster State 过大会导致广播延迟和节点同步问题。常见原因：
+
 1. 过多的索引（每个索引的 Mapping 都记录在 Cluster State 中）。
 2. 过多的别名。
 3. 使用 Dynamic Mapping 产生大量字段。
@@ -153,6 +155,7 @@ Master 负责决定每个 Shard 放在哪个节点上。分配过程受多种因
 ```
 
 **均衡规则**：
+
 - 同一索引的 Primary 和 Replica 不放在同一节点。
 - 尽量使每个节点上的 Shard 数量均衡。
 - 考虑磁盘使用率（默认 85% 触发水位线，90% 禁止分配）。
@@ -189,11 +192,13 @@ cluster.routing.allocation.disk.watermark.flood_stage: "90%"
 
 ::: tip 磁盘水位线触发后怎么办
 如果索引被设置为 `read_only_allow_delete`，手动解除：
+
 ```bash
 PUT /my-index/_settings
 {
   "index.blocks.read_only_allow_delete": null
 }
 ```
+
 但前提是确保磁盘空间已经释放。
 :::

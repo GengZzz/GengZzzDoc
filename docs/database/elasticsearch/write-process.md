@@ -161,6 +161,7 @@ POST /my-index/_forcemerge?max_num_segments=1
 ```
 
 ::: warning Force Merge 注意事项
+
 - Force Merge 是 CPU 和 I/O 密集型操作，建议在低峰期执行。
 - 只对不再写入的索引执行。正在写入的索引执行 Force Merge 会浪费资源（新写入又会生成新 Segment）。
 - `max_num_segments=1` 会将所有 Segment 合并为一个，适合 Warm/Cold 阶段。
@@ -194,6 +195,7 @@ POST _bulk
 
 ::: tip 批量导入最佳实践
 导入大量数据时的推荐配置：
+
 ```json
 PUT /my-index/_settings
 {
@@ -202,5 +204,6 @@ PUT /my-index/_settings
   "index.translog.durability": "async"
 }
 ```
+
 导入完成后恢复正常配置，然后手动 `_refresh`。
 :::

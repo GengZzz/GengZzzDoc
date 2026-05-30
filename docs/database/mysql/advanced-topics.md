@@ -63,6 +63,7 @@ pt-online-schema-change \
 | `--alter-foreign-keys-method` | 外键处理方式：`auto`、`rebuild_constraints`、`drop_swap` |
 
 ::: warning pt-online-schema-change 的注意事项
+
 1. 原表必须有主键或唯一键（用于分批复制的数据分片）。
 2. 触发器会增加写操作的开销（每次 INSERT/UPDATE/DELETE 都会额外执行一次对新表的操作）。
 3. 外键处理比较复杂，有外键的表需要特别小心。
@@ -130,6 +131,7 @@ gh-ost \
 | 适用场景 | 通用场景 | 无外键的高写入场景 |
 
 ::: tip 如何选择
+
 - 有外键的表：只能用 pt-online-schema-change
 - 写入量极高的表：gh-ost 更好（无触发器开销）
 - 需要执行过程中精细控制：gh-ost 更好（交互式命令）
@@ -228,6 +230,7 @@ SET AUTOCOMMIT = 1;
 ```
 
 ::: tip LOAD DATA INFILE 性能对比
+
 - `INSERT INTO ... VALUES`：逐行插入，每行一次网络往返，速度最慢
 - `INSERT INTO ... VALUES (..), (..), (..)`：批量 VALUES，减少网络往返，速度中等
 - `LOAD DATA INFILE`：直接读取文件批量导入，速度最快（20x ~ 40x 于单行 INSERT）
@@ -476,6 +479,7 @@ public void updateUser(User user) {
 ```
 
 ::: tip 缓存一致性最佳实践
+
 1. 更新数据库后删除缓存，而不是更新缓存（避免并发更新导致的顺序问题）。
 2. 缓存必须设置过期时间（TTL），作为最后的兜底保障。
 3. 对于一致性要求极高的场景，使用消息队列做缓存失效通知。
@@ -561,6 +565,7 @@ XA COMMIT 'order_001';   -- 参与者 B
 
 ::: warning 2PC 的问题
 2PC 虽然能保证强一致性，但在生产环境中很少直接使用：
+
 - 同步阻塞：Prepare 阶段会锁定资源，降低吞吐量
 - 单点故障：协调者崩溃可能导致参与者一直持有锁
 - 数据不一致：如果部分参与者 Commit 成功、部分失败，数据仍可能不一致
@@ -765,6 +770,7 @@ ALTER TABLE order_items
 ```
 
 ::: tip 死锁防范经验
+
 1. **统一访问顺序**：所有事务按相同顺序访问行（如按主键排序）。
 2. **缩短事务时长**：事务越短，持锁时间越短，死锁概率越低。
 3. **避免间隙锁**：尽量使用唯一索引等值查询，减少间隙锁范围。
@@ -855,6 +861,7 @@ SecRule ARGS "@detectSQLi" \
 ```
 
 ::: danger 防范 SQL 注入的核心原则
+
 1. **永远使用参数化查询**，不要拼接 SQL。
 2. **最小权限原则**，应用账号不应有 DDL 权限。
 3. **对用户输入零信任**，所有外部输入都必须验证和过滤。
@@ -962,6 +969,7 @@ LIMIT 10000;
 ```
 
 ::: tip 分批删除的脚本
+
 ```bash
 #!/bin/bash
 # 分批删除历史数据，避免大事务
@@ -980,6 +988,7 @@ while true; do
   sleep 1  # 间隔 1 秒，让出 IO
 done
 ```
+
 :::
 
 ### 读写分离 + 缓存

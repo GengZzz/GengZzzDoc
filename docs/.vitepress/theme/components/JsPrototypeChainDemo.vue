@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const selected = ref<'person' | 'student' | 'access'>('person')
+const selected = ref<'person' | 'student' | 'access'>('person');
 
 const personProto = {
   label: 'Person.prototype',
   members: ['constructor', 'sayHello()'],
-  description: '所有 Person 实例共享的方法'
-}
+  description: '所有 Person 实例共享的方法',
+};
 
 const studentProto = {
   label: 'Student.prototype',
   members: ['constructor', 'study()'],
-  description: 'Student 特有方法，__proto__ 指向 Person.prototype'
-}
+  description: 'Student 特有方法，__proto__ 指向 Person.prototype',
+};
 
 const instance = {
   label: 'alice (实例)',
   members: ['name: "Alice"', 'age: 20', 'grade: "A"'],
-  description: '实例的 __proto__ 指向 Student.prototype'
-}
+  description: '实例的 __proto__ 指向 Student.prototype',
+};
 
 const accessChain = [
   { step: 1, target: 'alice.name', found: true, location: '实例自身' },
@@ -27,30 +27,30 @@ const accessChain = [
   { step: 3, target: 'alice.study()', found: true, location: 'Student.prototype' },
   { step: 4, target: 'alice.sayHello()', found: true, location: 'Person.prototype' },
   { step: 5, target: 'alice.toString()', found: true, location: 'Object.prototype' },
-  { step: 6, target: 'alice.xyz', found: false, location: '查找到头，返回 undefined' }
-]
+  { step: 6, target: 'alice.xyz', found: false, location: '查找到头，返回 undefined' },
+];
 
-const activeStep = ref(0)
+const activeStep = ref(0);
 
 const description = computed(() => {
   if (selected.value === 'person') {
-    return 'Person.prototype：所有 Person 实例共享的原型对象，包含 constructor 和 sayHello 方法'
+    return 'Person.prototype：所有 Person 实例共享的原型对象，包含 constructor 和 sayHello 方法';
   }
   if (selected.value === 'student') {
-    return 'Student.prototype：继承自 Person.prototype，添加 study 方法'
+    return 'Student.prototype：继承自 Person.prototype，添加 study 方法';
   }
   if (activeStep.value === 0) {
-    return 'alice 实例：点击不同步骤观察属性查找过程'
+    return 'alice 实例：点击不同步骤观察属性查找过程';
   }
   return accessChain[activeStep.value - 1].found
     ? `${accessChain[activeStep.value - 1].target} → 在 ${accessChain[activeStep.value - 1].location} 中找到`
-    : `${accessChain[activeStep.value - 1].target} → ${accessChain[activeStep.value - 1].location}`
-})
+    : `${accessChain[activeStep.value - 1].target} → ${accessChain[activeStep.value - 1].location}`;
+});
 
 function selectNode(node: 'person' | 'student' | 'access') {
-  selected.value = node
+  selected.value = node;
   if (node !== 'access') {
-    activeStep.value = 0
+    activeStep.value = 0;
   }
 }
 </script>
@@ -59,11 +59,7 @@ function selectNode(node: 'person' | 'student' | 'access') {
   <div class="proto-demo">
     <div class="chain-visual">
       <div class="node-row">
-        <div
-          class="node"
-          :class="{ active: selected === 'access' }"
-          @click="selectNode('access')"
-        >
+        <div class="node" :class="{ active: selected === 'access' }" @click="selectNode('access')">
           <div class="node-label">alice</div>
           <div class="node-type">实例</div>
         </div>
@@ -77,11 +73,7 @@ function selectNode(node: 'person' | 'student' | 'access') {
           <div class="node-type">原型</div>
         </div>
         <div class="arrow-right">→</div>
-        <div
-          class="node"
-          :class="{ active: selected === 'person' }"
-          @click="selectNode('person')"
-        >
+        <div class="node" :class="{ active: selected === 'person' }" @click="selectNode('person')">
           <div class="node-label">Person.prototype</div>
           <div class="node-type">原型</div>
         </div>
@@ -311,7 +303,11 @@ function selectNode(node: 'person' | 'student' | 'access') {
 }
 
 @media (max-width: 560px) {
-  .node-row { flex-direction: column; }
-  .arrow-right { transform: rotate(90deg); }
+  .node-row {
+    flex-direction: column;
+  }
+  .arrow-right {
+    transform: rotate(90deg);
+  }
 }
 </style>

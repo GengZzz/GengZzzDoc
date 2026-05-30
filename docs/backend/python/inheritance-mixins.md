@@ -31,6 +31,7 @@ print(isinstance(dog, Dog))     # True
 ## 多重继承与 MRO
 
 Python 使用 C3 线性化算法确定 MRO，保证：
+
 - 子类优先于父类
 - 多个父类按声明顺序排列
 - 每个类在 MRO 中只出现一次

@@ -180,6 +180,7 @@ GET 请求有 URL 长度限制，无法传输文件。`enctype="multipart/form-d
 ```
 
 ::: tip input type 选择指南
+
 | 场景 | 推荐 type |
 |------|-----------|
 | 搜索框 | `search` |
@@ -303,6 +304,7 @@ GET 请求有 URL 长度限制，无法传输文件。`enctype="multipart/form-d
 ```
 
 ::: tip datalist vs select
+
 - `<select>`：强制用户从预定义列表中选择
 - `<datalist>`：提供自动补全建议，用户可以输入任意值
 :::

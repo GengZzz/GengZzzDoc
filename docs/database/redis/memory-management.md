@@ -26,6 +26,7 @@ maxmemory-policy allkeys-lru
 ```
 
 ::: tip 如何选择策略？
+
 - **缓存场景**：`allkeys-lru` 或 `allkeys-lfu`。LRU 适合访问模式随时间变化的场景，LFU 适合有突发流量但长期模式稳定的场景。
 - **部分数据不能淘汰**：`volatile-lru`，只有设置过期时间的 key 才会被淘汰。
 - **随机淘汰**：`allkeys-random` 适用于所有 key 访问频率均匀的场景。

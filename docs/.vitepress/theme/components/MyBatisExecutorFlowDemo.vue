@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const currentStep = ref(0)
+const currentStep = ref(0);
 
 const stages = [
   {
@@ -52,27 +52,27 @@ const stages = [
     detail: 'UserDO',
     note: 'Mapper 方法返回对象、列表、游标或影响行数。',
   },
-]
+];
 
-const totalSteps = stages.length + 1
-const activeIndex = computed(() => currentStep.value - 1)
-const currentStage = computed(() => stages[activeIndex.value])
+const totalSteps = stages.length + 1;
+const activeIndex = computed(() => currentStep.value - 1);
+const currentStage = computed(() => stages[activeIndex.value]);
 const progressWidth = computed(() => {
-  if (currentStep.value === 0) return '0%'
-  return `${(activeIndex.value / (stages.length - 1)) * 100}%`
-})
+  if (currentStep.value === 0) return '0%';
+  return `${(activeIndex.value / (stages.length - 1)) * 100}%`;
+});
 
 const statusText = computed(() => {
-  if (currentStep.value === 0) return '点击"下一步"观察 Mapper 方法如何穿过 MyBatis 执行链路'
-  return `${currentStage.value.name}: ${currentStage.value.role}`
-})
+  if (currentStep.value === 0) return '点击"下一步"观察 Mapper 方法如何穿过 MyBatis 执行链路';
+  return `${currentStage.value.name}: ${currentStage.value.role}`;
+});
 
 function next() {
-  currentStep.value = (currentStep.value + 1) % totalSteps
+  currentStep.value = (currentStep.value + 1) % totalSteps;
 }
 
 function reset() {
-  currentStep.value = 0
+  currentStep.value = 0;
 }
 </script>
 
@@ -187,7 +187,10 @@ function reset() {
   color: var(--vp-c-text-2);
   font-size: 12px;
   font-weight: 700;
-  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .stage-card {
@@ -196,7 +199,10 @@ function reset() {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 .stage-card strong,
@@ -298,7 +304,10 @@ function reset() {
   color: var(--vp-c-text-2);
   font-size: 12px;
   font-weight: 600;
-  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .handler-chip small {

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const currentStep = ref(0)
-const totalSteps = 7
+const currentStep = ref(0);
+const totalSteps = 7;
 
 interface StepData {
-  title: string
-  mode: 'rdb' | 'aof' | 'hybrid'
-  desc: string
-  components: { label: string; detail: string; color: string }[]
-  note?: string
+  title: string;
+  mode: 'rdb' | 'aof' | 'hybrid';
+  desc: string;
+  components: { label: string; detail: string; color: string }[];
+  note?: string;
 }
 
 const steps: StepData[] = [
@@ -20,8 +20,8 @@ const steps: StepData[] = [
     components: [
       { label: '主进程', detail: '继续处理客户端请求', color: '#8b5cf6' },
       { label: '子进程 (fork)', detail: '准备写入 RDB 文件', color: '#10b981' },
-      { label: '共享内存页', detail: 'Page Table 标记为只读', color: '#f59e0b' }
-    ]
+      { label: '共享内存页', detail: 'Page Table 标记为只读', color: '#f59e0b' },
+    ],
   },
   {
     title: 'RDB 步骤 2: COW 写入',
@@ -30,9 +30,9 @@ const steps: StepData[] = [
     components: [
       { label: '主进程', detail: '修改数据 → 触发 COW → 复制页', color: '#8b5cf6' },
       { label: '子进程', detail: '读取原始共享页 → 写入 dump.rdb.tmp', color: '#10b981' },
-      { label: 'COW 风险', detail: '写操作越多，复制的页越多，内存占用越高', color: '#ef4444' }
+      { label: 'COW 风险', detail: '写操作越多，复制的页越多，内存占用越高', color: '#ef4444' },
     ],
-    note: '如果 BGSAVE 期间写操作很密集，实际内存可能接近 2 倍。'
+    note: '如果 BGSAVE 期间写操作很密集，实际内存可能接近 2 倍。',
   },
   {
     title: 'RDB 步骤 3: 替换旧文件',
@@ -41,8 +41,8 @@ const steps: StepData[] = [
     components: [
       { label: 'dump.rdb.tmp', detail: '写入完成', color: '#10b981' },
       { label: 'rename', detail: 'dump.rdb.tmp → dump.rdb', color: '#f59e0b' },
-      { label: '主进程', detail: '回收子进程，BGSAVE 完成', color: '#8b5cf6' }
-    ]
+      { label: '主进程', detail: '回收子进程，BGSAVE 完成', color: '#8b5cf6' },
+    ],
   },
   {
     title: 'AOF 步骤 1: 命令追加',
@@ -51,8 +51,8 @@ const steps: StepData[] = [
     components: [
       { label: '写命令', detail: 'SET name "hello"', color: '#8b5cf6' },
       { label: '执行命令', detail: '修改内存数据', color: '#f59e0b' },
-      { label: 'aof_buf', detail: '追加 RESP 格式命令到缓冲区', color: '#10b981' }
-    ]
+      { label: 'aof_buf', detail: '追加 RESP 格式命令到缓冲区', color: '#10b981' },
+    ],
   },
   {
     title: 'AOF 步骤 2: fsync 策略',
@@ -61,9 +61,9 @@ const steps: StepData[] = [
     components: [
       { label: 'always', detail: '每次写命令后 fsync — 最安全，最慢', color: '#ef4444' },
       { label: 'everysec', detail: '每秒一次 fsync — 推荐，最多丢 1 秒', color: '#f59e0b' },
-      { label: 'no', detail: '由 OS 决定（~30s）— 最快，最不安全', color: '#8b5cf6' }
+      { label: 'no', detail: '由 OS 决定（~30s）— 最快，最不安全', color: '#8b5cf6' },
     ],
-    note: 'everysec 是大多数生产环境的选择，兼顾安全性和性能。'
+    note: 'everysec 是大多数生产环境的选择，兼顾安全性和性能。',
   },
   {
     title: 'AOF 步骤 3: AOF 重写',
@@ -72,8 +72,8 @@ const steps: StepData[] = [
     components: [
       { label: '旧 AOF', detail: 'RPUSH list a → RPUSH list b → ... (1000 条)', color: '#8b5cf6' },
       { label: '新 AOF', detail: 'RPUSH list a b c ... (1 条)', color: '#10b981' },
-      { label: '重写缓冲区', detail: '重写期间的新命令同时写入旧 AOF 和缓冲区', color: '#f59e0b' }
-    ]
+      { label: '重写缓冲区', detail: '重写期间的新命令同时写入旧 AOF 和缓冲区', color: '#f59e0b' },
+    ],
   },
   {
     title: '混合持久化: RDB 头 + AOF 尾',
@@ -82,40 +82,46 @@ const steps: StepData[] = [
     components: [
       { label: 'RDB 部分', detail: '全量数据的二进制快照（紧凑、加载快）', color: '#8b5cf6' },
       { label: 'AOF 部分', detail: '重写后的增量命令（RESP 格式）', color: '#10b981' },
-      { label: '优势', detail: '恢复速度接近 RDB，数据安全接近 AOF', color: '#f59e0b' }
+      { label: '优势', detail: '恢复速度接近 RDB，数据安全接近 AOF', color: '#f59e0b' },
     ],
-    note: '配置 aof-use-rdb-preamble yes 开启混合持久化，这是目前生产环境推荐方案。'
-  }
-]
+    note: '配置 aof-use-rdb-preamble yes 开启混合持久化，这是目前生产环境推荐方案。',
+  },
+];
 
-const current = computed(() => steps[currentStep.value])
+const current = computed(() => steps[currentStep.value]);
 
 const modeColor = computed(() => {
   switch (current.value.mode) {
-    case 'rdb': return '#8b5cf6'
-    case 'aof': return '#10b981'
-    case 'hybrid': return '#f59e0b'
+    case 'rdb':
+      return '#8b5cf6';
+    case 'aof':
+      return '#10b981';
+    case 'hybrid':
+      return '#f59e0b';
   }
-})
+});
 
 const modeLabel = computed(() => {
   switch (current.value.mode) {
-    case 'rdb': return 'RDB'
-    case 'aof': return 'AOF'
-    case 'hybrid': return '混合持久化'
+    case 'rdb':
+      return 'RDB';
+    case 'aof':
+      return 'AOF';
+    case 'hybrid':
+      return '混合持久化';
   }
-})
+});
 
 function next() {
-  currentStep.value = (currentStep.value + 1) % totalSteps
+  currentStep.value = (currentStep.value + 1) % totalSteps;
 }
 
 function prev() {
-  currentStep.value = (currentStep.value - 1 + totalSteps) % totalSteps
+  currentStep.value = (currentStep.value - 1 + totalSteps) % totalSteps;
 }
 
 function reset() {
-  currentStep.value = 0
+  currentStep.value = 0;
 }
 </script>
 
@@ -127,7 +133,18 @@ function reset() {
         :key="i"
         class="dot"
         :class="{ active: currentStep === i - 1 }"
-        :style="currentStep === i - 1 ? { background: steps[i - 1].mode === 'rdb' ? '#8b5cf6' : steps[i - 1].mode === 'aof' ? '#10b981' : '#f59e0b' } : {}"
+        :style="
+          currentStep === i - 1
+            ? {
+                background:
+                  steps[i - 1].mode === 'rdb'
+                    ? '#8b5cf6'
+                    : steps[i - 1].mode === 'aof'
+                      ? '#10b981'
+                      : '#f59e0b',
+              }
+            : {}
+        "
         @click="currentStep = i - 1"
       />
     </div>

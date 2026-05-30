@@ -252,6 +252,7 @@ public interface Comparable<T> {
 ```
 
 `compareTo` 返回值含义：
+
 - 负数：当前对象小于 other
 - 零：当前对象等于 other
 - 正数：当前对象大于 other
@@ -472,6 +473,7 @@ public class ArraysSort {
 ```
 
 :::: warning Arrays.sort() 对基本类型与对象类型的不同策略
+
 - 对基本类型数组（int[]、long[] 等），`Arrays.sort()` 使用双轴快速排序（Dual-Pivot Quicksort），时间复杂度 O(n log n)，但不是稳定排序。
 - 对对象数组，`Arrays.sort()` 使用 TimSort，是稳定排序。
 

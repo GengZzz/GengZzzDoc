@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 8
+const step = ref(0);
+const totalSteps = 8;
 
 const statusText = computed(() => {
   const texts = [
@@ -14,31 +14,31 @@ const statusText = computed(() => {
     '步骤 5：从 await 位置继续执行，拿到下载结果',
     '步骤 6：Task.WhenAll 并发时间线（3 个 API 并发 vs 串行，总耗时 = 最慢的）',
     '步骤 7：反面案例 —— 同步调用 .Result 导致死锁（主线程等 Task，Task 等主线程上下文）',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 const methodState = computed(() => {
-  if (step.value === 1) return 'running'
-  if (step.value === 2) return 'suspended'
-  if (step.value === 3 || step.value === 4) return 'resuming'
-  if (step.value >= 5) return 'completed'
-  return 'idle'
-})
+  if (step.value === 1) return 'running';
+  if (step.value === 2) return 'suspended';
+  if (step.value === 3 || step.value === 4) return 'resuming';
+  if (step.value >= 5) return 'completed';
+  return 'idle';
+});
 
 const mainThreadItems = computed(() => {
-  if (step.value <= 1) return []
-  if (step.value === 2) return ['UI 响应用户点击', '更新进度条', '处理其他事件']
-  if (step.value >= 3) return ['UI 响应用户点击', '更新进度条', '处理其他事件']
-  return []
-})
+  if (step.value <= 1) return [];
+  if (step.value === 2) return ['UI 响应用户点击', '更新进度条', '处理其他事件'];
+  if (step.value >= 3) return ['UI 响应用户点击', '更新进度条', '处理其他事件'];
+  return [];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -62,7 +62,7 @@ function reset() {
       </div>
       <div class="deadlock-solution">
         <code>// 解决方案：全链路 async，永不阻塞</code>
-        <code>var result = await DownloadAsync();  // 不阻塞</code>
+        <code>var result = await DownloadAsync(); // 不阻塞</code>
       </div>
     </div>
 
@@ -220,10 +220,18 @@ h4 {
   flex-shrink: 0;
 }
 
-.state-dot.running { background: #3b82f6; }
-.state-dot.suspended { background: #f59e0b; }
-.state-dot.resuming { background: #8b5cf6; }
-.state-dot.completed { background: #22c55e; }
+.state-dot.running {
+  background: #3b82f6;
+}
+.state-dot.suspended {
+  background: #f59e0b;
+}
+.state-dot.resuming {
+  background: #8b5cf6;
+}
+.state-dot.completed {
+  background: #22c55e;
+}
 
 .state-arrow {
   text-align: center;

@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 interface Order {
-  _id: string
-  userId: string
-  status: string
-  amount: number
+  _id: string;
+  userId: string;
+  status: string;
+  amount: number;
 }
 
 interface GroupResult {
-  userId: string
-  total: number
-  count: number
+  userId: string;
+  total: number;
+  count: number;
 }
 
 interface FinalResult {
-  userId: string
-  userName: string
-  total: number
-  count: number
+  userId: string;
+  userName: string;
+  total: number;
+  count: number;
 }
 
 const allOrders: Order[] = [
@@ -29,33 +29,33 @@ const allOrders: Order[] = [
   { _id: '2', userId: 'u2', status: 'completed', amount: 85 },
   { _id: '3', userId: 'u1', status: 'pending', amount: 45 },
   { _id: '4', userId: 'u3', status: 'completed', amount: 200 },
-  { _id: '5', userId: 'u2', status: 'completed', amount: 60 }
-]
+  { _id: '5', userId: 'u2', status: 'completed', amount: 60 },
+];
 
-const users: Record<string, string> = { u1: '张三', u2: '李四', u3: '王五' }
+const users: Record<string, string> = { u1: '张三', u2: '李四', u3: '王五' };
 
-const filtered = computed(() => allOrders.filter(o => o.status === 'completed'))
+const filtered = computed(() => allOrders.filter((o) => o.status === 'completed'));
 
 const grouped = computed<GroupResult[]>(() => {
-  const map: Record<string, GroupResult> = {}
+  const map: Record<string, GroupResult> = {};
   for (const o of filtered.value) {
-    if (!map[o.userId]) map[o.userId] = { userId: o.userId, total: 0, count: 0 }
-    map[o.userId].total += o.amount
-    map[o.userId].count++
+    if (!map[o.userId]) map[o.userId] = { userId: o.userId, total: 0, count: 0 };
+    map[o.userId].total += o.amount;
+    map[o.userId].count++;
   }
-  return Object.values(map)
-})
+  return Object.values(map);
+});
 
 const lookedUp = computed<FinalResult[]>(() => {
-  return grouped.value.map(g => ({
+  return grouped.value.map((g) => ({
     ...g,
-    userName: users[g.userId] || g.userId
-  }))
-})
+    userName: users[g.userId] || g.userId,
+  }));
+});
 
 const sorted = computed<FinalResult[]>(() => {
-  return [...lookedUp.value].sort((a, b) => b.total - a.total)
-})
+  return [...lookedUp.value].sort((a, b) => b.total - a.total);
+});
 
 const stepTitle = computed(() => {
   const titles = [
@@ -64,79 +64,120 @@ const stepTitle = computed(() => {
     '$group：按 userId 分组，计算总金额',
     '$lookup：关联 users 集合',
     '$sort：按总金额降序',
-    '最终输出结果'
-  ]
-  return titles[step.value] || titles[0]
-})
+    '最终输出结果',
+  ];
+  return titles[step.value] || titles[0];
+});
 
 function next() {
-  if (step.value < totalSteps - 1) step.value++
+  if (step.value < totalSteps - 1) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="agg-demo">
     <div class="step-indicator">
-      <div v-for="i in totalSteps" :key="i" class="step-dot" :class="{ active: step >= i - 1, current: step === i - 1 }">
+      <div
+        v-for="i in totalSteps"
+        :key="i"
+        class="step-dot"
+        :class="{ active: step >= i - 1, current: step === i - 1 }"
+      >
         {{ i }}
       </div>
     </div>
 
     <div class="stage-title">
-      <span class="stage-badge">{{ ['数据源', '$match', '$group', '$lookup', '$sort', '输出'][step] }}</span>
+      <span class="stage-badge">{{
+        ['数据源', '$match', '$group', '$lookup', '$sort', '输出'][step]
+      }}</span>
       {{ stepTitle }}
     </div>
 
     <!-- Step 0: All orders -->
     <div v-if="step === 0" class="data-table">
-      <div class="row header"><span>_id</span><span>userId</span><span>status</span><span>amount</span></div>
+      <div class="row header">
+        <span>_id</span><span>userId</span><span>status</span><span>amount</span>
+      </div>
       <div v-for="o in allOrders" :key="o._id" class="row">
-        <span>{{ o._id }}</span><span>{{ o.userId }}</span><span>{{ o.status }}</span><span>{{ o.amount }}</span>
+        <span>{{ o._id }}</span
+        ><span>{{ o.userId }}</span
+        ><span>{{ o.status }}</span
+        ><span>{{ o.amount }}</span>
       </div>
     </div>
 
     <!-- Step 1: Filtered -->
     <div v-if="step === 1" class="data-table">
-      <div class="row header"><span>_id</span><span>userId</span><span>status</span><span>amount</span></div>
-      <div v-for="o in allOrders" :key="o._id" class="row" :class="{ dimmed: o.status !== 'completed' }">
-        <span>{{ o._id }}</span><span>{{ o.userId }}</span><span>{{ o.status }}</span><span>{{ o.amount }}</span>
+      <div class="row header">
+        <span>_id</span><span>userId</span><span>status</span><span>amount</span>
       </div>
-      <div class="filter-note">保留 {{ filtered.length }} 条，过滤掉 {{ allOrders.length - filtered.length }} 条</div>
+      <div
+        v-for="o in allOrders"
+        :key="o._id"
+        class="row"
+        :class="{ dimmed: o.status !== 'completed' }"
+      >
+        <span>{{ o._id }}</span
+        ><span>{{ o.userId }}</span
+        ><span>{{ o.status }}</span
+        ><span>{{ o.amount }}</span>
+      </div>
+      <div class="filter-note">
+        保留 {{ filtered.length }} 条，过滤掉 {{ allOrders.length - filtered.length }} 条
+      </div>
     </div>
 
     <!-- Step 2: Grouped -->
     <div v-if="step === 2" class="data-table">
       <div class="row header"><span>userId (_id)</span><span>total</span><span>count</span></div>
       <div v-for="g in grouped" :key="g.userId" class="row highlight">
-        <span>{{ g.userId }}</span><span>{{ g.total }}</span><span>{{ g.count }}</span>
+        <span>{{ g.userId }}</span
+        ><span>{{ g.total }}</span
+        ><span>{{ g.count }}</span>
       </div>
     </div>
 
     <!-- Step 3: Lookup -->
     <div v-if="step === 3" class="data-table">
-      <div class="row header"><span>userId</span><span>userName</span><span>total</span><span>count</span></div>
+      <div class="row header">
+        <span>userId</span><span>userName</span><span>total</span><span>count</span>
+      </div>
       <div v-for="g in lookedUp" :key="g.userId" class="row highlight">
-        <span>{{ g.userId }}</span><span>{{ g.userName }}</span><span>{{ g.total }}</span><span>{{ g.count }}</span>
+        <span>{{ g.userId }}</span
+        ><span>{{ g.userName }}</span
+        ><span>{{ g.total }}</span
+        ><span>{{ g.count }}</span>
       </div>
     </div>
 
     <!-- Step 4: Sorted -->
     <div v-if="step === 4" class="data-table">
-      <div class="row header"><span>排名</span><span>userName</span><span>total</span><span>count</span></div>
+      <div class="row header">
+        <span>排名</span><span>userName</span><span>total</span><span>count</span>
+      </div>
       <div v-for="(g, idx) in sorted" :key="g.userId" class="row highlight">
-        <span>#{{ idx + 1 }}</span><span>{{ g.userName }}</span><span>{{ g.total }}</span><span>{{ g.count }}</span>
+        <span>#{{ idx + 1 }}</span
+        ><span>{{ g.userName }}</span
+        ><span>{{ g.total }}</span
+        ><span>{{ g.count }}</span>
       </div>
     </div>
 
     <!-- Step 5: Final -->
     <div v-if="step === 5" class="data-table">
-      <div class="row header"><span>排名</span><span>用户</span><span>总金额</span><span>订单数</span></div>
+      <div class="row header">
+        <span>排名</span><span>用户</span><span>总金额</span><span>订单数</span>
+      </div>
       <div v-for="(g, idx) in sorted" :key="g.userId" class="row final">
-        <span>#{{ idx + 1 }}</span><span>{{ g.userName }}</span><span>{{ g.total }}</span><span>{{ g.count }}</span>
+        <span>#{{ idx + 1 }}</span
+        ><span>{{ g.userName }}</span
+        ><span>{{ g.total }}</span
+        ><span>{{ g.count }}</span>
       </div>
     </div>
 
@@ -221,7 +262,9 @@ function reset() {
   color: var(--vp-c-text-1);
 }
 
-.row:last-child { border-bottom: none; }
+.row:last-child {
+  border-bottom: none;
+}
 
 .row.header {
   background: var(--vp-c-bg);

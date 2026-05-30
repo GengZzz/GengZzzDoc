@@ -132,12 +132,14 @@ SET GLOBAL innodb_flush_log_at_trx_commit = 1;
 | **2** | 写入 OS cache | OS cache → fsync | 中等（OS 崩溃丢失 1s） | 中等 |
 
 ::: danger 生产环境配置
+
 ```ini
 # my.cnf
 [mysqld]
 innodb_flush_log_at_trx_commit = 1
 sync_binlog = 1
 ```
+
 这两个参数配合使用，确保事务提交后 redo log 和 binlog 都已持久化到磁盘。这是保证数据不丢失的**最低配置**。
 :::
 
@@ -280,6 +282,7 @@ WHERE VARIABLE_NAME LIKE '%redo%';
 ```
 
 ::: warning redo log 大小调优
+
 - redo log 太小：频繁 checkpoint，导致抖动和随机 IO 增加
 - redo log 太大：崩溃恢复时间变长
 - 经验值：使 checkpoint 间隔时间在 30 分钟到 2 小时之间

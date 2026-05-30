@@ -44,6 +44,7 @@ static inline int max(int a, int b) {
 
 ::: tip 内联函数 vs 宏
 C99 引入的 `static inline` 函数是宏的更好替代：
+
 - 有类型检查
 - 参数只求值一次
 - 支持调试器断点
@@ -96,6 +97,7 @@ DEFINE_LIST(double)  // 生成 doubleList 类型
 #pragma once
 // 头文件内容...
 ```
+
 `#pragma once` 不是 C 标准的一部分，但 GCC、Clang、MSVC 都支持。如果需要严格的可移植性，两种方式同时使用。
 :::
 

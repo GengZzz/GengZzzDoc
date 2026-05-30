@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-type Mode = 'producer-consumer' | 'readers-writers'
-const mode = ref<Mode>('producer-consumer')
-const step = ref(0)
+type Mode = 'producer-consumer' | 'readers-writers';
+const mode = ref<Mode>('producer-consumer');
+const step = ref(0);
 
 // Producer-Consumer state
-const bufferSize = 4
-const pcBuffer = ref<number[]>([])
-const pcSemaphore = ref({ mutex: 1, empty: bufferSize, full: 0 })
-const pcItemCounter = ref(0)
+const bufferSize = 4;
+const pcBuffer = ref<number[]>([]);
+const pcSemaphore = ref({ mutex: 1, empty: bufferSize, full: 0 });
+const pcItemCounter = ref(0);
 
 interface PCAction {
-  who: 'P' | 'C'
-  action: string
-  buffer: number[]
-  sem: { mutex: number; empty: number; full: number }
-  status: string
+  who: 'P' | 'C';
+  action: string;
+  buffer: number[];
+  sem: { mutex: number; empty: number; full: number };
+  status: string;
 }
 
-const pcHistory = ref<PCAction[]>([])
+const pcHistory = ref<PCAction[]>([]);
 
 const pcSteps: { who: 'P' | 'C'; action: string }[] = [
   { who: 'P', action: 'P(empty): empty--' },
@@ -32,22 +32,22 @@ const pcSteps: { who: 'P' | 'C'; action: string }[] = [
   { who: 'C', action: '取出数据 item₁' },
   { who: 'C', action: 'V(mutex): 离开临界区' },
   { who: 'C', action: 'V(empty): empty++' },
-]
+];
 
 // Readers-Writers state
-const rwReaders = ref(0)
-const rwWriting = ref(false)
-const rwCount = ref(0)
+const rwReaders = ref(0);
+const rwWriting = ref(false);
+const rwCount = ref(0);
 
 interface RWAction {
-  who: 'R' | 'W'
-  action: string
-  readers: number
-  writing: boolean
-  status: string
+  who: 'R' | 'W';
+  action: string;
+  readers: number;
+  writing: boolean;
+  status: string;
 }
 
-const rwHistory = ref<RWAction[]>([])
+const rwHistory = ref<RWAction[]>([]);
 
 const rwSteps: { who: 'R' | 'W'; action: string }[] = [
   { who: 'R', action: 'P(mutex): 保护 count' },
@@ -60,87 +60,87 @@ const rwSteps: { who: 'R' | 'W'; action: string }[] = [
   { who: 'W', action: 'P(rw_mutex): 独占写入' },
   { who: 'W', action: '写入数据...' },
   { who: 'W', action: 'V(rw_mutex): 释放' },
-]
+];
 
 function nextPC() {
-  const s = pcSteps[step.value % pcSteps.length]
-  const sem = { ...pcSemaphore.value }
-  let status = ''
-  const buf = [...pcBuffer.value]
+  const s = pcSteps[step.value % pcSteps.length];
+  const sem = { ...pcSemaphore.value };
+  let status = '';
+  const buf = [...pcBuffer.value];
 
   if (s.action.startsWith('P(empty)')) {
-    sem.empty--
-    status = sem.empty < 0 ? '阻塞! empty < 0' : `empty = ${sem.empty}`
+    sem.empty--;
+    status = sem.empty < 0 ? '阻塞! empty < 0' : `empty = ${sem.empty}`;
   } else if (s.action.startsWith('P(mutex)')) {
-    sem.mutex--
-    status = sem.mutex < 0 ? '阻塞!' : '进入临界区'
+    sem.mutex--;
+    status = sem.mutex < 0 ? '阻塞!' : '进入临界区';
   } else if (s.action.startsWith('放入数据')) {
-    pcItemCounter.value++
-    buf.push(pcItemCounter.value)
-    status = `缓冲区: [${buf.join(', ')}]`
+    pcItemCounter.value++;
+    buf.push(pcItemCounter.value);
+    status = `缓冲区: [${buf.join(', ')}]`;
   } else if (s.action.startsWith('V(mutex)')) {
-    sem.mutex++
-    status = '离开临界区'
+    sem.mutex++;
+    status = '离开临界区';
   } else if (s.action.startsWith('V(full)')) {
-    sem.full++
-    status = `full = ${sem.full}`
+    sem.full++;
+    status = `full = ${sem.full}`;
   } else if (s.action.startsWith('P(full)')) {
-    sem.full--
-    status = sem.full < 0 ? '阻塞! full < 0' : `full = ${sem.full}`
+    sem.full--;
+    status = sem.full < 0 ? '阻塞! full < 0' : `full = ${sem.full}`;
   } else if (s.action.startsWith('取出数据')) {
-    buf.shift()
-    status = `缓冲区: [${buf.join(', ')}]`
+    buf.shift();
+    status = `缓冲区: [${buf.join(', ')}]`;
   } else if (s.action.startsWith('V(empty)')) {
-    sem.empty++
-    status = `empty = ${sem.empty}`
+    sem.empty++;
+    status = `empty = ${sem.empty}`;
   }
 
-  pcSemaphore.value = sem
-  pcBuffer.value = buf
+  pcSemaphore.value = sem;
+  pcBuffer.value = buf;
   pcHistory.value.push({
     who: s.who,
     action: s.action,
     buffer: [...buf],
     sem: { ...sem },
     status,
-  })
-  step.value++
+  });
+  step.value++;
 }
 
 function nextRW() {
-  const s = rwSteps[step.value % rwSteps.length]
-  let status = ''
-  const r = rwReaders.value
-  const w = rwWriting.value
+  const s = rwSteps[step.value % rwSteps.length];
+  let status = '';
+  const r = rwReaders.value;
+  const w = rwWriting.value;
 
   if (s.action.includes('P(mutex)') && s.who === 'R') {
-    status = '获取 mutex 保护 count'
+    status = '获取 mutex 保护 count';
   } else if (s.action.includes('count++')) {
-    rwReaders.value++
+    rwReaders.value++;
     if (rwReaders.value === 1) {
-      status = '第一个读者，阻塞写者 (P rw_mutex)'
+      status = '第一个读者，阻塞写者 (P rw_mutex)';
     } else {
-      status = `已有 ${rwReaders.value} 个读者在读`
+      status = `已有 ${rwReaders.value} 个读者在读`;
     }
   } else if (s.action.includes('V(mutex)') && s.who === 'R') {
-    status = '释放 mutex'
+    status = '释放 mutex';
   } else if (s.action.includes('读取数据')) {
-    status = `正在读取... (${rwReaders.value} 个读者并发)`
+    status = `正在读取... (${rwReaders.value} 个读者并发)`;
   } else if (s.action.includes('count--')) {
-    rwReaders.value--
+    rwReaders.value--;
     if (rwReaders.value === 0) {
-      status = '最后一个读者离开，释放 rw_mutex'
+      status = '最后一个读者离开，释放 rw_mutex';
     } else {
-      status = `剩余 ${rwReaders.value} 个读者`
+      status = `剩余 ${rwReaders.value} 个读者`;
     }
   } else if (s.action.includes('P(rw_mutex)') && s.who === 'W') {
-    rwWriting.value = true
-    status = '获取 rw_mutex，独占写入'
+    rwWriting.value = true;
+    status = '获取 rw_mutex，独占写入';
   } else if (s.action.includes('写入数据')) {
-    status = '正在写入... (读者被阻塞)'
+    status = '正在写入... (读者被阻塞)';
   } else if (s.action.includes('V(rw_mutex)') && s.who === 'W') {
-    rwWriting.value = false
-    status = '释放 rw_mutex，允许读者/写者'
+    rwWriting.value = false;
+    status = '释放 rw_mutex，允许读者/写者';
   }
 
   rwHistory.value.push({
@@ -149,44 +149,54 @@ function nextRW() {
     readers: rwReaders.value,
     writing: s.who === 'W' ? s.action.includes('P(rw_mutex)') : rwWriting.value,
     status,
-  })
-  step.value++
+  });
+  step.value++;
 }
 
 function next() {
-  if (mode.value === 'producer-consumer') nextPC()
-  else nextRW()
+  if (mode.value === 'producer-consumer') nextPC();
+  else nextRW();
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
   if (mode.value === 'producer-consumer') {
-    pcBuffer.value = []
-    pcSemaphore.value = { mutex: 1, empty: bufferSize, full: 0 }
-    pcItemCounter.value = 0
-    pcHistory.value = []
+    pcBuffer.value = [];
+    pcSemaphore.value = { mutex: 1, empty: bufferSize, full: 0 };
+    pcItemCounter.value = 0;
+    pcHistory.value = [];
   } else {
-    rwReaders.value = 0
-    rwWriting.value = false
-    rwHistory.value = []
+    rwReaders.value = 0;
+    rwWriting.value = false;
+    rwHistory.value = [];
   }
 }
 
 function switchMode(m: Mode) {
-  mode.value = m
-  reset()
+  mode.value = m;
+  reset();
 }
 
 const currentHistory = computed(() => {
-  return mode.value === 'producer-consumer' ? pcHistory.value : rwHistory.value
-})
+  return mode.value === 'producer-consumer' ? pcHistory.value : rwHistory.value;
+});
 </script>
 
 <template>
   <div class="pv-demo">
     <div class="mode-tabs">
-      <button :class="{ active: mode === 'producer-consumer' }" @click="switchMode('producer-consumer')">生产者-消费者</button>
-      <button :class="{ active: mode === 'readers-writers' }" @click="switchMode('readers-writers')">读者-写者</button>
+      <button
+        :class="{ active: mode === 'producer-consumer' }"
+        @click="switchMode('producer-consumer')"
+      >
+        生产者-消费者
+      </button>
+      <button
+        :class="{ active: mode === 'readers-writers' }"
+        @click="switchMode('readers-writers')"
+      >
+        读者-写者
+      </button>
     </div>
 
     <!-- Producer-Consumer -->
@@ -194,15 +204,21 @@ const currentHistory = computed(() => {
       <div class="sem-row">
         <div class="sem-item">
           <span class="sem-name">mutex</span>
-          <span class="sem-val" :class="{ zero: pcSemaphore.mutex <= 0 }">{{ pcSemaphore.mutex }}</span>
+          <span class="sem-val" :class="{ zero: pcSemaphore.mutex <= 0 }">{{
+            pcSemaphore.mutex
+          }}</span>
         </div>
         <div class="sem-item">
           <span class="sem-name">empty</span>
-          <span class="sem-val" :class="{ zero: pcSemaphore.empty <= 0 }">{{ pcSemaphore.empty }}</span>
+          <span class="sem-val" :class="{ zero: pcSemaphore.empty <= 0 }">{{
+            pcSemaphore.empty
+          }}</span>
         </div>
         <div class="sem-item">
           <span class="sem-name">full</span>
-          <span class="sem-val" :class="{ zero: pcSemaphore.full <= 0 }">{{ pcSemaphore.full }}</span>
+          <span class="sem-val" :class="{ zero: pcSemaphore.full <= 0 }">{{
+            pcSemaphore.full
+          }}</span>
         </div>
       </div>
 
@@ -253,17 +269,21 @@ const currentHistory = computed(() => {
         v-for="(h, i) in currentHistory"
         :key="i"
         class="history-item"
-        :class="{ producer: h.who === 'P' || h.who === 'R', consumer: h.who === 'C' || h.who === 'W', latest: i === currentHistory.length - 1 }"
+        :class="{
+          producer: h.who === 'P' || h.who === 'R',
+          consumer: h.who === 'C' || h.who === 'W',
+          latest: i === currentHistory.length - 1,
+        }"
       >
-        <span class="who">{{ h.who === 'P' ? '生产者' : h.who === 'C' ? '消费者' : h.who === 'R' ? '读者' : '写者' }}</span>
+        <span class="who">{{
+          h.who === 'P' ? '生产者' : h.who === 'C' ? '消费者' : h.who === 'R' ? '读者' : '写者'
+        }}</span>
         <span class="action">{{ h.action }}</span>
         <span class="status">{{ h.status }}</span>
       </div>
     </div>
 
-    <div v-if="currentHistory.length === 0" class="empty-state">
-      点击"下一步"观察 PV 操作过程
-    </div>
+    <div v-if="currentHistory.length === 0" class="empty-state">点击"下一步"观察 PV 操作过程</div>
 
     <div class="actions">
       <button @click="next">下一步</button>

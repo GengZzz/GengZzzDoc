@@ -267,6 +267,7 @@ requestAnimationFrame(draw)
 ```
 
 ::: tip SVG 选择策略
+
 - **内联 SVG**：需要 CSS/JS 控制、需要继承 `currentColor`、小图标
 - **img 标签引用**：不需要交互控制、浏览器可以缓存
 - **SVG sprite**：大量图标时推荐，减少 HTTP 请求

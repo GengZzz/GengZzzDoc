@@ -1,30 +1,38 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 
 const nodes = [
   { title: '内嵌容器', tag: 'Tomcat / Jetty', note: '监听端口、接收连接、解析 HTTP 请求。' },
-  { title: 'DispatcherServlet', tag: 'MVC front controller', note: '查找 HandlerMapping，执行拦截器和参数绑定。' },
+  {
+    title: 'DispatcherServlet',
+    tag: 'MVC front controller',
+    note: '查找 HandlerMapping，执行拦截器和参数绑定。',
+  },
   { title: 'Controller', tag: '@RestController', note: '调用业务服务，返回对象、状态码或异常。' },
   { title: '响应写回', tag: 'HttpMessageConverter', note: 'JSON 序列化，交给容器写回客户端。' },
-  { title: 'Actuator 观测', tag: 'health / metrics', note: '同一运行时暴露健康、指标、info、日志级别等端点。' },
-]
+  {
+    title: 'Actuator 观测',
+    tag: 'health / metrics',
+    note: '同一运行时暴露健康、指标、info、日志级别等端点。',
+  },
+];
 
-const active = computed(() => nodes[step.value])
+const active = computed(() => nodes[step.value]);
 
 const metrics = computed(() => ({
   requests: step.value >= 1 ? 1284 + step.value * 17 : 1284,
   latency: step.value >= 3 ? 42 : 18 + step.value * 6,
   health: step.value >= 4 ? 'UP' : 'READY',
-}))
+}));
 
 function next() {
-  step.value = (step.value + 1) % nodes.length
+  step.value = (step.value + 1) % nodes.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -127,7 +135,10 @@ function reset() {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .node.active {

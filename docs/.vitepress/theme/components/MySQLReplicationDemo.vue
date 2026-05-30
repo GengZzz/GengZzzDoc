@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const statusText = computed(() => {
   const texts = [
@@ -12,16 +12,16 @@ const statusText = computed(() => {
     '从库 IO 线程拉取 Binlog',
     '写入 Relay Log (中继日志)',
     '从库 SQL 线程回放 Relay Log',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -140,7 +140,9 @@ function reset() {
   border: 2px solid var(--vp-c-border);
   border-radius: 8px;
   background: var(--vp-c-bg);
-  transition: border-color 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
 }
 
 .server-box.active {
@@ -168,8 +170,14 @@ function reset() {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .step-icon {
@@ -251,7 +259,9 @@ function reset() {
   border: 1px solid var(--vp-c-border);
   font-size: 11px;
   color: var(--vp-c-text-2);
-  transition: border-color 0.3s, color 0.3s;
+  transition:
+    border-color 0.3s,
+    color 0.3s;
 }
 
 .pipeline-stage.done {

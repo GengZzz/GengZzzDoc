@@ -179,6 +179,7 @@ SR: 发送窗口 + 接收窗口 ≤ 2^n，通常 Ws = Wr = 2^(n-1)
 ```
 
 ::: tip CSMA/CD vs CSMA/CA
+
 - CD: 有线以太网，边发边检测碰撞，检测到就停
 - CA: 无线 Wi-Fi，通过 RTS/CTS 预约避免碰撞
 - CD 要求最小帧长，CA 不需要

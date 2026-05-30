@@ -33,7 +33,7 @@ JOIN orders o ON u.id = o.user_id;
 ```
 
 ::: tip NLJ 的效率取决于被驱动表的索引
-NLJ 在被驱动表有索引时效率很高。外层扫描 N 行，内层每次查找消耗 O(log M)，总复杂度为 O(N * log M)。但如果被驱动表没有索引，内层需要全表扫描，复杂度退化为 O(N * M)。
+NLJ 在被驱动表有索引时效率很高。外层扫描 N 行，内层每次查找消耗 O(log M)，总复杂度为 O(N *log M)。但如果被驱动表没有索引，内层需要全表扫描，复杂度退化为 O(N* M)。
 :::
 
 ### Block Nested-Loop Join (BNL)
@@ -72,9 +72,11 @@ JOIN orders o ON u.id = o.user_id;
 
 ::: warning BNL 的性能
 BNL 虽然比纯 NLJ（无索引时）好很多，但仍然远不如有索引的 NLJ。`join_buffer` 越大，分批越少，性能越好。可以考虑增大 `join_buffer_size`：
+
 ```sql
 SET SESSION join_buffer_size = 1024 * 1024; -- 1MB
 ```
+
 但根本解决方案是给被驱动表的关联字段添加索引。
 :::
 
@@ -117,6 +119,7 @@ JOIN orders o ON u.id = o.user_id;
 ```
 
 ::: tip Hash Join vs BNL
+
 - Hash Join 比 BNL 更高效，因为它利用哈希表的 O(1) 查找特性
 - MySQL 8.0.18+ 会自动选择，无法手动禁用（8.0.18 之前用 BNL）
 - 当 join_buffer 放不下整个哈希表时，会使用磁盘溢出（Grace Hash Join）
@@ -222,9 +225,11 @@ JOIN users u ON o.user_id = u.id;
 
 ::: tip 优化器自动选择驱动表
 MySQL 优化器会根据表的统计信息（行数、索引区分度等）自动选择成本最低的驱动表。但优化器的估算不一定准确，特别是当统计信息过时的时候。可以使用 `ANALYZE TABLE` 更新统计信息：
+
 ```sql
 ANALYZE TABLE users, orders;
 ```
+
 :::
 
 ## LEFT JOIN 的陷阱：ON 条件 vs WHERE 条件
@@ -410,6 +415,7 @@ WHERE oi.order_id IN (1, 2, 3, ...);
 ```
 
 ::: tip 应用层拆分的适用场景
+
 - 可以利用缓存（如 Redis 缓存用户信息）
 - 可以并行执行多个简单查询
 - 减少数据库的锁持有时间

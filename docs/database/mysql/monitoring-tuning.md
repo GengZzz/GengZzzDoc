@@ -106,6 +106,7 @@ SELECT
 ```
 
 ::: tip 命中率标准
+
 - **99% 以上**：优秀，数据基本都在内存中
 - **95%~99%**：正常，大部分热数据在内存中
 - **90%~95%**：需要关注，可能 Buffer Pool 偏小
@@ -409,6 +410,7 @@ FROM (
 ```
 
 ::: tip Buffer Pool 配置经验
+
 - 专用数据库服务器：物理内存的 60%~80%
 - 共享服务器（数据库与其他服务共存）：物理内存的 40%~50%
 - Buffer Pool 应大于数据+索引总大小（完全缓存热数据）
@@ -443,6 +445,7 @@ SHOW ENGINE INNODB STATUS\G
 
 ::: danger 修改 innodb_log_file_size 的步骤
 innodb_log_file_size 不能在线修改，需要重启。步骤：
+
 1. 确保数据已完全写入磁盘：`SET GLOBAL innodb_fast_shutdown = 0;`
 2. 停止 MySQL
 3. 修改 my.cnf 中的 `innodb_log_file_size`
@@ -587,6 +590,7 @@ spring:
 ```
 
 ::: tip HikariCP 最佳实践
+
 - `maximum-pool-size`：经典公式 = CPU核心数 * 2 + 磁盘数。实际中 10~20 是大多数应用的合理值。超过 50 通常说明应用设计有问题。
 - `max-lifetime`：必须小于 MySQL 的 `wait_timeout`，建议比 `wait_timeout` 小 1~2 分钟。
 - `leak-detection-threshold`：开启连接泄漏检测，设为预期最长使用时间。获取但未关闭的连接会在日志中告警。

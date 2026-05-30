@@ -150,6 +150,7 @@ npm start        # start 可以省略 run
 ```
 
 ::: tip 生命周期脚本
+
 - `preinstall` / `postinstall`：安装前后触发
 - `prepublishOnly`：发布前触发
 - `prepare`：安装后 / 发布前触发（常用于 husky）

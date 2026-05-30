@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 
 const stages = [
   { title: '扫描 Mapper', note: 'Spring 扫描 UserMapper，识别它继承 BaseMapper<UserDO>。' },
   { title: '读取实体元数据', note: '@TableName、@TableId、字段策略形成 TableInfo。' },
-  { title: 'SQL 注入器', note: 'DefaultSqlInjector 为 insert、selectById、updateById 等方法生成声明。' },
+  {
+    title: 'SQL 注入器',
+    note: 'DefaultSqlInjector 为 insert、selectById、updateById 等方法生成声明。',
+  },
   { title: 'MappedStatement', note: '通用 CRUD 被注册到 MyBatis Configuration。' },
   { title: '业务调用', note: 'userMapper.selectById(1L) 最终仍然进入 MyBatis Executor。' },
-]
+];
 
-const active = computed(() => stages[step.value])
+const active = computed(() => stages[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % stages.length
+  step.value = (step.value + 1) % stages.length;
 }
 </script>
 
@@ -38,7 +41,9 @@ function next() {
       <span>→</span>
       <code>Executor</code>
     </div>
-    <p><strong>{{ active.title }}：</strong>{{ active.note }}</p>
+    <p>
+      <strong>{{ active.title }}：</strong>{{ active.note }}
+    </p>
     <button type="button" @click="next">下一步</button>
   </div>
 </template>
@@ -64,7 +69,10 @@ function next() {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 .stage.active {

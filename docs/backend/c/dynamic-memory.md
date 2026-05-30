@@ -57,6 +57,7 @@ arr = tmp;  // 更新指针
 ```
 
 ::: warning realloc 的行为
+
 - `realloc(ptr, 0)`：等同于 `free(ptr)` 并返回 `NULL`（或实现定义的值）
 - `realloc(NULL, size)`：等同于 `malloc(size)`
 - 如果无法原地扩展，`realloc` 会分配新内存并**拷贝旧数据**，旧内存被释放
@@ -112,6 +113,7 @@ free(ptr)   →  归还到 free list      →  可选：munmap 释放大块
 ```
 
 ::: tip 减少碎片
+
 - 使用固定大小的内存池（见下文）
 - 对象池模式：预分配一组相同大小的块
 - 大块内存使用 `mmap` 直接映射，不受堆碎片影响

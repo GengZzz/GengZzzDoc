@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
 const steps = [
   { title: '源码', desc: '写在 .cpp 文件里的文本' },
   { title: '编译', desc: '检查语法，翻译成目标文件' },
   { title: '链接', desc: '把标准库和自己的代码合在一起' },
-  { title: '运行', desc: '操作系统启动可执行程序' }
-]
+  { title: '运行', desc: '操作系统启动可执行程序' },
+];
 
-const active = ref(0)
-const activeStep = computed(() => steps[active.value])
+const active = ref(0);
+const activeStep = computed(() => steps[active.value]);
 
 function next() {
-  active.value = (active.value + 1) % steps.length
+  active.value = (active.value + 1) % steps.length;
 }
 </script>
 

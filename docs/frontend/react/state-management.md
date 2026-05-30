@@ -65,6 +65,7 @@ function Header() {
 ```
 
 ::: tip Context 的局限
+
 - 状态更新会导致所有消费者重新渲染
 - 不适合高频更新（如输入框实时搜索）
 - 深层嵌套时 Provider 层级管理复杂
@@ -245,6 +246,7 @@ function Counter() {
 | Jotai / Recoil | 原子化状态管理 | 中 |
 
 ::: tip 选型建议
+
 - 能用 `useState` 解决的不用全局状态
 - 需要全局状态但更新不频繁 → Context
 - 需要简洁高效的全局状态 → Zustand

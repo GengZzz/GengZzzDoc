@@ -67,6 +67,7 @@ mongorestore --archive=/backup/full-2024-01-15.archive --gzip --oplogReplay
 
 ::: warning mongodump 的性能影响
 mongodump 在运行时会对数据库产生读压力。在大型数据集上（> 100GB），备份可能持续数小时。建议：
+
 - 在 Secondary 节点上执行备份
 - 使用 `--readPreference=secondary` 自动路由到 Secondary
 - 使用 `--numParallelCollections` 控制并行度
@@ -115,6 +116,7 @@ mongosh --eval "db.fsyncUnlock()"
 ```
 
 ::: tip 快照备份的优势
+
 - 备份时间短（秒级创建快照）
 - 锁定写入的时间极短（`fsyncLock` + `fsyncUnlock` 之间）
 - 恢复速度快（直接还原文件系统）

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const steps = [
   {
@@ -10,53 +10,53 @@ const steps = [
     code: `def fib():\n    a, b = 0, 1\n    while True:\n        yield a\n        a, b = b, a + b`,
     desc: 'fib() 使用 yield 关键字，它是一个生成器函数。函数体不会立即执行。',
     highlight: 'yield',
-    states: { genCreated: false, value: null, suspended: false, locals: null }
+    states: { genCreated: false, value: null, suspended: false, locals: null },
   },
   {
     title: '创建生成器对象',
     code: `g = fib()`,
     desc: '调用 fib() 返回一个生成器对象。函数体内的代码一行都没有执行！',
     highlight: 'g = fib()',
-    states: { genCreated: true, value: null, suspended: false, locals: null }
+    states: { genCreated: true, value: null, suspended: false, locals: null },
   },
   {
     title: '第一次 next(g)',
     code: `next(g)  # 返回 0`,
     desc: '执行到 yield a 暂停，返回 a 的值(0)。局部状态 {a=0, b=1} 被保存。',
     highlight: 'yield a',
-    states: { genCreated: true, value: 0, suspended: true, locals: 'a=0, b=1' }
+    states: { genCreated: true, value: 0, suspended: true, locals: 'a=0, b=1' },
   },
   {
     title: '第二次 next(g)',
     code: `next(g)  # 返回 1`,
     desc: '从上次暂停处继续，执行 a,b = b,a+b，然后到 yield a 返回 1。状态 {a=1, b=1}。',
     highlight: 'yield a',
-    states: { genCreated: true, value: 1, suspended: true, locals: 'a=1, b=1' }
+    states: { genCreated: true, value: 1, suspended: true, locals: 'a=1, b=1' },
   },
   {
     title: 'for 循环内部机制',
     code: `for x in fib():\n    if x > 10: break\n    print(x)\n# 0, 1, 1, 2, 3, 5, 8`,
     desc: 'for 循环自动调用 __next__() 直到 StopIteration。生成器永不抛出（无限序列），需手动 break。',
     highlight: '__next__()',
-    states: { genCreated: true, value: '0,1,1,2,3,5,8', suspended: false, locals: null }
+    states: { genCreated: true, value: '0,1,1,2,3,5,8', suspended: false, locals: null },
   },
   {
     title: 'yield from 委托',
     code: `def outer():\n    yield from inner_gen()\n    yield "done"\n\n# yield from 将生成操作\n# 委托给子生成器`,
     desc: 'yield from 将值的产出和 send() 的传递委托给子生成器，简化了嵌套 yield 的写法。',
     highlight: 'yield from',
-    states: { genCreated: true, value: '委托', suspended: false, locals: null }
-  }
-]
+    states: { genCreated: true, value: '委托', suspended: false, locals: null },
+  },
+];
 
-const currentStep = computed(() => steps[step.value])
+const currentStep = computed(() => steps[step.value]);
 
 function next() {
-  if (step.value < totalSteps - 1) step.value++
+  if (step.value < totalSteps - 1) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 

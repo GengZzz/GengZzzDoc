@@ -225,6 +225,7 @@ int main(void) {
 ```
 
 ::: tip TCP vs UDP 选择
+
 - TCP：需要可靠传输（HTTP、文件传输、数据库连接）
 - UDP：能容忍丢包但需要低延迟（视频直播、DNS 查询、游戏同步）
 :::
@@ -379,6 +380,7 @@ int main(void) {
 | 平台 | 跨平台 | 跨平台 | Linux only |
 
 ::: tip 实际选型
+
 - 跨平台或 fd 数量少（< 100）：select / poll
 - Linux + 大量并发（数千连接）：epoll
 - macOS / BSD：kqueue（类似 epoll）

@@ -58,6 +58,7 @@ struct { char a; double b; char c; };  // 24 bytes
 // 紧凑排列
 struct { double b; char a; char c; };  // 16 bytes
 ```
+
 :::
 
 ### _Alignas（C11）
@@ -102,6 +103,7 @@ int main(void) {
 ```
 
 ::: warning 位域的不可移植性
+
 - 位域的内存布局（大端/小端、跨字节顺序）由实现定义
 - 不能对位域取地址（`&f.read` 编译错误）
 - 不能使用 `sizeof` 作用于位域
@@ -144,6 +146,7 @@ int main(void) {
 ```
 
 ::: tip 柔性数组 vs 指针
+
 ```c
 // 方式 1：柔性数组（一次 malloc，内存连续）
 struct { size_t len; char data[]; };
@@ -151,6 +154,7 @@ struct { size_t len; char data[]; };
 // 方式 2：指针成员（两次 malloc，内存不连续）
 struct { size_t len; char *data; };
 ```
+
 柔性数组方式只需要一次 `malloc` 和一次 `free`，内存更紧凑、缓存更友好。
 :::
 
@@ -205,6 +209,7 @@ int main(void) {
 ```
 
 ::: warning 链表的常见 bug
+
 - 释放节点时先保存 `next` 再释放，否则遍历断链
 - 头节点可能变化，函数应返回新的头指针或传入 `Node **`
 - 双向链表删除节点时要同时更新 `prev` 和 `next`

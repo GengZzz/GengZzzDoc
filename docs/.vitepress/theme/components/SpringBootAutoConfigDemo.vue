@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
+const step = ref(0);
 
 const stages = [
   {
@@ -29,16 +29,16 @@ const stages = [
     note: '业务代码声明同类型 Bean 或配置属性，自动配置退让，保留约定同时允许定制。',
     tag: 'custom Bean',
   },
-]
+];
 
-const active = computed(() => stages[step.value])
+const active = computed(() => stages[step.value]);
 
 function next() {
-  step.value = (step.value + 1) % stages.length
+  step.value = (step.value + 1) % stages.length;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -61,7 +61,9 @@ function reset() {
           <div class="stage-tag">{{ stage.tag }}</div>
           <div class="stage-title">{{ stage.title }}</div>
         </div>
-        <div v-if="index < stages.length - 1" class="arrow" :class="{ active: step > index }">→</div>
+        <div v-if="index < stages.length - 1" class="arrow" :class="{ active: step > index }">
+          →
+        </div>
       </template>
     </div>
 
@@ -116,7 +118,10 @@ function reset() {
   color: var(--vp-c-text-2);
   font-size: 12px;
   font-weight: 700;
-  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .step-dot.active {
@@ -144,7 +149,10 @@ function reset() {
   border: 1px solid var(--vp-c-border);
   border-radius: 6px;
   background: var(--vp-c-bg);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .stage.active {
@@ -217,7 +225,10 @@ function reset() {
   background: var(--vp-c-bg);
   color: var(--vp-c-text-2);
   opacity: 0.65;
-  transition: border-color 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 .bean-card.active {

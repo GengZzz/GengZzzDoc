@@ -1,27 +1,35 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const mode = ref<'write' | 'election' | 'readpref'>('write')
-const step = ref(0)
-const maxSteps = 4
-const primaryFailed = ref(false)
-const newPrimary = ref<number | null>(null)
-const readPref = ref('primary')
+const mode = ref<'write' | 'election' | 'readpref'>('write');
+const step = ref(0);
+const maxSteps = 4;
+const primaryFailed = ref(false);
+const newPrimary = ref<number | null>(null);
+const readPref = ref('primary');
 
 const nodes = computed(() => {
   if (mode.value === 'election' && primaryFailed.value) {
     return [
       { id: 0, role: 'Down', label: 'Primary (故障)' },
-      { id: 1, role: newPrimary.value === 1 ? 'Primary' : 'Secondary', label: newPrimary.value === 1 ? '新 Primary' : 'Secondary' },
-      { id: 2, role: newPrimary.value === 2 ? 'Primary' : 'Secondary', label: newPrimary.value === 2 ? '新 Primary' : 'Secondary' }
-    ]
+      {
+        id: 1,
+        role: newPrimary.value === 1 ? 'Primary' : 'Secondary',
+        label: newPrimary.value === 1 ? '新 Primary' : 'Secondary',
+      },
+      {
+        id: 2,
+        role: newPrimary.value === 2 ? 'Primary' : 'Secondary',
+        label: newPrimary.value === 2 ? '新 Primary' : 'Secondary',
+      },
+    ];
   }
   return [
     { id: 0, role: 'Primary', label: 'Primary' },
     { id: 1, role: 'Secondary', label: 'Secondary 1' },
-    { id: 2, role: 'Secondary', label: 'Secondary 2' }
-  ]
-})
+    { id: 2, role: 'Secondary', label: 'Secondary 2' },
+  ];
+});
 
 const stepDesc = computed(() => {
   if (mode.value === 'write') {
@@ -30,72 +38,90 @@ const stepDesc = computed(() => {
       '客户端向 Primary 发起写入操作',
       'Primary 将操作写入 Oplog',
       'Secondary 异步拉取 Oplog 并重放操作',
-      '写入完成，数据在所有节点保持一致'
-    ]
-    return descs[step.value] || descs[0]
+      '写入完成，数据在所有节点保持一致',
+    ];
+    return descs[step.value] || descs[0];
   }
   if (mode.value === 'election') {
-    if (!primaryFailed.value) return '点击"模拟故障"按钮触发 Primary 故障'
-    if (newPrimary.value === null) return 'Secondary 检测到 Primary 无响应，开始选举...'
-    return `选举完成，节点 ${newPrimary.value + 1} 成为新 Primary（获得多数票）`
+    if (!primaryFailed.value) return '点击"模拟故障"按钮触发 Primary 故障';
+    if (newPrimary.value === null) return 'Secondary 检测到 Primary 无响应，开始选举...';
+    return `选举完成，节点 ${newPrimary.value + 1} 成为新 Primary（获得多数票）`;
   }
   const prefDescs: Record<string, string> = {
     primary: '只从 Primary 读取。强一致性，但 Primary 压力大',
     primaryPreferred: 'Primary 可用时从 Primary 读，否则从 Secondary 读',
     secondary: '只从 Secondary 读取。分流读压力，但可能读到旧数据',
     secondaryPreferred: 'Secondary 可用时从 Secondary 读，否则从 Primary 读',
-    nearest: '从网络延迟最低的节点读取'
-  }
-  return prefDescs[readPref.value] || ''
-})
+    nearest: '从网络延迟最低的节点读取',
+  };
+  return prefDescs[readPref.value] || '';
+});
 
 function next() {
-  if (step.value < maxSteps) step.value++
+  if (step.value < maxSteps) step.value++;
 }
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 function switchMode(m: 'write' | 'election' | 'readpref') {
-  mode.value = m
-  step.value = 0
-  primaryFailed.value = false
-  newPrimary.value = null
+  mode.value = m;
+  step.value = 0;
+  primaryFailed.value = false;
+  newPrimary.value = null;
 }
 function simulateFailure() {
-  primaryFailed.value = true
-  setTimeout(() => { newPrimary.value = 1 }, 800)
+  primaryFailed.value = true;
+  setTimeout(() => {
+    newPrimary.value = 1;
+  }, 800);
 }
 function recover() {
-  primaryFailed.value = false
-  newPrimary.value = null
+  primaryFailed.value = false;
+  newPrimary.value = null;
 }
 
 function nodeClass(node: { role: string }) {
-  if (node.role === 'Primary') return 'node primary'
-  if (node.role === 'Down') return 'node down'
-  if (node.role === 'Secondary') return 'node secondary'
-  return 'node secondary'
+  if (node.role === 'Primary') return 'node primary';
+  if (node.role === 'Down') return 'node down';
+  if (node.role === 'Secondary') return 'node secondary';
+  return 'node secondary';
 }
 
 function arrowClass(idx: number) {
-  if (mode.value === 'write' && step.value >= 1 && idx === 0) return 'arrow active'
-  if (mode.value === 'write' && step.value >= 2 && idx === 1) return 'arrow active'
-  if (mode.value === 'write' && step.value >= 3 && idx === 2) return 'arrow active'
-  return 'arrow'
+  if (mode.value === 'write' && step.value >= 1 && idx === 0) return 'arrow active';
+  if (mode.value === 'write' && step.value >= 2 && idx === 1) return 'arrow active';
+  if (mode.value === 'write' && step.value >= 3 && idx === 2) return 'arrow active';
+  return 'arrow';
 }
 </script>
 
 <template>
   <div class="replica-demo">
     <div class="mode-tabs">
-      <button type="button" :class="{ active: mode === 'write' }" @click="switchMode('write')">写入流程</button>
-      <button type="button" :class="{ active: mode === 'election' }" @click="switchMode('election')">故障选举</button>
-      <button type="button" :class="{ active: mode === 'readpref' }" @click="switchMode('readpref')">读偏好</button>
+      <button type="button" :class="{ active: mode === 'write' }" @click="switchMode('write')">
+        写入流程
+      </button>
+      <button
+        type="button"
+        :class="{ active: mode === 'election' }"
+        @click="switchMode('election')"
+      >
+        故障选举
+      </button>
+      <button
+        type="button"
+        :class="{ active: mode === 'readpref' }"
+        @click="switchMode('readpref')"
+      >
+        读偏好
+      </button>
     </div>
 
     <div class="cluster">
       <div v-for="node in nodes" :key="node.id" :class="nodeClass(node)">
-        <div class="node-icon">{{ node.role === 'Primary' || node.role === 'Down' ? '★' : '●' }}</div>
+        <div class="node-icon">
+          {{ node.role === 'Primary' || node.role === 'Down' ? '★' : '●' }}
+        </div>
         <div class="node-label">{{ node.label }}</div>
         <div class="node-id">节点 {{ node.id + 1 }}</div>
       </div>
@@ -115,12 +141,23 @@ function arrowClass(idx: number) {
         <button type="button" @click="reset">重置</button>
       </template>
       <template v-else-if="mode === 'election'">
-        <button type="button" @click="simulateFailure" :disabled="primaryFailed">模拟 Primary 故障</button>
+        <button type="button" @click="simulateFailure" :disabled="primaryFailed">
+          模拟 Primary 故障
+        </button>
         <button type="button" @click="recover" :disabled="!primaryFailed">恢复原 Primary</button>
       </template>
       <template v-else>
         <div class="read-pref-options">
-          <label v-for="pref in ['primary', 'primaryPreferred', 'secondary', 'secondaryPreferred', 'nearest']" :key="pref">
+          <label
+            v-for="pref in [
+              'primary',
+              'primaryPreferred',
+              'secondary',
+              'secondaryPreferred',
+              'nearest',
+            ]"
+            :key="pref"
+          >
             <input type="radio" :value="pref" v-model="readPref" />
             {{ pref }}
           </label>
@@ -200,9 +237,15 @@ function arrowClass(idx: number) {
   margin-bottom: 4px;
 }
 
-.node.primary .node-icon { color: #22c55e; }
-.node.secondary .node-icon { color: #3b82f6; }
-.node.down .node-icon { color: #ef4444; }
+.node.primary .node-icon {
+  color: #22c55e;
+}
+.node.secondary .node-icon {
+  color: #3b82f6;
+}
+.node.down .node-icon {
+  color: #ef4444;
+}
 
 .node-label {
   font-weight: 600;

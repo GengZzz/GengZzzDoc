@@ -79,6 +79,7 @@ void process(int n) {
 ```
 
 ::: warning VLA 的风险
+
 - VLA 分配在栈上，过大的 VLA 会导致栈溢出
 - C11 将 VLA 改为可选特性，某些编译器不支持（如 MSVC）
 - 如果大小来自不可信来源（用户输入），VLA 可能导致安全问题
@@ -131,11 +132,13 @@ char str[] = "hello";   // 初始化不退化
 
 ::: tip 只有一种方式保留数组大小信息
 通过**数组参数**传递时，使用数组引用语法可以保留大小信息：
+
 ```c
 void process(int (*arr)[5]) {  // 接收指向含 5 个 int 的数组的指针
     printf("%zu\n", sizeof(*arr));  // 20
 }
 process(&arr);  // 必须传 &arr，不能传 arr
 ```
+
 但这种方式要求数组大小在编译时已知，且不通用。通常的做法是额外传递一个 `size_t len` 参数。
 :::

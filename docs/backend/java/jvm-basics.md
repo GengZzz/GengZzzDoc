@@ -183,6 +183,7 @@ GC Roots:
 ```
 
 对象的晋升过程：
+
 1. 新对象在 Eden 区分配
 2. Eden 区满时触发 Minor GC，存活对象复制到 S0
 3. 下次 Minor GC，Eden 和 S0 中存活对象复制到 S1，年龄 +1

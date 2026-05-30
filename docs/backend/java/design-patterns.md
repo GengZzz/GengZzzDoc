@@ -225,6 +225,7 @@ public class ObserverDemo {
 ```
 
 输出：
+
 ```
 下单: ORD-001
   -> 发送下单确认邮件: ORD-001
@@ -416,6 +417,7 @@ public class BuilderDemo {
 ```
 
 输出：
+
 ```
 HttpClient{baseUrl='https://api.example.com', connect=3000ms, read=15000ms, headers={Authorization=Bearer token123, Accept=application/json}, followRedirects=false}
 ```

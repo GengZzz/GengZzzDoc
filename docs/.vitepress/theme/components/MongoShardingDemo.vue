@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 const shards = ref([
   { id: 0, name: 'Shard1', chunks: 2, docs: 0 },
   { id: 1, name: 'Shard2', chunks: 2, docs: 0 },
-  { id: 2, name: 'Shard3', chunks: 2, docs: 0 }
-])
+  { id: 2, name: 'Shard3', chunks: 2, docs: 0 },
+]);
 
-const insertedDocs = ref<{ key: string; shard: number; hash: string }[]>([])
-const balancerActive = ref(false)
-const hotSpot = ref(false)
+const insertedDocs = ref<{ key: string; shard: number; hash: string }[]>([]);
+const balancerActive = ref(false);
+const hotSpot = ref(false);
 
 const stepDesc = computed(() => {
   const descs = [
@@ -20,77 +20,77 @@ const stepDesc = computed(() => {
     '插入文档：根据 Shard Key 计算哈希值，路由到对应 Shard',
     'Chunk 达到 64MB 阈值，触发分裂（Split），一个 Chunk 分为两个',
     'Balancer 检测 Shard 间 Chunk 数量不均衡，自动迁移 Chunk',
-    'Shard Key 选择不当（如单调递增的时间戳）：所有写入集中到单个 Shard，形成热点'
-  ]
-  return descs[step.value] || descs[0]
-})
+    'Shard Key 选择不当（如单调递增的时间戳）：所有写入集中到单个 Shard，形成热点',
+  ];
+  return descs[step.value] || descs[0];
+});
 
 function next() {
   if (step.value < totalSteps - 1) {
-    step.value++
-    if (step.value === 1) simulateInsert()
-    if (step.value === 2) simulateSplit()
-    if (step.value === 3) simulateBalance()
-    if (step.value === 4) simulateHotSpot()
+    step.value++;
+    if (step.value === 1) simulateInsert();
+    if (step.value === 2) simulateSplit();
+    if (step.value === 3) simulateBalance();
+    if (step.value === 4) simulateHotSpot();
   }
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
   shards.value = [
     { id: 0, name: 'Shard1', chunks: 2, docs: 0 },
     { id: 1, name: 'Shard2', chunks: 2, docs: 0 },
-    { id: 2, name: 'Shard3', chunks: 2, docs: 0 }
-  ]
-  insertedDocs.value = []
-  balancerActive.value = false
-  hotSpot.value = false
+    { id: 2, name: 'Shard3', chunks: 2, docs: 0 },
+  ];
+  insertedDocs.value = [];
+  balancerActive.value = false;
+  hotSpot.value = false;
 }
 
 function hashShard(key: string): number {
-  let hash = 0
+  let hash = 0;
   for (let i = 0; i < key.length; i++) {
-    hash = ((hash << 5) - hash + key.charCodeAt(i)) | 0
+    hash = ((hash << 5) - hash + key.charCodeAt(i)) | 0;
   }
-  return Math.abs(hash) % 3
+  return Math.abs(hash) % 3;
 }
 
 function simulateInsert() {
-  insertedDocs.value = []
-  shards.value.forEach(s => s.docs = 0)
+  insertedDocs.value = [];
+  shards.value.forEach((s) => (s.docs = 0));
   for (let i = 1; i <= 12; i++) {
-    const key = `user${i * 1000}`
-    const shard = hashShard(key)
-    insertedDocs.value.push({ key, shard, hash: `h(${key})` })
-    shards.value[shard].docs++
+    const key = `user${i * 1000}`;
+    const shard = hashShard(key);
+    insertedDocs.value.push({ key, shard, hash: `h(${key})` });
+    shards.value[shard].docs++;
   }
 }
 
 function simulateSplit() {
-  shards.value[0].chunks += 1
-  shards.value[1].chunks += 1
+  shards.value[0].chunks += 1;
+  shards.value[1].chunks += 1;
 }
 
 function simulateBalance() {
-  balancerActive.value = true
+  balancerActive.value = true;
   // move one chunk from shard1 to shard3
   setTimeout(() => {
-    shards.value[0].chunks -= 1
-    shards.value[2].chunks += 1
-    balancerActive.value = false
-  }, 600)
+    shards.value[0].chunks -= 1;
+    shards.value[2].chunks += 1;
+    balancerActive.value = false;
+  }, 600);
 }
 
 function simulateHotSpot() {
-  hotSpot.value = true
-  shards.value.forEach(s => s.docs = 0)
-  insertedDocs.value = []
+  hotSpot.value = true;
+  shards.value.forEach((s) => (s.docs = 0));
+  insertedDocs.value = [];
   // monotonic keys all go to same shard
   for (let i = 1; i <= 12; i++) {
-    const key = `ts${Date.now()}${i}`
-    const shard = 0 // all go to shard 0 (simulated)
-    insertedDocs.value.push({ key, shard, hash: `h(${key})` })
-    shards.value[0].docs++
+    const key = `ts${Date.now()}${i}`;
+    const shard = 0; // all go to shard 0 (simulated)
+    insertedDocs.value.push({ key, shard, hash: `h(${key})` });
+    shards.value[0].docs++;
   }
 }
 </script>
@@ -98,7 +98,12 @@ function simulateHotSpot() {
 <template>
   <div class="sharding-demo">
     <div class="step-indicator">
-      <div v-for="i in totalSteps" :key="i" class="step-dot" :class="{ active: step >= i - 1, current: step === i - 1 }">
+      <div
+        v-for="i in totalSteps"
+        :key="i"
+        class="step-dot"
+        :class="{ active: step >= i - 1, current: step === i - 1 }"
+      >
         {{ i }}
       </div>
     </div>
@@ -112,7 +117,12 @@ function simulateHotSpot() {
         <div class="arch-box config">Config Server (副本集)</div>
       </div>
       <div class="arch-row shards-row">
-        <div v-for="s in shards" :key="s.id" class="arch-box shard" :class="{ hotspot: hotSpot && s.id === 0 }">
+        <div
+          v-for="s in shards"
+          :key="s.id"
+          class="arch-box shard"
+          :class="{ hotspot: hotSpot && s.id === 0 }"
+        >
           <div class="shard-name">{{ s.name }}</div>
           <div class="shard-meta">{{ s.chunks }} chunks | {{ s.docs }} docs</div>
         </div>
@@ -121,9 +131,7 @@ function simulateHotSpot() {
 
     <!-- Step 1: Inserted docs -->
     <div v-if="step >= 1" class="doc-table">
-      <div class="doc-row header">
-        <span>Shard Key</span><span>Hash</span><span>路由到</span>
-      </div>
+      <div class="doc-row header"><span>Shard Key</span><span>Hash</span><span>路由到</span></div>
       <div v-for="doc in insertedDocs" :key="doc.key" class="doc-row">
         <span>{{ doc.key }}</span>
         <span>{{ doc.hash }}</span>
@@ -138,7 +146,8 @@ function simulateHotSpot() {
 
     <!-- Step 4: Hotspot warning -->
     <div v-if="step === 4" class="hotspot-warning">
-      热点警告：所有写入集中到 Shard1，Shard2 和 Shard3 完全空闲。应使用 Hashed Shard Key 或复合 Shard Key 避免此问题。
+      热点警告：所有写入集中到 Shard1，Shard2 和 Shard3 完全空闲。应使用 Hashed Shard Key 或复合
+      Shard Key 避免此问题。
     </div>
 
     <div class="status-bar">{{ stepDesc }}</div>
@@ -210,8 +219,12 @@ function simulateHotSpot() {
   color: var(--vp-c-text-1);
 }
 
-.arch-box.router { border-color: #f59e0b; }
-.arch-box.config { border-color: #8b5cf6; }
+.arch-box.router {
+  border-color: #f59e0b;
+}
+.arch-box.config {
+  border-color: #8b5cf6;
+}
 
 .shards-row {
   display: grid;
@@ -230,8 +243,13 @@ function simulateHotSpot() {
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
-  50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
 }
 
 .shard-name {
@@ -273,9 +291,15 @@ function simulateHotSpot() {
   font-size: 11px;
 }
 
-.shard-0 { color: #3b82f6; }
-.shard-1 { color: #22c55e; }
-.shard-2 { color: #f59e0b; }
+.shard-0 {
+  color: #3b82f6;
+}
+.shard-1 {
+  color: #22c55e;
+}
+.shard-2 {
+  color: #f59e0b;
+}
 
 .balancer-status {
   padding: 8px 12px;
@@ -294,8 +318,13 @@ function simulateHotSpot() {
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3); }
-  50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0);
+  }
 }
 
 .hotspot-warning {

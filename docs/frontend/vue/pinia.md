@@ -103,10 +103,12 @@ const { count, doubled } = storeToRefs(counter)
 
 ::: tip storeToRefs
 直接解构 store 会丢失响应性。使用 `storeToRefs` 可以保持 ref 的响应性：
+
 ```js
 import { storeToRefs } from 'pinia'
 const { count, name } = storeToRefs(useStore())
 ```
+
 :::
 
 ## Store 间互相调用

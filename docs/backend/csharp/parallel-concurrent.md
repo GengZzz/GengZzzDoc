@@ -114,6 +114,7 @@ var tasks = urls.Select(async url =>
 });
 var results = await Task.WhenAll(tasks);
 ```
+
 :::
 
 ## 锁机制
@@ -231,6 +232,7 @@ lock (lockB) { lock (lockA) { /* ... */ } }  // 死锁！
 
 // 解决方案：始终按固定顺序获取锁
 ```
+
 :::
 
 ## 线程安全集合
@@ -347,6 +349,7 @@ await Task.WhenAll(consumers);
 ```
 
 ::: tip Channel 的 BoundedChannelFullMode 选项
+
 | 模式 | 行为 |
 | --- | --- |
 | `Wait` | 生产者阻塞等待空间 |

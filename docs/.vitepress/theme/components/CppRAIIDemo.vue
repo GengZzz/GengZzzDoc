@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 interface StackFrame {
-  name: string
-  note: string
+  name: string;
+  note: string;
 }
 
 interface ResourceState {
-  name: string
-  owner: string
-  state: string
+  name: string;
+  owner: string;
+  state: string;
 }
 
 const frames = computed(() => {
-  const stack: StackFrame[] = []
-  const resources: ResourceState[] = []
-  if (step.value >= 1) stack.push({ name: 'main()', note: '进入业务流程' })
+  const stack: StackFrame[] = [];
+  const resources: ResourceState[] = [];
+  if (step.value >= 1) stack.push({ name: 'main()', note: '进入业务流程' });
   if (step.value >= 2) {
-    stack.push({ name: 'FileGuard log', note: '构造函数打开文件' })
-    resources.push({ name: 'log.txt', owner: 'FileGuard', state: '已获取' })
+    stack.push({ name: 'FileGuard log', note: '构造函数打开文件' });
+    resources.push({ name: 'log.txt', owner: 'FileGuard', state: '已获取' });
   }
-  if (step.value >= 3) stack.push({ name: 'writeOrder()', note: '写入订单日志' })
-  if (step.value >= 4) stack.push({ name: 'throw', note: '写入失败，开始栈展开' })
+  if (step.value >= 3) stack.push({ name: 'writeOrder()', note: '写入订单日志' });
+  if (step.value >= 4) stack.push({ name: 'throw', note: '写入失败，开始栈展开' });
   if (step.value >= 5) {
-    stack.splice(2)
-    resources[0].state = '析构中'
+    stack.splice(2);
+    resources[0].state = '析构中';
   }
   if (step.value >= 6) {
-    stack.splice(1)
-    resources[0].state = '已释放'
-    resources[0].owner = '无'
+    stack.splice(1);
+    resources[0].state = '已释放';
+    resources[0].owner = '无';
   }
-  return { stack, resources }
-})
+  return { stack, resources };
+});
 
 const status = computed(() => {
   const list = [
@@ -45,17 +45,17 @@ const status = computed(() => {
     'writeOrder() 使用文件写日志，此时不需要手写 finally/delete',
     '业务代码抛出异常，函数无法按普通路径继续执行',
     '栈展开开始，局部对象按逆序析构，FileGuard::~FileGuard() 被自动调用',
-    '文件句柄释放完成；异常继续向外传播，但资源没有泄漏'
-  ]
-  return list[step.value]
-})
+    '文件句柄释放完成；异常继续向外传播，但资源没有泄漏',
+  ];
+  return list[step.value];
+});
 
 function next() {
-  step.value = Math.min(step.value + 1, totalSteps)
+  step.value = Math.min(step.value + 1, totalSteps);
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -80,7 +80,10 @@ function reset() {
             v-for="resource in frames.resources"
             :key="resource.name"
             class="resource"
-            :class="{ releasing: resource.state === '析构中', released: resource.state === '已释放' }"
+            :class="{
+              releasing: resource.state === '析构中',
+              released: resource.state === '已释放',
+            }"
           >
             <span class="resource-name">{{ resource.name }}</span>
             <span>所有者：{{ resource.owner }}</span>

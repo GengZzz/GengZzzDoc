@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const maxStep = 6
+const step = ref(0);
+const maxStep = 6;
 
 const steps = [
   { label: '定义 Custom Element', desc: '创建 MyCard 类，继承 HTMLElement' },
@@ -10,17 +10,17 @@ const steps = [
   { label: '添加内容与样式', desc: '向 Shadow Root 添加模板内容和隔离样式' },
   { label: '样式隔离', desc: '外部 CSS 无法影响 Shadow DOM 内部样式' },
   { label: 'Slot 插槽', desc: 'Light DOM 子元素通过 slot 投射到 Shadow DOM 中' },
-  { label: '::part() 选择器', desc: '从外部选择性地样式化 Shadow DOM 内部元素' }
-]
+  { label: '::part() 选择器', desc: '从外部选择性地样式化 Shadow DOM 内部元素' },
+];
 
-const stepInfo = computed(() => steps[step.value] || steps[0])
+const stepInfo = computed(() => steps[step.value] || steps[0]);
 
 function next() {
-  if (step.value < maxStep) step.value++
+  if (step.value < maxStep) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -50,12 +50,20 @@ function reset() {
       <!-- Step 0: 定义类 -->
       <div v-if="step === 0" class="panel">
         <div class="code-block">
-          <div class="code-line"><span class="kw">class</span> <span class="cls">MyCard</span> <span class="kw">extends</span> <span class="cls">HTMLElement</span> {</div>
+          <div class="code-line">
+            <span class="kw">class</span> <span class="cls">MyCard</span>
+            <span class="kw">extends</span> <span class="cls">HTMLElement</span> {
+          </div>
           <div class="code-line indent"><span class="cm">// 定义自定义元素的类</span></div>
-          <div class="code-line indent"><span class="cm">// 继承 HTMLElement 获得所有 DOM 元素能力</span></div>
+          <div class="code-line indent">
+            <span class="cm">// 继承 HTMLElement 获得所有 DOM 元素能力</span>
+          </div>
           <div class="code-line">}</div>
           <div class="code-line">&nbsp;</div>
-          <div class="code-line"><span class="fn">customElements.define</span>(<span class="str">'my-card'</span>, MyCard)</div>
+          <div class="code-line">
+            <span class="fn">customElements.define</span>(<span class="str">'my-card'</span>,
+            MyCard)
+          </div>
         </div>
       </div>
 
@@ -73,7 +81,10 @@ function reset() {
         </div>
         <div class="code-block">
           <div class="code-line"><span class="fn">connectedCallback</span>() {</div>
-          <div class="code-line indent"><span class="kw">this</span>.<span class="fn">attachShadow</span>({ <span class="prop">mode</span>: <span class="str">'open'</span> })</div>
+          <div class="code-line indent">
+            <span class="kw">this</span>.<span class="fn">attachShadow</span>({
+            <span class="prop">mode</span>: <span class="str">'open'</span> })
+          </div>
           <div class="code-line">}</div>
         </div>
       </div>
@@ -87,15 +98,15 @@ function reset() {
               <div class="sr-label">Shadow Root</div>
               <div class="sr-content">
                 <div class="sr-style">
-                  &lt;style&gt;<br>
-                  &nbsp;&nbsp;.card { border: 1px solid #e5e7eb; }<br>
-                  &nbsp;&nbsp;.title { color: #4f46e5; }<br>
+                  &lt;style&gt;<br />
+                  &nbsp;&nbsp;.card { border: 1px solid #e5e7eb; }<br />
+                  &nbsp;&nbsp;.title { color: #4f46e5; }<br />
                   &lt;/style&gt;
                 </div>
                 <div class="sr-html">
-                  &lt;div class="card"&gt;<br>
-                  &nbsp;&nbsp;&lt;h3 class="title"&gt;...&lt;/h3&gt;<br>
-                  &nbsp;&nbsp;&lt;p&gt;内容&lt;/p&gt;<br>
+                  &lt;div class="card"&gt;<br />
+                  &nbsp;&nbsp;&lt;h3 class="title"&gt;...&lt;/h3&gt;<br />
+                  &nbsp;&nbsp;&lt;p&gt;内容&lt;/p&gt;<br />
                   &lt;/div&gt;
                 </div>
               </div>
@@ -134,12 +145,8 @@ function reset() {
         <div class="slot-visual">
           <div class="light-dom">
             <div class="light-label">Light DOM (用户提供的内容)</div>
-            <div class="light-item">
-              &lt;span slot="title"&gt;我的标题&lt;/span&gt;
-            </div>
-            <div class="light-item">
-              &lt;p&gt;一些内容&lt;/p&gt;
-            </div>
+            <div class="light-item">&lt;span slot="title"&gt;我的标题&lt;/span&gt;</div>
+            <div class="light-item">&lt;p&gt;一些内容&lt;/p&gt;</div>
           </div>
           <div class="slot-arrow">↓ 投射 (project) ↓</div>
           <div class="shadow-root-box">
@@ -276,17 +283,36 @@ function reset() {
   color: #d4d4d4;
 }
 
-.code-line { display: block; }
-.code-line.indent { padding-left: 20px; }
-.kw { color: #569cd6; }
-.cls { color: #4ec9b0; }
-.fn { color: #dcdcaa; }
-.str { color: #ce9178; }
-.prop { color: #9cdcfe; }
-.cm { color: #6a9955; }
+.code-line {
+  display: block;
+}
+.code-line.indent {
+  padding-left: 20px;
+}
+.kw {
+  color: #569cd6;
+}
+.cls {
+  color: #4ec9b0;
+}
+.fn {
+  color: #dcdcaa;
+}
+.str {
+  color: #ce9178;
+}
+.prop {
+  color: #9cdcfe;
+}
+.cm {
+  color: #6a9955;
+}
 
 /* Shadow visual */
-.shadow-visual, .isolation-visual, .slot-visual, .part-visual {
+.shadow-visual,
+.isolation-visual,
+.slot-visual,
+.part-visual {
   margin-bottom: 12px;
 }
 
@@ -297,7 +323,9 @@ function reset() {
   margin: 8px 0;
 }
 
-.host-box.filled { border-color: #8b5cf6; }
+.host-box.filled {
+  border-color: #8b5cf6;
+}
 
 .host-label {
   font-size: 13px;
@@ -319,8 +347,13 @@ function reset() {
   background: rgba(59, 130, 246, 0.05);
 }
 
-.shadow-root-box.filled { background: rgba(59, 130, 246, 0.1); }
-.shadow-root-box.isolated { border-color: #f59e0b; background: rgba(245, 158, 11, 0.05); }
+.shadow-root-box.filled {
+  background: rgba(59, 130, 246, 0.1);
+}
+.shadow-root-box.isolated {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.05);
+}
 
 .sr-label {
   font-size: 11px;
@@ -340,7 +373,8 @@ function reset() {
   flex-wrap: wrap;
 }
 
-.sr-style, .sr-html {
+.sr-style,
+.sr-html {
   flex: 1;
   min-width: 200px;
   padding: 8px;
@@ -373,7 +407,9 @@ function reset() {
   color: #d4d4d4;
 }
 
-.css-rule.success { border-left: 3px solid #22c55e; }
+.css-rule.success {
+  border-left: 3px solid #22c55e;
+}
 
 .css-result {
   font-size: 11px;
@@ -458,7 +494,8 @@ function reset() {
   padding: 6px;
 }
 
-.named-slot, .default-slot {
+.named-slot,
+.default-slot {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -536,8 +573,18 @@ button:disabled {
 }
 
 @media (max-width: 560px) {
-  .sr-content { flex-direction: column; }
-  .named-slot, .default-slot { flex-direction: column; align-items: flex-start; }
-  .part-element { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .sr-content {
+    flex-direction: column;
+  }
+  .named-slot,
+  .default-slot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .part-element {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 }
 </style>

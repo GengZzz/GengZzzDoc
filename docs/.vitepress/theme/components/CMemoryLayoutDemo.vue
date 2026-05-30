@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const descriptions = [
   '程序启动：加载代码段(.text)、只读数据(.rodata)、已初始化数据(.data)、BSS 段',
@@ -10,11 +10,11 @@ const descriptions = [
   'malloc() → 在堆上分配内存块',
   '函数调用 → 新栈帧压入栈顶',
   '函数返回 → 栈帧弹出，局部变量失效',
-  '危险情况：栈溢出(递归过深) 与 堆溢出(缓冲区越界)'
-]
+  '危险情况：栈溢出(递归过深) 与 堆溢出(缓冲区越界)',
+];
 
 const segments = computed(() => {
-  const s = step.value
+  const s = step.value;
   return [
     { name: '.text (代码段)', color: '#6366f1', show: true, detail: '机器指令，只读' },
     { name: '.rodata (只读数据)', color: '#8b5cf6', show: true, detail: '字符串常量、const 变量' },
@@ -27,7 +27,7 @@ const segments = computed(() => {
       detail: s >= 2 ? 'malloc 分配 → 向高地址增长' : '空闲，向高地址增长 ↑',
       highlight: s === 2,
       blocks: s >= 2 ? [{ label: 'malloc(64)', size: '64 bytes' }] : [],
-      overflow: s === 5
+      overflow: s === 5,
     },
     {
       name: 'Stack (栈)',
@@ -36,25 +36,23 @@ const segments = computed(() => {
       detail: s >= 3 ? '函数调用 → 向低地址增长' : 'main() 栈帧，向低地址增长 ↓',
       highlight: s === 1 || s === 3,
       frames: s >= 3 ? ['main()', 'func()'] : s >= 1 ? ['main()'] : [],
-      overflow: s === 5
-    }
-  ]
-})
+      overflow: s === 5,
+    },
+  ];
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="layout-demo">
-    <div class="step-indicator">
-      步骤 {{ step + 1 }} / {{ totalSteps }}
-    </div>
+    <div class="step-indicator">步骤 {{ step + 1 }} / {{ totalSteps }}</div>
     <p class="desc">{{ descriptions[step] }}</p>
     <div class="memory-map">
       <div class="addr-labels">
@@ -80,21 +78,17 @@ function reset() {
                 :key="frame"
                 class="frame"
                 :style="{ borderColor: seg.color }"
-              >{{ frame }}</div>
+              >
+                {{ frame }}
+              </div>
             </div>
             <div v-if="seg.blocks && seg.blocks.length" class="blocks">
-              <div
-                v-for="block in seg.blocks"
-                :key="block.label"
-                class="heap-block"
-              >
+              <div v-for="block in seg.blocks" :key="block.label" class="heap-block">
                 <span>{{ block.label }}</span>
                 <small>{{ block.size }}</small>
               </div>
             </div>
-            <div v-if="seg.overflow" class="overflow-warn">
-              溢出！写入越界区域
-            </div>
+            <div v-if="seg.overflow" class="overflow-warn">溢出！写入越界区域</div>
           </div>
         </div>
       </div>

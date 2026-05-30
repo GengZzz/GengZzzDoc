@@ -1,49 +1,56 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 const docs = [
   { id: 1, text: 'Elasticsearch 是一个搜索引擎' },
   { id: 2, text: 'MySQL 是关系型数据库' },
-  { id: 3, text: 'Elasticsearch 基于 Lucene 实现' }
-]
+  { id: 3, text: 'Elasticsearch 基于 Lucene 实现' },
+];
 
 const tokenizedDocs = computed(() => {
-  if (step.value < 2) return []
-  return docs.map(d => ({
+  if (step.value < 2) return [];
+  return docs.map((d) => ({
     id: d.id,
-    terms: d.id === 1
-      ? ['elasticsearch', '是', '一个', '搜索引擎']
-      : d.id === 2
-        ? ['mysql', '是', '关系型', '数据库']
-        : ['elasticsearch', '基于', 'lucene', '实现']
-  }))
-})
+    terms:
+      d.id === 1
+        ? ['elasticsearch', '是', '一个', '搜索引擎']
+        : d.id === 2
+          ? ['mysql', '是', '关系型', '数据库']
+          : ['elasticsearch', '基于', 'lucene', '实现'],
+  }));
+});
 
 interface Posting {
-  docId: number
-  freq: number
-  positions: number[]
+  docId: number;
+  freq: number;
+  positions: number[];
 }
 
 interface InvertedEntry {
-  term: string
-  postings: Posting[]
+  term: string;
+  postings: Posting[];
 }
 
 const invertedIndex = computed<InvertedEntry[]>(() => {
-  if (step.value < 3) return []
+  if (step.value < 3) return [];
   return [
-    { term: 'elasticsearch', postings: [
-      { docId: 1, freq: 1, positions: [0] },
-      { docId: 3, freq: 1, positions: [0] }
-    ]},
-    { term: '是', postings: [
-      { docId: 1, freq: 1, positions: [1] },
-      { docId: 2, freq: 1, positions: [1] }
-    ]},
+    {
+      term: 'elasticsearch',
+      postings: [
+        { docId: 1, freq: 1, positions: [0] },
+        { docId: 3, freq: 1, positions: [0] },
+      ],
+    },
+    {
+      term: '是',
+      postings: [
+        { docId: 1, freq: 1, positions: [1] },
+        { docId: 2, freq: 1, positions: [1] },
+      ],
+    },
     { term: '一个', postings: [{ docId: 1, freq: 1, positions: [2] }] },
     { term: '搜索引擎', postings: [{ docId: 1, freq: 1, positions: [3] }] },
     { term: 'mysql', postings: [{ docId: 2, freq: 1, positions: [0] }] },
@@ -51,18 +58,18 @@ const invertedIndex = computed<InvertedEntry[]>(() => {
     { term: '数据库', postings: [{ docId: 2, freq: 1, positions: [3] }] },
     { term: '基于', postings: [{ docId: 3, freq: 1, positions: [1] }] },
     { term: 'lucene', postings: [{ docId: 3, freq: 1, positions: [2] }] },
-    { term: '实现', postings: [{ docId: 3, freq: 1, positions: [3] }] }
-  ]
-})
+    { term: '实现', postings: [{ docId: 3, freq: 1, positions: [3] }] },
+  ];
+});
 
 const queryResult = computed(() => {
-  if (step.value < 4) return null
-  const entry = invertedIndex.value.find(e => e.term === 'elasticsearch')
-  return entry ? entry.postings : []
-})
+  if (step.value < 4) return null;
+  const entry = invertedIndex.value.find((e) => e.term === 'elasticsearch');
+  return entry ? entry.postings : [];
+});
 
 const skipListEntries = computed(() => {
-  if (step.value < 5) return null
+  if (step.value < 5) return null;
   // Simulate a longer posting list with skip pointers
   return {
     term: 'java',
@@ -76,36 +83,29 @@ const skipListEntries = computed(() => {
       { docId: 15, skip: true },
       { docId: 18, skip: false },
       { docId: 20, skip: false },
-      { docId: 22, skip: false }
-    ]
-  }
-})
+      { docId: 22, skip: false },
+    ],
+  };
+});
 
 const fstDemo = computed(() => {
-  if (step.value < 6) return null
+  if (step.value < 6) return null;
   return {
     uncompressed: 420,
     compressed: 68,
-    ratio: '84%'
-  }
-})
+    ratio: '84%',
+  };
+});
 
 function next() {
-  if (step.value < totalSteps) step.value++
+  if (step.value < totalSteps) step.value++;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 
-const stepLabels = [
-  '原始文档',
-  '分词',
-  '构建倒排索引',
-  '查询匹配',
-  '跳表加速',
-  'FST 压缩'
-]
+const stepLabels = ['原始文档', '分词', '构建倒排索引', '查询匹配', '跳表加速', 'FST 压缩'];
 </script>
 
 <template>
@@ -139,14 +139,15 @@ const stepLabels = [
         <div class="token-arrow">→</div>
         <div class="token-list">
           <span
-            v-for="(token, ti) in (doc.id === 1
+            v-for="(token, ti) in doc.id === 1
               ? ['elasticsearch', '是', '一个', '搜索引擎']
               : doc.id === 2
                 ? ['mysql', '是', '关系型', '数据库']
-                : ['elasticsearch', '基于', 'lucene', '实现'])"
+                : ['elasticsearch', '基于', 'lucene', '实现']"
             :key="ti"
             class="token"
-          >{{ token }}</span>
+            >{{ token }}</span
+          >
         </div>
       </div>
     </div>
@@ -172,12 +173,8 @@ const stepLabels = [
         <div class="query-step">
           <span class="badge">1</span> 在 Term Dictionary 中查找 "elasticsearch"
         </div>
-        <div class="query-step">
-          <span class="badge">2</span> 找到 Posting List → Doc1, Doc3
-        </div>
-        <div class="query-step">
-          <span class="badge">3</span> 返回匹配文档
-        </div>
+        <div class="query-step"><span class="badge">2</span> 找到 Posting List → Doc1, Doc3</div>
+        <div class="query-step"><span class="badge">3</span> 返回匹配文档</div>
       </div>
       <div class="result-box" v-if="queryResult">
         <strong>匹配结果：</strong>
@@ -190,15 +187,18 @@ const stepLabels = [
     <!-- Step 4: Skip List -->
     <div v-if="step === 4 && skipListEntries" class="section">
       <h4>跳表加速</h4>
-      <p class="hint">Posting List: term = "{{ skipListEntries.term }}"，长度较长时跳表可跳跃查找</p>
+      <p class="hint">
+        Posting List: term = "{{ skipListEntries.term }}"，长度较长时跳表可跳跃查找
+      </p>
       <div class="skip-list">
         <div class="skip-level">
           <span class="level-label">Level 1 (跳)</span>
           <span
-            v-for="(item, i) in skipListEntries.list.filter(e => e.skip)"
+            v-for="(item, i) in skipListEntries.list.filter((e) => e.skip)"
             :key="'s' + i"
             class="skip-node"
-          >Doc{{ item.docId }}</span>
+            >Doc{{ item.docId }}</span
+          >
         </div>
         <div class="skip-level">
           <span class="level-label">Level 0 (顺序)</span>
@@ -207,10 +207,13 @@ const stepLabels = [
             :key="'l' + i"
             class="skip-node base"
             :class="{ highlighted: item.skip }"
-          >Doc{{ item.docId }}</span>
+            >Doc{{ item.docId }}</span
+          >
         </div>
       </div>
-      <div class="hint">查找 Doc10 时：Level1 跳过 Doc1~Doc8，直接从 Doc8 开始 → 快速定位 Doc10</div>
+      <div class="hint">
+        查找 Doc10 时：Level1 跳过 Doc1~Doc8，直接从 Doc8 开始 → 快速定位 Doc10
+      </div>
     </div>
 
     <!-- Step 5: FST -->
@@ -221,13 +224,17 @@ const stepLabels = [
         <div class="fst-bar">
           <div class="fst-label">未压缩</div>
           <div class="fst-track">
-            <div class="fst-fill uncompressed" :style="{ width: '100%' }">{{ fstDemo.uncompressed }}KB</div>
+            <div class="fst-fill uncompressed" :style="{ width: '100%' }">
+              {{ fstDemo.uncompressed }}KB
+            </div>
           </div>
         </div>
         <div class="fst-bar">
           <div class="fst-label">FST 压缩</div>
           <div class="fst-track">
-            <div class="fst-fill compressed" :style="{ width: '16%' }">{{ fstDemo.compressed }}KB</div>
+            <div class="fst-fill compressed" :style="{ width: '16%' }">
+              {{ fstDemo.compressed }}KB
+            </div>
           </div>
         </div>
       </div>

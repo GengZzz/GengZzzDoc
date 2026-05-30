@@ -101,6 +101,7 @@ SELECT * FROM users WHERE name = '张三';
 SELECT id, name FROM users WHERE name = '张三';
 -- 如果 name 列上有索引 (name)，则不需要回表
 ```
+
 :::
 
 ---
@@ -131,6 +132,7 @@ INSERT INTO orders (user_id, amount) VALUES (3, 300);  -- id=3
 ```
 
 **优点：**
+
 - 顺序写入，几乎没有页分裂
 - 写入性能最优
 - 索引页空间利用率高（接近 100%）
@@ -152,6 +154,7 @@ INSERT: id='e5d8...' → 可能插入到页 2 的中间
 ```
 
 **后果：**
+
 - 每次 INSERT 都可能插入到 B+ 树的中间位置
 - 页满时发生页分裂，需要分配新页、移动数据
 - 索引碎片率高（页内空间利用率可能只有 50-70%）
@@ -181,6 +184,7 @@ ALTER TABLE users ENGINE=InnoDB;
 -- 方式三：在线 DDL 工具
 -- pt-online-schema-change 或 gh-ost
 ```
+
 :::
 
 ---

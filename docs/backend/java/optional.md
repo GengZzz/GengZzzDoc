@@ -245,6 +245,7 @@ class Address {
 ```
 
 ::: warning Optional 使用规范
+
 - **不要**将 Optional 用作方法参数——参数可能为空时直接用 `@Nullable` 注解。
 - **不要**将 Optional 用作类字段——序列化和内存开销没有意义。
 - **不要**对 Optional 调用 `get()` 而不先检查 `isPresent()`——这和直接使用 null 一样危险。

@@ -282,4 +282,5 @@ BEGIN;
 EXPLAIN ANALYZE DELETE FROM orders WHERE created_at < '2023-01-01';
 ROLLBACK;   -- 回滚，不实际删除
 ```
+
 :::

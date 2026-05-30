@@ -103,6 +103,7 @@ function removeItem(arr, item) {
 `sort(compareFn)` 对数组元素**原地排序**。如果不传比较函数，会将元素转为字符串按 Unicode 码点排序——这意味着数字排序会出错：`[10, 9, 2, 80].sort()` 的结果是 `[10, 2, 80, 9]`，因为按字符串比较 `'10' < '2'`。
 
 比较函数 `compareFn(a, b)` 的规则：
+
 - 返回**负数**：a 排在 b 前面
 - 返回**正数**：b 排在 a 前面
 - 返回 **0**：保持相对顺序
@@ -134,6 +135,7 @@ users.sort((a, b) => {
 ```
 
 ::: warning sort 的坑
+
 - 默认按**字符串**排序，数字排序必须传比较函数
 - **会修改原数组**，不想修改可以先 `slice()` 或 `[...arr].sort()`
 - V8 对短数组用插入排序，长数组用快速排序/归并排序，时间复杂度 O(n log n)
@@ -205,6 +207,7 @@ users.map(({ name }) => name); // ['Alice', 'Bob']
 ```
 
 ::: tip map 使用建议
+
 - 回调函数应该是一个**纯函数**（相同输入产生相同输出，无副作用）
 - 如果不需要返回值只是遍历，用 `forEach` 更合适
 - 如果同时需要过滤，考虑 `flatMap` 或先 `filter` 再 `map`
@@ -392,6 +395,7 @@ const grouped = people.reduce((acc, p) => {
 ```
 
 ::: tip reduce 使用建议
+
 - **始终提供 `initialValue`**，空数组也能安全返回初始值
 - 复杂逻辑可以拆成多步：先 `map` 再 `reduce`，可读性更好
 - 能用 `map`/`filter` 解决的问题不要强行用 `reduce`
@@ -452,6 +456,7 @@ const copy2 = Array.from(arr);
 ```
 
 ::: tip slice vs splice
+
 - `slice`（无 p）：不修改原数组，返回截取片段
 - `splice`（有 p）：**修改原数组**，返回被删除的元素
 - 记忆：splice 有 p = **p**lease（请）修改原数组
@@ -514,6 +519,7 @@ new Array(1, 2, 3);  // [1, 2, 3]
 `replace(pattern, replacement)` 在字符串中找到第一个匹配 `pattern` 的子串，替换为 `replacement`。pattern 可以是字符串（只替换第一个）或带 `g` 标志的正则（替换所有）。
 
 replacement 可以是：
+
 - **字符串**：用 `$1`、`$2` 引用捕获组，`$&` 引用整个匹配
 - **回调函数**：参数是匹配内容、捕获组、偏移量、原字符串
 

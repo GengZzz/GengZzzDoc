@@ -1,40 +1,40 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const caseIndex = ref(0)
-const step = ref(0)
+const caseIndex = ref(0);
+const step = ref(0);
 const cases = [
   {
     expr: '"5" + 1',
     result: '"51"',
-    steps: ['看到 +', '一侧是字符串', '另一侧转字符串', '执行拼接']
+    steps: ['看到 +', '一侧是字符串', '另一侧转字符串', '执行拼接'],
   },
   {
     expr: '"5" - 1',
     result: '4',
-    steps: ['看到 -', '没有字符串拼接语义', '两侧转数字', '执行减法']
+    steps: ['看到 -', '没有字符串拼接语义', '两侧转数字', '执行减法'],
   },
   {
     expr: '[] == false',
     result: 'true',
-    steps: ['对象与布尔比较', '布尔转数字 false -> 0', '对象 ToPrimitive [] -> ""', '"" 转数字 0']
+    steps: ['对象与布尔比较', '布尔转数字 false -> 0', '对象 ToPrimitive [] -> ""', '"" 转数字 0'],
   },
   {
     expr: 'null == undefined',
     result: 'true',
-    steps: ['宽松相等', '命中特殊规则', '不执行 ToNumber', '直接返回 true']
-  }
-]
+    steps: ['宽松相等', '命中特殊规则', '不执行 ToNumber', '直接返回 true'],
+  },
+];
 
-const current = computed(() => cases[caseIndex.value])
+const current = computed(() => cases[caseIndex.value]);
 
 function nextStep() {
-  step.value = (step.value + 1) % current.value.steps.length
+  step.value = (step.value + 1) % current.value.steps.length;
 }
 
 function nextCase() {
-  caseIndex.value = (caseIndex.value + 1) % cases.length
-  step.value = 0
+  caseIndex.value = (caseIndex.value + 1) % cases.length;
+  step.value = 0;
 }
 </script>
 
@@ -136,7 +136,7 @@ function nextCase() {
 .step.active {
   border-color: #f59e0b;
   color: #d97706;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, .14);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14);
 }
 
 .actions {
@@ -156,6 +156,8 @@ button {
 }
 
 @media (max-width: 720px) {
-  .steps { grid-template-columns: 1fr; }
+  .steps {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

@@ -79,12 +79,14 @@ const nul  = null;          // null
 ```
 
 ::: warning typeof 的陷阱
+
 ```javascript
 typeof null       // 'object'（历史 Bug，null 是空指针，类型标签为 0）
 typeof undefined  // 'undefined'
 typeof function(){} // 'function'（函数是 object 的子类型，但 typeof 识别为 function）
 typeof []         // 'object'（数组也是对象）
 ```
+
 :::
 
 ### 引用类型（Object）

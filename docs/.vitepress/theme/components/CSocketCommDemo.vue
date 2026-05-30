@@ -1,66 +1,62 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 const descriptions = [
   '服务端：socket() 创建套接字 → bind() 绑定地址 → listen() 开始监听',
   '客户端：connect() 发起连接请求，触发 TCP 三次握手',
   '服务端：accept() 接受连接，返回新的已连接套接字',
   '数据传输：send() / recv() 双向通信',
-  'close() 关闭连接，触发 TCP 四次挥手'
-]
+  'close() 关闭连接，触发 TCP 四次挥手',
+];
 
 const serverSteps = [
-  ['int fd = socket(AF_INET, SOCK_STREAM, 0);', 'bind(fd, (struct sockaddr*)&addr, len);', 'listen(fd, 128);'],
+  [
+    'int fd = socket(AF_INET, SOCK_STREAM, 0);',
+    'bind(fd, (struct sockaddr*)&addr, len);',
+    'listen(fd, 128);',
+  ],
   ['// 等待客户端连接...', ''],
   ['int conn = accept(fd, ...);', '// conn 是已连接描述符'],
   ['send(conn, "Hello", 5, 0);', 'recv(conn, buf, sizeof(buf), 0);'],
-  ['close(conn);', 'close(fd);']
-]
+  ['close(conn);', 'close(fd);'],
+];
 
 const clientSteps = [
   ['// 客户端尚未启动', ''],
   ['int fd = socket(AF_INET, SOCK_STREAM, 0);', 'connect(fd, (struct sockaddr*)&addr, len);'],
   ['// 连接已建立'],
   ['send(fd, "Hi", 2, 0);', 'recv(fd, buf, sizeof(buf), 0);'],
-  ['close(fd);']
-]
+  ['close(fd);'],
+];
 
-const handshakeLabels = [
-  '',
-  'SYN →\n← SYN+ACK\nACK →',
-  '',
-  '',
-  'FIN →\n← ACK\n← FIN\nACK →'
-]
+const handshakeLabels = ['', 'SYN →\n← SYN+ACK\nACK →', '', '', 'FIN →\n← ACK\n← FIN\nACK →'];
 
 const activeLines = computed(() => {
-  const s = step.value
+  const s = step.value;
   return {
     server: serverSteps[s] || [],
     client: clientSteps[s] || [],
     handshake: handshakeLabels[s],
     serverActive: s >= 0,
-    clientActive: s >= 1
-  }
-})
+    clientActive: s >= 1,
+  };
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="socket-demo">
-    <div class="step-indicator">
-      步骤 {{ step + 1 }} / {{ totalSteps }}
-    </div>
+    <div class="step-indicator">步骤 {{ step + 1 }} / {{ totalSteps }}</div>
     <p class="desc">{{ descriptions[step] }}</p>
     <div class="panels">
       <section class="server" :class="{ active: activeLines.serverActive }">

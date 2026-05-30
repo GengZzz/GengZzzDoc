@@ -40,6 +40,7 @@
 
 ::: warning javascript: 协议
 `href="javascript:..."` 是一种过时的做法。它会导致：
+
 - 点击时将 URL 设置为 JavaScript 表达式的返回值
 - 可能引入 XSS 安全风险
 - 无法被搜索引擎正确解析
@@ -72,9 +73,11 @@
 
 ::: tip target="_blank" 安全问题
 在 `<a>` 使用 `target="_blank"` 时，新页面可以通过 `window.opener` 访问原页面的 `window` 对象，存在安全风险。**必须**同时添加 `rel="noopener noreferrer"`：
+
 ```html
 <a href="https://external.com" target="_blank" rel="noopener noreferrer">
 ```
+
 现代浏览器已默认对 `target="_blank"` 添加 `noopener` 行为，但为了兼容旧浏览器，仍建议显式声明。
 :::
 
@@ -96,6 +99,7 @@
 ```
 
 ::: warning download 限制
+
 - `download` 属性只对**同源 URL** 有效
 - 跨域链接的 `download` 属性会被浏览器忽略，仍然会导航到该 URL
 - 需要后端设置 `Content-Disposition: attachment` 头来支持跨域下载

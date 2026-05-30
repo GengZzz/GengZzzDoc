@@ -45,6 +45,7 @@ closedHost.shadowRoot // → null，无法访问
 ```
 
 ::: tip open vs closed 的选择
+
 - **open**：调试方便，外部可以检查 Shadow DOM 内容，大多数场景使用
 - **closed**：更强的封装，但不能阻止用户通过 DevTools 查看
 - `<video>`、`<input>` 等浏览器原生元素使用 closed Shadow DOM
@@ -170,12 +171,14 @@ customElements.define('my-card', MyCard)
 
 ::: tip ::part 的优势
 `::part` 允许组件暴露特定元素给外部样式化，同时保持其余元素的封装。这是一种"受控的样式穿透"：
+
 ```css
 /* 只能样式化带有 part 属性的元素 */
 my-card::part(header) { }  /* ✓ 有效 */
 my-card::part(body) { }    /* ✓ 有效 */
 my-card .title { }         /* ✗ 无效，Shadow DOM 内部不可选择 */
 ```
+
 :::
 
 ## slot 插槽
@@ -342,6 +345,7 @@ cards.forEach(data => {
 
 ::: tip template + Custom Elements
 `<template>` 常与 Custom Elements 结合使用，在 `connectedCallback` 中克隆模板而不是拼接 HTML 字符串，性能更好且更安全：
+
 ```js
 class MyCard extends HTMLElement {
   static template = document.getElementById('card-template')
@@ -353,6 +357,7 @@ class MyCard extends HTMLElement {
   }
 }
 ```
+
 :::
 
 ## DocumentFragment
@@ -427,6 +432,7 @@ customElements.define('my-card', MyCard)
 
 ::: tip CSS 变量是穿透 Shadow DOM 的最佳方式
 CSS 自定义属性（CSS 变量）是唯一能自然穿透 Shadow DOM 的 CSS 特性。这是实现主题系统和设计令牌（Design Tokens）的理想方案：
+
 - 外部定义变量值
 - Shadow DOM 内部使用变量
 - 改变外部变量值，Shadow DOM 内部自动跟随

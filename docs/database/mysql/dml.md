@@ -120,6 +120,7 @@ ON DUPLICATE KEY UPDATE
 ```
 
 ::: tip ON DUPLICATE KEY UPDATE 的返回值
+
 - `affected_rows` 为 1：插入了新行
 - `affected_rows` 为 2：更新了已有行（MySQL 返回 2 表示"先找到再更新"）
 - `affected_rows` 为 0：更新了已有行但值没有变化
@@ -213,6 +214,7 @@ LIMIT 1000;
 SET sql_safe_updates = 1;
 -- 此模式下，UPDATE 必须带 WHERE 或 LIMIT，且 WHERE 条件的列必须有索引
 ```
+
 :::
 
 ## DELETE 详解
@@ -345,6 +347,7 @@ SET
 ```
 
 ::: tip LOAD DATA INFILE 前置条件
+
 1. MySQL 服务端需要 `FILE` 权限：`GRANT FILE ON *.* TO 'user'@'host'`
 2. `secure_file_priv` 变量需指向允许导入的目录（`SHOW VARIABLES LIKE 'secure_file_priv'`）
 3. 使用 `LOCAL` 关键字时，客户端需要启用 `--local-infile=1`
@@ -378,6 +381,7 @@ SET GLOBAL innodb_flush_log_at_trx_commit = 1;
 ```
 
 ::: danger innodb_flush_log_at_trx_commit 的权衡
+
 - 值为 `1`（默认）：每次事务提交都刷 redo log 到磁盘，最安全，但性能最低
 - 值为 `2`：事务提交时写入 OS 缓冲区，每秒刷一次盘。宕机时可能丢失 1 秒数据
 - 值为 `0`：每秒写入并刷盘。宕机时可能丢失 1 秒数据

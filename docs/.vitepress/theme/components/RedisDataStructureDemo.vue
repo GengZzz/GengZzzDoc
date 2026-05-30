@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const currentStep = ref(0)
-const totalSteps = 5
+const currentStep = ref(0);
+const totalSteps = 5;
 
 const steps = [
   {
@@ -13,8 +13,8 @@ const steps = [
     value: '100',
     memory: [
       { label: 'redisObject', detail: 'type=STRING, encoding=INT', color: '#8b5cf6' },
-      { label: 'ptr', detail: '直接存储整数 100（无需 SDS）', color: '#a78bfa' }
-    ]
+      { label: 'ptr', detail: '直接存储整数 100（无需 SDS）', color: '#a78bfa' },
+    ],
   },
   {
     title: 'String: embstr 编码',
@@ -25,8 +25,8 @@ const steps = [
     memory: [
       { label: 'redisObject (16B)', detail: 'type=STRING, encoding=EMBSTR', color: '#8b5cf6' },
       { label: 'sdshdr8 (3B)', detail: 'len=11, alloc=11, flags', color: '#c4b5fd' },
-      { label: 'buf (12B)', detail: '"hello world\\0"', color: '#a78bfa' }
-    ]
+      { label: 'buf (12B)', detail: '"hello world\\0"', color: '#a78bfa' },
+    ],
   },
   {
     title: 'String: raw 编码',
@@ -37,37 +37,41 @@ const steps = [
     memory: [
       { label: 'redisObject', detail: 'type=STRING, encoding=RAW', color: '#8b5cf6' },
       { label: '→ sdshdr16', detail: 'len=62, alloc=124', color: '#c4b5fd' },
-      { label: '  buf (63B)', detail: '实际字符串数据', color: '#a78bfa' }
-    ]
+      { label: '  buf (63B)', detail: '实际字符串数据', color: '#a78bfa' },
+    ],
   },
   {
     title: 'Hash: listpack → hashtable',
     desc: '字段数从 2 增长到 129（超过 hash-max-listpack-entries=128），编码从 listpack 转换为 hashtable。',
     type: 'hash',
     before: { encoding: 'listpack', fields: 2, desc: '紧凑存储，字段-值交替排列' },
-    after: { encoding: 'hashtable', fields: 129, desc: 'O(1) 查找，渐进式 rehash' }
+    after: { encoding: 'hashtable', fields: 129, desc: 'O(1) 查找，渐进式 rehash' },
   },
   {
     title: 'ZSet: listpack → skiplist',
     desc: '元素数超过 128 或值超过 64 字节，使用 skiplist + hashtable 双编码。',
     type: 'zset',
     before: { encoding: 'listpack', members: 128, desc: '紧凑存储，score 相邻' },
-    after: { encoding: 'skiplist+hashtable', members: 129, desc: 'skiplist 范围查询 + dict O(1) 查分' }
-  }
-]
+    after: {
+      encoding: 'skiplist+hashtable',
+      members: 129,
+      desc: 'skiplist 范围查询 + dict O(1) 查分',
+    },
+  },
+];
 
-const current = computed(() => steps[currentStep.value])
+const current = computed(() => steps[currentStep.value]);
 
 function next() {
-  currentStep.value = (currentStep.value + 1) % totalSteps
+  currentStep.value = (currentStep.value + 1) % totalSteps;
 }
 
 function prev() {
-  currentStep.value = (currentStep.value - 1 + totalSteps) % totalSteps
+  currentStep.value = (currentStep.value - 1 + totalSteps) % totalSteps;
 }
 
 function reset() {
-  currentStep.value = 0
+  currentStep.value = 0;
 }
 </script>
 
@@ -115,14 +119,22 @@ function reset() {
         <h4>转换前</h4>
         <div class="enc-badge">{{ current.before!.encoding }}</div>
         <p>{{ current.before!.desc }}</p>
-        <span class="field-count">{{ current.type === 'hash' ? current.before!.fields + ' 个字段' : current.before!.members + ' 个元素' }}</span>
+        <span class="field-count">{{
+          current.type === 'hash'
+            ? current.before!.fields + ' 个字段'
+            : current.before!.members + ' 个元素'
+        }}</span>
       </div>
       <div class="arrow">→</div>
       <div class="compare-panel after">
         <h4>转换后</h4>
         <div class="enc-badge">{{ current.after!.encoding }}</div>
         <p>{{ current.after!.desc }}</p>
-        <span class="field-count">{{ current.type === 'hash' ? current.after!.fields + ' 个字段' : current.after!.members + ' 个元素' }}</span>
+        <span class="field-count">{{
+          current.type === 'hash'
+            ? current.after!.fields + ' 个字段'
+            : current.after!.members + ' 个元素'
+        }}</span>
       </div>
     </div>
 

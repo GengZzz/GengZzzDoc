@@ -415,6 +415,7 @@ xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
 ```
 
 ::: tip 安全实践
+
 1. 默认密码必须修改。
 2. 使用 RBAC 限制用户权限（最小权限原则）。
 3. 启用 TLS 加密节点间通信。

@@ -38,6 +38,7 @@ SHOW VARIABLES LIKE 'innodb_buffer_pool_instances';
 ```
 
 Buffer Pool 中的页类型包括：
+
 - 数据页（Index Page）
 - 索引页
 - undo 页
@@ -67,6 +68,7 @@ SHOW VARIABLES LIKE 'innodb_change_buffering';
 ```
 
 ::: tip Change Buffer 适用场景
+
 - 写多读少的场景（写操作不会立即触发读取对应索引页）
 - 非唯一二级索引（唯一索引需要检查唯一性，必须读取磁盘，无法使用 Change Buffer）
 :::
@@ -110,6 +112,7 @@ SHOW VARIABLES LIKE 'innodb_log_buffer_size';
 文件名：`ibdata1`（可配置多个）。
 
 包含内容：
+
 - InnoDB 数据字典（Data Dictionary）
 - 双写缓冲区（Doublewrite Buffer）
 - Change Buffer
@@ -138,6 +141,7 @@ SET GLOBAL innodb_file_per_table = OFF;
 ```
 
 ::: tip 独立表空间优势
+
 - 可以通过 `DROP TABLE` 或 `TRUNCATE TABLE` 回收磁盘空间
 - 可以将单个表迁移到其他实例
 - 可以使用表压缩（Transparent Compression）
@@ -220,6 +224,7 @@ COMPACT 是理解 InnoDB 行存储的基础，结构如下：
 **NULL 标志位**：用位图标记哪些列值为 NULL，每列占 1 位。如果表中没有允许 NULL 的列，则不占用空间。
 
 **记录头信息**（5 字节）：
+
 - `deleted_flag`：是否被删除（标记删除）
 - `min_rec_flag`：B+ 树非叶子节点的最小记录标记
 - `n_owned`：当前记录拥有的记录数（用于页内分组）
@@ -269,6 +274,7 @@ SHOW ENGINE INNODB STATUS\G
 ```
 
 Change Buffer 的合并（Merge）时机：
+
 1. 对应的二级索引页被读入 Buffer Pool
 2. Change Buffer 达到 `innodb_change_buffer_max_size` 限制
 3. 后台线程定期合并

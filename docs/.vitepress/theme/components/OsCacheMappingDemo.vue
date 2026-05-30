@@ -1,115 +1,117 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-type Mode = 'direct' | 'full' | 'set'
-const mode = ref<Mode>('direct')
-const step = ref(0)
+type Mode = 'direct' | 'full' | 'set';
+const mode = ref<Mode>('direct');
+const step = ref(0);
 
-const cacheSize = 8
-const setSize = 4
-const blocksPerSet = 2
+const cacheSize = 8;
+const setSize = 4;
+const blocksPerSet = 2;
 
-const accessSequence = [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11, 0, 8]
+const accessSequence = [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11, 0, 8];
 
 interface CacheEntry {
-  tag: number
-  valid: boolean
+  tag: number;
+  valid: boolean;
 }
 
 // Direct mapped: line = block % cacheSize
-const directCache = ref<(CacheEntry | null)[]>(Array(cacheSize).fill(null))
+const directCache = ref<(CacheEntry | null)[]>(Array(cacheSize).fill(null));
 // Full associative: list of tags
-const fullCache = ref<CacheEntry[]>([])
+const fullCache = ref<CacheEntry[]>([]);
 // Set associative: set[setIdx] = CacheEntry[]
-const setCache = ref<CacheEntry[][]>(Array.from({ length: setSize }, () => []))
+const setCache = ref<CacheEntry[][]>(Array.from({ length: setSize }, () => []));
 
-const results = ref<{ block: number; hit: boolean; dest: string }[]>([])
+const results = ref<{ block: number; hit: boolean; dest: string }[]>([]);
 
 function reset() {
-  step.value = 0
-  directCache.value = Array(cacheSize).fill(null)
-  fullCache.value = []
-  setCache.value = Array.from({ length: setSize }, () => [])
-  results.value = []
+  step.value = 0;
+  directCache.value = Array(cacheSize).fill(null);
+  fullCache.value = [];
+  setCache.value = Array.from({ length: setSize }, () => []);
+  results.value = [];
 }
 
 function next() {
   if (step.value >= accessSequence.length) {
-    reset()
-    return
+    reset();
+    return;
   }
-  const block = accessSequence[step.value]
+  const block = accessSequence[step.value];
 
   if (mode.value === 'direct') {
-    const line = block % cacheSize
-    const hit = directCache.value[line]?.tag === block
-    directCache.value[line] = { tag: block, valid: true }
-    results.value.push({ block, hit, dest: `行 ${line}` })
+    const line = block % cacheSize;
+    const hit = directCache.value[line]?.tag === block;
+    directCache.value[line] = { tag: block, valid: true };
+    results.value.push({ block, hit, dest: `行 ${line}` });
   } else if (mode.value === 'full') {
-    const hit = fullCache.value.some(e => e.tag === block)
+    const hit = fullCache.value.some((e) => e.tag === block);
     if (!hit) {
-      if (fullCache.value.length >= cacheSize) fullCache.value.shift()
-      fullCache.value.push({ tag: block, valid: true })
+      if (fullCache.value.length >= cacheSize) fullCache.value.shift();
+      fullCache.value.push({ tag: block, valid: true });
     }
-    results.value.push({ block, hit, dest: hit ? '命中' : '任意空位' })
+    results.value.push({ block, hit, dest: hit ? '命中' : '任意空位' });
   } else {
-    const setIdx = block % setSize
-    const set = setCache.value[setIdx]
-    const hit = set.some(e => e.tag === block)
+    const setIdx = block % setSize;
+    const set = setCache.value[setIdx];
+    const hit = set.some((e) => e.tag === block);
     if (!hit) {
-      if (set.length >= blocksPerSet) set.shift()
-      set.push({ tag: block, valid: true })
+      if (set.length >= blocksPerSet) set.shift();
+      set.push({ tag: block, valid: true });
     }
-    results.value.push({ block, hit, dest: `组 ${setIdx}` })
+    results.value.push({ block, hit, dest: `组 ${setIdx}` });
   }
 
-  step.value++
+  step.value++;
 }
 
 function resetAndSwitch(m: Mode) {
-  mode.value = m
-  reset()
+  mode.value = m;
+  reset();
 }
 
 const currentAccess = computed(() => {
   if (step.value > 0 && step.value <= accessSequence.length) {
-    return accessSequence[step.value - 1]
+    return accessSequence[step.value - 1];
   }
-  return null
-})
+  return null;
+});
 
-const hitCount = computed(() => results.value.filter(r => r.hit).length)
-const missCount = computed(() => results.value.filter(r => !r.hit).length)
+const hitCount = computed(() => results.value.filter((r) => r.hit).length);
+const missCount = computed(() => results.value.filter((r) => !r.hit).length);
 const hitRate = computed(() => {
-  const total = results.value.length
-  return total > 0 ? ((hitCount.value / total) * 100).toFixed(1) : '0.0'
-})
+  const total = results.value.length;
+  return total > 0 ? ((hitCount.value / total) * 100).toFixed(1) : '0.0';
+});
 
 const modeLabels: Record<Mode, string> = {
   direct: '直接映射',
   full: '全相联映射',
   set: '2 路组相联',
-}
+};
 
 function isCurrentEntry(tag: number): boolean {
-  return currentAccess.value === tag
+  return currentAccess.value === tag;
 }
 
 const lastResult = computed(() => {
-  if (results.value.length === 0) return null
-  return results.value[results.value.length - 1]
-})
+  if (results.value.length === 0) return null;
+  return results.value[results.value.length - 1];
+});
 </script>
 
 <template>
   <div class="cache-demo">
     <div class="mode-tabs">
       <button
-        v-for="m in (['direct', 'full', 'set'] as Mode[])"
+        v-for="m in ['direct', 'full', 'set'] as Mode[]"
         :key="m"
         :class="{ active: mode === m }"
         @click="resetAndSwitch(m)"
-      >{{ modeLabels[m] }}</button>
+      >
+        {{ modeLabels[m] }}
+      </button>
     </div>
 
     <!-- Access sequence display -->
@@ -122,9 +124,10 @@ const lastResult = computed(() => {
         :class="{
           done: i < step,
           current: i === step - 1,
-          pending: i >= step
+          pending: i >= step,
         }"
-      >{{ b }}</span>
+        >{{ b }}</span
+      >
     </div>
 
     <!-- Direct mapped -->
@@ -157,11 +160,7 @@ const lastResult = computed(() => {
           <div class="cell-idx">槽 {{ idx }}</div>
           <div class="cell-tag">块 {{ entry.tag }}</div>
         </div>
-        <div
-          v-for="i in (cacheSize - fullCache.length)"
-          :key="'e' + i"
-          class="cache-cell"
-        >
+        <div v-for="i in cacheSize - fullCache.length" :key="'e' + i" class="cache-cell">
           <div class="cell-idx">槽 {{ fullCache.length + i - 1 }}</div>
           <div class="cell-tag">—</div>
         </div>
@@ -184,11 +183,7 @@ const lastResult = computed(() => {
             >
               <div class="cell-tag">块 {{ entry.tag }}</div>
             </div>
-            <div
-              v-for="i in (blocksPerSet - set.length)"
-              :key="'e' + i"
-              class="cache-cell"
-            >
+            <div v-for="i in blocksPerSet - set.length" :key="'e' + i" class="cache-cell">
               <div class="cell-tag">—</div>
             </div>
           </div>

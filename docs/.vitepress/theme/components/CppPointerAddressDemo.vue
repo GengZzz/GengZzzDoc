@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const selected = ref('roomA')
-const pointer = ref('roomA')
-const showValue = ref(true)
+const selected = ref('roomA');
+const pointer = ref('roomA');
+const showValue = ref(true);
 
 const rooms = {
   roomA: { address: '0x0010', value: 18, label: 'age' },
   roomB: { address: '0x0014', value: 20, label: 'score' },
-  roomC: { address: '0x0018', value: 23, label: 'height' }
-}
+  roomC: { address: '0x0018', value: 23, label: 'height' },
+};
 
 function selectRoom(key: string) {
-  selected.value = key
-  pointer.value = key
+  selected.value = key;
+  pointer.value = key;
 }
 </script>
 
@@ -36,8 +36,9 @@ function selectRoom(key: string) {
       <code>*p = {{ showValue ? rooms[pointer as keyof typeof rooms].value : '???' }}</code>
     </div>
     <p class="desc">
-      指针 <code>p</code> 保存地址 <code>{{ rooms[pointer as keyof typeof rooms].address }}</code>，
-      解引用 <code>*p</code> 访问到值 <strong>{{ rooms[pointer as keyof typeof rooms].value }}</strong>
+      指针 <code>p</code> 保存地址 <code>{{ rooms[pointer as keyof typeof rooms].address }}</code
+      >， 解引用 <code>*p</code> 访问到值
+      <strong>{{ rooms[pointer as keyof typeof rooms].value }}</strong>
     </p>
   </div>
 </template>

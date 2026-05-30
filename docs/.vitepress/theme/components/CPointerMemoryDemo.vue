@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const step = ref(0)
-const totalSteps = 5
+const step = ref(0);
+const totalSteps = 5;
 
 const codeLines = [
   ['int a = 10;', 'int *p = &a;'],
   ['*p = 20;'],
   ['int **pp = &p;'],
   ['p = malloc(sizeof(int));', '*p = 42;'],
-  ['free(p);', '// p 现在是悬空指针']
-]
+  ['free(p);', '// p 现在是悬空指针'],
+];
 
 const descriptions = [
   '在栈上声明变量 a，指针 p 存储 a 的地址 &a',
   '通过解引用 *p 修改 a 的值为 20 —— 间接访问',
   '二级指针 pp 存储指针 p 的地址，**pp 可以访问 a',
   'malloc 在堆上分配内存，p 指向堆地址，存储值 42',
-  'free 释放堆内存，p 成为悬空指针（指向已释放内存）'
-]
+  'free 释放堆内存，p 成为悬空指针（指向已释放内存）',
+];
 
 const memoryState = computed(() => {
   switch (step.value) {
@@ -26,72 +26,62 @@ const memoryState = computed(() => {
       return {
         stack: [
           { label: 'a', value: '10', addr: '0x7ffc10' },
-          { label: 'p', value: '→ 0x7ffc10', addr: '0x7ffc18' }
+          { label: 'p', value: '→ 0x7ffc10', addr: '0x7ffc18' },
         ],
-        heap: []
-      }
+        heap: [],
+      };
     case 1:
       return {
         stack: [
           { label: 'a', value: '20 (被 *p 修改)', addr: '0x7ffc10' },
-          { label: 'p', value: '→ 0x7ffc10', addr: '0x7ffc18' }
+          { label: 'p', value: '→ 0x7ffc10', addr: '0x7ffc18' },
         ],
-        heap: []
-      }
+        heap: [],
+      };
     case 2:
       return {
         stack: [
           { label: 'a', value: '20', addr: '0x7ffc10' },
           { label: 'p', value: '→ 0x7ffc10', addr: '0x7ffc18' },
-          { label: 'pp', value: '→ 0x7ffc18 → 0x7ffc10', addr: '0x7ffc20' }
+          { label: 'pp', value: '→ 0x7ffc18 → 0x7ffc10', addr: '0x7ffc20' },
         ],
-        heap: []
-      }
+        heap: [],
+      };
     case 3:
       return {
         stack: [
           { label: 'a', value: '20', addr: '0x7ffc10' },
-          { label: 'p', value: '→ 0x5a2000', addr: '0x7ffc18' }
+          { label: 'p', value: '→ 0x5a2000', addr: '0x7ffc18' },
         ],
-        heap: [
-          { label: 'heap block', value: '42', addr: '0x5a2000' }
-        ]
-      }
+        heap: [{ label: 'heap block', value: '42', addr: '0x5a2000' }],
+      };
     case 4:
       return {
         stack: [
           { label: 'a', value: '20', addr: '0x7ffc10' },
-          { label: 'p', value: '→ 0x5a2000 (悬空!)', addr: '0x7ffc18', dangling: true }
+          { label: 'p', value: '→ 0x5a2000 (悬空!)', addr: '0x7ffc18', dangling: true },
         ],
-        heap: [
-          { label: '已释放', value: '???', addr: '0x5a2000', freed: true }
-        ]
-      }
+        heap: [{ label: '已释放', value: '???', addr: '0x5a2000', freed: true }],
+      };
     default:
-      return { stack: [], heap: [] }
+      return { stack: [], heap: [] };
   }
-})
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
 <template>
   <div class="pointer-demo">
-    <div class="step-indicator">
-      步骤 {{ step + 1 }} / {{ totalSteps }}
-    </div>
+    <div class="step-indicator">步骤 {{ step + 1 }} / {{ totalSteps }}</div>
     <div class="code-panel">
-      <div
-        v-for="(line, i) in codeLines[step]"
-        :key="i"
-        class="code-line"
-      >{{ line }}</div>
+      <div v-for="(line, i) in codeLines[step]" :key="i" class="code-line">{{ line }}</div>
     </div>
     <p class="desc">{{ descriptions[step] }}</p>
     <div class="panels">

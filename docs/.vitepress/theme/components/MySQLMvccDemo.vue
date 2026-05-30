@@ -1,30 +1,32 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const step = ref(0)
-const totalSteps = 6
+const step = ref(0);
+const totalSteps = 6;
 
 interface Version {
-  id: number
-  name: string
-  age: number
-  trxId: number
+  id: number;
+  name: string;
+  age: number;
+  trxId: number;
 }
 
 const versions = computed((): Version[] => {
-  if (step.value === 0) return []
-  if (step.value === 1) return [{ id: 1, name: 'Alice', age: 20, trxId: 100 }]
-  if (step.value === 2) return [
-    { id: 1, name: 'Alice', age: 25, trxId: 101 },
-    { id: 1, name: 'Alice', age: 20, trxId: 100 },
-  ]
-  if (step.value >= 3) return [
-    { id: 1, name: 'Alice', age: 30, trxId: 102 },
-    { id: 1, name: 'Alice', age: 25, trxId: 101 },
-    { id: 1, name: 'Alice', age: 20, trxId: 100 },
-  ]
-  return []
-})
+  if (step.value === 0) return [];
+  if (step.value === 1) return [{ id: 1, name: 'Alice', age: 20, trxId: 100 }];
+  if (step.value === 2)
+    return [
+      { id: 1, name: 'Alice', age: 25, trxId: 101 },
+      { id: 1, name: 'Alice', age: 20, trxId: 100 },
+    ];
+  if (step.value >= 3)
+    return [
+      { id: 1, name: 'Alice', age: 30, trxId: 102 },
+      { id: 1, name: 'Alice', age: 25, trxId: 101 },
+      { id: 1, name: 'Alice', age: 20, trxId: 100 },
+    ];
+  return [];
+});
 
 const statusText = computed(() => {
   const texts = [
@@ -34,26 +36,26 @@ const statusText = computed(() => {
     '版本链越来越长，每次更新追加新版本',
     '事务 103 的 ReadView: 看到 age=25 的版本',
     'purge 级程清理不再需要的旧版本',
-  ]
-  return texts[step.value]
-})
+  ];
+  return texts[step.value];
+});
 
 const visibleVersionIdx = computed(() => {
-  if (step.value === 4) return 1 // trx 103 sees age=25
-  return -1
-})
+  if (step.value === 4) return 1; // trx 103 sees age=25
+  return -1;
+});
 
 const purgedIdx = computed(() => {
-  if (step.value === 5) return 2 // oldest version purged
-  return -1
-})
+  if (step.value === 5) return 2; // oldest version purged
+  return -1;
+});
 
 function next() {
-  step.value = (step.value + 1) % totalSteps
+  step.value = (step.value + 1) % totalSteps;
 }
 
 function reset() {
-  step.value = 0
+  step.value = 0;
 }
 </script>
 
@@ -134,7 +136,10 @@ function reset() {
   border-radius: 6px;
   background: var(--vp-c-bg);
   font-size: 13px;
-  transition: border-color 0.3s, background 0.3s, opacity 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    opacity 0.3s;
 }
 
 .version-box.current {

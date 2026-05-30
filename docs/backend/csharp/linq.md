@@ -147,6 +147,7 @@ var first2 = cached.First();
 ```
 
 **何时用 ToList vs ToArray？**
+
 - 后续需要多次枚举或需要索引访问 → `ToList`
 - 知道最终大小且不需要修改 → `ToArray`
 - 只枚举一次 → 不要 ToList，保持延迟执行
@@ -176,6 +177,7 @@ var dbFiltered = queryable.Where(u => u.Age > 18);
 ```
 
 ::: warning IQueryable 的过早转换陷阱
+
 ```csharp
 // 错误：AsEnumerable() 后的 Where 在内存中执行
 var result = dbContext.Orders
@@ -188,6 +190,7 @@ var result = dbContext.Orders
     .AsEnumerable()               // 此时才从数据库取数据
     .Where(o => CustomFilter(o)); // 只有不可翻译的条件才用 AsEnumerable
 ```
+
 :::
 
 ## 常用运算符
@@ -327,6 +330,7 @@ var result = dbContext.Orders
 ```
 
 ::: warning 过度使用 ToList 的内存问题
+
 ```csharp
 // 错误：加载全部数据到内存
 var allUsers = dbContext.Users.ToList();
@@ -338,4 +342,5 @@ var activeUsers2 = dbContext.Users
     .ToList();
 // SQL: SELECT * FROM Users WHERE IsActive = 1
 ```
+
 :::

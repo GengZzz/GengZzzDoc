@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-type AnimType = 'fadeIn' | 'slideBounce' | 'pulse' | 'spin' | 'shimmer'
-const selectedAnim = ref<AnimType>('fadeIn')
-const iteration = ref<number | 'infinite'>('infinite')
-const direction = ref<'normal' | 'reverse' | 'alternate' | 'alternate-reverse'>('normal')
-const fillMode = ref<'none' | 'forwards' | 'backwards' | 'both'>('none')
-const playing = ref(true)
+type AnimType = 'fadeIn' | 'slideBounce' | 'pulse' | 'spin' | 'shimmer';
+const selectedAnim = ref<AnimType>('fadeIn');
+const iteration = ref<number | 'infinite'>('infinite');
+const direction = ref<'normal' | 'reverse' | 'alternate' | 'alternate-reverse'>('normal');
+const fillMode = ref<'none' | 'forwards' | 'backwards' | 'both'>('none');
+const playing = ref(true);
 
 const anims: Record<AnimType, { name: string; desc: string; css: string }> = {
   fadeIn: {
@@ -15,7 +15,7 @@ const anims: Record<AnimType, { name: string; desc: string; css: string }> = {
     css: `@keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
-}`
+}`,
   },
   slideBounce: {
     name: 'slideBounce',
@@ -25,7 +25,7 @@ const anims: Record<AnimType, { name: string; desc: string; css: string }> = {
   60%  { transform: translateX(10px); opacity: 1; }
   80%  { transform: translateX(-5px); }
   100% { transform: translateX(0); }
-}`
+}`,
   },
   pulse: {
     name: 'pulse',
@@ -34,14 +34,14 @@ const anims: Record<AnimType, { name: string; desc: string; css: string }> = {
   0%   { transform: scale(1); }
   50%  { transform: scale(1.1); }
   100% { transform: scale(1); }
-}`
+}`,
   },
   spin: {
     name: 'spin',
     desc: '旋转加载：持续旋转 360 度。border-top-color 配合圆形边框实现经典加载器。',
     css: `@keyframes spin {
   to { transform: rotate(360deg); }
-}`
+}`,
   },
   shimmer: {
     name: 'shimmer',
@@ -49,35 +49,36 @@ const anims: Record<AnimType, { name: string; desc: string; css: string }> = {
     css: `@keyframes shimmer {
   0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
-}`
-  }
-}
+}`,
+  },
+};
 
 const animStyle = computed(() => {
-  const a = anims[selectedAnim.value]
-  const count = iteration.value === 'infinite' ? 'infinite' : String(iteration.value)
+  const a = anims[selectedAnim.value];
+  const count = iteration.value === 'infinite' ? 'infinite' : String(iteration.value);
   return {
     animation: playing.value
       ? `${a.name} 1.5s ease-in-out ${count} ${direction.value} ${fillMode.value}`
-      : 'none'
-  }
-})
+      : 'none',
+  };
+});
 
 const description = computed(() => {
-  const a = anims[selectedAnim.value]
-  const parts = [a.desc]
-  if (iteration.value === 'infinite') parts.push('当前无限循环。')
-  if (direction.value === 'alternate') parts.push('alternate 使奇数次正向、偶数次反向播放。')
-  if (fillMode.value === 'forwards') parts.push('forwards 保持动画最后一帧的样式，不会闪回初始状态。')
-  return parts.join(' ')
-})
+  const a = anims[selectedAnim.value];
+  const parts = [a.desc];
+  if (iteration.value === 'infinite') parts.push('当前无限循环。');
+  if (direction.value === 'alternate') parts.push('alternate 使奇数次正向、偶数次反向播放。');
+  if (fillMode.value === 'forwards')
+    parts.push('forwards 保持动画最后一帧的样式，不会闪回初始状态。');
+  return parts.join(' ');
+});
 
 function reset() {
-  selectedAnim.value = 'fadeIn'
-  iteration.value = 'infinite'
-  direction.value = 'normal'
-  fillMode.value = 'none'
-  playing.value = true
+  selectedAnim.value = 'fadeIn';
+  iteration.value = 'infinite';
+  direction.value = 'normal';
+  fillMode.value = 'none';
+  playing.value = true;
 }
 </script>
 
@@ -89,7 +90,9 @@ function reset() {
         :key="key"
         :class="{ active: selectedAnim === key }"
         @click="selectedAnim = key as AnimType"
-      >{{ a.name }}</button>
+      >
+        {{ a.name }}
+      </button>
     </div>
 
     <div class="preview">
@@ -133,29 +136,62 @@ function reset() {
 
     <div class="status-bar">{{ description }}</div>
     <div class="actions">
-      <button class="action-btn" @click="playing = !playing">{{ playing ? '暂停' : '播放' }}</button>
+      <button class="action-btn" @click="playing = !playing">
+        {{ playing ? '暂停' : '播放' }}
+      </button>
       <button class="action-btn" @click="reset">重置</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @keyframes slideBounce {
-  0%   { transform: translateX(-100%); opacity: 0; }
-  60%  { transform: translateX(10px); opacity: 1; }
-  80%  { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(10px);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 @keyframes pulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 @keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .anim-playground {
@@ -212,7 +248,7 @@ function reset() {
   font-weight: 700;
 }
 
-.anim-box[style*="shimmer"] {
+.anim-box[style*='shimmer'] {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   width: 160px;
@@ -288,7 +324,11 @@ function reset() {
 }
 
 @media (max-width: 560px) {
-  .preview { height: 100px; }
-  .controls-row { flex-direction: column; }
+  .preview {
+    height: 100px;
+  }
+  .controls-row {
+    flex-direction: column;
+  }
 }
 </style>

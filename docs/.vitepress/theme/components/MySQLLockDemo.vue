@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-type LockType = 'record' | 'gap' | 'next-key' | 'intention'
+type LockType = 'record' | 'gap' | 'next-key' | 'intention';
 
-const selected = ref<LockType>('record')
+const selected = ref<LockType>('record');
 
 const lockInfo: Record<LockType, { name: string; desc: string; code: string }> = {
   record: {
@@ -26,7 +26,7 @@ const lockInfo: Record<LockType, { name: string; desc: string; code: string }> =
     desc: '表级锁，标记事务打算在表中加什么类型的行锁',
     code: '-- 自动管理，无需手动操作\n-- IS: 意向共享锁\n-- IX: 意向排他锁',
   },
-}
+};
 
 const rows = [
   { id: 1, name: 'Alice', age: 20 },
@@ -34,24 +34,24 @@ const rows = [
   { id: 10, name: 'Carol', age: 30 },
   { id: 15, name: 'Dave', age: 35 },
   { id: 20, name: 'Eve', age: 40 },
-]
+];
 
-const current = computed(() => lockInfo[selected.value])
+const current = computed(() => lockInfo[selected.value]);
 
 function select(type: LockType) {
-  selected.value = type
+  selected.value = type;
 }
 
 function isRowLocked(idx: number): boolean {
-  if (selected.value === 'record') return idx === 2 // id=10
-  if (selected.value === 'next-key') return idx === 2 || idx === 3 // id=10,15
-  return false
+  if (selected.value === 'record') return idx === 2; // id=10
+  if (selected.value === 'next-key') return idx === 2 || idx === 3; // id=10,15
+  return false;
 }
 
 function isGapAfter(idx: number): boolean {
-  if (selected.value === 'gap') return idx === 2 // gap after id=10
-  if (selected.value === 'next-key') return idx === 2 // gap after id=10
-  return false
+  if (selected.value === 'gap') return idx === 2; // gap after id=10
+  if (selected.value === 'next-key') return idx === 2; // gap after id=10
+  return false;
 }
 </script>
 
@@ -98,9 +98,7 @@ function isGapAfter(idx: number): boolean {
         <div class="lock-viz">
           <div v-if="selected === 'record'" class="viz-box record-viz">
             <div class="viz-title">行锁</div>
-            <div class="viz-row locked">
-              id=10 🔒
-            </div>
+            <div class="viz-row locked">id=10 🔒</div>
             <div class="viz-note">仅锁定匹配的行</div>
           </div>
           <div v-else-if="selected === 'gap'" class="viz-box gap-viz">
@@ -160,7 +158,9 @@ function isGapAfter(idx: number): boolean {
   color: var(--vp-c-text-1);
   cursor: pointer;
   font-size: 12px;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .tab-btn.active {
