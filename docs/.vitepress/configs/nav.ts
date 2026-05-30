@@ -147,6 +147,22 @@ export const nav: DefaultTheme.NavItem[] = [
     ],
   },
   {
+    text: '架构',
+    items: [
+      {
+        text: '工程能力',
+        items: [
+          { text: '总览', link: '/architecture/' },
+          { text: '系统设计', link: '/architecture/system-design' },
+          { text: '分布式与中间件', link: '/architecture/distributed' },
+          { text: '安全', link: '/architecture/security' },
+          { text: '测试', link: '/architecture/testing' },
+          { text: '可观测性', link: '/architecture/observability' },
+        ],
+      },
+    ],
+  },
+  {
     text: '计算机基础',
     items: [
       {

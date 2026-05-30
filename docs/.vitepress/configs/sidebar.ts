@@ -1364,6 +1364,20 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [{ text: '概览', link: '/plugins/' }],
     },
   ],
+  '/architecture/': [
+    {
+      text: '架构与工程能力',
+      collapsed: false,
+      items: [
+        { text: '总览', link: '/architecture/' },
+        { text: '系统设计', link: '/architecture/system-design' },
+        { text: '分布式与中间件', link: '/architecture/distributed' },
+        { text: '安全', link: '/architecture/security' },
+        { text: '测试', link: '/architecture/testing' },
+        { text: '可观测性', link: '/architecture/observability' },
+      ],
+    },
+  ],
   '/os/operating-system/': [
     {
       text: '计算机操作系统',
