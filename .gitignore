@@ -1,5 +1,23 @@
+# Dependencies
 node_modules
+
+# VitePress build output & cache
 docs/.vitepress/cache
 docs/.vitepress/dist
-vitepress-dev.log
-vitepress-dev.err.log
+
+# Logs
+*.log
+
+# Windows reserved-name artifact (accidental `dir > nul` etc.)
+nul
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Local env
+.env
+.env.local
