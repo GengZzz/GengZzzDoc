@@ -61,4 +61,4 @@ VitePress 配置已模块化拆分：
 
 ## 文档写作规范
 
-详细的内容深度、动画组件模式、验收标准见技能文件 `.claude/skills/tech-docs-writer.md`。
+写本站文档用 `site-doc-author` 技能（`.claude/skills/site-doc-author/`）：`SKILL.md` 是入口，`content-standard.md` 是内容深度/动画组件标准，`portable-prompt.md` 是可移植到其它 AI 的版本。

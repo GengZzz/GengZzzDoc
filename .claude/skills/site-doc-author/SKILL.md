@@ -7,7 +7,7 @@ description: 为本 VitePress 技术知识库（GengZzzDoc）撰写或扩充文�
 
 本技能用于给 **GengZzzDoc** 这个 VitePress 知识库写文档。目标不是「写一篇」，而是**让某个技术板块的知识体系更完整、单篇更健壮**。
 
-先读 `CLAUDE.md` 了解项目约定，再读 `.claude/skills/tech-docs-writer.md` 获取内容深度与动画组件标准——本技能在其之上补充「知识地图」与「单篇健壮性」两层。
+先读 `CLAUDE.md` 了解项目约定，再读同目录的 [`content-standard.md`](./content-standard.md) 获取内容深度与动画组件标准——本技能在其之上补充「知识地图」与「单篇健壮性」两层。给其它 AI 工具（ChatGPT/Cursor 等）用的可移植版本见 [`portable-prompt.md`](./portable-prompt.md)。
 
 ## 一、知识地图驱动（先定骨架，再写内容）
 
@@ -20,7 +20,7 @@ description: 为本 VitePress 技术知识库（GengZzzDoc）撰写或扩充文�
 
 ## 二、单篇健壮性 Checklist
 
-每篇在 `tech-docs-writer.md`「概念→代码→注意事项」三段式基础上，还须满足：
+每篇在 `content-standard.md`「概念→代码→注意事项」三段式基础上，还须满足：
 
 - [ ] **frontmatter**：`title` + 一句话 `description`（SEO/搜索摘要）
 - [ ] **开篇即场景**：第一段先回答「什么时候用、解决什么问题」
