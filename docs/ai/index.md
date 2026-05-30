@@ -116,7 +116,7 @@ LLM 没有真正的"理解"，它的回答基于统计规律而非事实。因�
 | OpenCode | [OpenCode](./opencode.md) | CLI / SSH / CI 环境下的开发者 |
 | API 接入 | [API](./api-integration.md) | 想把 AI 集成到项目中的工程师 |
 | 成本与安全 | [成本与安全](./cost-security.md) | 关注预算和数据安全的团队 |
-| Harness Engineering | [质量护栏](./harness-engineering.md) | 让 AI 产出在合并前被自动把关的团队 |
+| Harness Engineering | [智能体支架](./harness-engineering.md) | 想搞懂「模型外壳」怎么造、为什么是新杠杆的人 |
 
 ## 为什么现在要学 AI
 
