@@ -37,16 +37,19 @@
    └── 在 theme/index.ts 中注册
 
 4. 更新配置
-   ├── 在 config.ts 中添加侧边栏结构
+   ├── 在 docs/.vitepress/configs/sidebar.ts 中添加侧边栏结构
+   ├── 如需新增顶部导航，改 docs/.vitepress/configs/nav.ts
    ├── 确认导航栏链接正确
    └── 更新概览页 index.md 的链接表
 
-5. 构建验证
-   └── 运行 npm run docs:build，确认无报错
+5. 质量校验 + 构建验证
+   ├── 运行 npm run lint:md，确认 0 error（可用 lint:md:fix 自动修）
+   ├── 运行 npm run format:check（新增的 .vue/.ts 用 npm run format 格式化）
+   └── 运行 npm run docs:build，确认无报错（含内部死链校验）
 
 6. Git 提交推送
    ├── git add 相关文件
-   ├── git commit（中文描述 + Co-Authored-By）
+   ├── git commit（Conventional Commits 格式，commit-msg 钩子会校验）
    ├── git push origin main
    └── git push gitee main
 ```
@@ -338,15 +341,15 @@ git status -s
 # 2. 只添加本次任务涉及的文件（不要 git add .）
 git add <相关文件>
 
-# 3. 提交，格式：<类型>: <中文描述>
-git commit -m "$(cat <<'EOF'
+# 3. 提交，格式：<类型>: <中文描述>（Conventional Commits，commit-msg 钩子强制校验）
+#    在 Bash 工具里勿用 PowerShell here-string（@'...'@），用 -F 文件或 bash heredoc
+git commit -F - <<'EOF'
 docs: 添加 XXX 技术文档（N 页 + M 个动画组件）
 
 简要说明覆盖了哪些内容
 
-Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 EOF
-)"
 
 # 4. 推送到两个远程
 git push origin main
@@ -403,7 +406,10 @@ git push gitee main
 ```
 docs/
 ├── .vitepress/
-│   ├── config.ts              # 侧边栏 + 导航配置
+│   ├── config.ts              # 主配置（import 聚合）
+│   ├── configs/
+│   │   ├── nav.ts             # 顶部导航
+│   │   └── sidebar.ts         # 侧边栏（新增文档在此补入口）
 │   └── theme/
 │       ├── index.ts           # 组件注册
 │       └── components/

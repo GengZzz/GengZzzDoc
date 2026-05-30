@@ -23,6 +23,8 @@ export default {
     ],
     // 中文标题常超过 72，放宽到 100
     'header-max-length': [2, 'always', 100],
+    // 中文正文一行信息量大，放宽行长限制
+    'body-max-line-length': [2, 'always', 200],
     // 允许标题大小写自由（中文场景无意义）
     'subject-case': [0],
   },

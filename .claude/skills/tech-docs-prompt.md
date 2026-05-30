@@ -143,7 +143,7 @@ button { min-height: 34px; padding: 0 12px; border: 1px solid var(--vp-c-border)
 
 ## 4. 侧边栏配置
 
-输出 config.ts 中需要添加的侧边栏配置代码块。
+输出 docs/.vitepress/configs/sidebar.ts 中需要添加的侧边栏配置代码块（顶部导航在 configs/nav.ts）。
 
 ## 5. 验收标准
 
