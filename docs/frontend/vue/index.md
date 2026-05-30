@@ -39,6 +39,7 @@ Vue 由尤雨溪（Evan You）于 2014 年创建，核心理念是**渐进式框
 | [核心概念](./basics) | 响应式、模板语法、计算属性、侦听器 |
 | [组件基础](./components) | Props、事件、插槽、组件通信 |
 | [组合式 API](./composition-api) | ref、reactive、生命周期钩子、自定义 Hook |
+| [内置组件](./built-in-components) | Transition、KeepAlive、Teleport、Suspense |
 | [路由](./router) | Vue Router 安装、路由配置、导航守卫 |
 | [状态管理](./pinia) | Pinia 安装、Store 定义、持久化 |
 
@@ -46,8 +47,7 @@ Vue 由尤雨溪（Evan You）于 2014 年创建，核心理念是**渐进式框
 
 > 本板块的知识地图与建设进度。✅ 已完成 ⬜ 规划中。
 
-- ✅ 核心概念、组件基础、组合式 API、路由、状态管理
-- ⬜ 内置组件（Transition / Teleport / Suspense / KeepAlive）
+- ✅ 核心概念、组件基础、组合式 API、内置组件、路由、状态管理
 - ⬜ 自定义指令与插件
 - ⬜ 性能优化（懒加载、`v-memo`、虚拟列表、打包体积）
 - ⬜ TypeScript 集成（`defineProps` 泛型、组件类型）

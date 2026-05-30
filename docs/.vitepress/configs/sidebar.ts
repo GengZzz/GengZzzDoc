@@ -752,6 +752,7 @@ export const sidebar: DefaultTheme.Sidebar = {
         { text: '核心概念', link: '/frontend/vue/basics' },
         { text: '组件基础', link: '/frontend/vue/components' },
         { text: '组合式 API', link: '/frontend/vue/composition-api' },
+        { text: '内置组件', link: '/frontend/vue/built-in-components' },
         { text: '路由', link: '/frontend/vue/router' },
         { text: '状态管理', link: '/frontend/vue/pinia' },
       ],
